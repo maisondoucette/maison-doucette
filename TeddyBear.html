@@ -411,17 +411,37 @@ addBtn.disabled = !valid;
 
 function addToCart(){
 
-toast.classList.remove("show");
-void toast.offsetWidth; // restart animation
-toast.classList.add("show");
+    let singlePrice = basePrice;
+    singlePrice += parseInt(size.value || 0);
+    singlePrice += parseInt(accessory.value || 0);
 
-setTimeout(function(){
-toast.classList.remove("show");
-},5000);
+    let finalPricePerItem = singlePrice;
 
-document.getElementById("checkoutBtn").style.display = "block";
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    cart.push({
+        name: "Bunny",
+        material: material.value,
+        size: size.options[size.selectedIndex].text,
+        bodyColor: bodyColor.value,
+        accessory: accessory.options[accessory.selectedIndex].text,
+        price: finalPricePerItem,
+        quantity: quantity
+    });
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    // Toast animation
+    toast.classList.remove("show");
+    void toast.offsetWidth;
+    toast.classList.add("show");
+
+    setTimeout(function(){
+        toast.classList.remove("show");
+    },5000);
+
+    document.getElementById("checkoutBtn").style.display = "block";
 }
-
 function goToCheckout(){
 window.location.href = "checkout.html";
 }
@@ -429,6 +449,4 @@ window.location.href = "checkout.html";
 </script>
 
 </body>
-
 </html>
-
