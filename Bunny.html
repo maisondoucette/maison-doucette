@@ -84,9 +84,6 @@ select:focus {
     background: white;
     font-size: 20px;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .quantity-box button:hover {
@@ -96,10 +93,7 @@ select:focus {
 
 .quantity-box span {
     width: 38px;
-    height: 38px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
 }
 
 /* BUTTONS */
@@ -125,8 +119,10 @@ button {
     cursor: not-allowed;
 }
 
-.add-btn:hover:not(:disabled) {
-    background: #5a524b;
+.checkout-btn {
+    display: none;
+    background: #3e3a36;
+    color: white;
 }
 
 .continue-btn {
@@ -135,22 +131,7 @@ button {
     color: #3e3a36;
 }
 
-.continue-btn:hover {
-    background: #3e3a36;
-    color: white;
-}
-
-.checkout-btn {
-    display: none;
-    background: #3e3a36;
-    color: white;
-}
-
-.checkout-btn:hover {
-    background: #5a524b;
-}
-
-/* PREVIEW CARD */
+/* PREVIEW */
 .preview {
     position: relative;
     width: 450px;
@@ -170,7 +151,6 @@ button {
     height: 70%;
     border-radius: 50%;
     background: white;
-    transition: 0.3s;
 }
 
 .shape {
@@ -193,7 +173,7 @@ button {
 
 .bow { top: 35%; left: 35%; border-radius: 20px; }
 
-/* TOAST */
+/* TOAST FIXED */
 .toast {
     position: fixed;
     top: 25px;
@@ -205,13 +185,15 @@ button {
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.15);
     opacity: 0;
-    transform: translateY(-10px);
+    visibility: hidden;
+    transform: translateY(-15px);
     transition: all 0.4s ease;
     z-index: 9999;
 }
 
 .toast.show {
     opacity: 1;
+    visibility: visible;
     transform: translateY(0);
 }
 
@@ -221,7 +203,7 @@ button {
 <body>
 
 <header>
-    <h1>🤍 Customize your Bunny 🤍</h1>
+<h1>🤍 Customize your Bunny 🤍</h1>
 </header>
 
 <div class="container">
@@ -308,7 +290,6 @@ Continue shopping
 
 </div>
 
-<!-- TOAST -->
 <div id="toast" class="toast">
 Product added to cart successfully.
 </div>
@@ -349,8 +330,7 @@ function updatePrice(){
 let singlePrice = basePrice;
 singlePrice += parseInt(size.value || 0);
 singlePrice += parseInt(accessory.value || 0);
-let total = singlePrice * quantity;
-priceEl.innerText = total;
+priceEl.innerText = singlePrice * quantity;
 }
 
 function changeQty(amount){
@@ -417,14 +397,12 @@ validateForm();
 }
 
 function validateForm(){
-
 let valid = material.value &&
 size.value !== "" &&
 bodyColor.value &&
 accessory.value !== "";
 
-const accessorySelects = document.querySelectorAll("#accessoryColors select");
-accessorySelects.forEach(select => {
+document.querySelectorAll("#accessoryColors select").forEach(select => {
 if(!select.value) valid = false;
 });
 
@@ -433,14 +411,14 @@ addBtn.disabled = !valid;
 
 function addToCart(){
 
-// show toast
+toast.classList.remove("show");
+void toast.offsetWidth; // restart animation
 toast.classList.add("show");
 
-setTimeout(() => {
+setTimeout(function(){
 toast.classList.remove("show");
-}, 3000);
+},3000);
 
-// show checkout button
 document.getElementById("checkoutBtn").style.display = "block";
 }
 
