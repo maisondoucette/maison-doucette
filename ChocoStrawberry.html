@@ -327,6 +327,28 @@ function updatePrice(){
 }
 
 function addToCart(){
+
+    let singlePrice = basePrice;
+    singlePrice += parseInt(size.value || 0);
+    singlePrice += parseInt(accessory.value || 0);
+
+    let finalPricePerItem = singlePrice;
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    cart.push({
+        name: "Bunny",
+        material: material.value,
+        size: size.options[size.selectedIndex].text,
+        bodyColor: bodyColor.value,
+        accessory: accessory.options[accessory.selectedIndex].text,
+        price: finalPricePerItem,
+        quantity: quantity
+    });
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    // Toast animation
     toast.classList.remove("show");
     void toast.offsetWidth;
     toast.classList.add("show");
@@ -337,7 +359,6 @@ function addToCart(){
 
     document.getElementById("checkoutBtn").style.display = "block";
 }
-
 function goToCheckout(){
     window.location.href = "checkout.html";
 }
