@@ -140,7 +140,6 @@ button {
     color: white;
 }
 
-/* NEW CHECKOUT BUTTON */
 .checkout-btn {
     display: none;
     background: #3e3a36;
@@ -182,6 +181,7 @@ button {
 }
 
 .heart { top: 45%; left: 45%; border-radius: 50%; }
+
 .star {
     top: 40%;
     left: 45%;
@@ -190,7 +190,30 @@ button {
     21% 91%, 32% 57%, 2% 35%, 
     39% 35%);
 }
+
 .bow { top: 35%; left: 35%; border-radius: 20px; }
+
+/* TOAST */
+.toast {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    background: #3e3a36;
+    color: white;
+    padding: 14px 20px;
+    font-size: 13px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.4s ease;
+    z-index: 9999;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
 
 </style>
 </head>
@@ -285,6 +308,11 @@ Continue shopping
 
 </div>
 
+<!-- TOAST -->
+<div id="toast" class="toast">
+Product added to cart successfully.
+</div>
+
 <script>
 
 let basePrice = 45;
@@ -296,6 +324,7 @@ const bodyColor = document.getElementById("bodyColor");
 const accessory = document.getElementById("accessory");
 const priceEl = document.getElementById("price");
 const addBtn = document.getElementById("addBtn");
+const toast = document.getElementById("toast");
 
 bodyColor.addEventListener("change", function(){
 if(!this.value) return;
@@ -403,6 +432,15 @@ addBtn.disabled = !valid;
 }
 
 function addToCart(){
+
+// show toast
+toast.classList.add("show");
+
+setTimeout(() => {
+toast.classList.remove("show");
+}, 3000);
+
+// show checkout button
 document.getElementById("checkoutBtn").style.display = "block";
 }
 
