@@ -7,7 +7,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-
 body {
     margin: 0;
     font-family: 'Inter', sans-serif;
@@ -35,7 +34,6 @@ h1 {
     padding: 50px;
 }
 
-/* CONTROLS */
 .controls { width: 320px; }
 
 label {
@@ -56,19 +54,12 @@ select {
     font-size: 14px;
 }
 
-select:focus {
-    outline: none;
-    border-color: #b8a999;
-}
-
-/* PRICE */
 .price-box {
     font-family: 'Playfair Display';
     font-size: 24px;
     margin-top: 20px;
 }
 
-/* QUANTITY */
 .quantity-box {
     display: flex;
     align-items: center;
@@ -86,17 +77,11 @@ select:focus {
     cursor: pointer;
 }
 
-.quantity-box button:hover {
-    background: #3e3a36;
-    color: white;
-}
-
 .quantity-box span {
     width: 38px;
     text-align: center;
 }
 
-/* BUTTONS */
 button {
     width: 100%;
     padding: 13px;
@@ -106,7 +91,6 @@ button {
     font-size: 13px;
     letter-spacing: 1px;
     cursor: pointer;
-    transition: 0.3s;
 }
 
 .add-btn {
@@ -131,7 +115,6 @@ button {
     color: #3e3a36;
 }
 
-/* PREVIEW */
 .preview {
     position: relative;
     width: 450px;
@@ -173,7 +156,6 @@ button {
 
 .bow { top: 35%; left: 35%; border-radius: 20px; }
 
-/* TOAST FIXED */
 .toast {
     position: fixed;
     top: 25px;
@@ -196,14 +178,13 @@ button {
     visibility: visible;
     transform: translateY(0);
 }
-
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>🤍Customize your Teddy Bear🤍</h1>
+<h1>🤍 Customize your Teddy Bear 🤍</h1>
 </header>
 
 <div class="container">
@@ -299,6 +280,10 @@ Product added to cart successfully.
 let basePrice = 45;
 let quantity = 1;
 
+let heartColor = "";
+let starColor = "";
+let bowColor = "";
+
 const material = document.getElementById("material");
 const size = document.getElementById("size");
 const bodyColor = document.getElementById("bodyColor");
@@ -308,105 +293,115 @@ const addBtn = document.getElementById("addBtn");
 const toast = document.getElementById("toast");
 
 bodyColor.addEventListener("change", function(){
-if(!this.value) return;
-document.getElementById("bodyLayer").style.background = this.value.toLowerCase();
-validateForm();
+    if(!this.value) return;
+    document.getElementById("bodyLayer").style.background = this.value.toLowerCase();
+    validateForm();
 });
 
 size.addEventListener("change", function(){
-updatePrice();
-validateForm();
+    updatePrice();
+    validateForm();
 });
 
 material.addEventListener("change", validateForm);
 
 accessory.addEventListener("change", function(){
-updateAccessoryOptions();
-updatePrice();
-validateForm();
+    updateAccessoryOptions();
+    updatePrice();
+    validateForm();
 });
 
 function updatePrice(){
-let singlePrice = basePrice;
-singlePrice += parseInt(size.value || 0);
-singlePrice += parseInt(accessory.value || 0);
-priceEl.innerText = singlePrice * quantity;
+    let singlePrice = basePrice;
+    singlePrice += parseInt(size.value || 0);
+    singlePrice += parseInt(accessory.value || 0);
+    priceEl.innerText = singlePrice * quantity;
 }
 
 function changeQty(amount){
-quantity += amount;
-if(quantity < 1) quantity = 1;
-if(quantity > 20) quantity = 20;
-document.getElementById("quantity").innerText = quantity;
-updatePrice();
+    quantity += amount;
+    if(quantity < 1) quantity = 1;
+    if(quantity > 20) quantity = 20;
+    document.getElementById("quantity").innerText = quantity;
+    updatePrice();
 }
 
 function updateAccessoryOptions(){
 
-let selected = accessory.options[accessory.selectedIndex].text;
+    let selected = accessory.options[accessory.selectedIndex].text;
 
-document.getElementById("accessoryColors").innerHTML = "";
-document.getElementById("heartLayer").style.display = "none";
-document.getElementById("starLayer").style.display = "none";
-document.getElementById("bowLayer").style.display = "none";
+    document.getElementById("accessoryColors").innerHTML = "";
+    document.getElementById("heartLayer").style.display = "none";
+    document.getElementById("starLayer").style.display = "none";
+    document.getElementById("bowLayer").style.display = "none";
 
-if(selected.includes("Nothing") || selected === "Select...") return;
+    heartColor = "";
+    starColor = "";
+    bowColor = "";
 
-let colors = `
-<option value="">Select colour...</option>
-<option>Bright pink</option>
-<option>Light pink</option>
-<option>Yellow</option>
-<option>Light blue</option>
-<option>Dark blue</option>
-<option>Red</option>
-<option>Burgundy</option>
-`;
+    if(selected.includes("Nothing") || selected === "Select...") return;
 
-if(selected.includes("Heart")){
-document.getElementById("accessoryColors").innerHTML += `
-<label>Heart Colour</label>
-<select onchange="changeAccessory('heart',this.value)">
-${colors}
-</select>`;
-}
+    let colors = `
+    <option value="">Select colour...</option>
+    <option>Bright pink</option>
+    <option>Light pink</option>
+    <option>Yellow</option>
+    <option>Light blue</option>
+    <option>Dark blue</option>
+    <option>Red</option>
+    <option>Burgundy</option>
+    `;
 
-if(selected.includes("Star")){
-document.getElementById("accessoryColors").innerHTML += `
-<label>Star Colour</label>
-<select onchange="changeAccessory('star',this.value)">
-${colors}
-</select>`;
-}
+    if(selected.includes("Heart")){
+        document.getElementById("accessoryColors").innerHTML += `
+        <label>Heart Colour</label>
+        <select onchange="changeAccessory('heart',this.value)">
+        ${colors}
+        </select>`;
+    }
 
-if(selected.includes("Bow")){
-document.getElementById("accessoryColors").innerHTML += `
-<label>Bow Colour</label>
-<select onchange="changeAccessory('bow',this.value)">
-${colors}
-</select>`;
-}
+    if(selected.includes("Star")){
+        document.getElementById("accessoryColors").innerHTML += `
+        <label>Star Colour</label>
+        <select onchange="changeAccessory('star',this.value)">
+        ${colors}
+        </select>`;
+    }
+
+    if(selected.includes("Bow")){
+        document.getElementById("accessoryColors").innerHTML += `
+        <label>Bow Colour</label>
+        <select onchange="changeAccessory('bow',this.value)">
+        ${colors}
+        </select>`;
+    }
 }
 
 function changeAccessory(type,color){
-if(!color) return;
-const el = document.getElementById(type+"Layer");
-el.style.display = "block";
-el.style.background = color.toLowerCase();
-validateForm();
+    if(!color) return;
+
+    const el = document.getElementById(type+"Layer");
+    el.style.display = "block";
+    el.style.background = color.toLowerCase();
+
+    if(type === "heart") heartColor = color;
+    if(type === "star") starColor = color;
+    if(type === "bow") bowColor = color;
+
+    validateForm();
 }
 
 function validateForm(){
-let valid = material.value &&
-size.value !== "" &&
-bodyColor.value &&
-accessory.value !== "";
+    let valid = material.value &&
+    size.value !== "" &&
+    bodyColor.value &&
+    accessory.value !== "";
 
-document.querySelectorAll("#accessoryColors select").forEach(select => {
-if(!select.value) valid = false;
-});
+    document.querySelectorAll("#accessoryColors select").forEach(select => {
+        if(!select.value) valid = false;
+    });
 
-addBtn.disabled = !valid;
+    addBtn.disabled = !valid;
 }
 
 function addToCart(){
@@ -415,23 +410,23 @@ function addToCart(){
     singlePrice += parseInt(size.value || 0);
     singlePrice += parseInt(accessory.value || 0);
 
-    let finalPricePerItem = singlePrice;
-
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
     cart.push({
-        name: "Bunny",
+        name: "Teddy Bear",
         material: material.value,
         size: size.options[size.selectedIndex].text,
         bodyColor: bodyColor.value,
         accessory: accessory.options[accessory.selectedIndex].text,
-        price: finalPricePerItem,
+        heartColor: heartColor,
+        starColor: starColor,
+        bowColor: bowColor,
+        price: singlePrice,
         quantity: quantity
     });
 
     localStorage.setItem("cart", JSON.stringify(cart));
 
-    // Toast animation
     toast.classList.remove("show");
     void toast.offsetWidth;
     toast.classList.add("show");
@@ -442,11 +437,15 @@ function addToCart(){
 
     document.getElementById("checkoutBtn").style.display = "block";
 }
+
 function goToCheckout(){
-window.location.href = "checkout.html";
+    window.location.href = "checkout.html";
 }
 
 </script>
 
 </body>
 </html>
+</body>
+</html>
+
