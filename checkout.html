@@ -3,19 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Checkout - Sweet Shop</title>
+<title>Checkout - Maison Doucette</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 
 <style>
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0;}
 
 body{
     font-family:'Inter', sans-serif;
@@ -61,10 +56,7 @@ input, select, textarea{
     font-family:'Inter';
 }
 
-textarea{
-    resize:none;
-    height:100px;
-}
+textarea{resize:none;height:100px;}
 
 .summary{
     margin-top:30px;
@@ -73,9 +65,7 @@ textarea{
     border-radius:15px;
 }
 
-.summary p{
-    margin:6px 0;
-}
+.summary p{margin:6px 0;}
 
 .total{
     font-weight:bold;
@@ -93,11 +83,6 @@ button{
     color:white;
     font-size:16px;
     cursor:pointer;
-    transition:0.3s;
-}
-
-button:hover{
-    background:#3e2723;
 }
 
 button:disabled{
@@ -106,17 +91,13 @@ button:disabled{
 }
 
 @media(max-width:600px){
-    .checkout-container{
-        padding:25px;
-    }
+    .checkout-container{padding:25px;}
 }
-
 </style>
 </head>
 <body>
 
 <div class="checkout-container">
-
 <h2>Complete your order</h2>
 
 <form id="checkout-form">
@@ -150,7 +131,7 @@ button:disabled{
 </select>
 
 <label>Additional Notes / Special Request</label>
-<textarea name="notes" placeholder="Write here if you want a gift message or special packaging..."></textarea>
+<textarea name="notes"></textarea>
 
 <div class="summary">
     <p>Subtotal: <span id="subtotal">0</span> RON</p>
@@ -165,12 +146,12 @@ button:disabled{
 
 <script>
 
-// 🔑 PUNE AICI PUBLIC KEY
+// EMAILJS INIT
 (function(){
 emailjs.init("uXq_doL-7YdoXPSfK");
 })();
 
-// 🛒 Calcul subtotal
+// CART CALCULATION
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let subtotal = 0;
 
@@ -179,10 +160,10 @@ cart.forEach(item=>{
 });
 
 document.getElementById("subtotal").innerText = subtotal;
+document.getElementById("total").innerText = subtotal;
 
 let shippingCost = 0;
 
-// 🚚 Shipping calculator
 document.querySelector("select[name='delivery']").addEventListener("change", function(){
 
     if(this.value.includes("Standard")) shippingCost = 15;
@@ -193,7 +174,7 @@ document.querySelector("select[name='delivery']").addEventListener("change", fun
     document.getElementById("total").innerText = subtotal + shippingCost;
 });
 
-// 🔒 VALIDARE FORMULAR
+// FORM VALIDATION
 const requiredFields = document.querySelectorAll(
   "input[name='name'], input[name='email'], input[name='phone'], input[name='address'], select[name='delivery'], select[name='payment']"
 );
@@ -202,28 +183,47 @@ const placeOrderBtn = document.getElementById("placeOrderBtn");
 
 function validateForm() {
   let allFilled = true;
-
-  requiredFields.forEach(field => {
-    if (field.value.trim() === "") {
-      allFilled = false;
-    }
+  requiredFields.forEach(field=>{
+    if(field.value.trim()===""){ allFilled=false; }
   });
-
   placeOrderBtn.disabled = !allFilled;
 }
 
-requiredFields.forEach(field => {
+requiredFields.forEach(field=>{
   field.addEventListener("input", validateForm);
   field.addEventListener("change", validateForm);
 });
 
-// 📩 Trimitere email
+// SEND EMAIL
 document.getElementById("checkout-form").addEventListener("submit", function(e){
 e.preventDefault();
 
 let form = this;
+let orderNumber = "MD-" + Date.now();
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let productList = "";
+
+cart.forEach((item)=>{
+
+    productList += `${item.name} x ${item.quantity}\n`;
+
+    if(item.material) productList += `Material: ${item.material}\n`;
+    if(item.size) productList += `Size: ${item.size}\n`;
+    if(item.bodyColor) productList += `Body Colour: ${item.bodyColor}\n`;
+    if(item.accessory) productList += `Accessory: ${item.accessory}\n`;
+    if(item.heartColor) productList += `Heart Colour: ${item.heartColor}\n`;
+    if(item.starColor) productList += `Star Colour: ${item.starColor}\n`;
+    if(item.bowColor) productList += `Bow Colour: ${item.bowColor}\n`;
+    if(item.baseColor) productList += `Base Colour: ${item.baseColor}\n`;
+    if(item.chocolateColor) productList += `Chocolate Colour: ${item.chocolateColor}\n`;
+
+    productList += `${item.price} RON x ${item.quantity}\n`;
+    productList += `-------------------------\n`;
+});
 
 let templateParams = {
+    order_number: orderNumber,
     name: form.name.value,
     email: form.email.value,
     phone: form.phone.value,
@@ -231,12 +231,13 @@ let templateParams = {
     delivery: form.delivery.value,
     payment: form.payment.value,
     notes: form.notes.value,
+    products: productList,
     subtotal: subtotal,
     shipping: shippingCost,
     total: subtotal + shippingCost
 };
 
-emailjs.send("service_cqo3myr", "template_m4kga7c", templateParams)
+emailjs.send("service_cqo3myr", "template_m4kga7c", templateParams);
 emailjs.send("service_cqo3myr", "template_o7td3ak", templateParams)
 .then(function(){
     alert("Order sent successfully!");
@@ -245,7 +246,6 @@ emailjs.send("service_cqo3myr", "template_o7td3ak", templateParams)
 });
 
 });
-
 </script>
 
 </body>
