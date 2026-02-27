@@ -83,11 +83,27 @@ button{
     color:white;
     font-size:16px;
     cursor:pointer;
+    transition:0.3s;
 }
 
 button:disabled{
     background:#c5b7aa;
     cursor:not-allowed;
+}
+
+/* NEW loading message */
+#loadingMessage{
+    display:none;
+    margin-top:15px;
+    text-align:center;
+    font-style:italic;
+    color:#5a3e36;
+    animation:fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn{
+    from{opacity:0;}
+    to{opacity:1;}
 }
 
 @media(max-width:600px){
@@ -119,7 +135,7 @@ button:disabled{
     <option value="">Select shipping</option>
     <option value="Standard (15 RON)">Standard (15 RON)</option>
     <option value="Express (18 RON)">Express (18 RON)</option>
-    <option value="Local Pickup - Galati (Free)">Local Pickup - Galați (Free)</option>
+    <option value="Local Pickup - Galați (Free)">Local Pickup - Galați (Free)</option>
 </select>
 
 <label>Payment Method</label>
@@ -141,17 +157,19 @@ button:disabled{
 
 <button type="submit" id="placeOrderBtn" disabled>Place Order</button>
 
+<p id="loadingMessage">
+Your handmade piece is being prepared with care 🤍
+</p>
+
 </form>
 </div>
 
 <script>
 
-// EMAILJS INIT
 (function(){
 emailjs.init("uXq_doL-7YdoXPSfK");
 })();
 
-// CART CALCULATION
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let subtotal = 0;
 
@@ -165,7 +183,6 @@ document.getElementById("total").innerText = subtotal;
 let shippingCost = 0;
 
 document.querySelector("select[name='delivery']").addEventListener("change", function(){
-
     if(this.value.includes("Standard")) shippingCost = 15;
     else if(this.value.includes("Express")) shippingCost = 18;
     else shippingCost = 0;
@@ -174,38 +191,38 @@ document.querySelector("select[name='delivery']").addEventListener("change", fun
     document.getElementById("total").innerText = subtotal + shippingCost;
 });
 
-// FORM VALIDATION
 const requiredFields = document.querySelectorAll(
-  "input[name='name'], input[name='email'], input[name='phone'], input[name='address'], select[name='delivery'], select[name='payment']"
+"input[name='name'], input[name='email'], input[name='phone'], input[name='address'], select[name='delivery'], select[name='payment']"
 );
 
 const placeOrderBtn = document.getElementById("placeOrderBtn");
 
-function validateForm() {
-  let allFilled = true;
-  requiredFields.forEach(field=>{
-    if(field.value.trim()===""){ allFilled=false; }
-  });
-  placeOrderBtn.disabled = !allFilled;
+function validateForm(){
+    let allFilled = true;
+    requiredFields.forEach(field=>{
+        if(field.value.trim()===""){ allFilled=false; }
+    });
+    placeOrderBtn.disabled = !allFilled;
 }
 
 requiredFields.forEach(field=>{
-  field.addEventListener("input", validateForm);
-  field.addEventListener("change", validateForm);
+    field.addEventListener("input", validateForm);
+    field.addEventListener("change", validateForm);
 });
 
-// SEND EMAIL
 document.getElementById("checkout-form").addEventListener("submit", function(e){
 e.preventDefault();
 
+placeOrderBtn.disabled = true;
+placeOrderBtn.innerText = "Processing...";
+document.getElementById("loadingMessage").style.display = "block";
+
 let form = this;
 let orderNumber = "MD-" + Date.now();
-
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let productList = "";
 
 cart.forEach((item)=>{
-
     productList += `${item.name} x ${item.quantity}\n`;
 
     if(item.material) productList += `Material: ${item.material}\n`;
@@ -241,20 +258,20 @@ Promise.all([
     emailjs.send("service_cqo3myr", "template_m4kga7c", templateParams),
     emailjs.send("service_cqo3myr", "template_o7td3ak", templateParams)
 ])
-.then(function() {
-
-    alert("Order sent successfully!");
+.then(function(){
 
     localStorage.removeItem("cart");
-
-    window.location.href = "thankyou.html";
+    window.location.href="thankyou.html";
 
 })
-.catch(function(error) {
+.catch(function(error){
 
     console.log("FAILED...", error);
     alert("Something went wrong. Please try again.");
 
+    placeOrderBtn.disabled = false;
+    placeOrderBtn.innerText = "Place Order";
+    document.getElementById("loadingMessage").style.display = "none";
 });
 });
 </script>
