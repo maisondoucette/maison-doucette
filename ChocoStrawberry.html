@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Maison Doucette – Chocolate Covered Strawberry</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #f6f2ed;
+    color: #3e3a36;
+}
+
+header {
+    text-align: center;
+    padding: 40px 20px 10px;
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 100px;
+    padding: 50px;
+}
+
+/* CONTROLS */
+.controls { width: 320px; }
+
+label {
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: block;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 25px;
+    border: 1px solid #d8d2ca;
+    background: white;
+    font-family: 'Inter';
+    font-size: 14px;
+}
+
+select:focus {
+    outline: none;
+    border-color: #b8a999;
+}
+
+/* PRICE */
+.price-box {
+    font-family: 'Playfair Display';
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+/* QUANTITY */
+.quantity-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.quantity-box button {
+    width: 38px;
+    height: 38px;
+    border: 1px solid #d8d2ca;
+    background: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.quantity-box button:hover {
+    background: #3e3a36;
+    color: white;
+}
+
+.quantity-box span {
+    width: 38px;
+    text-align: center;
+}
+
+/* BUTTONS */
+button {
+    width: 100%;
+    padding: 13px;
+    margin-top: 15px;
+    border: none;
+    font-family: 'Inter';
+    font-size: 13px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.add-btn {
+    background: #3e3a36;
+    color: white;
+}
+
+.add-btn:disabled {
+    background: #cfc8c0;
+    cursor: not-allowed;
+}
+
+.checkout-btn {
+    display: none;
+    background: #3e3a36;
+    color: white;
+}
+
+.continue-btn {
+    background: transparent;
+    border: 1px solid #3e3a36;
+    color: #3e3a36;
+}
+
+/* PREVIEW */
+.preview {
+    position: relative;
+    width: 450px;
+    aspect-ratio: 1 / 1;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 28px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.08);
+    border: 1px solid #efeae4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.placeholder {
+    font-family: 'Playfair Display';
+    font-size: 22px;
+    opacity: 0.4;
+    text-align: center;
+}
+
+.strawberry-base {
+    width: 60%;
+    height: 65%;
+    border-radius: 50% 50% 60% 60%;
+    position: absolute;
+    bottom: 15%;
+    display: none;
+}
+
+.chocolate-top {
+    width: 60%;
+    height: 35%;
+    border-radius: 50% 50% 40% 40%;
+    position: absolute;
+    top: 25%;
+    display: none;
+}
+
+/* TOAST */
+.toast {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    background: #3e3a36;
+    color: white;
+    padding: 14px 20px;
+    font-size: 13px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-15px);
+    transition: all 0.4s ease;
+    z-index: 9999;
+}
+
+.toast.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🤍 Customize your Chocolate Covered Strawberry 🤍</h1>
+</header>
+
+<div class="container">
+
+<div class="controls">
+
+<label>Material</label>
+<select id="material">
+<option value="">Select...</option>
+<option>Acrylic yarn</option>
+<option>Fluffy yarn</option>
+</select>
+
+<label>Base colour of the strawberry</label>
+<select id="baseColor">
+<option value="">Select...</option>
+<option>Bright pink</option>
+<option>Light pink</option>
+<option>Yellow</option>
+<option>Light blue</option>
+<option>Dark blue</option>
+<option>Red</option>
+<option>Burgundy</option>
+</select>
+
+<label>Colour of the chocolate</label>
+<select id="chocoColor">
+<option value="">Select...</option>
+<option>Cream</option>
+<option>Light brown</option>
+<option>Brown</option>
+<option>Dark brown</option>
+</select>
+
+<div class="price-box">
+Total: <span id="price">20</span> RON
+</div>
+
+<label>Quantity</label>
+<div class="quantity-box">
+<button type="button" onclick="changeQty(-1)">−</button>
+<span id="quantity">1</span>
+<button type="button" onclick="changeQty(1)">+</button>
+</div>
+
+<button class="add-btn" id="addBtn" onclick="addToCart()" disabled>
+Add to cart
+</button>
+
+<button class="checkout-btn" id="checkoutBtn" onclick="goToCheckout()">
+Go to checkout →
+</button>
+
+<button class="continue-btn"
+onclick="window.location.href='https://sites.google.com/view/maisondoucette/our-collection'">
+Continue shopping
+</button>
+
+</div>
+
+<div class="preview">
+<div id="placeholder" class="placeholder">
+Customize your Strawberry 🍓
+</div>
+<div id="baseLayer" class="strawberry-base"></div>
+<div id="chocoLayer" class="chocolate-top"></div>
+</div>
+
+</div>
+
+<div id="toast" class="toast">
+Product added to cart successfully.
+</div>
+
+<script>
+
+let basePrice = 20;
+let quantity = 1;
+
+const material = document.getElementById("material");
+const baseColor = document.getElementById("baseColor");
+const chocoColor = document.getElementById("chocoColor");
+const priceEl = document.getElementById("price");
+const addBtn = document.getElementById("addBtn");
+const toast = document.getElementById("toast");
+
+material.addEventListener("change", updatePreview);
+baseColor.addEventListener("change", updatePreview);
+chocoColor.addEventListener("change", updatePreview);
+
+function updatePreview(){
+
+    if(material.value && baseColor.value && chocoColor.value){
+
+        document.getElementById("placeholder").style.display = "none";
+
+        const base = document.getElementById("baseLayer");
+        const choco = document.getElementById("chocoLayer");
+
+        base.style.display = "block";
+        choco.style.display = "block";
+
+        base.style.background = baseColor.value.toLowerCase();
+        choco.style.background = chocoColor.value.toLowerCase();
+
+        addBtn.disabled = false;
+    }
+    else{
+        addBtn.disabled = true;
+    }
+}
+
+function changeQty(amount){
+    quantity += amount;
+    if(quantity < 1) quantity = 1;
+    if(quantity > 20) quantity = 20;
+    document.getElementById("quantity").innerText = quantity;
+    updatePrice();
+}
+
+function updatePrice(){
+    priceEl.innerText = basePrice * quantity;
+}
+
+function addToCart(){
+    toast.classList.remove("show");
+    void toast.offsetWidth;
+    toast.classList.add("show");
+
+    setTimeout(function(){
+        toast.classList.remove("show");
+    },5000);
+
+    document.getElementById("checkoutBtn").style.display = "block";
+}
+
+function goToCheckout(){
+    window.location.href = "checkout.html";
+}
+
+</script>
+
+</body>
+</html>
