@@ -36,9 +36,7 @@ h1 {
 }
 
 /* CONTROLS */
-.controls {
-    width: 320px;
-}
+.controls { width: 320px; }
 
 label {
     font-size: 13px;
@@ -86,15 +84,11 @@ select:focus {
     background: white;
     font-size: 20px;
     cursor: pointer;
-    transition: 0.3s;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    padding: 0;
-    line-height: 1;
 }
+
 .quantity-box button:hover {
     background: #3e3a36;
     color: white;
@@ -103,13 +97,9 @@ select:focus {
 .quantity-box span {
     width: 38px;
     height: 38px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    font-size: 16px;
-    line-height: 1;
 }
 
 /* BUTTONS */
@@ -150,6 +140,17 @@ button {
     color: white;
 }
 
+/* NEW CHECKOUT BUTTON */
+.checkout-btn {
+    display: none;
+    background: #3e3a36;
+    color: white;
+}
+
+.checkout-btn:hover {
+    background: #5a524b;
+}
+
 /* PREVIEW CARD */
 .preview {
     position: relative;
@@ -165,7 +166,6 @@ button {
     justify-content: center;
 }
 
-/* BODY */
 .body-shape {
     width: 70%;
     height: 70%;
@@ -174,7 +174,6 @@ button {
     transition: 0.3s;
 }
 
-/* ACCESSORY SHAPES */
 .shape {
     position: absolute;
     width: 80px;
@@ -182,12 +181,7 @@ button {
     display: none;
 }
 
-.heart {
-    top: 45%;
-    left: 45%;
-    border-radius: 50%;
-}
-
+.heart { top: 45%; left: 45%; border-radius: 50%; }
 .star {
     top: 40%;
     left: 45%;
@@ -196,12 +190,7 @@ button {
     21% 91%, 32% 57%, 2% 35%, 
     39% 35%);
 }
-
-.bow {
-    top: 35%;
-    left: 35%;
-    border-radius: 20px;
-}
+.bow { top: 35%; left: 35%; border-radius: 20px; }
 
 </style>
 </head>
@@ -275,6 +264,10 @@ Total: <span id="price">45</span> RON
 
 <button class="add-btn" id="addBtn" onclick="addToCart()" disabled>
 Add to cart
+</button>
+
+<button class="checkout-btn" id="checkoutBtn" onclick="goToCheckout()">
+Go to checkout →
 </button>
 
 <button class="continue-btn" onclick="window.location.href='https://sites.google.com/view/maisondoucette/our-collection'">
@@ -410,7 +403,11 @@ addBtn.disabled = !valid;
 }
 
 function addToCart(){
-alert("Product added to cart!\nQuantity: " + quantity + "\nTotal: " + priceEl.innerText + " RON");
+document.getElementById("checkoutBtn").style.display = "block";
+}
+
+function goToCheckout(){
+window.location.href = "checkout.html";
 }
 
 </script>
