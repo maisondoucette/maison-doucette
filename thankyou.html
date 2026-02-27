@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You - Maison Doucette</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Inter', sans-serif;
+    background:linear-gradient(135deg,#f5efe6,#e6d5c3);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.container{
+    background:#fffdf9;
+    padding:60px;
+    border-radius:20px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.15);
+    text-align:center;
+    max-width:700px;
+    width:100%;
+}
+
+h1{
+    font-family:'Playfair Display', serif;
+    font-size:36px;
+    color:#4b2e2b;
+    margin-bottom:20px;
+}
+
+.divider{
+    width:80px;
+    height:3px;
+    background:#5a3e36;
+    margin:20px auto 30px auto;
+    opacity:0.3;
+}
+
+p{
+    font-size:16px;
+    color:#5a3e36;
+    line-height:1.6;
+    margin-bottom:20px;
+}
+
+.order-number{
+    font-weight:bold;
+    font-size:18px;
+    margin-top:15px;
+}
+
+button{
+    margin-top:30px;
+    padding:12px 30px;
+    border:none;
+    border-radius:12px;
+    background:#5a3e36;
+    color:white;
+    font-size:15px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#3e2a25;
+}
+
+@media(max-width:600px){
+    .container{
+        padding:35px;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>Thank you 🤍</h1>
+
+<div class="divider"></div>
+
+<p>
+Your order has been successfully placed.
+We are now preparing your handmade piece with care and attention to detail.
+</p>
+
+<p>
+You will receive a confirmation email shortly with all the details.
+</p>
+
+<p class="order-number" id="orderNumberDisplay"></p>
+
+<button onclick="goHome()">Return to Home</button>
+
+</div>
+
+<script>
+function goHome(){
+    window.location.href = "https://sites.google.com/view/maisondoucette/home";
+}
+
+// Optional: display order number if saved in localStorage
+let lastOrder = localStorage.getItem("lastOrderNumber");
+if(lastOrder){
+    document.getElementById("orderNumberDisplay").innerText = "Order Number: " + lastOrder;
+}
+</script>
+
+</body>
+</html>
