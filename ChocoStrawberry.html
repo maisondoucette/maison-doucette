@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Maison Doucette – Chocolate Covered Strawberry</title>
+<title>Maison Doucette – Chocolate covered strawberry</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
@@ -201,7 +201,7 @@ button {
 <body>
 
 <header>
-<h1>🤍 Customize your Chocolate Covered Strawberry 🤍</h1>
+<h1>🤍 Customize your chocolate covered strawberry 🤍</h1>
 </header>
 
 <div class="container">
@@ -328,21 +328,14 @@ function updatePrice(){
 
 function addToCart(){
 
-    let singlePrice = basePrice;
-    singlePrice += parseInt(size.value || 0);
-    singlePrice += parseInt(accessory.value || 0);
-
-    let finalPricePerItem = singlePrice;
-
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
     cart.push({
-        name: "Bunny",
+        name: "Chocolate covered strawberry",
         material: material.value,
-        size: size.options[size.selectedIndex].text,
-        bodyColor: bodyColor.value,
-        accessory: accessory.options[accessory.selectedIndex].text,
-        price: finalPricePerItem,
+        baseColor: baseColor.value,
+        chocolateColor: chocoColor.value,
+        price: basePrice,
         quantity: quantity
     });
 
