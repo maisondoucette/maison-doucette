@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout - Sweet Shop</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:'Inter', sans-serif;
+    background:linear-gradient(135deg,#f5efe6,#e6d5c3);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.checkout-container{
+    width:100%;
+    max-width:900px;
+    background:#fffdf9;
+    padding:50px;
+    border-radius:20px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.15);
+}
+
+h2{
+    font-family:'Playfair Display', serif;
+    font-size:32px;
+    margin-bottom:30px;
+    color:#4b2e2b;
+    text-align:center;
+}
+
+label{
+    display:block;
+    margin-top:20px;
+    font-size:14px;
+    color:#5a3e36;
+}
+
+input, select, textarea{
+    width:100%;
+    padding:12px;
+    margin-top:8px;
+    border-radius:10px;
+    border:1px solid #d6c4b2;
+    background:#faf6f0;
+    font-family:'Inter';
+}
+
+textarea{
+    resize:none;
+    height:100px;
+}
+
+.summary{
+    margin-top:30px;
+    padding:20px;
+    background:#f3e8dc;
+    border-radius:15px;
+}
+
+.summary p{
+    margin:6px 0;
+}
+
+.total{
+    font-weight:bold;
+    font-size:18px;
+    margin-top:10px;
+}
+
+button{
+    margin-top:30px;
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:#5a3e36;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#3e2723;
+}
+
+button:disabled{
+    background:#c5b7aa;
+    cursor:not-allowed;
+}
+
+@media(max-width:600px){
+    .checkout-container{
+        padding:25px;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<div class="checkout-container">
+
+<h2>Complete your order</h2>
+
+<form id="checkout-form">
+
+<label>Full Name</label>
+<input type="text" name="name" required>
+
+<label>Email</label>
+<input type="email" name="email" required>
+
+<label>Phone Number</label>
+<input type="text" name="phone" required>
+
+<label>Delivery Address</label>
+<input type="text" name="address" required>
+
+<label>Shipping Method</label>
+<select name="delivery" required>
+    <option value="">Select shipping</option>
+    <option value="Standard (15 RON)">Standard (15 RON)</option>
+    <option value="Express (18 RON)">Express (18 RON)</option>
+    <option value="Local Pickup - Galati (Free)">Local Pickup - Galați (Free)</option>
+</select>
+
+<label>Payment Method</label>
+<select name="payment" required>
+    <option value="">Select payment method</option>
+    <option value="Cash on Delivery">Cash on Delivery</option>
+    <option value="Bank Transfer">Bank Transfer</option>
+    <option value="Card (on delivery)">Card (on delivery)</option>
+</select>
+
+<label>Additional Notes / Special Request</label>
+<textarea name="notes" placeholder="Write here if you want a gift message or special packaging..."></textarea>
+
+<div class="summary">
+    <p>Subtotal: <span id="subtotal">0</span> RON</p>
+    <p>Shipping: <span id="shipping">0</span> RON</p>
+    <p class="total">Total: <span id="total">0</span> RON</p>
+</div>
+
+<button type="submit" id="placeOrderBtn" disabled>Place Order</button>
+
+</form>
+</div>
+
+<script>
+
+// 🔑 PUNE AICI PUBLIC KEY
+(function(){
+emailjs.init("uXq_doL-7YdoXPSfK");
+})();
+
+// 🛒 Calcul subtotal
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let subtotal = 0;
+
+cart.forEach(item=>{
+    subtotal += item.price * item.quantity;
+});
+
+document.getElementById("subtotal").innerText = subtotal;
+
+let shippingCost = 0;
+
+// 🚚 Shipping calculator
+document.querySelector("select[name='delivery']").addEventListener("change", function(){
+
+    if(this.value.includes("Standard")) shippingCost = 15;
+    else if(this.value.includes("Express")) shippingCost = 18;
+    else shippingCost = 0;
+
+    document.getElementById("shipping").innerText = shippingCost;
+    document.getElementById("total").innerText = subtotal + shippingCost;
+});
+
+// 🔒 VALIDARE FORMULAR
+const requiredFields = document.querySelectorAll(
+  "input[name='name'], input[name='email'], input[name='phone'], input[name='address'], select[name='delivery'], select[name='payment']"
+);
+
+const placeOrderBtn = document.getElementById("placeOrderBtn");
+
+function validateForm() {
+  let allFilled = true;
+
+  requiredFields.forEach(field => {
+    if (field.value.trim() === "") {
+      allFilled = false;
+    }
+  });
+
+  placeOrderBtn.disabled = !allFilled;
+}
+
+requiredFields.forEach(field => {
+  field.addEventListener("input", validateForm);
+  field.addEventListener("change", validateForm);
+});
+
+// 📩 Trimitere email
+document.getElementById("checkout-form").addEventListener("submit", function(e){
+e.preventDefault();
+
+let form = this;
+
+let templateParams = {
+    name: form.name.value,
+    email: form.email.value,
+    phone: form.phone.value,
+    address: form.address.value,
+    delivery: form.delivery.value,
+    payment: form.payment.value,
+    notes: form.notes.value,
+    subtotal: subtotal,
+    shipping: shippingCost,
+    total: subtotal + shippingCost
+};
+
+emailjs.send("service_cqo3myr", "template_m4kga7c", templateParams)
+emailjs.send("service_cqo3myr", "template_o7td3ak", templateParams)
+.then(function(){
+    alert("Order sent successfully!");
+    localStorage.removeItem("cart");
+    window.location.href="index.html";
+});
+
+});
+
+</script>
+
+</body>
+</html>
