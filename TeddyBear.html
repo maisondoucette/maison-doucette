@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Maison Doucette – Teddy Bear</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #f6f2ed;
+    color: #3e3a36;
+}
+
+header {
+    text-align: center;
+    padding: 40px 20px 10px;
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 100px;
+    padding: 50px;
+}
+
+/* CONTROLS */
+.controls { width: 320px; }
+
+label {
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: block;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 25px;
+    border: 1px solid #d8d2ca;
+    background: white;
+    font-family: 'Inter';
+    font-size: 14px;
+}
+
+select:focus {
+    outline: none;
+    border-color: #b8a999;
+}
+
+/* PRICE */
+.price-box {
+    font-family: 'Playfair Display';
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+/* QUANTITY */
+.quantity-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.quantity-box button {
+    width: 38px;
+    height: 38px;
+    border: 1px solid #d8d2ca;
+    background: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.quantity-box button:hover {
+    background: #3e3a36;
+    color: white;
+}
+
+.quantity-box span {
+    width: 38px;
+    text-align: center;
+}
+
+/* BUTTONS */
+button {
+    width: 100%;
+    padding: 13px;
+    margin-top: 15px;
+    border: none;
+    font-family: 'Inter';
+    font-size: 13px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.add-btn {
+    background: #3e3a36;
+    color: white;
+}
+
+.add-btn:disabled {
+    background: #cfc8c0;
+    cursor: not-allowed;
+}
+
+.checkout-btn {
+    display: none;
+    background: #3e3a36;
+    color: white;
+}
+
+.continue-btn {
+    background: transparent;
+    border: 1px solid #3e3a36;
+    color: #3e3a36;
+}
+
+/* PREVIEW */
+.preview {
+    position: relative;
+    width: 450px;
+    aspect-ratio: 1 / 1;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 28px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.08);
+    border: 1px solid #efeae4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.body-shape {
+    width: 70%;
+    height: 70%;
+    border-radius: 50%;
+    background: white;
+}
+
+.shape {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    display: none;
+}
+
+.heart { top: 45%; left: 45%; border-radius: 50%; }
+
+.star {
+    top: 40%;
+    left: 45%;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 
+    68% 57%, 79% 91%, 50% 70%, 
+    21% 91%, 32% 57%, 2% 35%, 
+    39% 35%);
+}
+
+.bow { top: 35%; left: 35%; border-radius: 20px; }
+
+/* TOAST FIXED */
+.toast {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    background: #3e3a36;
+    color: white;
+    padding: 14px 20px;
+    font-size: 13px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-15px);
+    transition: all 0.4s ease;
+    z-index: 9999;
+}
+
+.toast.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🤍 Customize your Bunny 🤍</h1>
+</header>
+
+<div class="container">
+
+<div class="controls">
+
+<label>Material</label>
+<select id="material">
+<option value="">Select...</option>
+<option>Acrylic yarn</option>
+<option>Fluffy yarn</option>
+</select>
+
+<label>Size</label>
+<select id="size">
+<option value="">Select...</option>
+<option value="0">Small (+0RON)</option>
+<option value="15">Medium (+15RON)</option>
+<option value="25">Large (+25RON)</option>
+</select>
+
+<label>Body Colour</label>
+<select id="bodyColor">
+<option value="">Select...</option>
+<option>White</option>
+<option>Cream</option>
+<option>Brown</option>
+<option>Dark brown</option>
+<option>Light brown</option>
+<option>Beige</option>
+<option>Light pink</option>
+<option>Deep pink</option>
+<option>Light yellow</option>
+<option>Vibrant yellow</option>
+<option>Light blue</option>
+<option>Blue</option>
+<option>Dark blue</option>
+</select>
+
+<label>Accessory</label>
+<select id="accessory">
+<option value="">Select...</option>
+<option value="0">Nothing - 0RON</option>
+<option value="7">Heart - 7RON</option>
+<option value="3">Bow - 3RON</option>
+<option value="9">Heart + Bow - 9RON</option>
+<option value="8">Star - 8RON</option>
+<option value="10">Star + Bow - 10RON</option>
+</select>
+
+<div id="accessoryColors"></div>
+
+<div class="price-box">
+Total: <span id="price">45</span> RON
+</div>
+
+<label>Quantity</label>
+<div class="quantity-box">
+<button type="button" onclick="changeQty(-1)">−</button>
+<span id="quantity">1</span>
+<button type="button" onclick="changeQty(1)">+</button>
+</div>
+
+<button class="add-btn" id="addBtn" onclick="addToCart()" disabled>
+Add to cart
+</button>
+
+<button class="checkout-btn" id="checkoutBtn" onclick="goToCheckout()">
+Go to checkout →
+</button>
+
+<button class="continue-btn" onclick="window.location.href='https://sites.google.com/view/maisondoucette/our-collection'">
+Continue shopping
+</button>
+
+</div>
+
+<div class="preview">
+<div id="bodyLayer" class="body-shape"></div>
+<div id="heartLayer" class="shape heart"></div>
+<div id="starLayer" class="shape star"></div>
+<div id="bowLayer" class="shape bow"></div>
+</div>
+
+</div>
+
+<div id="toast" class="toast">
+Product added to cart successfully.
+</div>
+
+<script>
+
+let basePrice = 45;
+let quantity = 1;
+
+const material = document.getElementById("material");
+const size = document.getElementById("size");
+const bodyColor = document.getElementById("bodyColor");
+const accessory = document.getElementById("accessory");
+const priceEl = document.getElementById("price");
+const addBtn = document.getElementById("addBtn");
+const toast = document.getElementById("toast");
+
+bodyColor.addEventListener("change", function(){
+if(!this.value) return;
+document.getElementById("bodyLayer").style.background = this.value.toLowerCase();
+validateForm();
+});
+
+size.addEventListener("change", function(){
+updatePrice();
+validateForm();
+});
+
+material.addEventListener("change", validateForm);
+
+accessory.addEventListener("change", function(){
+updateAccessoryOptions();
+updatePrice();
+validateForm();
+});
+
+function updatePrice(){
+let singlePrice = basePrice;
+singlePrice += parseInt(size.value || 0);
+singlePrice += parseInt(accessory.value || 0);
+priceEl.innerText = singlePrice * quantity;
+}
+
+function changeQty(amount){
+quantity += amount;
+if(quantity < 1) quantity = 1;
+if(quantity > 20) quantity = 20;
+document.getElementById("quantity").innerText = quantity;
+updatePrice();
+}
+
+function updateAccessoryOptions(){
+
+let selected = accessory.options[accessory.selectedIndex].text;
+
+document.getElementById("accessoryColors").innerHTML = "";
+document.getElementById("heartLayer").style.display = "none";
+document.getElementById("starLayer").style.display = "none";
+document.getElementById("bowLayer").style.display = "none";
+
+if(selected.includes("Nothing") || selected === "Select...") return;
+
+let colors = `
+<option value="">Select colour...</option>
+<option>Bright pink</option>
+<option>Light pink</option>
+<option>Yellow</option>
+<option>Light blue</option>
+<option>Dark blue</option>
+<option>Red</option>
+<option>Burgundy</option>
+`;
+
+if(selected.includes("Heart")){
+document.getElementById("accessoryColors").innerHTML += `
+<label>Heart Colour</label>
+<select onchange="changeAccessory('heart',this.value)">
+${colors}
+</select>`;
+}
+
+if(selected.includes("Star")){
+document.getElementById("accessoryColors").innerHTML += `
+<label>Star Colour</label>
+<select onchange="changeAccessory('star',this.value)">
+${colors}
+</select>`;
+}
+
+if(selected.includes("Bow")){
+document.getElementById("accessoryColors").innerHTML += `
+<label>Bow Colour</label>
+<select onchange="changeAccessory('bow',this.value)">
+${colors}
+</select>`;
+}
+}
+
+function changeAccessory(type,color){
+if(!color) return;
+const el = document.getElementById(type+"Layer");
+el.style.display = "block";
+el.style.background = color.toLowerCase();
+validateForm();
+}
+
+function validateForm(){
+let valid = material.value &&
+size.value !== "" &&
+bodyColor.value &&
+accessory.value !== "";
+
+document.querySelectorAll("#accessoryColors select").forEach(select => {
+if(!select.value) valid = false;
+});
+
+addBtn.disabled = !valid;
+}
+
+function addToCart(){
+
+toast.classList.remove("show");
+void toast.offsetWidth; // restart animation
+toast.classList.add("show");
+
+setTimeout(function(){
+toast.classList.remove("show");
+},5000);
+
+document.getElementById("checkoutBtn").style.display = "block";
+}
+
+function goToCheckout(){
+window.location.href = "checkout.html";
+}
+
+</script>
+
+</body>
+</html>
