@@ -52,7 +52,6 @@ h3{
     position:relative;
     display:flex;
     gap:15px;
-    animation:fadeIn 0.3s ease-in-out;
 }
 
 .cart-item img{
@@ -99,7 +98,12 @@ h3{
     color:#8c6f63;
 }
 
-label{display:block;margin-top:20px;font-size:14px;color:#5a3e36;}
+label{
+    display:block;
+    margin-top:20px;
+    font-size:14px;
+    color:#5a3e36;
+}
 
 input, select, textarea{
     width:100%;
@@ -121,7 +125,11 @@ textarea{resize:none;height:100px;}
 
 .summary p{margin:6px 0;}
 
-.total{font-weight:bold;font-size:18px;margin-top:10px;}
+.total{
+    font-weight:bold;
+    font-size:18px;
+    margin-top:10px;
+}
 
 button{
     margin-top:30px;
@@ -135,7 +143,10 @@ button{
     cursor:pointer;
 }
 
-button:disabled{background:#c5b7aa;}
+button:disabled{
+    background:#c5b7aa;
+    cursor:not-allowed;
+}
 
 #loadingMessage{
     display:none;
@@ -143,11 +154,6 @@ button:disabled{background:#c5b7aa;}
     text-align:center;
     font-style:italic;
     color:#5a3e36;
-}
-
-@keyframes fadeIn{
-from{opacity:0;}
-to{opacity:1;}
 }
 </style>
 </head>
@@ -192,7 +198,7 @@ Your cart is currently empty 🤍
 <option value="Card (on delivery)">Card (on delivery)</option>
 </select>
 
-<label>Additional Notes</label>
+<label>Additional Notes <span style="font-size:12px;font-weight:normal;">(optional)</span></label>
 <textarea name="notes"></textarea>
 
 <div class="summary">
@@ -201,7 +207,7 @@ Your cart is currently empty 🤍
 <p class="total">Total: <span id="total">0</span> RON</p>
 </div>
 
-<button type="submit" id="placeOrderBtn">Place Order</button>
+<button type="submit" id="placeOrderBtn" disabled>Place Order</button>
 <p id="loadingMessage">Your handmade piece is being prepared with care 🤍</p>
 
 </form>
@@ -222,10 +228,8 @@ function renderCart(){
 
     if(cart.length===0){
         emptyMsg.style.display="block";
-        document.getElementById("placeOrderBtn").disabled=true;
     }else{
         emptyMsg.style.display="none";
-        document.getElementById("placeOrderBtn").disabled=false;
     }
 
     cart.forEach((item,index)=>{
@@ -237,11 +241,20 @@ function renderCart(){
             ${item.image ? `<img src="${item.image}">` : ""}
             <div class="cart-details">
                 <strong>${item.name}</strong>
-                <p>Price: ${item.price} RON</p>
-                <p>Quantity: ${item.quantity}</p>
+                <p>${item.price} RON x ${item.quantity}</p>
+
                 ${item.material ? `<p>Material: ${item.material}</p>`:""}
                 ${item.size ? `<p>Size: ${item.size}</p>`:""}
                 ${item.bodyColor ? `<p>Body Colour: ${item.bodyColor}</p>`:""}
+
+                ${item.baseColor ? `<p>Strawberry Colour: ${item.baseColor}</p>`:""}
+                ${item.chocolateColor ? `<p>Chocolate Colour: ${item.chocolateColor}</p>`:""}
+
+                ${item.accessory ? `<p>Accessory: ${item.accessory}</p>`:""}
+                ${item.heartColor ? `<p>Heart Colour: ${item.heartColor}</p>`:""}
+                ${item.starColor ? `<p>Star Colour: ${item.starColor}</p>`:""}
+                ${item.bowColor ? `<p>Bow Colour: ${item.bowColor}</p>`:""}
+
                 <div class="qty-controls">
                     <button type="button" onclick="changeQty(${index},-1)">-</button>
                     <button type="button" onclick="changeQty(${index},1)">+</button>
@@ -252,6 +265,8 @@ function renderCart(){
 
     document.getElementById("subtotal").innerText=subtotal;
     document.getElementById("total").innerText=subtotal+shippingCost;
+
+    validateCheckout();
 }
 
 function changeQty(index,delta){
@@ -273,50 +288,35 @@ document.querySelector("select[name='delivery']").addEventListener("change",func
     else shippingCost=0;
     document.getElementById("shipping").innerText=shippingCost;
     document.getElementById("total").innerText=subtotal+shippingCost;
+    validateCheckout();
+});
+
+function validateCheckout(){
+    const requiredFields=document.querySelectorAll(
+    "input[name='name'], input[name='email'], input[name='phone'], input[name='address'], select[name='delivery'], select[name='payment']"
+    );
+
+    let allFilled=true;
+
+    requiredFields.forEach(field=>{
+        if(field.value.trim()===""){
+            allFilled=false;
+        }
+    });
+
+    const cartNotEmpty=cart.length>0;
+
+    document.getElementById("placeOrderBtn").disabled=!(allFilled && cartNotEmpty);
+}
+
+document.querySelectorAll(
+"input[name='name'], input[name='email'], input[name='phone'], input[name='address'], select[name='delivery'], select[name='payment']"
+).forEach(field=>{
+    field.addEventListener("input",validateCheckout);
+    field.addEventListener("change",validateCheckout);
 });
 
 renderCart();
-
-document.getElementById("checkout-form").addEventListener("submit",function(e){
-e.preventDefault();
-
-if(cart.length===0) return;
-
-document.getElementById("loadingMessage").style.display="block";
-document.getElementById("placeOrderBtn").disabled=true;
-
-let form=this;
-let orderNumber="MD-"+Date.now();
-let productList="";
-
-cart.forEach(item=>{
-    productList+=`${item.name} x ${item.quantity}\n`;
-});
-
-let templateParams={
-order_number:orderNumber,
-name:form.name.value,
-email:form.email.value,
-phone:form.phone.value,
-address:form.address.value,
-delivery:form.delivery.value,
-payment:form.payment.value,
-notes:form.notes.value,
-products:productList,
-subtotal:subtotal,
-shipping:shippingCost,
-total:subtotal+shippingCost
-};
-
-Promise.all([
-emailjs.send("service_cqo3myr","template_m4kga7c",templateParams),
-emailjs.send("service_cqo3myr","template_o7td3ak",templateParams)
-])
-.then(()=>{
-localStorage.removeItem("cart");
-window.location.href="thankyou.html";
-});
-});
 </script>
 
 </body>
