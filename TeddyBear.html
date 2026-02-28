@@ -256,14 +256,17 @@ Continue shopping
 </div>
 
 <div class="preview">
-<div id="bodyLayer" class="body-shape"></div>
+<img id="bearImage" src="images/teddy-bear-cream.png" style="width:70%; position:absolute;">
+<img id="bearImage" src="images/teddy-bear-brown.png" style="width:70%; position:absolute;">
+<img id="bearImage" src="images/teddy-bear-light brown.png" style="width:70%; position:absolute;">
+<img id="bearImage" src="images/teddy-bear-light pink.png" style="width:70%; position:absolute;">
+<img id="bearImage" src="images/teddy-bear-light yellow.png" style="width:70%; position:absolute;">
+<img id="bearImage" src="images/teddy-bear-light blue.png" style="width:70%; position:absolute;">
+<img id="bearImage" src="images/teddy-bear-dark blue.png" style="width:70%; position:absolute;">
 <div id="heartLayer" class="shape heart"></div>
 <div id="starLayer" class="shape star"></div>
 <div id="bowLayer" class="shape bow"></div>
 </div>
-
-</div>
-
 <div id="toast" class="toast">
 Product added to cart successfully.
 </div>
@@ -287,10 +290,21 @@ const toast = document.getElementById("toast");
 
 bodyColor.addEventListener("change", function(){
     if(!this.value) return;
-    document.getElementById("bodyLayer").style.background = this.value.toLowerCase();
+
+    const imageMap = {
+        "Cream": "images/teddy-bear-cream.png",
+        "Brown": "images/teddy-bear-brown.png",
+        "Light brown": "images/teddy-bear-light-brown.png",
+        "Light pink": "images/teddy-bear-light-pink.png",
+        "Light yellow": "images/teddy-bear-light-yellow.png",
+        "Light blue": "images/teddy-bear-light-blue.png",
+        "Dark blue": "images/teddy-bear-dark-blue.png"
+    };
+
+    document.getElementById("bearImage").src = imageMap[this.value];
+
     validateForm();
 });
-
 size.addEventListener("change", function(){
     updatePrice();
     validateForm();
