@@ -11,6 +11,10 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 
+html{
+scroll-behavior:smooth;
+}
+
 body{
     font-family:'Inter', sans-serif;
     background:linear-gradient(135deg,#f5efe6,#e6d5c3);
@@ -93,9 +97,38 @@ h3{
 }
 
 .empty-cart{
+    text-align:center;
+    padding:40px 20px;
+    border-radius:20px;
+    background:#f9f6f2;
     margin-top:20px;
-    font-style:italic;
+}
+
+.empty-cart h3{
+    margin:10px 0 5px;
+    font-weight:600;
+    color:#4b2e2b;
+}
+
+.empty-cart p{
+    font-size:14px;
     color:#8c6f63;
+    margin-bottom:20px;
+}
+
+.back-to-shop{
+    display:inline-block;
+    padding:12px 24px;
+    border-radius:30px;
+    text-decoration:none;
+    background:#5a3e36;
+    color:white;
+    font-size:14px;
+    transition:.3s;
+}
+
+.back-to-shop:hover{
+    background:#3e2723;
 }
 
 label{
@@ -164,9 +197,14 @@ button:disabled{
 
 <h3>Your Cart</h3>
 <div id="cartItems"></div>
-<p id="emptyCartMessage" class="empty-cart" style="display:none;">
-Your cart is currently empty 🤍
-</p>
+
+<div id="emptyCartMessage" class="empty-cart" style="display:none;">
+<h3>Your cart is empty 🤍</h3>
+<p>Looks like you haven’t added anything yet.</p>
+<a href="https://sites.google.com/view/MAISON-DUCETTE" class="back-to-shop">
+Go back to shop
+</a>
+</div>
 
 <form id="checkout-form">
 
@@ -221,99 +259,94 @@ let subtotal = 0;
 let shippingCost = 0;
 
 function renderCart(){
-    const container = document.getElementById("cartItems");
-    const emptyMsg = document.getElementById("emptyCartMessage");
-    container.innerHTML="";
-    subtotal=0;
+const container=document.getElementById("cartItems");
+const emptyMsg=document.getElementById("emptyCartMessage");
+container.innerHTML="";
+subtotal=0;
 
-    if(cart.length===0){
-        emptyMsg.style.display="block";
-    }else{
-        emptyMsg.style.display="none";
-    }
+if(cart.length===0){
+emptyMsg.style.display="block";
+}else{
+emptyMsg.style.display="none";
+}
 
-    cart.forEach((item,index)=>{
-        subtotal+=item.price*item.quantity;
+cart.forEach((item,index)=>{
+subtotal+=item.price*item.quantity;
 
-        container.innerHTML+=`
-        <div class="cart-item">
-            <span class="remove-item" onclick="removeItem(${index})">✕</span>
-            ${item.image ? `<img src="${item.image}">` : ""}
-            <div class="cart-details">
-                <strong>${item.name}</strong>
-                <p>${item.price} RON x ${item.quantity}</p>
+container.innerHTML+=`
+<div class="cart-item">
+<span class="remove-item" onclick="removeItem(${index})">✕</span>
+${item.image ? `<img src="${item.image}">` : ""}
+<div class="cart-details">
+<strong>${item.name}</strong>
+<p>${item.price} RON x ${item.quantity}</p>
 
-                ${item.material ? `<p>Material: ${item.material}</p>`:""}
-                ${item.size ? `<p>Size: ${item.size}</p>`:""}
-                ${item.bodyColor ? `<p>Body Colour: ${item.bodyColor}</p>`:""}
+${item.material ? `<p>Material: ${item.material}</p>`:""}
+${item.size ? `<p>Size: ${item.size}</p>`:""}
+${item.bodyColor ? `<p>Body Colour: ${item.bodyColor}</p>`:""}
 
-                ${item.baseColor ? `<p>Strawberry Colour: ${item.baseColor}</p>`:""}
-                ${item.chocolateColor ? `<p>Chocolate Colour: ${item.chocolateColor}</p>`:""}
+${item.baseColor ? `<p>Strawberry Colour: ${item.baseColor}</p>`:""}
+${item.chocolateColor ? `<p>Chocolate Colour: ${item.chocolateColor}</p>`:""}
 
-                ${item.accessory ? `<p>Accessory: ${item.accessory}</p>`:""}
-                ${item.heartColor ? `<p>Heart Colour: ${item.heartColor}</p>`:""}
-                ${item.starColor ? `<p>Star Colour: ${item.starColor}</p>`:""}
-                ${item.bowColor ? `<p>Bow Colour: ${item.bowColor}</p>`:""}
+${item.accessory ? `<p>Accessory: ${item.accessory}</p>`:""}
+${item.heartColor ? `<p>Heart Colour: ${item.heartColor}</p>`:""}
+${item.starColor ? `<p>Star Colour: ${item.starColor}</p>`:""}
+${item.bowColor ? `<p>Bow Colour: ${item.bowColor}</p>`:""}
 
-                <div class="qty-controls">
-                    <button type="button" onclick="changeQty(${index},-1)">-</button>
-                    <button type="button" onclick="changeQty(${index},1)">+</button>
-                </div>
-            </div>
-        </div>`;
-    });
+<div class="qty-controls">
+<button type="button" onclick="changeQty(${index},-1)">-</button>
+<button type="button" onclick="changeQty(${index},1)">+</button>
+</div>
+</div>
+</div>`;
+});
 
-    document.getElementById("subtotal").innerText=subtotal;
-    document.getElementById("total").innerText=subtotal+shippingCost;
-
-    validateCheckout();
+document.getElementById("subtotal").innerText=subtotal;
+document.getElementById("total").innerText=subtotal+shippingCost;
+validateCheckout();
 }
 
 function changeQty(index,delta){
-    cart[index].quantity+=delta;
-    if(cart[index].quantity<=0) cart.splice(index,1);
-    localStorage.setItem("cart",JSON.stringify(cart));
-    renderCart();
+cart[index].quantity+=delta;
+if(cart[index].quantity<=0) cart.splice(index,1);
+localStorage.setItem("cart",JSON.stringify(cart));
+renderCart();
 }
 
 function removeItem(index){
-    cart.splice(index,1);
-    localStorage.setItem("cart",JSON.stringify(cart));
-    renderCart();
+cart.splice(index,1);
+localStorage.setItem("cart",JSON.stringify(cart));
+renderCart();
 }
 
 document.querySelector("select[name='delivery']").addEventListener("change",function(){
-    if(this.value.includes("Standard")) shippingCost=15;
-    else if(this.value.includes("Express")) shippingCost=18;
-    else shippingCost=0;
-    document.getElementById("shipping").innerText=shippingCost;
-    document.getElementById("total").innerText=subtotal+shippingCost;
-    validateCheckout();
+if(this.value.includes("Standard")) shippingCost=15;
+else if(this.value.includes("Express")) shippingCost=18;
+else shippingCost=0;
+document.getElementById("shipping").innerText=shippingCost;
+document.getElementById("total").innerText=subtotal+shippingCost;
+validateCheckout();
 });
 
 function validateCheckout(){
-    const requiredFields=document.querySelectorAll(
-    "input[name='name'], input[name='email'], input[name='phone'], input[name='address'], select[name='delivery'], select[name='payment']"
-    );
+const requiredFields=document.querySelectorAll(
+"input[name='name'], input[name='email'], input[name='phone'], input[name='address'], select[name='delivery'], select[name='payment']"
+);
 
-    let allFilled=true;
+let allFilled=true;
+requiredFields.forEach(field=>{
+if(field.value.trim()===""){ allFilled=false; }
+});
 
-    requiredFields.forEach(field=>{
-        if(field.value.trim()===""){
-            allFilled=false;
-        }
-    });
-
-    const cartNotEmpty=cart.length>0;
-
-    document.getElementById("placeOrderBtn").disabled=!(allFilled && cartNotEmpty);
+const cartNotEmpty=cart.length>0;
+document.getElementById("placeOrderBtn").disabled=!(allFilled && cartNotEmpty);
 }
 
 document.querySelectorAll(
 "input[name='name'], input[name='email'], input[name='phone'], input[name='address'], select[name='delivery'], select[name='payment']"
 ).forEach(field=>{
-    field.addEventListener("input",validateCheckout);
-    field.addEventListener("change",validateCheckout);
+field.addEventListener("input",validateCheckout);
+field.addEventListener("change",validateCheckout);
 });
 
 renderCart();
@@ -321,3 +354,6 @@ renderCart();
 
 </body>
 </html>
+</body>
+</html>
+
