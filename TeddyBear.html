@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Maison Doucette – Teddy Bear</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -16,7 +17,7 @@ body{
 
 header{
     text-align:center;
-    padding:40px 20px 10px;
+    padding:40px 20px 20px;
 }
 
 h1{
@@ -26,19 +27,26 @@ h1{
     margin:0;
 }
 
+/* ===== LAYOUT ===== */
+
 .container{
     display:flex;
     justify-content:center;
     align-items:flex-start;
     gap:100px;
-    padding:50px;
+    padding:40px 60px 80px;
+    max-width:1400px;
+    margin:auto;
 }
 
-.controls{width:320px;}
+.controls{
+    width:340px;
+    flex-shrink:0;
+}
 
 label{
-    font-size:13px;
-    letter-spacing:1px;
+    font-size:12px;
+    letter-spacing:1.5px;
     text-transform:uppercase;
     margin-bottom:6px;
     display:block;
@@ -46,18 +54,19 @@ label{
 
 select{
     width:100%;
-    padding:10px;
-    margin-bottom:25px;
+    padding:12px;
+    margin-bottom:22px;
     border:1px solid #d8d2ca;
     background:white;
     font-family:'Inter';
     font-size:14px;
+    border-radius:6px;
 }
 
 .price-box{
     font-family:'Playfair Display';
-    font-size:24px;
-    margin-top:20px;
+    font-size:26px;
+    margin-top:15px;
 }
 
 .quantity-box{
@@ -65,27 +74,29 @@ select{
     align-items:center;
     justify-content:center;
     gap:15px;
-    margin-top:15px;
+    margin-top:10px;
 }
 
 .quantity-box button{
-    width:38px;
-    height:38px;
+    width:42px;
+    height:42px;
     border:1px solid #d8d2ca;
     background:white;
     font-size:20px;
     cursor:pointer;
+    border-radius:6px;
 }
 
 button{
     width:100%;
-    padding:13px;
+    padding:14px;
     margin-top:15px;
     border:none;
     font-family:'Inter';
     font-size:13px;
     letter-spacing:1px;
     cursor:pointer;
+    border-radius:6px;
 }
 
 .add-btn{
@@ -110,13 +121,14 @@ button{
     color:#3e3a36;
 }
 
-/* ===== PREMIUM PREVIEW ===== */
+/* ===== PREVIEW ===== */
 
 .preview{
     position:relative;
-    width:420px;
+    width:480px;
+    max-width:100%;
     aspect-ratio:1/1;
-    padding:40px;
+    padding:50px;
     border-radius:28px;
     background:
     radial-gradient(circle at 50% 35%, rgba(255,255,255,0.9) 0%, rgba(251,246,239,0.9) 40%, rgba(241,232,221,1) 100%);
@@ -127,23 +139,20 @@ button{
     justify-content:center;
 }
 
-/* studio floor shadow */
 .preview::after{
     content:"";
     position:absolute;
-    bottom:40px;
+    bottom:50px;
     width:55%;
-    height:30px;
+    height:35px;
     background:radial-gradient(ellipse at center, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.08) 40%, transparent 80%);
     filter:blur(8px);
     z-index:1;
 }
 
-/* Teddy */
-
 #bearImage{
-    width:108%;
-    max-width:520px;
+    width:110%;
+    max-width:600px;
     position:absolute;
     display:none;
     opacity:0;
@@ -177,6 +186,8 @@ button{
 
 .bow{ top:38%; left:42%; border-radius:20px; }
 
+/* ===== TOAST ===== */
+
 .toast{
     position:fixed;
     top:25px;
@@ -198,6 +209,72 @@ button{
     opacity:1;
     visibility:visible;
     transform:translateY(0);
+}
+
+/* ========================= */
+/* ===== RESPONSIVE ===== */
+/* ========================= */
+
+/* Tablet */
+
+@media (max-width: 1100px){
+.container{
+    flex-direction:column;
+    align-items:center;
+    gap:50px;
+}
+.controls{
+    width:100%;
+    max-width:500px;
+}
+.preview{
+    width:90%;
+}
+}
+
+/* Phone */
+
+@media (max-width: 768px){
+
+h1{
+    font-size:24px;
+}
+
+.container{
+    padding:20px;
+    gap:40px;
+}
+
+.preview{
+    width:100%;
+    padding:30px;
+}
+
+.controls{
+    width:100%;
+}
+
+button{
+    padding:16px;
+    font-size:14px;
+}
+
+.quantity-box button{
+    width:48px;
+    height:48px;
+}
+
+.price-box{
+    font-size:24px;
+}
+}
+
+/* Small phones */
+
+@media (max-width: 420px){
+.preview{
+    padding:20px;
+}
 }
 </style>
 </head>
