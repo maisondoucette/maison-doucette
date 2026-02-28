@@ -6,7 +6,6 @@
 <title>Checkout - Maison Doucette</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
-
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 
 <style>
@@ -39,12 +38,68 @@ h2{
     text-align:center;
 }
 
-label{
-    display:block;
-    margin-top:20px;
-    font-size:14px;
-    color:#5a3e36;
+h3{
+    margin-top:30px;
+    font-family:'Playfair Display', serif;
+    color:#4b2e2b;
 }
+
+.cart-item{
+    background:#faf6f0;
+    padding:15px;
+    border-radius:15px;
+    margin-top:15px;
+    position:relative;
+    display:flex;
+    gap:15px;
+    animation:fadeIn 0.3s ease-in-out;
+}
+
+.cart-item img{
+    width:80px;
+    height:80px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+.cart-details{
+    flex:1;
+    font-size:14px;
+}
+
+.cart-details p{margin:3px 0;}
+
+.remove-item{
+    position:absolute;
+    top:10px;
+    right:12px;
+    cursor:pointer;
+    font-size:18px;
+    color:#8c6f63;
+}
+
+.remove-item:hover{color:#5a3e36;}
+
+.qty-controls{
+    margin-top:8px;
+}
+
+.qty-controls button{
+    width:28px;
+    height:28px;
+    padding:0;
+    border-radius:50%;
+    font-size:16px;
+    margin:0 5px;
+}
+
+.empty-cart{
+    margin-top:20px;
+    font-style:italic;
+    color:#8c6f63;
+}
+
+label{display:block;margin-top:20px;font-size:14px;color:#5a3e36;}
 
 input, select, textarea{
     width:100%;
@@ -53,7 +108,6 @@ input, select, textarea{
     border-radius:10px;
     border:1px solid #d6c4b2;
     background:#faf6f0;
-    font-family:'Inter';
 }
 
 textarea{resize:none;height:100px;}
@@ -67,11 +121,7 @@ textarea{resize:none;height:100px;}
 
 .summary p{margin:6px 0;}
 
-.total{
-    font-weight:bold;
-    font-size:18px;
-    margin-top:10px;
-}
+.total{font-weight:bold;font-size:18px;margin-top:10px;}
 
 button{
     margin-top:30px;
@@ -83,31 +133,21 @@ button{
     color:white;
     font-size:16px;
     cursor:pointer;
-    transition:0.3s;
 }
 
-button:disabled{
-    background:#c5b7aa;
-    cursor:not-allowed;
-}
+button:disabled{background:#c5b7aa;}
 
-/* NEW loading message */
 #loadingMessage{
     display:none;
     margin-top:15px;
     text-align:center;
     font-style:italic;
     color:#5a3e36;
-    animation:fadeIn 0.4s ease-in-out;
 }
 
 @keyframes fadeIn{
-    from{opacity:0;}
-    to{opacity:1;}
-}
-
-@media(max-width:600px){
-    .checkout-container{padding:25px;}
+from{opacity:0;}
+to{opacity:1;}
 }
 </style>
 </head>
@@ -115,6 +155,12 @@ button:disabled{
 
 <div class="checkout-container">
 <h2>Complete your order</h2>
+
+<h3>Your Cart</h3>
+<div id="cartItems"></div>
+<p id="emptyCartMessage" class="empty-cart" style="display:none;">
+Your cart is currently empty 🤍
+</p>
 
 <form id="checkout-form">
 
@@ -132,146 +178,143 @@ button:disabled{
 
 <label>Shipping Method</label>
 <select name="delivery" required>
-    <option value="">Select shipping</option>
-    <option value="Standard (15 RON)">Standard (15 RON)</option>
-    <option value="Express (18 RON)">Express (18 RON)</option>
-    <option value="Local Pickup - Galați (Free)">Local Pickup - Galați (Free)</option>
+<option value="">Select shipping</option>
+<option value="Standard (15 RON)">Standard (15 RON)</option>
+<option value="Express (18 RON)">Express (18 RON)</option>
+<option value="Local Pickup - Galați (Free)">Local Pickup - Galați (Free)</option>
 </select>
 
 <label>Payment Method</label>
 <select name="payment" required>
-    <option value="">Select payment method</option>
-    <option value="Cash on Delivery">Cash on Delivery</option>
-    <option value="Bank Transfer">Bank Transfer</option>
-    <option value="Card (on delivery)">Card (on delivery)</option>
+<option value="">Select payment method</option>
+<option value="Cash on Delivery">Cash on Delivery</option>
+<option value="Bank Transfer">Bank Transfer</option>
+<option value="Card (on delivery)">Card (on delivery)</option>
 </select>
 
-<label>Additional Notes / Special Request</label>
+<label>Additional Notes</label>
 <textarea name="notes"></textarea>
 
 <div class="summary">
-    <p>Subtotal: <span id="subtotal">0</span> RON</p>
-    <p>Shipping: <span id="shipping">0</span> RON</p>
-    <p class="total">Total: <span id="total">0</span> RON</p>
+<p>Subtotal: <span id="subtotal">0</span> RON</p>
+<p>Shipping: <span id="shipping">0</span> RON</p>
+<p class="total">Total: <span id="total">0</span> RON</p>
 </div>
 
-<button type="submit" id="placeOrderBtn" disabled>Place Order</button>
-
-<p id="loadingMessage">
-Your handmade piece is being prepared with care 🤍
-</p>
+<button type="submit" id="placeOrderBtn">Place Order</button>
+<p id="loadingMessage">Your handmade piece is being prepared with care 🤍</p>
 
 </form>
 </div>
 
 <script>
-
-(function(){
-emailjs.init("uXq_doL-7YdoXPSfK");
-})();
+(function(){ emailjs.init("uXq_doL-7YdoXPSfK"); })();
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let subtotal = 0;
-
-cart.forEach(item=>{
-    subtotal += item.price * item.quantity;
-});
-
-document.getElementById("subtotal").innerText = subtotal;
-document.getElementById("total").innerText = subtotal;
-
 let shippingCost = 0;
 
-document.querySelector("select[name='delivery']").addEventListener("change", function(){
-    if(this.value.includes("Standard")) shippingCost = 15;
-    else if(this.value.includes("Express")) shippingCost = 18;
-    else shippingCost = 0;
+function renderCart(){
+    const container = document.getElementById("cartItems");
+    const emptyMsg = document.getElementById("emptyCartMessage");
+    container.innerHTML="";
+    subtotal=0;
 
-    document.getElementById("shipping").innerText = shippingCost;
-    document.getElementById("total").innerText = subtotal + shippingCost;
-});
+    if(cart.length===0){
+        emptyMsg.style.display="block";
+        document.getElementById("placeOrderBtn").disabled=true;
+    }else{
+        emptyMsg.style.display="none";
+        document.getElementById("placeOrderBtn").disabled=false;
+    }
 
-const requiredFields = document.querySelectorAll(
-"input[name='name'], input[name='email'], input[name='phone'], input[name='address'], select[name='delivery'], select[name='payment']"
-);
+    cart.forEach((item,index)=>{
+        subtotal+=item.price*item.quantity;
 
-const placeOrderBtn = document.getElementById("placeOrderBtn");
-
-function validateForm(){
-    let allFilled = true;
-    requiredFields.forEach(field=>{
-        if(field.value.trim()===""){ allFilled=false; }
+        container.innerHTML+=`
+        <div class="cart-item">
+            <span class="remove-item" onclick="removeItem(${index})">✕</span>
+            ${item.image ? `<img src="${item.image}">` : ""}
+            <div class="cart-details">
+                <strong>${item.name}</strong>
+                <p>Price: ${item.price} RON</p>
+                <p>Quantity: ${item.quantity}</p>
+                ${item.material ? `<p>Material: ${item.material}</p>`:""}
+                ${item.size ? `<p>Size: ${item.size}</p>`:""}
+                ${item.bodyColor ? `<p>Body Colour: ${item.bodyColor}</p>`:""}
+                <div class="qty-controls">
+                    <button type="button" onclick="changeQty(${index},-1)">-</button>
+                    <button type="button" onclick="changeQty(${index},1)">+</button>
+                </div>
+            </div>
+        </div>`;
     });
-    placeOrderBtn.disabled = !allFilled;
+
+    document.getElementById("subtotal").innerText=subtotal;
+    document.getElementById("total").innerText=subtotal+shippingCost;
 }
 
-requiredFields.forEach(field=>{
-    field.addEventListener("input", validateForm);
-    field.addEventListener("change", validateForm);
+function changeQty(index,delta){
+    cart[index].quantity+=delta;
+    if(cart[index].quantity<=0) cart.splice(index,1);
+    localStorage.setItem("cart",JSON.stringify(cart));
+    renderCart();
+}
+
+function removeItem(index){
+    cart.splice(index,1);
+    localStorage.setItem("cart",JSON.stringify(cart));
+    renderCart();
+}
+
+document.querySelector("select[name='delivery']").addEventListener("change",function(){
+    if(this.value.includes("Standard")) shippingCost=15;
+    else if(this.value.includes("Express")) shippingCost=18;
+    else shippingCost=0;
+    document.getElementById("shipping").innerText=shippingCost;
+    document.getElementById("total").innerText=subtotal+shippingCost;
 });
 
-document.getElementById("checkout-form").addEventListener("submit", function(e){
+renderCart();
+
+document.getElementById("checkout-form").addEventListener("submit",function(e){
 e.preventDefault();
 
-placeOrderBtn.disabled = true;
-placeOrderBtn.innerText = "Processing...";
-document.getElementById("loadingMessage").style.display = "block";
+if(cart.length===0) return;
 
-let form = this;
-let orderNumber = "MD-" + Date.now();
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-let productList = "";
+document.getElementById("loadingMessage").style.display="block";
+document.getElementById("placeOrderBtn").disabled=true;
 
-cart.forEach((item)=>{
-    productList += `${item.name} x ${item.quantity}\n`;
+let form=this;
+let orderNumber="MD-"+Date.now();
+let productList="";
 
-    if(item.material) productList += `Material: ${item.material}\n`;
-    if(item.size) productList += `Size: ${item.size}\n`;
-    if(item.bodyColor) productList += `Body Colour: ${item.bodyColor}\n`;
-    if(item.accessory) productList += `Accessory: ${item.accessory}\n`;
-    if(item.heartColor) productList += `Heart Colour: ${item.heartColor}\n`;
-    if(item.starColor) productList += `Star Colour: ${item.starColor}\n`;
-    if(item.bowColor) productList += `Bow Colour: ${item.bowColor}\n`;
-    if(item.baseColor) productList += `Base Colour: ${item.baseColor}\n`;
-    if(item.chocolateColor) productList += `Chocolate Colour: ${item.chocolateColor}\n`;
-
-    productList += `${item.price} RON x ${item.quantity}\n`;
-    productList += `-------------------------\n`;
+cart.forEach(item=>{
+    productList+=`${item.name} x ${item.quantity}\n`;
 });
 
-let templateParams = {
-    order_number: orderNumber,
-    name: form.name.value,
-    email: form.email.value,
-    phone: form.phone.value,
-    address: form.address.value,
-    delivery: form.delivery.value,
-    payment: form.payment.value,
-    notes: form.notes.value,
-    products: productList,
-    subtotal: subtotal,
-    shipping: shippingCost,
-    total: subtotal + shippingCost
+let templateParams={
+order_number:orderNumber,
+name:form.name.value,
+email:form.email.value,
+phone:form.phone.value,
+address:form.address.value,
+delivery:form.delivery.value,
+payment:form.payment.value,
+notes:form.notes.value,
+products:productList,
+subtotal:subtotal,
+shipping:shippingCost,
+total:subtotal+shippingCost
 };
 
 Promise.all([
-    emailjs.send("service_cqo3myr", "template_m4kga7c", templateParams),
-    emailjs.send("service_cqo3myr", "template_o7td3ak", templateParams)
+emailjs.send("service_cqo3myr","template_m4kga7c",templateParams),
+emailjs.send("service_cqo3myr","template_o7td3ak",templateParams)
 ])
-.then(function(){
-
-    localStorage.removeItem("cart");
-    window.location.href="thankyou.html";
-
-})
-.catch(function(error){
-
-    console.log("FAILED...", error);
-    alert("Something went wrong. Please try again.");
-
-    placeOrderBtn.disabled = false;
-    placeOrderBtn.innerText = "Place Order";
-    document.getElementById("loadingMessage").style.display = "none";
+.then(()=>{
+localStorage.removeItem("cart");
+window.location.href="thankyou.html";
 });
 });
 </script>
