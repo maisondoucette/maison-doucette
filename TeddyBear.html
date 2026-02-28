@@ -7,176 +7,197 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: #f6f2ed;
-    color: #3e3a36;
+body{
+    margin:0;
+    font-family:'Inter',sans-serif;
+    background:#f6f2ed;
+    color:#3e3a36;
 }
 
-header {
-    text-align: center;
-    padding: 40px 20px 10px;
+header{
+    text-align:center;
+    padding:40px 20px 10px;
 }
 
-h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 32px;
-    font-weight: 500;
-    margin: 0;
+h1{
+    font-family:'Playfair Display',serif;
+    font-size:32px;
+    font-weight:500;
+    margin:0;
 }
 
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 100px;
-    padding: 50px;
+.container{
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    gap:100px;
+    padding:50px;
 }
 
-.controls { width: 320px; }
+.controls{width:320px;}
 
-label {
-    font-size: 13px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-    display: block;
+label{
+    font-size:13px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    margin-bottom:6px;
+    display:block;
 }
 
-select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 25px;
-    border: 1px solid #d8d2ca;
-    background: white;
-    font-family: 'Inter';
-    font-size: 14px;
+select{
+    width:100%;
+    padding:10px;
+    margin-bottom:25px;
+    border:1px solid #d8d2ca;
+    background:white;
+    font-family:'Inter';
+    font-size:14px;
 }
 
-.price-box {
-    font-family: 'Playfair Display';
-    font-size: 24px;
-    margin-top: 20px;
+.price-box{
+    font-family:'Playfair Display';
+    font-size:24px;
+    margin-top:20px;
 }
 
-.quantity-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 15px;
+.quantity-box{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:15px;
+    margin-top:15px;
 }
 
-.quantity-box button {
-    width: 38px;
-    height: 38px;
-    border: 1px solid #d8d2ca;
-    background: white;
-    font-size: 20px;
-    cursor: pointer;
+.quantity-box button{
+    width:38px;
+    height:38px;
+    border:1px solid #d8d2ca;
+    background:white;
+    font-size:20px;
+    cursor:pointer;
 }
 
-.quantity-box span {
-    width: 38px;
-    text-align: center;
+button{
+    width:100%;
+    padding:13px;
+    margin-top:15px;
+    border:none;
+    font-family:'Inter';
+    font-size:13px;
+    letter-spacing:1px;
+    cursor:pointer;
 }
 
-button {
-    width: 100%;
-    padding: 13px;
-    margin-top: 15px;
-    border: none;
-    font-family: 'Inter';
-    font-size: 13px;
-    letter-spacing: 1px;
-    cursor: pointer;
+.add-btn{
+    background:#3e3a36;
+    color:white;
 }
 
-.add-btn {
-    background: #3e3a36;
-    color: white;
+.add-btn:disabled{
+    background:#cfc8c0;
+    cursor:not-allowed;
 }
 
-.add-btn:disabled {
-    background: #cfc8c0;
-    cursor: not-allowed;
+.checkout-btn{
+    display:none;
+    background:#3e3a36;
+    color:white;
 }
 
-.checkout-btn {
-    display: none;
-    background: #3e3a36;
-    color: white;
+.continue-btn{
+    background:transparent;
+    border:1px solid #3e3a36;
+    color:#3e3a36;
 }
 
-.continue-btn {
-    background: transparent;
-    border: 1px solid #3e3a36;
-    color: #3e3a36;
+/* ===== PREMIUM PREVIEW ===== */
+
+.preview{
+    position:relative;
+    width:420px;
+    aspect-ratio:1/1;
+    padding:40px;
+    border-radius:28px;
+    background:
+    radial-gradient(circle at 50% 35%, rgba(255,255,255,0.9) 0%, rgba(251,246,239,0.9) 40%, rgba(241,232,221,1) 100%);
+    box-shadow:0 25px 50px rgba(0,0,0,0.08);
+    border:1px solid #efeae4;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
-.preview {
-    position: relative;
-    width: 450px;
-    aspect-ratio: 1 / 1;
-    background: #ffffff;
-    padding: 40px;
-    border-radius: 28px;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.08);
-    border: 1px solid #efeae4;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* studio floor shadow */
+.preview::after{
+    content:"";
+    position:absolute;
+    bottom:40px;
+    width:55%;
+    height:30px;
+    background:radial-gradient(ellipse at center, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.08) 40%, transparent 80%);
+    filter:blur(8px);
+    z-index:1;
 }
 
-.body-shape {
-    width: 70%;
-    height: 70%;
-    border-radius: 50%;
-    background: white;
+/* Teddy */
+
+#bearImage{
+    width:108%;
+    max-width:520px;
+    position:absolute;
+    display:none;
+    opacity:0;
+    transform:translateY(10px) scale(0.98);
+    transition:opacity 0.4s ease, transform 0.4s ease;
+    filter:drop-shadow(0 18px 28px rgba(0,0,0,0.12));
+    z-index:2;
 }
 
-.shape {
-    position: absolute;
-    width: 80px;
-    height: 80px;
-    display: none;
+#previewMessage{
+    text-align:center;
+    color:#b8b2ab;
+    font-size:15px;
 }
 
-.heart { top: 45%; left: 45%; border-radius: 50%; }
-
-.star {
-    top: 40%;
-    left: 45%;
-    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 
-    68% 57%, 79% 91%, 50% 70%, 
-    21% 91%, 32% 57%, 2% 35%, 
-    39% 35%);
+.shape{
+    position:absolute;
+    width:90px;
+    height:90px;
+    display:none;
+    z-index:3;
 }
 
-.bow { top: 35%; left: 35%; border-radius: 20px; }
+.heart{ top:48%; left:47%; border-radius:50%; }
 
-.toast {
-    position: fixed;
-    top: 25px;
-    right: 25px;
-    background: #3e3a36;
-    color: white;
-    padding: 14px 20px;
-    font-size: 13px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-15px);
-    transition: all 0.4s ease;
-    z-index: 9999;
+.star{
+    top:43%;
+    left:47%;
+    clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
 }
 
-.toast.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+.bow{ top:38%; left:42%; border-radius:20px; }
+
+.toast{
+    position:fixed;
+    top:25px;
+    right:25px;
+    background:#3e3a36;
+    color:white;
+    padding:14px 20px;
+    font-size:13px;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-15px);
+    transition:all 0.4s ease;
+    z-index:9999;
+}
+
+.toast.show{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
 }
 </style>
 </head>
@@ -217,6 +238,7 @@ button {
 <option>Light blue</option>
 <option>Dark blue</option>
 </select>
+
 <label>Accessory</label>
 <select id="accessory">
 <option value="">Select...</option>
@@ -241,214 +263,139 @@ Total: <span id="price">45</span> RON
 <button type="button" onclick="changeQty(1)">+</button>
 </div>
 
-<button class="add-btn" id="addBtn" onclick="addToCart()" disabled>
-Add to cart
-</button>
-
-<button class="checkout-btn" id="checkoutBtn" onclick="goToCheckout()">
-Go to checkout →
-</button>
-
-<button class="continue-btn" onclick="window.location.href='https://sites.google.com/view/maisondoucette/our-collection'">
-Continue shopping
-</button>
+<button class="add-btn" id="addBtn" disabled onclick="addToCart()">Add to cart</button>
+<button class="checkout-btn" id="checkoutBtn" onclick="goToCheckout()">Go to checkout →</button>
+<button class="continue-btn" onclick="window.location.href='https://sites.google.com/view/maisondoucette/our-collection'">Continue shopping</button>
 
 </div>
 
 <div class="preview">
-<img id="bearImage" src="Teddy_Bear_Colors/teddy-bear-cream.png" style="width:70%; position:absolute;">
-<img id="bearImage" src="Teddy_Bear_Colors/teddy-bear-brown.png" style="width:70%; position:absolute;">
-<img id="bearImage" src="Teddy_Bear_Colors/teddy-bear-light brown.png" style="width:70%; position:absolute;">
-<img id="bearImage" src="Teddy_Bear_Colors/teddy-bear-light pink.png" style="width:70%; position:absolute;">
-<img id="bearImage" src="Teddy_Bear_Colors/teddy-bear-light yellow.png" style="width:70%; position:absolute;">
-<img id="bearImage" src="Teddy_Bear_Colors/teddy-bear-light blue.png" style="width:70%; position:absolute;">
-<img id="bearImage" src="Teddy_Bear_Colors/teddy-bear-dark blue.png" style="width:70%; position:absolute;">
+<div id="previewMessage">Select options to see your teddy 🧸</div>
+<img id="bearImage">
 <div id="heartLayer" class="shape heart"></div>
 <div id="starLayer" class="shape star"></div>
 <div id="bowLayer" class="shape bow"></div>
 </div>
-<div id="toast" class="toast">
-Product added to cart successfully.
+
 </div>
 
+<div id="toast" class="toast">Product added to cart successfully.</div>
+
 <script>
+let basePrice=45;
+let quantity=1;
 
-let basePrice = 45;
-let quantity = 1;
+const material=document.getElementById("material");
+const size=document.getElementById("size");
+const bodyColor=document.getElementById("bodyColor");
+const accessory=document.getElementById("accessory");
+const priceEl=document.getElementById("price");
+const addBtn=document.getElementById("addBtn");
 
-let heartColor = "";
-let starColor = "";
-let bowColor = "";
+const imageMap={
+"Cream":"Teddy_Bear_Colors/teddy-bear-cream.png",
+"Brown":"Teddy_Bear_Colors/teddy-bear-brown.png",
+"Light brown":"Teddy_Bear_Colors/teddy-bear-light-brown.png",
+"Light pink":"Teddy_Bear_Colors/teddy-bear-light-pink.png",
+"Light yellow":"Teddy_Bear_Colors/teddy-bear-light-yellow.png",
+"Light blue":"Teddy_Bear_Colors/teddy-bear-light-blue.png",
+"Dark blue":"Teddy_Bear_Colors/teddy-bear-dark-blue.png"
+};
 
-const material = document.getElementById("material");
-const size = document.getElementById("size");
-const bodyColor = document.getElementById("bodyColor");
-const accessory = document.getElementById("accessory");
-const priceEl = document.getElementById("price");
-const addBtn = document.getElementById("addBtn");
-const toast = document.getElementById("toast");
+const colorMap={
+"Bright pink":"#ff4da6",
+"Light pink":"#ffc0cb",
+"Yellow":"#ffd84d",
+"Light blue":"#add8e6",
+"Dark blue":"#1e3a8a",
+"Red":"#c1121f",
+"Burgundy":"#800020"
+};
 
-bodyColor.addEventListener("change", function(){
-    if(!this.value) return;
-
-    const imageMap = {
-        "Cream": "images/teddy-bear-cream.png",
-        "Brown": "images/teddy-bear-brown.png",
-        "Light brown": "images/teddy-bear-light-brown.png",
-        "Light pink": "images/teddy-bear-light-pink.png",
-        "Light yellow": "images/teddy-bear-light-yellow.png",
-        "Light blue": "images/teddy-bear-light-blue.png",
-        "Dark blue": "images/teddy-bear-dark-blue.png"
-    };
-
-    document.getElementById("bearImage").src = imageMap[this.value];
-
-    validateForm();
+bodyColor.addEventListener("change",function(){
+if(!this.value)return;
+const img=document.getElementById("bearImage");
+document.getElementById("previewMessage").style.display="none";
+img.src=imageMap[this.value];
+img.style.display="block";
+setTimeout(()=>{
+img.style.opacity=1;
+img.style.transform="translateY(0) scale(1)";
+},50);
+validateForm();
 });
-size.addEventListener("change", function(){
-    updatePrice();
-    validateForm();
-});
 
-material.addEventListener("change", validateForm);
-
-accessory.addEventListener("change", function(){
-    updateAccessoryOptions();
-    updatePrice();
-    validateForm();
-});
+accessory.addEventListener("change",updateAccessoryOptions);
+size.addEventListener("change",()=>{updatePrice();validateForm();});
+material.addEventListener("change",validateForm);
 
 function updatePrice(){
-    let singlePrice = basePrice;
-    singlePrice += parseInt(size.value || 0);
-    singlePrice += parseInt(accessory.value || 0);
-    priceEl.innerText = singlePrice * quantity;
+let single=basePrice+parseInt(size.value||0)+parseInt(accessory.value||0);
+priceEl.innerText=single*quantity;
 }
 
-function changeQty(amount){
-    quantity += amount;
-    if(quantity < 1) quantity = 1;
-    if(quantity > 20) quantity = 20;
-    document.getElementById("quantity").innerText = quantity;
-    updatePrice();
+function changeQty(a){
+quantity+=a;
+if(quantity<1)quantity=1;
+if(quantity>20)quantity=20;
+document.getElementById("quantity").innerText=quantity;
+updatePrice();
 }
 
 function updateAccessoryOptions(){
+let container=document.getElementById("accessoryColors");
+container.innerHTML="";
+heartLayer.style.display="none";
+starLayer.style.display="none";
+bowLayer.style.display="none";
 
-    let selected = accessory.options[accessory.selectedIndex].text;
+let selected=accessory.options[accessory.selectedIndex].text;
+if(selected.includes("Nothing")||selected==="Select...")return;
 
-    document.getElementById("accessoryColors").innerHTML = "";
-    document.getElementById("heartLayer").style.display = "none";
-    document.getElementById("starLayer").style.display = "none";
-    document.getElementById("bowLayer").style.display = "none";
+let colors=`<option value="">Select colour...</option>
+<option>Bright pink</option>
+<option>Light pink</option>
+<option>Yellow</option>
+<option>Light blue</option>
+<option>Dark blue</option>
+<option>Red</option>
+<option>Burgundy</option>`;
 
-    heartColor = "";
-    starColor = "";
-    bowColor = "";
+if(selected.includes("Heart"))
+container.innerHTML+=`<label>Heart Colour</label><select onchange="changeAccessory('heart',this.value)">${colors}</select>`;
 
-    if(selected.includes("Nothing") || selected === "Select...") return;
+if(selected.includes("Star"))
+container.innerHTML+=`<label>Star Colour</label><select onchange="changeAccessory('star',this.value)">${colors}</select>`;
 
-    let colors = `
-    <option value="">Select colour...</option>
-    <option>Bright pink</option>
-    <option>Light pink</option>
-    <option>Yellow</option>
-    <option>Light blue</option>
-    <option>Dark blue</option>
-    <option>Red</option>
-    <option>Burgundy</option>
-    `;
-
-    if(selected.includes("Heart")){
-        document.getElementById("accessoryColors").innerHTML += `
-        <label>Heart Colour</label>
-        <select onchange="changeAccessory('heart',this.value)">
-        ${colors}
-        </select>`;
-    }
-
-    if(selected.includes("Star")){
-        document.getElementById("accessoryColors").innerHTML += `
-        <label>Star Colour</label>
-        <select onchange="changeAccessory('star',this.value)">
-        ${colors}
-        </select>`;
-    }
-
-    if(selected.includes("Bow")){
-        document.getElementById("accessoryColors").innerHTML += `
-        <label>Bow Colour</label>
-        <select onchange="changeAccessory('bow',this.value)">
-        ${colors}
-        </select>`;
-    }
+if(selected.includes("Bow"))
+container.innerHTML+=`<label>Bow Colour</label><select onchange="changeAccessory('bow',this.value)">${colors}</select>`;
 }
 
 function changeAccessory(type,color){
-    if(!color) return;
-
-    const el = document.getElementById(type+"Layer");
-    el.style.display = "block";
-    el.style.background = color.toLowerCase();
-
-    if(type === "heart") heartColor = color;
-    if(type === "star") starColor = color;
-    if(type === "bow") bowColor = color;
-
-    validateForm();
+if(!color)return;
+const el=document.getElementById(type+"Layer");
+el.style.display="block";
+el.style.background=colorMap[color];
+validateForm();
 }
 
 function validateForm(){
-    let valid = material.value &&
-    size.value !== "" &&
-    bodyColor.value &&
-    accessory.value !== "";
-
-    document.querySelectorAll("#accessoryColors select").forEach(select => {
-        if(!select.value) valid = false;
-    });
-
-    addBtn.disabled = !valid;
+let valid=material.value&&size.value!==""&&bodyColor.value&&accessory.value!=="";
+document.querySelectorAll("#accessoryColors select").forEach(s=>{
+if(!s.value)valid=false;
+});
+addBtn.disabled=!valid;
 }
 
 function addToCart(){
-
-    let singlePrice = basePrice;
-    singlePrice += parseInt(size.value || 0);
-    singlePrice += parseInt(accessory.value || 0);
-
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    cart.push({
-        name: "Teddy Bear",
-        material: material.value,
-        size: size.options[size.selectedIndex].text,
-        bodyColor: bodyColor.value,
-        accessory: accessory.options[accessory.selectedIndex].text,
-        heartColor: heartColor,
-        starColor: starColor,
-        bowColor: bowColor,
-        price: singlePrice,
-        quantity: quantity
-    });
-
-    localStorage.setItem("cart", JSON.stringify(cart));
-
-    toast.classList.remove("show");
-    void toast.offsetWidth;
-    toast.classList.add("show");
-
-    setTimeout(function(){
-        toast.classList.remove("show");
-    },5000);
-
-    document.getElementById("checkoutBtn").style.display = "block";
+document.getElementById("checkoutBtn").style.display="block";
+document.getElementById("toast").classList.add("show");
+setTimeout(()=>{document.getElementById("toast").classList.remove("show");},4000);
 }
 
 function goToCheckout(){
-    window.location.href = "checkout.html";
+window.location.href="checkout.html";
 }
-
 </script>
 
 </body>
