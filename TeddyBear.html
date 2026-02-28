@@ -120,6 +120,11 @@ button{
     border:1px solid #3e3a36;
     color:#3e3a36;
 }
+.continue-btn:hover{
+    background:#3e3a36;
+    color:white;
+    transition:all 0.3s ease;
+}
 
 /* ===== PREVIEW ===== */
 
@@ -402,7 +407,11 @@ img.style.transform="translateY(0) scale(1)";
 validateForm();
 });
 
-accessory.addEventListener("change",updateAccessoryOptions);
+accessory.addEventListener("change",function(){
+    updateAccessoryOptions();
+    updatePrice();
+    validateForm();
+});
 size.addEventListener("change",()=>{updatePrice();validateForm();});
 material.addEventListener("change",validateForm);
 
