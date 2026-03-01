@@ -2,444 +2,630 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Maison Doucette – Bunny</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-
-body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: #f6f2ed;
-    color: #3e3a36;
+body{
+    margin:0;
+    font-family:'Inter',sans-serif;
+    background:#f6f2ed;
+    color:#3e3a36;
 }
 
-header {
-    text-align: center;
-    padding: 40px 20px 10px;
+header{
+    text-align:center;
+    padding:40px 20px 20px;
 }
 
-h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 32px;
-    font-weight: 500;
-    margin: 0;
+h1{
+    font-family:'Playfair Display',serif;
+    font-size:32px;
+    font-weight:500;
+    margin:0;
 }
 
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 100px;
-    padding: 50px;
+/* ===== LAYOUT (DESKTOP) ===== */
+.container{
+    display:grid;
+    grid-template-columns: 360px minmax(360px, 560px);
+    grid-template-rows: auto auto;
+    gap:100px 120px;
+    padding:40px 80px 80px;
+    max-width:1300px;
+    margin:0 auto;
+    align-items:start;
+    justify-content:center;
+}
+.controls{
+    grid-column:1;
+    grid-row:1;
 }
 
-.controls { width: 320px; }
-
-label {
-    font-size: 13px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-    display: block;
+.checkout-area{
+    grid-column:1;
+    grid-row:2;
+    margin-top:6px;
 }
 
-select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 25px;
-    border: 1px solid #d8d2ca;
-    background: white;
-    font-family: 'Inter';
-    font-size: 14px;
+.preview{
+    grid-column:2;
+    grid-row:1 / span 2;
 }
 
-.price-box {
-    font-family: 'Playfair Display';
-    font-size: 24px;
-    margin-top: 20px;
+/* ===== FORM ===== */
+label{
+    font-size:12px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    margin-bottom:6px;
+    display:block;
 }
 
-.quantity-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 15px;
+select{
+    width:100%;
+    padding:12px;
+    margin-bottom:22px;
+    border:1px solid #d8d2ca;
+    background:white;
+    font-family:'Inter';
+    font-size:14px;
+    border-radius:8px;
 }
 
-.quantity-box button {
-    width: 38px;
-    height: 38px;
-    border: 1px solid #d8d2ca;
-    background: white;
-    font-size: 20px;
-    cursor: pointer;
+.price-box{
+    font-family:'Playfair Display';
+    font-size:26px;
+    margin-top:5px;
+    text-align:center;
 }
 
-.quantity-box span {
-    width: 38px;
-    text-align: center;
+.quantity-box{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    margin-top:10px;
 }
 
-button {
-    width: 100%;
-    padding: 13px;
-    margin-top: 15px;
-    border: none;
-    font-family: 'Inter';
-    font-size: 13px;
-    letter-spacing: 1px;
-    cursor: pointer;
+.quantity-box button{
+    width:44px;
+    height:44px;
+    border:1px solid #d8d2ca;
+    background:white;
+    font-size:20px;
+    cursor:pointer;
+    border-radius:10px;
 }
 
-.add-btn {
-    background: #3e3a36;
-    color: white;
+.quantity-box span{
+    min-width:34px;
+    text-align:center;
+    font-size:16px;
 }
 
-.add-btn:disabled {
-    background: #cfc8c0;
-    cursor: not-allowed;
+button{
+    width:100%;
+    padding:14px;
+    margin-top:14px;
+    border:none;
+    font-family:'Inter';
+    font-size:13px;
+    letter-spacing:1px;
+    cursor:pointer;
+    border-radius:10px;
+    transition:all 0.25s ease;
 }
 
-.checkout-btn {
-    display: none;
-    background: #3e3a36;
-    color: white;
+.add-btn{
+    background:#3e3a36;
+    color:white;
+}
+.add-btn:hover{ filter:brightness(0.95); }
+
+.add-btn:disabled{
+    background:#cfc8c0;
+    cursor:not-allowed;
+    filter:none;
 }
 
-.continue-btn {
-    background: transparent;
-    border: 1px solid #3e3a36;
-    color: #3e3a36;
+.checkout-btn{
+    display:none;
+    background:#3e3a36;
+    color:white;
+}
+.checkout-btn:hover{ filter:brightness(0.95); }
+
+.continue-btn{
+    background:transparent;
+    border:1px solid #3e3a36;
+    color:#3e3a36;
+}
+.continue-btn:hover{
+    background:#3e3a36;
+    color:white;
 }
 
-.preview {
-    position: relative;
-    width: 450px;
-    aspect-ratio: 1 / 1;
-    background: #ffffff;
-    padding: 40px;
-    border-radius: 28px;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.08);
-    border: 1px solid #efeae4;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* ===== PREVIEW ===== */
+.preview{
+    position:relative;
+    width:100%;
+    aspect-ratio:1/1;
+    padding:50px;
+    border-radius:28px;
+    background:
+    radial-gradient(circle at 50% 35%, rgba(255,255,255,0.92) 0%, rgba(252,247,240,0.92) 40%, rgba(241,232,221,1) 100%);
+    box-shadow:0 25px 50px rgba(0,0,0,0.08);
+    border:1px solid #efeae4;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
 }
 
-.body-shape {
-    width: 70%;
-    height: 70%;
-    border-radius: 50%;
-    background: white;
+/* studio floor shadow */
+.preview::after{
+    content:"";
+    position:absolute;
+    bottom:52px;
+    width:58%;
+    height:36px;
+    background:radial-gradient(ellipse at center, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.08) 40%, transparent 80%);
+    filter:blur(8px);
+    z-index:1;
 }
 
-.shape {
-    position: absolute;
-    width: 80px;
-    height: 80px;
-    display: none;
+#previewMessage{
+    text-align:center;
+    color:#b8b2ab;
+    font-size:15px;
+    padding:0 10px;
 }
 
-.heart { top: 45%; left: 45%; border-radius: 50%; }
-.star {
-    top: 40%;
-    left: 45%;
-    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 
-    68% 57%, 79% 91%, 50% 70%, 
-    21% 91%, 32% 57%, 2% 35%, 
-    39% 35%);
-}
-.bow { top: 35%; left: 35%; border-radius: 20px; }
-
-.toast {
-    position: fixed;
-    top: 25px;
-    right: 25px;
-    background: #3e3a36;
-    color: white;
-    padding: 14px 20px;
-    font-size: 13px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-15px);
-    transition: all 0.4s ease;
-    z-index: 9999;
+#bunnyImage{
+    width:140%;
+    max-width:800px;
+    position:absolute;
+    display:none;
+    opacity:0;
+    transform:translateY(10px) scale(0.98);
+    transition:opacity 0.35s ease, transform 0.35s ease;
+    filter:drop-shadow(0 18px 28px rgba(0,0,0,0.12));
+    z-index:2;
 }
 
-.toast.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+/* Accessory shapes */
+.shape{
+    position:absolute;
+    width:92px;
+    height:92px;
+    display:none;
+    z-index:3;
+    filter:drop-shadow(0 10px 18px rgba(0,0,0,0.10));
 }
 
+.heart{ top:48%; left:47%; border-radius:50%; }
+
+.star{
+    top:43%;
+    left:47%;
+    clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+}
+
+.bow{ top:38%; left:42%; border-radius:20px; }
+
+/* ===== TOAST ===== */
+.toast{
+    position:fixed;
+    top:25px;
+    right:25px;
+    background:#3e3a36;
+    color:white;
+    padding:14px 20px;
+    font-size:13px;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-15px);
+    transition:all 0.35s ease;
+    z-index:9999;
+}
+.toast.show{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+}
+
+/* ===== TABLET ===== */
+@media (max-width: 1100px){
+    .container{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        gap:42px;
+        padding:25px 20px 60px;
+    }
+    .controls, .checkout-area, .preview{
+        width:100%;
+        max-width:560px;
+    }
+    .preview{
+        padding:42px;
+    }
+}
+
+/* ===== PHONE: options -> preview -> checkout ===== */
+@media (max-width: 768px){
+    h1{ font-size:24px; }
+    .controls{ order:1; }
+    .preview{ order:2; margin-top:8px; padding:34px; }
+    .checkout-area{ order:3; }
+
+    button{ padding:16px; font-size:14px; }
+    .quantity-box button{ width:48px; height:48px; }
+    .price-box{ font-size:24px; margin-top:10px; }
+}
+
+@media (max-width: 420px){
+    .preview{ padding:22px; }
+    #bunnyImage{ width:118%; }
+}
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>🤍 Customize your Bunny 🤍</h1>
+    <h1>🤍 Customize your Bunny 🤍</h1>
 </header>
 
 <div class="container">
 
-<div class="controls">
+    <!-- OPTIONS -->
+    <div class="controls">
 
-<label>Material</label>
-<select id="material">
-<option value="">Select...</option>
-<option>Acrylic yarn</option>
-<option>Fluffy yarn</option>
-</select>
+        <label>Material</label>
+        <select id="material">
+            <option value="">Select...</option>
+            <option value="Acrylic yarn">Acrylic yarn</option>
+            <option value="Fluffy yarn">Fluffy yarn</option>
+        </select>
 
-<label>Size</label>
-<select id="size">
-<option value="">Select...</option>
-<option value="0">Small (+0RON)</option>
-<option value="15">Medium (+15RON)</option>
-<option value="25">Large (+25RON)</option>
-</select>
+        <label>Size</label>
+        <select id="size">
+            <option value="">Select...</option>
+            <option value="0">Small (+0RON)</option>
+            <option value="15">Medium (+15RON)</option>
+            <option value="25">Large (+25RON)</option>
+        </select>
 
-<label>Body Colour</label>
-<select id="bodyColor">
-<option value="">Select...</option>
-<option>Cream</option>
-<option>Brown</option>
-<option>Light brown</option>
-<option>Light pink</option>
-<option>Light yellow</option>
-<option>Light blue</option>
-<option>Dark blue</option>
-</select>
+        <label>Body Colour</label>
+        <select id="bodyColor">
+            <option value="">Select...</option>
+            <option value="Cream">Cream</option>
+            <option value="Brown">Brown</option>
+            <option value="Light brown">Light brown</option>
+            <option value="Light pink">Light pink</option>
+            <option value="Light yellow">Light yellow</option>
+            <option value="Light blue">Light blue</option>
+            <option value="Dark blue">Dark blue</option>
+        </select>
 
-<label>Accessory</label>
-<select id="accessory">
-<option value="">Select...</option>
-<option value="0">Nothing - 0RON</option>
-<option value="7">Heart - 7RON</option>
-<option value="3">Bow - 3RON</option>
-<option value="9">Heart + Bow - 9RON</option>
-<option value="8">Star - 8RON</option>
-<option value="10">Star + Bow - 10RON</option>
-</select>
+        <label>Accessory</label>
+        <select id="accessory">
+            <option value="">Select...</option>
+            <option value="0">Nothing - 0RON</option>
+            <option value="7">Heart - 7RON</option>
+            <option value="3">Bow - 3RON</option>
+            <option value="9">Heart + Bow - 9RON</option>
+            <option value="8">Star - 8RON</option>
+            <option value="10">Star + Bow - 10RON</option>
+        </select>
 
-<div id="accessoryColors"></div>
+        <div id="accessoryColors"></div>
+    </div>
 
-<div class="price-box">
-Total: <span id="price">45</span> RON
-</div>
+    <!-- PREVIEW -->
+    <div class="preview">
+        <div id="previewMessage">Select options to see your bunny 🐰</div>
+        <img id="bunnyImage" alt="Bunny preview">
+        <div id="heartLayer" class="shape heart"></div>
+        <div id="starLayer" class="shape star"></div>
+        <div id="bowLayer" class="shape bow"></div>
+    </div>
 
-<label>Quantity</label>
-<div class="quantity-box">
-<button type="button" onclick="changeQty(-1)">−</button>
-<span id="quantity">1</span>
-<button type="button" onclick="changeQty(1)">+</button>
-</div>
+    <!-- PRICE / QTY / BUTTONS -->
+    <div class="checkout-area">
 
-<button class="add-btn" id="addBtn" onclick="addToCart()" disabled>
-Add to cart
-</button>
+        <div class="price-box">
+            Total: <span id="price">45</span> RON
+        </div>
 
-<button class="checkout-btn" id="checkoutBtn" onclick="goToCheckout()">
-Go to checkout →
-</button>
+        <label>Quantity</label>
+        <div class="quantity-box">
+            <button type="button" onclick="changeQty(-1)">−</button>
+            <span id="quantity">1</span>
+            <button type="button" onclick="changeQty(1)">+</button>
+        </div>
 
-<button class="continue-btn" onclick="window.location.href='https://sites.google.com/view/maisondoucette/our-collection'">
-Continue shopping
-</button>
-
-</div>
-
-<div class="preview">
-<div id="bodyLayer" class="body-shape"></div>
-<div id="heartLayer" class="shape heart"></div>
-<div id="starLayer" class="shape star"></div>
-<div id="bowLayer" class="shape bow"></div>
-</div>
+        <button class="add-btn" id="addBtn" disabled onclick="addToCart()">Add to cart</button>
+        <button class="checkout-btn" id="checkoutBtn" onclick="goToCheckout()">Go to checkout →</button>
+        <button class="continue-btn" onclick="window.location.href='https://sites.google.com/view/maisondoucette/our-collection'">Continue shopping</button>
+    </div>
 
 </div>
 
-<div id="toast" class="toast">
-Product added to cart successfully.
-</div>
+<div id="toast" class="toast">Product added to cart successfully.</div>
 
 <script>
-
+/* ===== PRICES ===== */
 let basePrice = 45;
 let quantity = 1;
 
+/* ===== ACCESSORY COLOR STATE (saved into cart) ===== */
 let heartColor = "";
-let starColor = "";
-let bowColor = "";
+let starColor  = "";
+let bowColor   = "";
 
+/* ===== ELEMENTS ===== */
 const material = document.getElementById("material");
 const size = document.getElementById("size");
 const bodyColor = document.getElementById("bodyColor");
 const accessory = document.getElementById("accessory");
 const priceEl = document.getElementById("price");
+const qtyEl = document.getElementById("quantity");
 const addBtn = document.getElementById("addBtn");
-const toast = document.getElementById("toast");
 
-bodyColor.addEventListener("change", function(){
-    if(!this.value) return;
-    document.getElementById("bodyLayer").style.background = this.value.toLowerCase();
-    validateForm();
+const accessoryColorsWrap = document.getElementById("accessoryColors");
+const previewMessage = document.getElementById("previewMessage");
+const bunnyImage = document.getElementById("bunnyImage");
+
+const heartLayer = document.getElementById("heartLayer");
+const starLayer = document.getElementById("starLayer");
+const bowLayer = document.getElementById("bowLayer");
+
+/* ===== IMAGE MAP (IMPORTANT: path must match your repo folders) ===== */
+const imageMap = {
+  "Cream": "Bunny_Colors/bunny-cream.png",
+  "Brown": "Bunny_Colors/bunny-brown.png",
+  "Light brown": "Bunny_Colors/bunny-light-brown.png",
+  "Light pink": "Bunny_Colors/bunny-light-pink.png",
+  "Light yellow": "Bunny_Colors/bunny-light-yellow.png",
+  "Light blue": "Bunny_Colors/bunny-light-blue.png",
+  "Dark blue": "Bunny_Colors/bunny-dark-blue.png"
+};
+
+/* ===== ACCESSORY COLOR MAP (for preview shapes) ===== */
+const colorMap = {
+  "Bright pink":"#ff4da6",
+  "Light pink":"#ffc0cb",
+  "Yellow":"#ffd84d",
+  "Light blue":"#add8e6",
+  "Dark blue":"#1e3a8a",
+  "Red":"#c1121f",
+  "Burgundy":"#800020"
+};
+
+const colorOptionsHtml = `
+  <option value="">Select colour...</option>
+  <option value="Bright pink">Bright pink</option>
+  <option value="Light pink">Light pink</option>
+  <option value="Yellow">Yellow</option>
+  <option value="Light blue">Light blue</option>
+  <option value="Dark blue">Dark blue</option>
+  <option value="Red">Red</option>
+  <option value="Burgundy">Burgundy</option>
+`;
+
+/* ===== EVENTS ===== */
+material.addEventListener("change", () => { updatePrice(); validateForm(); });
+size.addEventListener("change", () => { updatePrice(); validateForm(); });
+
+bodyColor.addEventListener("change", () => {
+  updatePreview();
+  validateForm();
 });
 
-size.addEventListener("change", function(){
-    updatePrice();
-    validateForm();
+accessory.addEventListener("change", () => {
+  updateAccessoryOptions();
+  updatePrice();
+  validateForm();
 });
 
-material.addEventListener("change", validateForm);
+/* ===== PREVIEW ===== */
+function updatePreview(){
+  const selected = bodyColor.value;
 
-accessory.addEventListener("change", function(){
-    updateAccessoryOptions();
-    updatePrice();
-    validateForm();
-});
+  if(!selected){
+    bunnyImage.style.display = "none";
+    bunnyImage.style.opacity = 0;
+    previewMessage.style.display = "block";
+    return;
+  }
 
-function updatePrice(){
-    let singlePrice = basePrice;
-    singlePrice += parseInt(size.value || 0);
-    singlePrice += parseInt(accessory.value || 0);
-    priceEl.innerText = singlePrice * quantity;
+  const src = imageMap[selected] || "";
+  if(!src){
+    bunnyImage.style.display = "none";
+    bunnyImage.style.opacity = 0;
+    previewMessage.style.display = "block";
+    previewMessage.textContent = "Image missing for this colour 🤍";
+    return;
+  }
+
+  previewMessage.style.display = "none";
+
+  // reset animation
+  bunnyImage.style.opacity = 0;
+  bunnyImage.style.transform = "translateY(10px) scale(0.98)";
+  bunnyImage.style.display = "block";
+  bunnyImage.src = src;
+
+  // once image loads, animate in
+  bunnyImage.onload = () => {
+    requestAnimationFrame(() => {
+      bunnyImage.style.opacity = 1;
+      bunnyImage.style.transform = "translateY(0) scale(1)";
+    });
+  };
+
+  bunnyImage.onerror = () => {
+    bunnyImage.style.display = "none";
+    previewMessage.style.display = "block";
+    previewMessage.textContent = "Could not load image 🤍 (check file name/path)";
+  };
 }
 
-function changeQty(amount){
-    quantity += amount;
-    if(quantity < 1) quantity = 1;
-    if(quantity > 20) quantity = 20;
-    document.getElementById("quantity").innerText = quantity;
-    updatePrice();
-}
-
+/* ===== ACCESSORY UI + PREVIEW SHAPES ===== */
 function updateAccessoryOptions(){
+  accessoryColorsWrap.innerHTML = "";
 
-    let selected = accessory.options[accessory.selectedIndex].text;
+  // hide all shapes + reset stored colors
+  heartLayer.style.display = "none";
+  starLayer.style.display = "none";
+  bowLayer.style.display = "none";
+  heartColor = "";
+  starColor = "";
+  bowColor = "";
 
-    document.getElementById("accessoryColors").innerHTML = "";
-    document.getElementById("heartLayer").style.display = "none";
-    document.getElementById("starLayer").style.display = "none";
-    document.getElementById("bowLayer").style.display = "none";
+  const selectedText = accessory.options[accessory.selectedIndex]?.text || "";
+  if(!selectedText || selectedText.includes("Select...") || selectedText.includes("Nothing")) return;
 
-    heartColor = "";
-    starColor = "";
-    bowColor = "";
-
-    if(selected.includes("Nothing") || selected === "Select...") return;
-
-    let colors = `
-    <option value="">Select colour...</option>
-    <option>Bright pink</option>
-    <option>Light pink</option>
-    <option>Yellow</option>
-    <option>Light blue</option>
-    <option>Dark blue</option>
-    <option>Red</option>
-    <option>Burgundy</option>
+  if(selectedText.includes("Heart")){
+    accessoryColorsWrap.innerHTML += `
+      <label>Heart Colour</label>
+      <select id="heartSelect">${colorOptionsHtml}</select>
     `;
+    document.getElementById("heartSelect").addEventListener("change", (e) => {
+      changeAccessory("heart", e.target.value);
+    });
+  }
 
-    if(selected.includes("Heart")){
-        document.getElementById("accessoryColors").innerHTML += `
-        <label>Heart Colour</label>
-        <select onchange="changeAccessory('heart',this.value)">
-        ${colors}
-        </select>`;
-    }
+  if(selectedText.includes("Star")){
+    accessoryColorsWrap.innerHTML += `
+      <label>Star Colour</label>
+      <select id="starSelect">${colorOptionsHtml}</select>
+    `;
+    document.getElementById("starSelect").addEventListener("change", (e) => {
+      changeAccessory("star", e.target.value);
+    });
+  }
 
-    if(selected.includes("Star")){
-        document.getElementById("accessoryColors").innerHTML += `
-        <label>Star Colour</label>
-        <select onchange="changeAccessory('star',this.value)">
-        ${colors}
-        </select>`;
-    }
-
-    if(selected.includes("Bow")){
-        document.getElementById("accessoryColors").innerHTML += `
-        <label>Bow Colour</label>
-        <select onchange="changeAccessory('bow',this.value)">
-        ${colors}
-        </select>`;
-    }
+  if(selectedText.includes("Bow")){
+    accessoryColorsWrap.innerHTML += `
+      <label>Bow Colour</label>
+      <select id="bowSelect">${colorOptionsHtml}</select>
+    `;
+    document.getElementById("bowSelect").addEventListener("change", (e) => {
+      changeAccessory("bow", e.target.value);
+    });
+  }
 }
 
-function changeAccessory(type,color){
-    if(!color) return;
+function changeAccessory(type, colorKey){
+  if(!colorKey) return;
 
-    const el = document.getElementById(type+"Layer");
-    el.style.display = "block";
-    el.style.background = color.toLowerCase();
+  const hex = colorMap[colorKey] || "#000";
+  if(type === "heart"){
+    heartLayer.style.background = hex;
+    heartLayer.style.display = "block";
+    heartColor = colorKey;
+  }
+  if(type === "star"){
+    starLayer.style.background = hex;
+    starLayer.style.display = "block";
+    starColor = colorKey;
+  }
+  if(type === "bow"){
+    bowLayer.style.background = hex;
+    bowLayer.style.display = "block";
+    bowColor = colorKey;
+  }
 
-    if(type === "heart") heartColor = color;
-    if(type === "star") starColor = color;
-    if(type === "bow") bowColor = color;
-
-    validateForm();
+  validateForm();
 }
 
+/* ===== PRICE ===== */
+function updatePrice(){
+  const sizeAdd = parseInt(size.value || "0", 10);
+  const accessoryAdd = parseInt(accessory.value || "0", 10);
+  const unitPrice = basePrice + sizeAdd + accessoryAdd;
+
+  priceEl.textContent = String(unitPrice * quantity);
+}
+
+function changeQty(delta){
+  quantity += delta;
+  if(quantity < 1) quantity = 1;
+  if(quantity > 20) quantity = 20;
+
+  qtyEl.textContent = String(quantity);
+  updatePrice();
+}
+
+/* ===== VALIDATION ===== */
 function validateForm(){
-    let valid = material.value &&
+  let valid =
+    material.value &&
     size.value !== "" &&
     bodyColor.value &&
     accessory.value !== "";
 
-    document.querySelectorAll("#accessoryColors select").forEach(select => {
-        if(!select.value) valid = false;
-    });
+  // if accessory needs colors, require selects to be chosen
+  const selects = accessoryColorsWrap.querySelectorAll("select");
+  selects.forEach(s => {
+    if(!s.value) valid = false;
+  });
 
-    addBtn.disabled = !valid;
+  addBtn.disabled = !valid;
 }
 
+/* ===== CART SAVE (localStorage) ===== */
 function addToCart(){
+  // unit price (NOT multiplied)
+  const unitPrice = basePrice
+    + parseInt(size.value || "0", 10)
+    + parseInt(accessory.value || "0", 10);
 
-    let singlePrice = basePrice;
-    singlePrice += parseInt(size.value || 0);
-    singlePrice += parseInt(accessory.value || 0);
+  const item = {
+    name: "Bunny",
+    material: material.value,
+    size: size.options[size.selectedIndex].text,
+    bodyColor: bodyColor.value,
+    accessory: accessory.options[accessory.selectedIndex].text,
 
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    // accessory colors (saved!)
+    heartColor: heartColor,
+    starColor: starColor,
+    bowColor: bowColor,
 
-    cart.push({
-        name: "Bunny",
-        material: material.value,
-        size: size.options[size.selectedIndex].text,
-        bodyColor: bodyColor.value,
-        accessory: accessory.options[accessory.selectedIndex].text,
-        heartColor: heartColor,
-        starColor: starColor,
-        bowColor: bowColor,
-        price: singlePrice,
-        quantity: quantity
-    });
+    // image (optional, useful in checkout)
+    image: bunnyImage && bunnyImage.src ? bunnyImage.src : "",
 
-    localStorage.setItem("cart", JSON.stringify(cart));
+    price: unitPrice,
+    quantity: quantity
+  };
 
-    toast.classList.remove("show");
-    void toast.offsetWidth;
-    toast.classList.add("show");
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart.push(item);
+  localStorage.setItem("cart", JSON.stringify(cart));
 
-    setTimeout(function(){
-        toast.classList.remove("show");
-    },5000);
+  document.getElementById("checkoutBtn").style.display = "block";
 
-    document.getElementById("checkoutBtn").style.display = "block";
+  const toast = document.getElementById("toast");
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 4000);
 }
 
 function goToCheckout(){
-    window.location.href = "checkout.html";
+  window.location.href = "checkout.html";
 }
 
+/* initial */
+updatePrice();
 </script>
 
 </body>
 </html>
-</body>
-</html>
-
