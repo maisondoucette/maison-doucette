@@ -39,21 +39,9 @@ h1{
     align-items:start;
     justify-content:center;
 }
-.controls{
-    grid-column:1;
-    grid-row:1;
-}
-
-.checkout-area{
-    grid-column:1;
-    grid-row:2;
-    margin-top:6px;
-}
-
-.preview{
-    grid-column:2;
-    grid-row:1 / span 2;
-}
+.controls{ grid-column:1; grid-row:1; }
+.checkout-area{ grid-column:1; grid-row:2; margin-top:6px; }
+.preview{ grid-column:2; grid-row:1 / span 2; }
 
 /* ===== FORM ===== */
 label{
@@ -148,6 +136,18 @@ button{
     color:white;
 }
 
+/* small helper under selects */
+.hint{
+    margin-top:-14px;
+    margin-bottom:18px;
+    font-size:12px;
+    color:#a39d95;
+    line-height:1.35;
+}
+.hint.error{
+    color:#b34a4a;
+}
+
 /* ===== PREVIEW ===== */
 .preview{
     position:relative;
@@ -182,11 +182,12 @@ button{
     color:#b8b2ab;
     font-size:15px;
     padding:0 10px;
+    z-index:2;
 }
 
 #bunnyImage{
-    width:140%;
-    max-width:800px;
+    width:180%;
+    max-width:1000px;
     position:absolute;
     display:none;
     opacity:0;
@@ -196,25 +197,37 @@ button{
     z-index:2;
 }
 
-/* Accessory shapes */
-.shape{
+/* Accessory overlay images */
+.accessory-img{
     position:absolute;
-    width:92px;
-    height:92px;
     display:none;
     z-index:3;
+    width:250px;
+    max-width:50%;
     filter:drop-shadow(0 10px 18px rgba(0,0,0,0.10));
+    pointer-events:none;
 }
 
-.heart{ top:48%; left:47%; border-radius:50%; }
-
-.star{
-    top:43%;
-    left:47%;
-    clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+/* Heart + Star centered in arms */
+#heartImg{
+    top:64%;
+    left:50%;
+    width:350px;
+    transform:translate(-50%,-50%);
+}
+#starImg{
+    top:64%;
+    left:50%;
+    width:350px;
+    transform:translate(-50%,-50%);
 }
 
-.bow{ top:38%; left:42%; border-radius:20px; }
+/* Bow to right ear, tilted right */
+#bowImg{
+    top:34%;
+    left:64%;
+    transform:translate(-50%,-50%) rotate(29deg);
+}
 
 /* ===== TOAST ===== */
 .toast{
@@ -252,9 +265,8 @@ button{
         width:100%;
         max-width:560px;
     }
-    .preview{
-        padding:42px;
-    }
+    .preview{ padding:42px; }
+    .accessory-img{ width:170px; max-width:48%; }
 }
 
 /* ===== PHONE: options -> preview -> checkout ===== */
@@ -267,11 +279,14 @@ button{
     button{ padding:16px; font-size:14px; }
     .quantity-box button{ width:48px; height:48px; }
     .price-box{ font-size:24px; margin-top:10px; }
+
+    .accessory-img{ width:155px; max-width:56%; }
 }
 
 @media (max-width: 420px){
     .preview{ padding:22px; }
     #bunnyImage{ width:118%; }
+    .accessory-img{ width:145px; max-width:60%; }
 }
 </style>
 </head>
@@ -330,11 +345,14 @@ button{
 
     <!-- PREVIEW -->
     <div class="preview">
-        <div id="previewMessage">Select options to see your bunny 🐰</div>
+        <div id="previewMessage">Select options to see your Bunny 🐰</div>
+
         <img id="bunnyImage" alt="Bunny preview">
-        <div id="heartLayer" class="shape heart"></div>
-        <div id="starLayer" class="shape star"></div>
-        <div id="bowLayer" class="shape bow"></div>
+
+        <!-- accessory overlay images -->
+        <img id="heartImg" class="accessory-img" alt="Heart accessory">
+        <img id="starImg" class="accessory-img" alt="Star accessory">
+        <img id="bowImg" class="accessory-img" alt="Bow accessory">
     </div>
 
     <!-- PRICE / QTY / BUTTONS -->
@@ -346,14 +364,17 @@ button{
 
         <label>Quantity</label>
         <div class="quantity-box">
-            <button type="button" onclick="changeQty(-1)">−</button>
+            <button type="button" id="minusBtn">−</button>
             <span id="quantity">1</span>
-            <button type="button" onclick="changeQty(1)">+</button>
+            <button type="button" id="plusBtn">+</button>
         </div>
 
-        <button class="add-btn" id="addBtn" disabled onclick="addToCart()">Add to cart</button>
-        <button class="checkout-btn" id="checkoutBtn" onclick="goToCheckout()">Go to checkout →</button>
-        <button class="continue-btn" onclick="window.location.href='https://sites.google.com/view/maisondoucette/our-collection'">Continue shopping</button>
+        <button class="add-btn" id="addBtn" disabled type="button">Add to cart</button>
+        <button class="checkout-btn" id="checkoutBtn" type="button">Go to checkout →</button>
+        <button class="continue-btn" type="button"
+            onclick="window.location.href='https://sites.google.com/view/maisondoucette/our-collection'">
+            Continue shopping
+        </button>
     </div>
 
 </div>
@@ -383,11 +404,16 @@ const accessoryColorsWrap = document.getElementById("accessoryColors");
 const previewMessage = document.getElementById("previewMessage");
 const bunnyImage = document.getElementById("bunnyImage");
 
-const heartLayer = document.getElementById("heartLayer");
-const starLayer = document.getElementById("starLayer");
-const bowLayer = document.getElementById("bowLayer");
+const heartImg = document.getElementById("heartImg");
+const starImg  = document.getElementById("starImg");
+const bowImg   = document.getElementById("bowImg");
 
-/* ===== IMAGE MAP (IMPORTANT: path must match your repo folders) ===== */
+document.getElementById("minusBtn").addEventListener("click", () => changeQty(-1));
+document.getElementById("plusBtn").addEventListener("click", () => changeQty(1));
+document.getElementById("checkoutBtn").addEventListener("click", goToCheckout);
+addBtn.addEventListener("click", addToCart);
+
+/* ===== IMAGE MAP (body images) ===== */
 const imageMap = {
   "Cream": "Bunny_Colors/bunny-cream.png",
   "Brown": "Bunny_Colors/bunny-brown.png",
@@ -398,17 +424,7 @@ const imageMap = {
   "Dark blue": "Bunny_Colors/bunny-dark-blue.png"
 };
 
-/* ===== ACCESSORY COLOR MAP (for preview shapes) ===== */
-const colorMap = {
-  "Bright pink":"#ff4da6",
-  "Light pink":"#ffc0cb",
-  "Yellow":"#ffd84d",
-  "Light blue":"#add8e6",
-  "Dark blue":"#1e3a8a",
-  "Red":"#c1121f",
-  "Burgundy":"#800020"
-};
-
+/* ===== ACCESSORY COLORS (dropdown) ===== */
 const colorOptionsHtml = `
   <option value="">Select colour...</option>
   <option value="Bright pink">Bright pink</option>
@@ -420,6 +436,90 @@ const colorOptionsHtml = `
   <option value="Burgundy">Burgundy</option>
 `;
 
+/* ===== helpers ===== */
+function normalizeColorLabel(v){
+  return String(v || "").trim();
+}
+
+function slugVariants(colorLabel){
+  const c = normalizeColorLabel(colorLabel);
+  const v1 = c.toLowerCase().replace(/\s+/g, "-"); // light-blue
+  const v2 = c.toLowerCase();                      // light blue
+  const v3 = c.toLowerCase().replace(/\s+/g, "_"); // light_blue
+  return Array.from(new Set([v1, v2, v3]));
+}
+
+function accessoryCandidates(type, colorLabel){
+  const variants = slugVariants(colorLabel);
+  const folders = ["Accessories", "accessories"];
+  const exts = ["png", "PNG"];
+
+  const candidates = [];
+  folders.forEach(folder => {
+    variants.forEach(v => {
+      exts.forEach(ext => {
+        candidates.push(`${folder}/${type}-${v}.${ext}`);
+      });
+    });
+  });
+
+  return candidates;
+}
+
+function trySetImage(imgEl, candidates){
+  return new Promise((resolve) => {
+    let i = 0;
+    imgEl.style.display = "none";
+    imgEl.removeAttribute("src");
+
+    const probe = new Image();
+    const attempt = () => {
+      if(i >= candidates.length){
+        resolve({ ok:false, used:"" });
+        return;
+      }
+      const src = candidates[i++];
+      probe.onload = () => {
+        imgEl.src = src;
+        imgEl.style.display = "block";
+        resolve({ ok:true, used:src });
+      };
+      probe.onerror = attempt;
+      probe.src = src;
+    };
+    attempt();
+  });
+}
+
+function showHint(id, ok, example){
+  const el = document.getElementById(id);
+  if(!el) return;
+
+  if(ok){
+    el.textContent = "";
+    el.classList.remove("error");
+  }else{
+    el.textContent = `Could not find image like: ${example}`;
+    el.classList.add("error");
+  }
+}
+
+function getActiveFromSelectedText(){
+  const selectedText = accessory.options[accessory.selectedIndex]?.text || "";
+  return {
+    heart: selectedText.includes("Heart"),
+    star:  selectedText.includes("Star"),
+    bow:   selectedText.includes("Bow"),
+    nothing: selectedText.includes("Nothing") || selectedText.includes("Select...")
+  };
+}
+
+function hideInactiveAccessories(active){
+  if(!active.heart){ heartImg.style.display="none"; heartImg.removeAttribute("src"); }
+  if(!active.star){  starImg.style.display="none";  starImg.removeAttribute("src"); }
+  if(!active.bow){   bowImg.style.display="none";   bowImg.removeAttribute("src"); }
+}
+
 /* ===== EVENTS ===== */
 material.addEventListener("change", () => { updatePrice(); validateForm(); });
 size.addEventListener("change", () => { updatePrice(); validateForm(); });
@@ -430,12 +530,12 @@ bodyColor.addEventListener("change", () => {
 });
 
 accessory.addEventListener("change", () => {
-  updateAccessoryOptions();
+  updateAccessoryOptions();   // rebuild selects for combo
   updatePrice();
   validateForm();
 });
 
-/* ===== PREVIEW ===== */
+/* ===== PREVIEW (body) ===== */
 function updatePreview(){
   const selected = bodyColor.value;
 
@@ -443,6 +543,7 @@ function updatePreview(){
     bunnyImage.style.display = "none";
     bunnyImage.style.opacity = 0;
     previewMessage.style.display = "block";
+    previewMessage.textContent = "Select options to see your Bunny 🐰";
     return;
   }
 
@@ -457,13 +558,11 @@ function updatePreview(){
 
   previewMessage.style.display = "none";
 
-  // reset animation
   bunnyImage.style.opacity = 0;
   bunnyImage.style.transform = "translateY(10px) scale(0.98)";
   bunnyImage.style.display = "block";
   bunnyImage.src = src;
 
-  // once image loads, animate in
   bunnyImage.onload = () => {
     requestAnimationFrame(() => {
       bunnyImage.style.opacity = 1;
@@ -478,82 +577,136 @@ function updatePreview(){
   };
 }
 
-/* ===== ACCESSORY UI + PREVIEW SHAPES ===== */
+/* ===== IMPORTANT FIX: always read colors from UI, then render all active ===== */
+function syncColorsFromUI(){
+  const heartSel = document.getElementById("heartSelect");
+  const starSel  = document.getElementById("starSelect");
+  const bowSel   = document.getElementById("bowSelect");
+
+  if(heartSel) heartColor = normalizeColorLabel(heartSel.value);
+  if(starSel)  starColor  = normalizeColorLabel(starSel.value);
+  if(bowSel)   bowColor   = normalizeColorLabel(bowSel.value);
+}
+
+async function renderAccessory(type, colorLabel){
+  const mapEl = { heart: heartImg, star: starImg, bow: bowImg };
+  const imgEl = mapEl[type];
+  if(!imgEl) return;
+
+  if(!colorLabel){
+    imgEl.style.display="none";
+    imgEl.removeAttribute("src");
+    return;
+  }
+
+  const candidates = accessoryCandidates(type, colorLabel);
+  const result = await trySetImage(imgEl, candidates);
+
+  const example = candidates[0] || "";
+  if(type === "heart") showHint("heartHint", result.ok, example);
+  if(type === "star")  showHint("starHint",  result.ok, example);
+  if(type === "bow")   showHint("bowHint",   result.ok, example);
+}
+
+async function renderAccessories(){
+  const active = getActiveFromSelectedText();
+  syncColorsFromUI();
+  hideInactiveAccessories(active);
+
+  // Render each active accessory INDEPENDENT (so combo shows both)
+  if(active.heart) await renderAccessory("heart", heartColor);
+  if(active.star)  await renderAccessory("star",  starColor);
+  if(active.bow)   await renderAccessory("bow",   bowColor);
+}
+
+/* ===== ACCESSORY UI ===== */
 function updateAccessoryOptions(){
+  const active = getActiveFromSelectedText();
+
   accessoryColorsWrap.innerHTML = "";
 
-  // hide all shapes + reset stored colors
-  heartLayer.style.display = "none";
-  starLayer.style.display = "none";
-  bowLayer.style.display = "none";
-  heartColor = "";
-  starColor = "";
-  bowColor = "";
+  // If not active anymore, clear stored values
+  if(!active.heart) heartColor = "";
+  if(!active.star)  starColor  = "";
+  if(!active.bow)   bowColor   = "";
 
-  const selectedText = accessory.options[accessory.selectedIndex]?.text || "";
-  if(!selectedText || selectedText.includes("Select...") || selectedText.includes("Nothing")) return;
+  // If nothing selected -> hide all accessory images
+  if(active.nothing){
+    heartImg.style.display="none"; heartImg.removeAttribute("src");
+    starImg.style.display="none";  starImg.removeAttribute("src");
+    bowImg.style.display="none";   bowImg.removeAttribute("src");
+    return;
+  }
 
-  if(selectedText.includes("Heart")){
+  if(active.heart){
     accessoryColorsWrap.innerHTML += `
       <label>Heart Colour</label>
       <select id="heartSelect">${colorOptionsHtml}</select>
+      <div class="hint" id="heartHint"></div>
     `;
-    document.getElementById("heartSelect").addEventListener("change", (e) => {
-      changeAccessory("heart", e.target.value);
-    });
   }
 
-  if(selectedText.includes("Star")){
+  if(active.star){
     accessoryColorsWrap.innerHTML += `
       <label>Star Colour</label>
       <select id="starSelect">${colorOptionsHtml}</select>
+      <div class="hint" id="starHint"></div>
     `;
-    document.getElementById("starSelect").addEventListener("change", (e) => {
-      changeAccessory("star", e.target.value);
-    });
   }
 
-  if(selectedText.includes("Bow")){
+  if(active.bow){
     accessoryColorsWrap.innerHTML += `
       <label>Bow Colour</label>
       <select id="bowSelect">${colorOptionsHtml}</select>
+      <div class="hint" id="bowHint"></div>
     `;
-    document.getElementById("bowSelect").addEventListener("change", (e) => {
-      changeAccessory("bow", e.target.value);
+  }
+
+  // Restore previous selections if exist (so switching keeps values)
+  const heartSel = document.getElementById("heartSelect");
+  const starSel  = document.getElementById("starSelect");
+  const bowSel   = document.getElementById("bowSelect");
+
+  if(heartSel) heartSel.value = heartColor || "";
+  if(starSel)  starSel.value  = starColor  || "";
+  if(bowSel)   bowSel.value   = bowColor   || "";
+
+  // On any change -> re-render ALL active accessories
+  if(heartSel){
+    heartSel.addEventListener("change", async () => {
+      syncColorsFromUI();
+      await renderAccessories();
+      validateForm();
     });
   }
-}
-
-function changeAccessory(type, colorKey){
-  if(!colorKey) return;
-
-  const hex = colorMap[colorKey] || "#000";
-  if(type === "heart"){
-    heartLayer.style.background = hex;
-    heartLayer.style.display = "block";
-    heartColor = colorKey;
+  if(starSel){
+    starSel.addEventListener("change", async () => {
+      syncColorsFromUI();
+      await renderAccessories();
+      validateForm();
+    });
   }
-  if(type === "star"){
-    starLayer.style.background = hex;
-    starLayer.style.display = "block";
-    starColor = colorKey;
-  }
-  if(type === "bow"){
-    bowLayer.style.background = hex;
-    bowLayer.style.display = "block";
-    bowColor = colorKey;
+  if(bowSel){
+    bowSel.addEventListener("change", async () => {
+      syncColorsFromUI();
+      await renderAccessories();
+      validateForm();
+    });
   }
 
-  validateForm();
+  // Render whatever can be rendered now
+  renderAccessories();
 }
 
 /* ===== PRICE ===== */
-function updatePrice(){
+function getUnitPrice(){
   const sizeAdd = parseInt(size.value || "0", 10);
   const accessoryAdd = parseInt(accessory.value || "0", 10);
-  const unitPrice = basePrice + sizeAdd + accessoryAdd;
+  return basePrice + sizeAdd + accessoryAdd;
+}
 
-  priceEl.textContent = String(unitPrice * quantity);
+function updatePrice(){
+  priceEl.textContent = String(getUnitPrice() * quantity);
 }
 
 function changeQty(delta){
@@ -567,27 +720,29 @@ function changeQty(delta){
 
 /* ===== VALIDATION ===== */
 function validateForm(){
+  const active = getActiveFromSelectedText();
+  syncColorsFromUI();
+
   let valid =
     material.value &&
     size.value !== "" &&
     bodyColor.value &&
     accessory.value !== "";
 
-  // if accessory needs colors, require selects to be chosen
-  const selects = accessoryColorsWrap.querySelectorAll("select");
-  selects.forEach(s => {
-    if(!s.value) valid = false;
-  });
+  // Require colors only for active accessories
+  const heartOk = !active.heart || !!heartColor;
+  const starOk  = !active.star  || !!starColor;
+  const bowOk   = !active.bow   || !!bowColor;
+
+  if(!heartOk || !starOk || !bowOk) valid = false;
 
   addBtn.disabled = !valid;
 }
 
 /* ===== CART SAVE (localStorage) ===== */
 function addToCart(){
-  // unit price (NOT multiplied)
-  const unitPrice = basePrice
-    + parseInt(size.value || "0", 10)
-    + parseInt(accessory.value || "0", 10);
+  // Make sure latest UI is stored
+  syncColorsFromUI();
 
   const item = {
     name: "Bunny",
@@ -596,15 +751,13 @@ function addToCart(){
     bodyColor: bodyColor.value,
     accessory: accessory.options[accessory.selectedIndex].text,
 
-    // accessory colors (saved!)
     heartColor: heartColor,
     starColor: starColor,
     bowColor: bowColor,
 
-    // image (optional, useful in checkout)
     image: bunnyImage && bunnyImage.src ? bunnyImage.src : "",
 
-    price: unitPrice,
+    price: getUnitPrice(),   // unit price
     quantity: quantity
   };
 
@@ -623,8 +776,11 @@ function goToCheckout(){
   window.location.href = "checkout.html";
 }
 
-/* initial */
+/* ===== INITIAL ===== */
 updatePrice();
+updatePreview();
+updateAccessoryOptions();
+validateForm();
 </script>
 
 </body>
