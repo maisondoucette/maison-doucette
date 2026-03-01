@@ -44,6 +44,10 @@ h1{
     flex-shrink:0;
 }
 
+.checkout-area{
+    margin-top:10px;
+}
+
 label{
     font-size:12px;
     letter-spacing:1.5px;
@@ -182,13 +186,11 @@ button{
 }
 
 .heart{ top:48%; left:47%; border-radius:50%; }
-
 .star{
     top:43%;
     left:47%;
     clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
 }
-
 .bow{ top:38%; left:42%; border-radius:20px; }
 
 /* ===== TOAST ===== */
@@ -209,20 +211,15 @@ button{
     transition:all 0.4s ease;
     z-index:9999;
 }
-
 .toast.show{
     opacity:1;
     visibility:visible;
     transform:translateY(0);
 }
 
-/* ========================= */
-/* ===== RESPONSIVE ===== */
-/* ========================= */
+/* ===== TABLET ===== */
 
-/* Tablet */
-
-@media (max-width: 1100px){
+@media (max-width:1100px){
 .container{
     flex-direction:column;
     align-items:center;
@@ -237,26 +234,32 @@ button{
 }
 }
 
-/* Phone */
+/* ===== PHONE ===== */
 
-@media (max-width: 768px){
+@media (max-width:768px){
 
-h1{
-    font-size:24px;
-}
+h1{ font-size:24px; }
 
 .container{
     flex-direction:column;
 }
 
 .controls{
+    display:flex;
+    flex-direction:column;
     width:100%;
 }
 
 .preview{
+    order:2;
     width:100%;
     margin-top:30px;
 }
+
+.checkout-area{
+    order:3;
+}
+
 button{
     padding:16px;
     font-size:14px;
@@ -271,20 +274,11 @@ button{
     text-align:center;
     margin-top:25px;
 }
-
-.add-btn,
-.checkout-btn,
-.continue-btn{
-    margin-top:18px;
-}
 }
 
 /* Small phones */
-
-@media (max-width: 420px){
-.preview{
-    padding:20px;
-}
+@media (max-width:420px){
+.preview{ padding:20px; }
 }
 </style>
 </head>
@@ -339,6 +333,7 @@ button{
 
 <div id="accessoryColors"></div>
 
+<div class="checkout-area">
 <div class="price-box">
 Total: <span id="price">45</span> RON
 </div>
@@ -353,6 +348,7 @@ Total: <span id="price">45</span> RON
 <button class="add-btn" id="addBtn" disabled onclick="addToCart()">Add to cart</button>
 <button class="checkout-btn" id="checkoutBtn" onclick="goToCheckout()">Go to checkout →</button>
 <button class="continue-btn" onclick="window.location.href='https://sites.google.com/view/maisondoucette/our-collection'">Continue shopping</button>
+</div>
 
 </div>
 
@@ -413,10 +409,11 @@ validateForm();
 });
 
 accessory.addEventListener("change",function(){
-    updateAccessoryOptions();
-    updatePrice();
-    validateForm();
+updateAccessoryOptions();
+updatePrice();
+validateForm();
 });
+
 size.addEventListener("change",()=>{updatePrice();validateForm();});
 material.addEventListener("change",validateForm);
 
@@ -479,9 +476,26 @@ addBtn.disabled=!valid;
 }
 
 function addToCart(){
+const selectedOptions={
+product:"Teddy Bear",
+material:material.value,
+size:size.options[size.selectedIndex].text,
+bodyColor:bodyColor.value,
+accessory:accessory.options[accessory.selectedIndex].text,
+quantity:quantity,
+price:parseInt(priceEl.textContent)
+};
+
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+cart.push(selectedOptions);
+localStorage.setItem("cart",JSON.stringify(cart));
+
 document.getElementById("checkoutBtn").style.display="block";
 document.getElementById("toast").classList.add("show");
-setTimeout(()=>{document.getElementById("toast").classList.remove("show");},4000);
+
+setTimeout(()=>{
+document.getElementById("toast").classList.remove("show");
+},4000);
 }
 
 function goToCheckout(){
