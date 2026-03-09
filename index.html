@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maison Doucette</title>
+  <meta name="description" content="Maison Doucette — handmade crochet creations made with love." />
+
+  <style>
+    :root {
+      --bg: #f8f3ef;
+      --bg-2: #f4ece6;
+      --card: rgba(255, 250, 246, 0.86);
+      --white: #fffaf7;
+      --text: #5b473f;
+      --muted: #8a6f64;
+      --accent: #d5b2a5;
+      --accent-deep: #bc9182;
+      --line: rgba(188, 145, 130, 0.22);
+      --shadow: 0 18px 45px rgba(100, 74, 63, 0.12);
+      --shadow-strong: 0 24px 55px rgba(100, 74, 63, 0.18);
+      --radius-xl: 34px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --container: 1240px;
+      --nav-h: 88px;
+      --ease: cubic-bezier(.22,.61,.36,1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.8), transparent 28%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+      overflow-x: hidden;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+.sparkle-layer{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.9;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(255,255,255,0.20) 0 0, rgba(255,255,255,0.20) 0 18px, transparent 42px),
+    radial-gradient(circle at 24% 34%, rgba(255,248,242,0.16) 0 0, rgba(255,248,242,0.16) 0 14px, transparent 36px),
+    radial-gradient(circle at 38% 14%, rgba(255,255,255,0.18) 0 0, rgba(255,255,255,0.18) 0 16px, transparent 40px),
+    radial-gradient(circle at 56% 24%, rgba(255,250,245,0.16) 0 0, rgba(255,250,245,0.16) 0 20px, transparent 46px),
+    radial-gradient(circle at 74% 18%, rgba(255,255,255,0.18) 0 0, rgba(255,255,255,0.18) 0 16px, transparent 40px),
+    radial-gradient(circle at 88% 28%, rgba(255,248,242,0.15) 0 0, rgba(255,248,242,0.15) 0 18px, transparent 42px),
+    radial-gradient(circle at 18% 70%, rgba(255,255,255,0.14) 0 0, rgba(255,255,255,0.14) 0 20px, transparent 46px),
+    radial-gradient(circle at 42% 82%, rgba(255,248,242,0.14) 0 0, rgba(255,248,242,0.14) 0 16px, transparent 40px),
+    radial-gradient(circle at 68% 76%, rgba(255,255,255,0.16) 0 0, rgba(255,255,255,0.16) 0 18px, transparent 42px),
+    radial-gradient(circle at 84% 68%, rgba(255,250,245,0.13) 0 0, rgba(255,250,245,0.13) 0 22px, transparent 50px);
+  filter: blur(14px);
+  animation: shimmerBlur 6s ease-in-out infinite;
+}
+
+.sparkle-layer::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 16% 22%, rgba(255,255,255,0.12) 0 0, rgba(255,255,255,0.12) 0 34px, transparent 70px),
+    radial-gradient(circle at 48% 30%, rgba(255,248,242,0.10) 0 0, rgba(255,248,242,0.10) 0 28px, transparent 62px),
+    radial-gradient(circle at 76% 20%, rgba(255,255,255,0.11) 0 0, rgba(255,255,255,0.11) 0 32px, transparent 68px),
+    radial-gradient(circle at 30% 78%, rgba(255,248,242,0.09) 0 0, rgba(255,248,242,0.09) 0 30px, transparent 66px),
+    radial-gradient(circle at 72% 74%, rgba(255,255,255,0.10) 0 0, rgba(255,255,255,0.10) 0 36px, transparent 74px);
+  filter: blur(28px);
+  opacity: 0.7;
+}
+
+@keyframes shimmerBlur {
+  0%, 100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.03);
+  }
+}
+    .cursor-glow {
+      position: fixed;
+      width: 360px;
+      height: 360px;
+      left: 0;
+      top: 0;
+      pointer-events: none;
+      z-index: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(213,178,165,0.16) 0%, rgba(213,178,165,0.08) 36%, rgba(213,178,165,0.02) 62%, transparent 74%);
+      transform: translate(-50%, -50%);
+      transition: opacity 0.25s ease;
+      mix-blend-mode: multiply;
+      opacity: 0.9;
+    }
+
+    .container {
+      width: min(var(--container), calc(100% - 40px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255, 250, 246, 0.76);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      transition: box-shadow 0.3s ease, background 0.3s ease;
+    }
+
+    .site-header.scrolled {
+      background: rgba(255, 250, 246, 0.84);
+      box-shadow: 0 8px 24px rgba(100, 74, 63, 0.08);
+    }
+
+    .nav {
+      min-height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      transition: transform 0.35s var(--ease);
+    }
+
+    .logo-wrap:hover {
+      transform: translateY(-1px);
+    }
+
+    .logo-wrap img {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.82);
+      box-shadow: 0 8px 20px rgba(91, 71, 63, 0.08);
+      padding: 4px;
+      transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+    }
+
+    .logo-wrap:hover img {
+      transform: scale(1.04);
+      box-shadow: 0 12px 24px rgba(91, 71, 63, 0.12);
+    }
+
+    .brand-text {
+      font-size: 1.02rem;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-size: 0.96rem;
+    }
+
+    .nav-links > li {
+      position: relative;
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 0;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      opacity: 0.72;
+      transform: translateY(-1px);
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      min-width: 250px;
+      padding: 12px;
+      border-radius: 22px;
+      background: rgba(255, 250, 246, 0.98);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(8px);
+      transition: 0.28s ease;
+    }
+
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 12px 14px;
+      border-radius: 14px;
+      transition: background 0.25s ease, transform 0.25s ease;
+    }
+
+    .dropdown-menu a:hover {
+      background: #f7eee9;
+      transform: translateX(2px);
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: calc(var(--nav-h) + 42px);
+      padding-bottom: 50px;
+      overflow: hidden;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(8px);
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 320px;
+      height: 320px;
+      background: rgba(213, 178, 165, 0.22);
+      left: -100px;
+      top: 110px;
+      animation: driftOne 10s ease-in-out infinite;
+    }
+
+    .hero::after {
+      width: 420px;
+      height: 420px;
+      background: rgba(255,255,255,0.65);
+      right: -140px;
+      bottom: 10px;
+      animation: driftTwo 12s ease-in-out infinite;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      gap: 44px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-copy > * {
+      opacity: 0;
+      transform: translateY(26px);
+      animation: heroReveal 0.9s var(--ease) forwards;
+    }
+
+    .hero-copy .eyebrow { animation-delay: 0.10s; }
+    .hero-copy h1 { animation-delay: 0.22s; }
+    .hero-copy p { animation-delay: 0.36s; }
+    .hero-copy .button-row { animation-delay: 0.52s; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.68);
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 20px rgba(91, 71, 63, 0.05);
+    }
+
+    .hero h1 {
+      margin: 0 0 18px;
+      font-size: clamp(3rem, 6vw, 5.8rem);
+      line-height: 0.95;
+      font-weight: 500;
+    }
+
+    .hero p {
+      margin: 0 0 30px;
+      max-width: 560px;
+      line-height: 1.85;
+      font-size: 1.05rem;
+      color: var(--muted);
+    }
+
+    .button-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 220px;
+      padding: 16px 28px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease, background 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -140%;
+      width: 90%;
+      height: 100%;
+      transform: skewX(-22deg);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+      transition: left 0.7s ease;
+    }
+
+    .btn:hover::after {
+      left: 160%;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      color: var(--white);
+      background: linear-gradient(135deg, var(--accent-deep), var(--accent));
+      box-shadow: 0 16px 32px rgba(188,145,130,0.34);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 22px 40px rgba(188,145,130,0.40);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.68);
+      border: 1px solid var(--line);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      box-shadow: 0 12px 24px rgba(100,74,63,0.10);
+    }
+
+    .hero-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      transform: translateY(30px) scale(0.98);
+      animation: heroImageReveal 1s var(--ease) forwards 0.34s;
+      will-change: transform;
+    }
+
+    .hero-image {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      aspect-ratio: 0.9 / 1;
+      background: linear-gradient(160deg, #f7ebe4, #efddd2);
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      animation: gentleFloat 6s ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    section {
+      padding: 90px 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-head {
+      max-width: 740px;
+      margin: 0 auto 34px;
+      text-align: center;
+    }
+
+    .section-head h2 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      font-weight: 500;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .carousel-shell {
+      overflow: hidden;
+      position: relative;
+      padding: 28px 0 10px;
+    }
+
+    .carousel-track {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      transition: transform 0.8s ease;
+      will-change: transform;
+    }
+
+    .slide {
+      flex: 0 0 34%;
+      transform: scale(0.88);
+      opacity: 0.52;
+      transition: transform 0.6s var(--ease), opacity 0.6s var(--ease), filter 0.6s var(--ease);
+      filter: blur(1px);
+    }
+
+    .slide.active {
+      transform: scale(1);
+      opacity: 1;
+      filter: blur(0);
+    }
+
+    .slide-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .slide-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-strong);
+    }
+
+    .slide-card img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      transition: transform 0.45s ease;
+    }
+
+    .slide-card:hover img {
+      transform: scale(1.03);
+    }
+
+    .slide-caption {
+      padding: 18px;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 34px;
+    }
+
+    .product-card {
+      display: block;
+      background: rgba(255,250,246,0.94);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+      will-change: transform;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 22px 44px rgba(100,74,63,0.16);
+    }
+
+    .product-card img {
+      width: 100%;
+      aspect-ratio: 1 / 1.1;
+      object-fit: cover;
+      transition: transform 0.45s ease;
+    }
+
+    .product-card:hover img {
+      transform: scale(1.04);
+    }
+
+    .product-info {
+      padding: 20px;
+    }
+
+    .product-info h3 {
+      margin: 0 0 8px;
+      font-size: 1.15rem;
+      font-weight: 500;
+    }
+
+    .price {
+      margin: 0 0 16px;
+      color: var(--accent-deep);
+      font-size: 0.98rem;
+    }
+
+    .card-link {
+      display: inline-block;
+      padding-bottom: 2px;
+      border-bottom: 1px solid rgba(91,71,63,0.26);
+      font-size: 0.95rem;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .product-card:hover .card-link {
+      transform: translateX(2px);
+      opacity: 0.8;
+    }
+
+    .about-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 34px;
+      align-items: center;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .about-wrap:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-strong);
+    }
+
+    .about-wrap img {
+      width: 100%;
+      aspect-ratio: 1 / 1.05;
+      object-fit: cover;
+      border-radius: 24px;
+      transition: transform 0.45s ease;
+    }
+
+    .about-wrap:hover img {
+      transform: scale(1.02);
+    }
+
+    .about-wrap h3 {
+      margin: 0 0 14px;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 500;
+    }
+
+    .about-wrap p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      line-height: 1.85;
+    }
+
+    .footer {
+      margin-top: 40px;
+      padding: 80px 0 34px;
+      background: linear-gradient(180deg, rgba(240, 224, 215, 0.42), rgba(236, 214, 203, 0.78));
+      border-top-left-radius: 40px;
+      border-top-right-radius: 40px;
+      z-index: 2;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+    }
+
+    .footer-card {
+      background: rgba(255,250,246,0.82);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .footer-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-strong);
+    }
+
+    .footer-card h3 {
+      margin: 0 0 12px;
+      font-size: 2rem;
+      font-weight: 500;
+    }
+
+    .footer-card p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 12px;
+      font-size: 0.98rem;
+    }
+
+    .tiny-note {
+      margin-top: 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(38px);
+      transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.08s; }
+    .reveal-delay-2 { transition-delay: 0.16s; }
+    .reveal-delay-3 { transition-delay: 0.24s; }
+
+    @keyframes sparkleSoft {
+      0%, 100% { opacity: 0.52; }
+      50% { opacity: 0.92; }
+    }
+
+    @keyframes heroReveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes heroImageReveal {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes gentleFloat {
+      0%, 100% { transform: scale(1) translateY(0px); }
+      50% { transform: scale(1.015) translateY(-6px); }
+    }
+
+    @keyframes driftOne {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(16px, -12px); }
+    }
+
+    @keyframes driftTwo {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-14px, 12px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .hero-grid,
+      .about-wrap,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .shop-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .slide {
+        flex-basis: 46%;
+      }
+    }
+
+    @media (max-width: 760px) {
+      :root {
+        --nav-h: 128px;
+      }
+
+      .sparkle-layer {
+        opacity: 0.45;
+      }
+
+      .cursor-glow {
+        display: none;
+      }
+
+      .nav {
+        flex-direction: column;
+        justify-content: center;
+        padding: 12px 0;
+      }
+
+      .nav-links {
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+        font-size: 0.92rem;
+      }
+
+      .container {
+        width: min(var(--container), calc(100% - 24px));
+      }
+
+      .hero {
+        padding-top: calc(var(--nav-h) + 30px);
+      }
+
+      .shop-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .slide {
+        flex-basis: 78%;
+      }
+
+      .button-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      section,
+      .footer {
+        padding-top: 70px;
+        padding-bottom: 70px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sparkle-layer"></div>
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <header class="site-header" id="siteHeader">
+    <div class="container nav">
+      <a href="#home" class="logo-wrap" aria-label="Maison Doucette Home">
+        <img src="images/logo.jpg" alt="Maison Doucette logo" />
+        <span class="brand-text">Maison Doucette</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li class="dropdown">
+          <a href="#shop">Our collection ▾</a>
+          <div class="dropdown-menu">
+            <a href="bunny-details.html">Bunny</a>
+            <a href="teddy-details.html">Teddy Bear</a>
+            <a href="strawberry-details.html">Chocolate Covered Strawberry</a>
+          </div>
+        </li>
+        <li><a href="#about">About us</a></li>
+        <li><a href="#contact">Contact us</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Crocheted treasures</span>
+          <h1><i>Maison<br />Doucette</i></h1>
+          <p>
+            Soft little keepsakes, lovingly made stitch by stitch. Discover the Maison Doucette collection and step into a dreamy atelier filled with warmth, charm and handmade detail.
+          </p>
+          <div class="button-row">
+            <a class="btn btn-primary" href="#shop">Step Into the Atelier</a>
+            <a class="btn btn-secondary" href="#contact">Contact Us</a>
+          </div>
+        </div>
+
+        <div class="hero-card" id="heroCard">
+          <div class="hero-image">
+            <img src="images/hero.jpg" alt="Maison Doucette featured handmade product" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="carousel-section" class="reveal">
+      <div class="container">
+        <div class="section-head reveal reveal-delay-1">
+          <h2><i>A glimpse into the collection</i></h2>
+        </div>
+
+        <div class="carousel-shell reveal reveal-delay-2">
+          <div class="carousel-track" id="carouselTrack">
+            <div class="slide active">
+              <div class="slide-card">
+                <img src="images/bunny.jpg" alt="Bunny handmade plush" />
+                <div class="slide-caption">Bunny</div>
+              </div>
+            </div>
+
+            <div class="slide">
+              <div class="slide-card">
+                <img src="images/teddy.jpg" alt="Teddy Bear handmade plush" />
+                <div class="slide-caption">Teddy Bear</div>
+              </div>
+            </div>
+
+            <div class="slide">
+              <div class="slide-card">
+                <img src="images/strawberry.jpg" alt="Chocolate Covered Strawberry handmade plush" />
+                <div class="slide-caption">Chocolate Covered Strawberry</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="shop" class="reveal">
+      <div class="container">
+        <div class="section-head reveal reveal-delay-1">
+          <h2><i>Our collection</i></h2>
+        </div>
+
+        <div class="shop-grid">
+          <a class="product-card reveal reveal-delay-1" href="bunny-details.html">
+            <img src="images/bunny1.jpg" alt="Bunny" />
+            <div class="product-info">
+              <h3>Bunny</h3>
+              <p class="price">From 45 RON</p>
+              <span class="card-link">View details</span>
+            </div>
+          </a>
+
+          <a class="product-card reveal reveal-delay-2" href="teddy-details.html">
+            <img src="images/teddy1.jpg" alt="Teddy Bear" />
+            <div class="product-info">
+              <h3>Teddy Bear</h3>
+              <p class="price">From 45 RON</p>
+              <span class="card-link">View details</span>
+            </div>
+          </a>
+
+          <a class="product-card reveal reveal-delay-3" href="strawberry-details.html">
+            <img src="images/strawberry1.jpg" alt="Chocolate Covered Strawberry" />
+            <div class="product-info">
+              <h3>Chocolate Covered Strawberry</h3>
+              <p class="price">20 RON</p>
+              <span class="card-link">View details</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="reveal">
+      <div class="container">
+        <div class="about-wrap reveal reveal-delay-1">
+          <img src="images/hero1.jpg" alt="Maison Doucette handmade aesthetic" />
+          <div>
+            <span class="eyebrow">About Maison Doucette</span>
+            <h3>Delicate handmade pieces with a story behind them</h3>
+            <p>
+              Maison Doucette is a small handmade world built around softness, sweet details and carefully crocheted creations made to feel special from the very first glance.
+            </p>
+            <p>
+              Each piece is designed to feel warm, giftable and personal — whether it is chosen from the collection or customized especially for someone dear.
+            </p>
+            <a class="btn btn-primary" href="#shop">Explore the Collection</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer reveal" id="contact">
+    <div class="container footer-grid">
+      <div class="footer-card reveal reveal-delay-1">
+        <span class="eyebrow">Contact</span>
+        <h3>Let’s create something lovely</h3>
+        <p>
+          For custom requests, collaborations or questions about an order, feel free to get in touch. This section is meant to feel more like a warm closing invitation than a simple menu item.
+        </p>
+        <p>
+          Replace the contact details below with your real ones.
+        </p>
+      </div>
+
+      <div class="footer-card reveal reveal-delay-2">
+        <div class="contact-list">
+          <div><strong>Instagram:</strong> maison.doucette</div>
+          <div><strong>Email:</strong> hello@maisondoucette.com</div>
+          <div><strong>Phone:</strong> 0754233314 | 0749765214</div>
+          <div><strong>Location:</strong> Galati, Romania</div>
+        </div>
+      </div>
+    </div>
+    <div class="container tiny-note">© Maison Doucette — handmade with love.</div>
+  </footer>
+
+  <script>
+    const track = document.getElementById('carouselTrack');
+    const slides = Array.from(track.children);
+    const siteHeader = document.getElementById('siteHeader');
+    const revealItems = document.querySelectorAll('.reveal');
+    const cursorGlow = document.getElementById('cursorGlow');
+    const heroCard = document.getElementById('heroCard');
+    let activeIndex = 0;
+
+    function updateCarousel() {
+      slides.forEach((slide, index) => {
+        slide.classList.toggle('active', index === activeIndex);
+      });
+
+      const gap = 24;
+      const activeSlide = slides[activeIndex];
+      const slideWidth = activeSlide.getBoundingClientRect().width;
+      const containerWidth = track.parentElement.getBoundingClientRect().width;
+
+      let offset = 0;
+      for (let i = 0; i < activeIndex; i++) {
+        offset += slides[i].getBoundingClientRect().width + gap;
+      }
+
+      const centerOffset = (containerWidth - slideWidth) / 2;
+      track.style.transform = `translateX(${centerOffset - offset}px)`;
+    }
+
+    function nextSlide() {
+      activeIndex = (activeIndex + 1) % slides.length;
+      updateCarousel();
+    }
+
+    function handleHeaderShadow() {
+      if (window.scrollY > 14) {
+        siteHeader.classList.add('scrolled');
+      } else {
+        siteHeader.classList.remove('scrolled');
+      }
+    }
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.14
+    });
+
+    revealItems.forEach(item => revealObserver.observe(item));
+
+    window.addEventListener('load', () => {
+      updateCarousel();
+      handleHeaderShadow();
+    });
+
+    window.addEventListener('resize', updateCarousel);
+    window.addEventListener('scroll', handleHeaderShadow);
+    setInterval(nextSlide, 4000);
+
+    document.addEventListener('mousemove', (e) => {
+      if (!cursorGlow) return;
+      cursorGlow.style.left = `${e.clientX}px`;
+      cursorGlow.style.top = `${e.clientY}px`;
+    });
+
+    document.addEventListener('mouseleave', () => {
+      if (cursorGlow) cursorGlow.style.opacity = '0';
+    });
+
+    document.addEventListener('mouseenter', () => {
+      if (cursorGlow) cursorGlow.style.opacity = '0.9';
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!heroCard || window.innerWidth < 900) return;
+
+      const rect = heroCard.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
+        const rotateY = ((x / rect.width) - 0.5) * 6;
+        const rotateX = ((y / rect.height) - 0.5) * -6;
+        heroCard.style.transform = `translateY(0) perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      } else {
+        heroCard.style.transform = '';
+      }
+    });
+
+    document.addEventListener('mouseleave', () => {
+      if (heroCard) heroCard.style.transform = '';
+    });
+  </script>
+</body>
+</html>

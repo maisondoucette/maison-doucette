@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chocolate Covered Strawberry – Maison Doucette</title>
+
+  <style>
+    :root{
+      --bg: #f7f1eb;
+      --bg-soft: #fbf7f3;
+      --cream: #fffaf6;
+      --ocre: #d2b08d;
+      --ocre-deep: #b88e67;
+      --brown: #6a5145;
+      --brown-soft: #8b6f61;
+      --line: rgba(184, 142, 103, 0.20);
+      --shadow: 0 20px 50px rgba(106, 81, 69, 0.12);
+      --shadow-soft: 0 14px 28px rgba(106, 81, 69, 0.08);
+      --shadow-strong: 0 24px 54px rgba(106, 81, 69, 0.18);
+      --radius-xl: 36px;
+      --radius-lg: 26px;
+      --radius-md: 18px;
+      --ease: cubic-bezier(.22,.61,.36,1);
+    }
+
+    *{ box-sizing: border-box; }
+    html{ scroll-behavior: smooth; }
+
+    body{
+      margin: 0;
+      font-family: Georgia, serif;
+      color: var(--brown);
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.75), transparent 22%),
+        radial-gradient(circle at bottom right, rgba(210,176,141,0.10), transparent 25%),
+        linear-gradient(180deg, #f9f4ef 0%, #f4ece4 100%);
+      overflow-x: hidden;
+    }
+
+    a{ text-decoration: none; color: inherit; }
+    img{ display: block; max-width: 100%; }
+
+    .cursor-glow{
+      position: fixed;
+      width: 340px;
+      height: 340px;
+      left: 0;
+      top: 0;
+      pointer-events: none;
+      z-index: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(210,176,141,0.16) 0%, rgba(210,176,141,0.08) 36%, rgba(210,176,141,0.02) 62%, transparent 74%);
+      transform: translate(-50%, -50%);
+      transition: opacity 0.25s ease;
+      mix-blend-mode: multiply;
+      opacity: 0.9;
+    }
+
+    .site-header{
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(255, 250, 246, 0.78);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      transition: box-shadow 0.3s ease, background 0.3s ease;
+    }
+
+    .site-header.scrolled{
+      background: rgba(255, 250, 246, 0.86);
+      box-shadow: 0 8px 22px rgba(106, 81, 69, 0.08);
+    }
+
+    .nav{
+      max-width: 1220px;
+      margin: auto;
+      min-height: 88px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: transform 0.35s var(--ease);
+    }
+
+    .logo:hover{ transform: translateY(-1px); }
+
+    .logo img{
+      width: 58px;
+      height: 58px;
+      object-fit: cover;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.95);
+      padding: 4px;
+      box-shadow: 0 8px 18px rgba(106, 81, 69, 0.10);
+      transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+    }
+
+    .logo:hover img{
+      transform: scale(1.04);
+      box-shadow: 0 12px 24px rgba(106, 81, 69, 0.14);
+    }
+
+    .logo span{
+      font-size: 1.03rem;
+      letter-spacing: 0.04em;
+    }
+
+    .menu{
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-size: 0.96rem;
+    }
+
+    .menu a{
+      position: relative;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .menu a:hover{
+      opacity: 0.68;
+      transform: translateY(-1px);
+    }
+
+    .page{
+      max-width: 1240px;
+      margin: auto;
+      padding: 138px 20px 70px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .top-note{
+      text-align: center;
+      margin-bottom: 28px;
+      opacity: 0;
+      transform: translateY(22px);
+      animation: fadeUp 0.8s var(--ease) forwards 0.12s;
+    }
+
+    .top-note span{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid var(--line);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--brown-soft);
+      box-shadow: 0 8px 20px rgba(106, 81, 69, 0.05);
+    }
+
+    .product-shell{
+      position: relative;
+      display: flex;
+      gap: 42px;
+      align-items: center;
+      padding: 28px;
+      background: rgba(255,250,246,0.82);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(28px);
+      animation: fadeUp 0.95s var(--ease) forwards 0.25s;
+      transition: box-shadow 0.35s ease;
+    }
+
+    .product-shell:hover{ box-shadow: var(--shadow-strong); }
+
+    .product-shell::before{
+      content: "";
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: rgba(210,176,141,0.10);
+      top: -110px;
+      right: -90px;
+      pointer-events: none;
+      animation: driftOne 10s ease-in-out infinite;
+    }
+
+    .product-shell::after{
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.45);
+      bottom: -120px;
+      left: -60px;
+      pointer-events: none;
+      animation: driftTwo 12s ease-in-out infinite;
+    }
+
+    .gallery{
+      width: 470px;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .gallery-frame{
+      background: linear-gradient(180deg, #fffdfb 0%, #f7efe8 100%);
+      border: 1px solid rgba(184,142,103,0.18);
+      border-radius: 30px;
+      padding: 16px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .gallery-frame:hover{
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .slide{
+      display: none;
+      width: 100%;
+      aspect-ratio: 1 / 1.08;
+      object-fit: cover;
+      border-radius: 22px;
+      box-shadow: 0 18px 36px rgba(0,0,0,0.08);
+    }
+
+    .slide.active{
+      display: block;
+      animation: fadeImage 0.45s ease;
+    }
+
+    .slide-btn{
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 22px;
+      color: var(--brown);
+      background: rgba(255,250,246,0.92);
+      box-shadow: 0 8px 18px rgba(106,81,69,0.14);
+      transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.25s ease;
+    }
+
+    .slide-btn:hover{
+      transform: translateY(-50%) scale(1.05);
+      box-shadow: 0 12px 22px rgba(106,81,69,0.18);
+    }
+
+    .prev{ left: 16px; }
+    .next{ right: 16px; }
+
+    .thumbs{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .thumb{
+      border: none;
+      background: none;
+      padding: 0;
+      cursor: pointer;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 8px 18px rgba(106,81,69,0.08);
+      opacity: 0.72;
+      transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.25s ease;
+    }
+
+    .thumb:hover,
+    .thumb.active{
+      opacity: 1;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 22px rgba(106,81,69,0.12);
+    }
+
+    .thumb img{
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+    }
+
+    .product-info{
+      max-width: 500px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .product-info > *{
+      opacity: 0;
+      transform: translateY(18px);
+      animation: fadeUp 0.75s var(--ease) forwards;
+    }
+
+    .product-info .eyebrow{ animation-delay: 0.42s; }
+    .product-info h1{ animation-delay: 0.50s; }
+    .product-info .subtitle{ animation-delay: 0.58s; }
+    .product-info .price{ animation-delay: 0.66s; }
+    .product-info .story:nth-of-type(2){ animation-delay: 0.74s; }
+    .product-info .story:nth-of-type(3){ animation-delay: 0.82s; }
+    .product-info .mini-quote{ animation-delay: 0.90s; }
+    .product-info .detail-pills{ animation-delay: 0.98s; }
+    .product-info .button-row{ animation-delay: 1.06s; }
+
+    .eyebrow{
+      display: inline-block;
+      margin-bottom: 18px;
+      color: var(--ocre-deep);
+      font-size: 0.85rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    h1{
+      margin: 0 0 12px;
+      font-size: clamp(2.6rem, 5vw, 4.3rem);
+      line-height: 0.98;
+      font-weight: 500;
+    }
+
+    .subtitle{
+      margin: 0 0 18px;
+      font-size: 1.04rem;
+      color: var(--brown-soft);
+      line-height: 1.8;
+      max-width: 460px;
+    }
+
+    .price{
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 16px;
+      margin-bottom: 22px;
+      border-radius: 999px;
+      background: #f7eee6;
+      color: var(--ocre-deep);
+      font-size: 1rem;
+      box-shadow: 0 8px 20px rgba(184,142,103,0.08);
+    }
+
+    .story{
+      margin-bottom: 16px;
+      line-height: 1.95;
+      color: var(--brown-soft);
+      font-size: 1rem;
+    }
+
+    .mini-quote{
+      margin: 20px 0 24px;
+      padding-left: 16px;
+      border-left: 2px solid rgba(184,142,103,0.35);
+      color: var(--brown);
+      font-style: italic;
+      line-height: 1.8;
+    }
+
+    .detail-pills{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 24px 0 28px;
+    }
+
+    .pill{
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(184,142,103,0.14);
+      font-size: 0.92rem;
+      color: var(--brown);
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .pill:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(106,81,69,0.08);
+    }
+
+    .button-row{
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .button{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 235px;
+      padding: 16px 28px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--ocre-deep), var(--ocre));
+      color: #fffaf7;
+      box-shadow: 0 16px 30px rgba(184,142,103,0.28);
+      transition: transform 0.22s ease, opacity 0.22s ease, box-shadow 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .button::after{
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -140%;
+      width: 90%;
+      height: 100%;
+      transform: skewX(-22deg);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+      transition: left 0.7s ease;
+    }
+
+    .button:hover::after{ left: 160%; }
+
+    .button:hover{
+      transform: translateY(-2px);
+      opacity: 0.96;
+      box-shadow: 0 22px 38px rgba(184,142,103,0.34);
+    }
+
+    .soft-link{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 180px;
+      padding: 16px 24px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid var(--line);
+      color: var(--brown);
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .soft-link:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 12px 22px rgba(106,81,69,0.10);
+    }
+
+    .below-section{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 28px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .info-card{
+      background: rgba(255,250,246,0.76);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 20px;
+      box-shadow: var(--shadow-soft);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.85s var(--ease);
+    }
+
+    .info-card.is-visible{
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .info-card:hover{
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .info-card h3{
+      margin: 0 0 10px;
+      font-size: 1.08rem;
+      font-weight: 500;
+    }
+
+    .info-card p{
+      margin: 0;
+      color: var(--brown-soft);
+      line-height: 1.8;
+      font-size: 0.96rem;
+    }
+
+    .footer{
+      margin-top: 60px;
+      padding: 40px 20px;
+      text-align: center;
+      color: var(--brown-soft);
+      background: linear-gradient(180deg, rgba(240,223,214,0.55), rgba(233,214,199,0.84));
+      border-top-left-radius: 36px;
+      border-top-right-radius: 36px;
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes fadeUp{
+      to{
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeImage{
+      from{
+        opacity: 0;
+        transform: scale(0.985);
+      }
+      to{
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes driftOne{
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(14px, -10px); }
+    }
+
+    @keyframes driftTwo{
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-12px, 12px); }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *,
+      *::before,
+      *::after{
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    @media (max-width: 980px){
+      .product-shell{
+        flex-wrap: wrap;
+      }
+
+      .gallery,
+      .product-info{
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .below-section{
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px){
+      .cursor-glow{ display: none; }
+
+      .nav{
+        flex-direction: column;
+        justify-content: center;
+        padding: 12px 20px;
+      }
+
+      .menu{
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+        font-size: 0.92rem;
+      }
+
+      .page{
+        padding-top: 170px;
+      }
+
+      .product-shell{
+        gap: 26px;
+        padding: 18px;
+      }
+
+      .gallery{
+        width: 100%;
+      }
+
+      .button-row{
+        flex-direction: column;
+      }
+
+      .button,
+      .soft-link{
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <header class="site-header" id="siteHeader">
+    <div class="nav">
+      <a href="index.html" class="logo">
+        <img src="images/logo.jpg" alt="Maison Doucette logo">
+        <span>Maison Doucette</span>
+      </a>
+
+      <ul class="menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#shop">Our Collection</a></li>
+        <li><a href="index.html#about">About Us</a></li>
+        <li><a href="index.html#contact">Contact Us</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="top-note">
+      <span>A little handmade treasure</span>
+    </div>
+
+    <section class="product-shell" id="productShell">
+      <div class="gallery">
+        <div class="gallery-frame">
+          <img class="slide active" src="images/strawberry1.jpg" alt="Chocolate Covered Strawberry photo 1">
+          <img class="slide" src="images/strawberry2.jpg" alt="Chocolate Covered Strawberry photo 2">
+
+          <button class="slide-btn prev" onclick="prevSlide()">‹</button>
+          <button class="slide-btn next" onclick="nextSlide()">›</button>
+        </div>
+
+        <div class="thumbs">
+          <button class="thumb active" onclick="setSlide(0)">
+            <img src="images/strawberry1.jpg" alt="Chocolate Covered Strawberry thumbnail 1">
+          </button>
+          <button class="thumb" onclick="setSlide(1)">
+            <img src="images/strawberry2.jpg" alt="Chocolate Covered Strawberry thumbnail 2">
+          </button>
+        </div>
+      </div>
+
+      <div class="product-info">
+        <div class="eyebrow">Maison Doucette Chocolate Covered Strawberry</div>
+        <h1>Chocolate Covered Strawberry</h1>
+
+        <p class="subtitle">
+          Sweet, delicate and charming, this little handmade piece is made to feel like a tiny keepsake from a softer world.
+        </p>
+
+        <div class="price">20 RON</div>
+
+        <p class="story">
+          This handmade chocolate covered strawberry is carefully crocheted with warmth and attention to the sweetest little details, making it feel playful, giftable and full of charm.
+        </p>
+
+        <p class="story">
+          Small but memorable, it is designed to bring a touch of sweetness and handmade tenderness — whether chosen as a tiny gift or a lovely little keepsake.
+        </p>
+
+        <div class="mini-quote">
+          A small little treasure, made to charm at first glance.
+        </div>
+
+        <div class="detail-pills">
+          <span class="pill">Handmade</span>
+          <span class="pill">Giftable piece</span>
+          <span class="pill">Sweet little details</span>
+        </div>
+
+        <div class="button-row">
+          <a class="button" href="ChocoStrawberry.html">Step Into the Atelier</a>
+          <a class="soft-link" href="index.html#shop">Back to Collection</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="below-section">
+      <div class="info-card reveal-card">
+        <h3>Why it feels special</h3>
+        <p>This tiny handmade piece feels charming and memorable, like a small keepsake with a sweet little story.</p>
+      </div>
+
+      <div class="info-card reveal-card">
+        <h3>Handmade detail</h3>
+        <p>Carefully crocheted with attention to color, texture and softness, it brings warmth even in the smallest form.</p>
+      </div>
+
+      <div class="info-card reveal-card">
+        <h3>Gift-ready charm</h3>
+        <p>Delicate, playful and eye-catching, it makes a lovely little gift or a precious addition to the collection.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    © Maison Doucette — handmade with love
+  </footer>
+
+  <script>
+    let slideIndex = 0;
+    const slides = document.querySelectorAll(".slide");
+    const thumbs = document.querySelectorAll(".thumb");
+    const revealCards = document.querySelectorAll(".reveal-card");
+    const cursorGlow = document.getElementById("cursorGlow");
+    const siteHeader = document.getElementById("siteHeader");
+    const productShell = document.getElementById("productShell");
+
+    function showSlide(index){
+      slides.forEach(slide => slide.classList.remove("active"));
+      thumbs.forEach(thumb => thumb.classList.remove("active"));
+      slides[index].classList.add("active");
+      thumbs[index].classList.add("active");
+    }
+
+    function nextSlide(){
+      slideIndex++;
+      if(slideIndex >= slides.length){
+        slideIndex = 0;
+      }
+      showSlide(slideIndex);
+    }
+
+    function prevSlide(){
+      slideIndex--;
+      if(slideIndex < 0){
+        slideIndex = slides.length - 1;
+      }
+      showSlide(slideIndex);
+    }
+
+    function setSlide(index){
+      slideIndex = index;
+      showSlide(slideIndex);
+    }
+
+    function handleHeaderShadow(){
+      if(window.scrollY > 14){
+        siteHeader.classList.add("scrolled");
+      } else {
+        siteHeader.classList.remove("scrolled");
+      }
+    }
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.16
+    });
+
+    revealCards.forEach(card => revealObserver.observe(card));
+
+    document.addEventListener("mousemove", (e) => {
+      if(!cursorGlow) return;
+      cursorGlow.style.left = `${e.clientX}px`;
+      cursorGlow.style.top = `${e.clientY}px`;
+    });
+
+    document.addEventListener("mouseleave", () => {
+      if(cursorGlow) cursorGlow.style.opacity = "0";
+    });
+
+    document.addEventListener("mouseenter", () => {
+      if(cursorGlow) cursorGlow.style.opacity = "0.9";
+    });
+
+    document.addEventListener("mousemove", (e) => {
+      if(!productShell || window.innerWidth < 980) return;
+
+      const rect = productShell.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      if(x >= 0 && x <= rect.width && y >= 0 && y <= rect.height){
+        const rotateY = ((x / rect.width) - 0.5) * 3.5;
+        const rotateX = ((y / rect.height) - 0.5) * -3.5;
+        productShell.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      } else {
+        productShell.style.transform = "";
+      }
+    });
+
+    document.addEventListener("mouseleave", () => {
+      if(productShell) productShell.style.transform = "";
+    });
+
+    window.addEventListener("scroll", handleHeaderShadow);
+    window.addEventListener("load", handleHeaderShadow);
+  </script>
+</body>
+</html>
