@@ -29,12 +29,9 @@
       --radius-sm:12px;
       --ease:cubic-bezier(.22,.61,.36,1);
       --topbar-h:68px;
-      --bottombar-h:86px;
-      --phone-max:460px;
     }
 
     *{ box-sizing:border-box; }
-
     html{ scroll-behavior:smooth; }
 
     body{
@@ -48,20 +45,9 @@
       overflow-x:hidden;
     }
 
-    a{
-      color:inherit;
-      text-decoration:none;
-    }
-
-    img{
-      display:block;
-      max-width:100%;
-    }
-
-    button,
-    select{
-      font:inherit;
-    }
+    a{ color:inherit; text-decoration:none; }
+    img{ display:block; max-width:100%; }
+    button{ font:inherit; }
 
     .cursor-glow{
       position:fixed;
@@ -88,7 +74,6 @@
       padding:0 18px 28px;
     }
 
-    /* ===== TOP BAR ===== */
     .topbar{
       position:sticky;
       top:0;
@@ -187,7 +172,6 @@
       line-height:1;
     }
 
-    /* ===== LAYOUT ===== */
     .customizer-layout{
       display:grid;
       grid-template-columns:minmax(320px, 1.08fr) minmax(320px, 0.92fr);
@@ -211,12 +195,26 @@
       backdrop-filter:blur(6px);
     }
 
-    /* ===== PREVIEW ===== */
-    .preview-card{
-      padding:18px;
+    .preview-card,
+    .body-card,
+    .accessories-card,
+    .details-card,
+    .order-card,
+    .rec-card{
       opacity:0;
       transform:translateY(22px);
-      animation:fadeUp 0.82s var(--ease) forwards 0.06s;
+      animation:fadeUp 0.82s var(--ease) forwards;
+    }
+
+    .preview-card{ animation-delay:0.05s; }
+    .body-card{ animation-delay:0.12s; }
+    .accessories-card{ animation-delay:0.18s; }
+    .details-card{ animation-delay:0.24s; }
+    .order-card{ animation-delay:0.30s; }
+    .rec-card{ animation-delay:0.36s; }
+
+    .preview-card{
+      padding:18px;
     }
 
     .preview-head{
@@ -262,11 +260,10 @@
       position:relative;
       width:100%;
       aspect-ratio:0.92/1;
-      min-height:400px;
+      min-height:430px;
       border-radius:26px;
       overflow:hidden;
-      background:
-        linear-gradient(180deg, #f5f3f1 0%, #ebe8e3 100%);
+      background:linear-gradient(180deg, #f5f3f1 0%, #ebe8e3 100%);
       border:1px solid rgba(185,177,170,0.52);
       box-shadow:inset 0 1px 0 rgba(255,255,255,0.75);
     }
@@ -290,7 +287,7 @@
       position:absolute;
       left:8%;
       right:8%;
-      bottom:22px;
+      bottom:20px;
       height:58px;
       border-radius:50%;
       background:radial-gradient(ellipse at center, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.08) 38%, transparent 72%);
@@ -300,10 +297,10 @@
 
     .stage-glow{
       position:absolute;
-      width:220px;
-      height:220px;
+      width:240px;
+      height:240px;
       left:50%;
-      top:24px;
+      top:22px;
       transform:translateX(-50%);
       border-radius:50%;
       background:radial-gradient(circle, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.55) 36%, rgba(255,255,255,0) 72%);
@@ -326,12 +323,12 @@
     #bunnyImage{
       position:absolute;
       left:50%;
-      bottom:44px;
+      bottom:18px;
       transform:translateX(-50%);
-      width:min(82%, 390px);
+      width:min(98%, 500px);
       max-width:none;
-      display:none;
-      opacity:0;
+      display:block;
+      opacity:1;
       z-index:4;
       filter:drop-shadow(0 18px 26px rgba(0,0,0,0.12));
     }
@@ -350,19 +347,16 @@
     #starImg{
       left:50%;
       top:69%;
-      width:min(54%, 240px);
+      width:min(56%, 260px);
       transform:translate(-50%,-50%);
     }
 
     #bowImg{
       left:63%;
-      top:37%;
-      width:min(36%, 160px);
+      top:36%;
+      width:min(37%, 170px);
       transform:translate(-50%,-50%) rotate(29deg);
     }
-
-    .preview-appear{ animation:previewAppear 0.26s var(--ease) forwards; }
-    .preview-appear-bow{ animation:previewAppearBow 0.26s var(--ease) forwards; }
 
     .summary-row{
       margin-top:12px;
@@ -394,81 +388,18 @@
       color:var(--brown);
     }
 
-    /* ===== TABS + PANELS ===== */
-    .controls-card{
-      overflow:visible;
-      opacity:0;
-      transform:translateY(22px);
-      animation:fadeUp 0.82s var(--ease) forwards 0.14s;
-    }
-
-    .tab-scroll{
-      overflow-x:auto;
-      padding:14px 14px 0;
-      scrollbar-width:none;
-    }
-
-    .tab-scroll::-webkit-scrollbar{ display:none; }
-
-    .tabs{
-      display:flex;
-      gap:10px;
-      min-width:max-content;
-      padding-bottom:14px;
-      border-bottom:1px solid var(--line);
-    }
-
-    .tab-btn{
-      border:1px solid var(--line);
-      background:rgba(255,255,255,0.82);
-      color:var(--brown-soft);
-      padding:11px 15px;
-      border-radius:999px;
-      font-size:0.84rem;
-      font-weight:600;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      cursor:pointer;
-      transition:all 0.22s ease;
-      white-space:nowrap;
-      box-shadow:var(--shadow-soft);
-    }
-
-    .tab-btn:hover{
-      transform:translateY(-1px);
-      background:#fff;
-      color:var(--brown);
-    }
-
-    .tab-btn.active{
-      background:linear-gradient(135deg, var(--gold-deep), var(--gold));
-      color:#fff;
-      border-color:transparent;
-      box-shadow:0 14px 26px rgba(184,142,103,0.22);
-    }
-
-    .tab-panels{
+    .section-inner{
       padding:16px;
     }
 
-    .tab-panel{
-      display:none;
-      animation:panelFade 0.26s ease;
-    }
-
-    .tab-panel.active{
-      display:block;
-    }
-
-    .panel-title{
+    .section-title{
       margin:0 0 6px;
       font-family:'Playfair Display',serif;
       font-size:1.28rem;
       font-weight:500;
     }
 
-    .panel-text{
+    .section-text{
       margin:0 0 16px;
       color:var(--brown-soft);
       font-size:0.92rem;
@@ -486,7 +417,7 @@
       letter-spacing:0.14em;
       color:var(--brown-soft);
       font-weight:600;
-      margin-bottom:8px;
+      margin-bottom:10px;
     }
 
     select{
@@ -513,25 +444,127 @@
       box-shadow:0 8px 18px rgba(106,81,69,0.04);
     }
 
-    select:hover{
-      background-color:#fffdfb;
-    }
-
+    select:hover{ background-color:#fffdfb; }
     select:focus{
       border-color:var(--gold);
       box-shadow:0 0 0 4px rgba(210,176,141,0.12);
     }
 
+    .swatch-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(62px, 1fr));
+      gap:12px;
+    }
+
+    .swatch-btn{
+      border:none;
+      background:transparent;
+      padding:0;
+      cursor:pointer;
+      transition:transform 0.18s ease;
+      text-align:center;
+    }
+
+    .swatch-btn:hover{
+      transform:translateY(-1px);
+    }
+
+    .swatch-circle{
+      width:44px;
+      height:44px;
+      border-radius:50%;
+      margin:0 auto 8px;
+      border:2px solid rgba(184,142,103,0.38);
+      box-shadow:
+        0 0 0 3px rgba(255,250,246,0.95),
+        0 10px 18px rgba(106,81,69,0.08);
+      transition:all 0.2s ease;
+    }
+
+    .swatch-btn.active .swatch-circle{
+      border-color:var(--gold-deep);
+      box-shadow:
+        0 0 0 4px rgba(255,250,246,1),
+        0 0 0 6px rgba(210,176,141,0.34),
+        0 12px 22px rgba(106,81,69,0.12);
+      transform:scale(1.04);
+    }
+
+    .swatch-name{
+      font-size:0.76rem;
+      line-height:1.35;
+      color:var(--brown-soft);
+      font-weight:500;
+    }
+
+    .option-grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:12px;
+    }
+
+    .option-card{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,0.8);
+      border-radius:18px;
+      padding:10px;
+      cursor:pointer;
+      transition:all 0.22s ease;
+      box-shadow:var(--shadow-soft);
+    }
+
+    .option-card:hover{
+      transform:translateY(-1px);
+      background:#fff;
+    }
+
+    .option-card.active{
+      border-color:var(--gold-deep);
+      box-shadow:0 0 0 3px rgba(210,176,141,0.18), var(--shadow-soft);
+      background:#fff;
+    }
+
+    .option-thumb{
+      width:100%;
+      aspect-ratio:1/1;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#f7f2ec;
+      border:1px solid rgba(184,142,103,0.16);
+      overflow:hidden;
+      margin-bottom:10px;
+    }
+
+    .option-thumb img{
+      width:76%;
+      height:76%;
+      object-fit:contain;
+    }
+
+    .option-card h3{
+      margin:0 0 4px;
+      font-size:0.88rem;
+      line-height:1.2;
+      font-weight:600;
+    }
+
+    .option-card p{
+      margin:0;
+      font-size:0.76rem;
+      color:var(--brown-soft);
+      line-height:1.4;
+    }
+
     .hint{
-      margin-top:6px;
+      margin-top:8px;
       font-size:0.77rem;
       color:#a39d95;
       line-height:1.45;
     }
 
-    .hint.error{
-      color:#b34a4a;
-    }
+    .hint.error{ color:#b34a4a; }
 
     .helper-box{
       border:1px solid var(--line);
@@ -548,11 +581,33 @@
       font-weight:600;
     }
 
-    /* ===== ORDER CARD ===== */
-    .order-card{
-      opacity:0;
-      transform:translateY(22px);
-      animation:fadeUp 0.82s var(--ease) forwards 0.22s;
+    .next-wrap{
+      margin-top:18px;
+      display:none;
+    }
+
+    .next-wrap.show{
+      display:block;
+    }
+
+    .next-btn{
+      width:100%;
+      border:none;
+      border-radius:16px;
+      padding:15px 16px;
+      cursor:pointer;
+      background:linear-gradient(135deg, var(--gold-deep), var(--gold));
+      color:#fff;
+      font-weight:600;
+      letter-spacing:0.05em;
+      text-transform:uppercase;
+      box-shadow:0 16px 28px rgba(184,142,103,0.24);
+      transition:transform 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .next-btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 22px 34px rgba(184,142,103,0.30);
     }
 
     .order-inner{
@@ -652,9 +707,7 @@
       text-transform:uppercase;
     }
 
-    .action-btn:hover{
-      transform:translateY(-1px);
-    }
+    .action-btn:hover{ transform:translateY(-1px); }
 
     .primary-btn{
       background:linear-gradient(135deg, var(--gold-deep), var(--gold));
@@ -683,13 +736,6 @@
       background:rgba(255,255,255,0.78);
       color:var(--brown);
       border:1px solid var(--line);
-    }
-
-    /* ===== RECOMMENDATIONS ===== */
-    .rec-card{
-      opacity:0;
-      transform:translateY(22px);
-      animation:fadeUp 0.82s var(--ease) forwards 0.28s;
     }
 
     .rec-inner{
@@ -763,7 +809,6 @@
       color:var(--brown-soft);
     }
 
-    /* ===== TOAST ===== */
     .toast{
       position:fixed;
       right:18px;
@@ -788,17 +833,11 @@
       transform:translateY(0);
     }
 
-    /* ===== ANIMATIONS ===== */
     @keyframes fadeUp{
       to{
         opacity:1;
         transform:translateY(0);
       }
-    }
-
-    @keyframes panelFade{
-      from{ opacity:0; transform:translateY(8px); }
-      to{ opacity:1; transform:translateY(0); }
     }
 
     @keyframes previewAppear{
@@ -816,7 +855,6 @@
       100%{ opacity:1; transform:translate(-50%,-50%) rotate(29deg) scale(1); }
     }
 
-    /* ===== RESPONSIVE ===== */
     @media (max-width: 980px){
       .customizer-layout{
         grid-template-columns:1fr;
@@ -835,7 +873,7 @@
       .cursor-glow{ display:none; }
 
       .app-shell{
-        padding:0 10px calc(var(--bottombar-h) + 16px);
+        padding:0 10px 18px;
       }
 
       .topbar{
@@ -862,7 +900,9 @@
       }
 
       .preview-card,
-      .controls-card,
+      .body-card,
+      .accessories-card,
+      .details-card,
       .order-card,
       .rec-card{
         border-radius:24px;
@@ -889,7 +929,7 @@
       }
 
       .preview-stage{
-        min-height:330px;
+        min-height:350px;
         border-radius:22px;
       }
 
@@ -901,19 +941,19 @@
       .b6{ width:132px; height:52px; bottom:48px; }
 
       #bunnyImage{
-        width:min(84%, 280px);
-        bottom:36px;
+        width:min(106%, 370px);
+        bottom:-4px;
       }
 
       #heartImg,
       #starImg{
-        width:min(56%, 186px);
-        top:69%;
+        width:min(58%, 196px);
+        top:70%;
       }
 
       #bowImg{
-        width:min(34%, 118px);
-        top:37%;
+        width:min(35%, 122px);
+        top:36%;
         left:63%;
       }
 
@@ -936,26 +976,51 @@
         font-size:0.82rem;
       }
 
-      .tab-scroll{
-        padding:12px 12px 0;
+      .section-inner,
+      .order-inner,
+      .rec-inner{
+        padding:12px;
       }
 
-      .tab-panels{
-        padding:14px 12px;
-      }
-
-      .panel-title{
+      .section-title{
         font-size:1.18rem;
       }
 
-      .panel-text{
+      .section-text{
         font-size:0.86rem;
         margin-bottom:14px;
       }
 
-      .tab-btn{
-        padding:10px 13px;
-        font-size:0.8rem;
+      .swatch-grid{
+        grid-template-columns:repeat(4, minmax(0,1fr));
+        gap:10px;
+      }
+
+      .swatch-circle{
+        width:38px;
+        height:38px;
+      }
+
+      .swatch-name{
+        font-size:0.7rem;
+      }
+
+      .option-grid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+        gap:10px;
+      }
+
+      .option-card{
+        border-radius:16px;
+        padding:9px;
+      }
+
+      .option-card h3{
+        font-size:0.82rem;
+      }
+
+      .option-card p{
+        font-size:0.72rem;
       }
 
       select{
@@ -969,35 +1034,23 @@
         padding:12px;
       }
 
-      .order-inner,
-      .rec-inner{
-        padding:12px;
-      }
-
       .order-top{
         align-items:flex-end;
       }
 
       .order-top h2{
-        font-size:1.22rem;
+        font-size:1.18rem;
+        max-width:52%;
+        line-height:1.12;
       }
 
       .price-box .value{
-        font-size:1.5rem;
+        font-size:1.46rem;
       }
 
       .order-grid{
         grid-template-columns:1fr;
         gap:12px;
-      }
-
-      .actions{
-        gap:9px;
-      }
-
-      .action-btn{
-        padding:14px 14px;
-        font-size:0.8rem;
       }
 
       .rec-head h2{
@@ -1024,24 +1077,48 @@
       .rec-price{
         font-size:0.7rem;
       }
+
+      .toast{
+        right:10px;
+        left:10px;
+        bottom:12px;
+        max-width:none;
+        text-align:center;
+      }
+
+      /* exact order on phone */
+      .left-column{
+        display:contents;
+      }
+
+      .right-column{
+        display:contents;
+      }
+
+      .preview-card{ order:1; }
+      .body-card{ order:2; }
+      .accessories-card{ order:3; }
+      .details-card{ order:4; }
+      .order-card{ order:5; }
+      .rec-card{ order:6; }
     }
 
     @media (max-width: 420px){
       .preview-stage{
-        min-height:306px;
+        min-height:332px;
       }
 
       #bunnyImage{
-        width:min(86%, 250px);
+        width:min(110%, 342px);
       }
 
       #heartImg,
       #starImg{
-        width:min(58%, 168px);
+        width:min(60%, 178px);
       }
 
       #bowImg{
-        width:min(33%, 104px);
+        width:min(34%, 112px);
       }
 
       .summary-chip .v{
@@ -1112,7 +1189,7 @@
             <div class="stage-block b6"></div>
             <div class="stage-floor"></div>
 
-            <div id="previewMessage" class="preview-message">Choose your bunny details to see it come to life 🐰</div>
+            <div id="previewMessage" class="preview-message" style="display:none;">Choose your bunny details to see it come to life 🐰</div>
 
             <img id="bunnyImage" alt="Bunny preview">
             <img id="heartImg" class="accessory-img" alt="Heart accessory">
@@ -1122,8 +1199,8 @@
 
           <div class="summary-row">
             <div class="summary-chip">
-              <div class="k">Material</div>
-              <div class="v" id="summaryMaterial">Not selected</div>
+              <div class="k">Size</div>
+              <div class="v" id="summarySize">Not selected</div>
             </div>
 
             <div class="summary-chip">
@@ -1134,6 +1211,114 @@
             <div class="summary-chip">
               <div class="k">Accessory</div>
               <div class="v" id="summaryAccessory">Not selected</div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="right-column">
+        <section class="card body-card">
+          <div class="section-inner">
+            <h2 class="section-title">Choose body details</h2>
+            <p class="section-text">Pick the bunny size and then choose the body colour.</p>
+
+            <div class="control-block">
+              <label class="control-label" for="size">Size</label>
+              <select id="size">
+                <option value="">Select...</option>
+                <option value="0">Small (+0RON)</option>
+                <option value="15">Medium (+15RON)</option>
+                <option value="25">Large (+25RON)</option>
+              </select>
+            </div>
+
+            <div class="control-block">
+              <label class="control-label">Body Colour</label>
+              <div class="swatch-grid" id="bodySwatches"></div>
+            </div>
+
+            <div class="next-wrap" id="bodyNextWrap">
+              <button class="next-btn" type="button" id="bodyNextBtn">Next — accessories</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="card accessories-card">
+          <div class="section-inner">
+            <h2 class="section-title">Choose accessories</h2>
+            <p class="section-text">Pick a single accessory or a two-piece combination with the bow.</p>
+
+            <div class="option-grid" id="accessoryOptionsGrid"></div>
+
+            <div id="accessoryColorArea" style="display:none; margin-top:18px;">
+              <div id="heartColorWrap" class="control-block" style="display:none;">
+                <label class="control-label">Heart Colour</label>
+                <div class="swatch-grid" id="heartSwatches"></div>
+                <div class="hint" id="heartHint"></div>
+              </div>
+
+              <div id="starColorWrap" class="control-block" style="display:none;">
+                <label class="control-label">Star Colour</label>
+                <div class="swatch-grid" id="starSwatches"></div>
+                <div class="hint" id="starHint"></div>
+              </div>
+
+              <div id="bowColorWrap" class="control-block" style="display:none;">
+                <label class="control-label">Bow Colour</label>
+                <div class="swatch-grid" id="bowSwatches"></div>
+                <div class="hint" id="bowHint"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card details-card">
+          <div class="section-inner">
+            <h2 class="section-title">Details</h2>
+            <p class="section-text">Review the bunny you created before bringing it to life.</p>
+
+            <div class="helper-box" style="margin-bottom:14px;">
+              <strong>Chosen size:</strong> <span id="detailsSize">Not selected</span><br>
+              <strong>Chosen body colour:</strong> <span id="detailsBody">Not selected</span><br>
+              <strong>Chosen accessory:</strong> <span id="detailsAccessory">Not selected</span>
+            </div>
+
+            <div class="helper-box">
+              Every bunny is handmade, so your final piece will feel special and one of a kind.
+            </div>
+          </div>
+        </section>
+
+        <section class="card order-card">
+          <div class="order-inner">
+            <div class="order-top">
+              <h2>Order & bring it to life</h2>
+
+              <div class="price-box">
+                <span class="label">Total</span>
+                <span class="value"><span id="price">45</span> RON</span>
+              </div>
+            </div>
+
+            <div class="order-grid">
+              <div>
+                <label class="control-label">Quantity</label>
+                <div class="qty-box">
+                  <button class="qty-btn" type="button" id="minusBtn">−</button>
+                  <span class="qty-value" id="quantity">1</span>
+                  <button class="qty-btn" type="button" id="plusBtn">+</button>
+                </div>
+              </div>
+
+              <div class="helper-box">
+                Handmade just for you.
+              </div>
+            </div>
+
+            <div class="actions">
+              <button class="action-btn primary-btn" id="addBtn" type="button" disabled>Add to cart</button>
+              <button class="action-btn dark-btn" id="checkoutBtn" type="button">Go to cart</button>
+              <button class="action-btn soft-btn" type="button" onclick="window.location.href='index.html#shop'">Continue shopping</button>
             </div>
           </div>
         </section>
@@ -1173,141 +1358,6 @@
           </div>
         </section>
       </div>
-
-      <div class="right-column">
-        <section class="card controls-card">
-          <div class="tab-scroll">
-            <div class="tabs">
-              <button class="tab-btn active" type="button" data-tab="bodyTab">Body</button>
-              <button class="tab-btn" type="button" data-tab="detailsTab">Details</button>
-              <button class="tab-btn" type="button" data-tab="accessoriesTab">Accessories</button>
-              <button class="tab-btn" type="button" data-tab="orderTab">Order</button>
-            </div>
-          </div>
-
-          <div class="tab-panels">
-            <div class="tab-panel active" id="bodyTab">
-              <h2 class="panel-title">Choose the bunny base</h2>
-              <p class="panel-text">Start with the essentials: yarn type, size and the main body colour.</p>
-
-              <div class="control-block">
-                <label class="control-label" for="material">Material</label>
-                <select id="material">
-                  <option value="">Select...</option>
-                  <option value="Acrylic yarn">Acrylic yarn</option>
-                  <option value="Fluffy yarn">Fluffy yarn</option>
-                </select>
-              </div>
-
-              <div class="control-block">
-                <label class="control-label" for="size">Size</label>
-                <select id="size">
-                  <option value="">Select...</option>
-                  <option value="0">Small (+0RON)</option>
-                  <option value="15">Medium (+15RON)</option>
-                  <option value="25">Large (+25RON)</option>
-                </select>
-              </div>
-
-              <div class="control-block">
-                <label class="control-label" for="bodyColor">Body Colour</label>
-                <select id="bodyColor">
-                  <option value="">Select...</option>
-                  <option value="Cream">Cream</option>
-                  <option value="Brown">Brown</option>
-                  <option value="Light brown">Light brown</option>
-                  <option value="Light pink">Light pink</option>
-                  <option value="Light yellow">Light yellow</option>
-                  <option value="Light blue">Light blue</option>
-                  <option value="Dark blue">Dark blue</option>
-                </select>
-              </div>
-
-              <div class="helper-box">
-                <strong>Tip:</strong> choose the body first so the accessory colours are easier to imagine.
-              </div>
-            </div>
-
-            <div class="tab-panel" id="detailsTab">
-              <h2 class="panel-title">Refine the creation</h2>
-              <p class="panel-text">Here you can review the current choices before adding the final accessory details.</p>
-
-              <div class="helper-box" style="margin-bottom:14px;">
-                <strong>Current material:</strong> <span id="detailsMaterial">Not selected</span><br>
-                <strong>Current size:</strong> <span id="detailsSize">Not selected</span><br>
-                <strong>Current body colour:</strong> <span id="detailsBody">Not selected</span>
-              </div>
-
-              <div class="helper-box">
-                Every bunny is handmade, so your final piece will feel special and one of a kind.
-              </div>
-            </div>
-
-            <div class="tab-panel" id="accessoriesTab">
-              <h2 class="panel-title">Dress your bunny</h2>
-              <p class="panel-text">Pick an accessory and then choose its colour to make the bunny truly yours.</p>
-
-              <div class="control-block">
-                <label class="control-label" for="accessory">Accessory</label>
-                <select id="accessory">
-                  <option value="">Select...</option>
-                  <option value="0">Nothing - 0RON</option>
-                  <option value="7">Heart - 7RON</option>
-                  <option value="3">Bow - 3RON</option>
-                  <option value="9">Heart + Bow - 9RON</option>
-                  <option value="8">Star - 8RON</option>
-                  <option value="10">Star + Bow - 10RON</option>
-                </select>
-              </div>
-
-              <div id="accessoryColors"></div>
-            </div>
-
-            <div class="tab-panel" id="orderTab">
-              <h2 class="panel-title">Ready to order</h2>
-              <p class="panel-text">Once your bunny looks just right, choose the quantity and add it to cart.</p>
-
-              <div class="helper-box">
-                Your order saves the selected bunny image, accessory layers and chosen options to the cart preview.
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="card order-card">
-          <div class="order-inner">
-            <div class="order-top">
-              <h2>Order summary</h2>
-
-              <div class="price-box">
-                <span class="label">Total</span>
-                <span class="value"><span id="price">45</span> RON</span>
-              </div>
-            </div>
-
-            <div class="order-grid">
-              <div>
-                <label class="control-label">Quantity</label>
-                <div class="qty-box">
-                  <button class="qty-btn" type="button" id="minusBtn">−</button>
-                  <span class="qty-value" id="quantity">1</span>
-                  <button class="qty-btn" type="button" id="plusBtn">+</button>
-                </div>
-              </div>
-
-              <div class="helper-box">
-                Handmade just for you.
-              </div>
-            </div>
-
-            <div class="actions">
-              <button class="action-btn primary-btn" id="addBtn" type="button" disabled>Add to cart</button>
-              <button class="action-btn dark-btn" id="checkoutBtn" type="button">Go to cart</button>
-              <button class="action-btn soft-btn" type="button" onclick="window.location.href='index.html#shop'">Continue shopping</button>
-            </div>
-          </div>
-        </section>
-      </div>
     </main>
   </div>
 
@@ -1317,62 +1367,132 @@
     let basePrice = 45;
     let quantity = 1;
 
+    let bodyColor = "";
+    let accessoryValue = "";
     let heartColor = "";
     let starColor = "";
     let bowColor = "";
 
-    const material = document.getElementById("material");
     const size = document.getElementById("size");
-    const bodyColor = document.getElementById("bodyColor");
-    const accessory = document.getElementById("accessory");
-
     const priceEl = document.getElementById("price");
     const qtyEl = document.getElementById("quantity");
     const addBtn = document.getElementById("addBtn");
     const checkoutBtn = document.getElementById("checkoutBtn");
 
-    const accessoryColorsWrap = document.getElementById("accessoryColors");
-    const previewMessage = document.getElementById("previewMessage");
     const bunnyImage = document.getElementById("bunnyImage");
+    const previewMessage = document.getElementById("previewMessage");
     const heartImg = document.getElementById("heartImg");
     const starImg = document.getElementById("starImg");
     const bowImg = document.getElementById("bowImg");
     const cartCount = document.getElementById("cart-count");
     const cursorGlow = document.getElementById("cursorGlow");
 
-    const summaryMaterial = document.getElementById("summaryMaterial");
+    const summarySize = document.getElementById("summarySize");
     const summaryBody = document.getElementById("summaryBody");
     const summaryAccessory = document.getElementById("summaryAccessory");
 
-    const detailsMaterial = document.getElementById("detailsMaterial");
     const detailsSize = document.getElementById("detailsSize");
     const detailsBody = document.getElementById("detailsBody");
+    const detailsAccessory = document.getElementById("detailsAccessory");
 
-    const imageMap = {
-      "Cream": "Bunny_Colors/bunny-cream.png",
-      "Brown": "Bunny_Colors/bunny-brown.png",
-      "Light brown": "Bunny_Colors/bunny-light-brown.png",
-      "Light pink": "Bunny_Colors/bunny-light-pink.png",
-      "Light yellow": "Bunny_Colors/bunny-light-yellow.png",
-      "Light blue": "Bunny_Colors/bunny-light-blue.png",
-      "Dark blue": "Bunny_Colors/bunny-dark-blue.png"
-    };
+    const bodySwatches = document.getElementById("bodySwatches");
+    const accessoryOptionsGrid = document.getElementById("accessoryOptionsGrid");
+    const accessoryColorArea = document.getElementById("accessoryColorArea");
 
-    const colorOptionsHtml = `
-      <option value="">Select colour...</option>
-      <option value="Bright pink">Bright pink</option>
-      <option value="Light pink">Light pink</option>
-      <option value="Yellow">Yellow</option>
-      <option value="Light blue">Light blue</option>
-      <option value="Dark blue">Dark blue</option>
-      <option value="Red">Red</option>
-      <option value="Burgundy">Burgundy</option>
-    `;
+    const heartColorWrap = document.getElementById("heartColorWrap");
+    const starColorWrap = document.getElementById("starColorWrap");
+    const bowColorWrap = document.getElementById("bowColorWrap");
+
+    const heartSwatches = document.getElementById("heartSwatches");
+    const starSwatches = document.getElementById("starSwatches");
+    const bowSwatches = document.getElementById("bowSwatches");
+
+    const bodyNextWrap = document.getElementById("bodyNextWrap");
+    const bodyNextBtn = document.getElementById("bodyNextBtn");
 
     document.getElementById("minusBtn").addEventListener("click", () => changeQty(-1));
     document.getElementById("plusBtn").addEventListener("click", () => changeQty(1));
     checkoutBtn.addEventListener("click", goToCart);
     addBtn.addEventListener("click", addToCart);
+
+    const bodyOptions = [
+      { name: "Cream", color: "#f4efe7", src: "Bunny_Colors/bunny-cream.png" },
+      { name: "Brown", color: "#8b5e48", src: "Bunny_Colors/bunny-brown.png" },
+      { name: "Light brown", color: "#c79b79", src: "Bunny_Colors/bunny-light-brown.png" },
+      { name: "Light pink", color: "#f2cbd6", src: "Bunny_Colors/bunny-light-pink.png" },
+      { name: "Light yellow", color: "#f3e6a1", src: "Bunny_Colors/bunny-light-yellow.png" },
+      { name: "Light blue", color: "#bcd8ef", src: "Bunny_Colors/bunny-light-blue.png" },
+      { name: "Dark blue", color: "#4a6d9a", src: "Bunny_Colors/bunny-dark-blue.png" }
+    ];
+
+    const colorOptions = [
+      { name: "Bright pink", color: "#ff4fa3" },
+      { name: "Light pink", color: "#f3bfd1" },
+      { name: "Yellow", color: "#f4d55b" },
+      { name: "Light blue", color: "#9fd3f6" },
+      { name: "Dark blue", color: "#355f9d" },
+      { name: "Red", color: "#d44848" },
+      { name: "Burgundy", color: "#7d2743" }
+    ];
+
+    const accessoryOptions = [
+      {
+        value: "0",
+        label: "Nothing - 0RON",
+        title: "Nothing",
+        price: 0,
+        combo: { heart:false, star:false, bow:false },
+        thumb: "images/bunny1.jpg",
+        kind: "none"
+      },
+      {
+        value: "7",
+        label: "Heart - 7RON",
+        title: "Heart",
+        price: 7,
+        combo: { heart:true, star:false, bow:false },
+        thumbType: "heart",
+        thumbColor: "Red"
+      },
+      {
+        value: "8",
+        label: "Star - 8RON",
+        title: "Star",
+        price: 8,
+        combo: { heart:false, star:true, bow:false },
+        thumbType: "star",
+        thumbColor: "Yellow"
+      },
+      {
+        value: "3",
+        label: "Bow - 3RON",
+        title: "Bow",
+        price: 3,
+        combo: { heart:false, star:false, bow:true },
+        thumbType: "bow",
+        thumbColor: "Bright pink"
+      },
+      {
+        value: "9",
+        label: "Heart + Bow - 9RON",
+        title: "Heart + Bow",
+        price: 9,
+        combo: { heart:true, star:false, bow:true },
+        thumbType: "heart-bow",
+        thumbColor: "Red"
+      },
+      {
+        value: "10",
+        label: "Star + Bow - 10RON",
+        title: "Star + Bow",
+        price: 10,
+        combo: { heart:false, star:true, bow:true },
+        thumbType: "star-bow",
+        thumbColor: "Yellow"
+      }
+    ];
+
+    const demoImage = "Bunny_Colors/bunny-demo.png";
 
     function normalizeColorLabel(v){
       return String(v || "").trim();
@@ -1390,8 +1510,8 @@
       const variants = slugVariants(colorLabel);
       const folders = ["Accessories", "accessories"];
       const exts = ["png", "PNG"];
-
       const candidates = [];
+
       folders.forEach(folder => {
         variants.forEach(v => {
           exts.forEach(ext => {
@@ -1434,7 +1554,6 @@
     function showHint(id, ok, example){
       const el = document.getElementById(id);
       if(!el) return;
-
       if(ok){
         el.textContent = "";
         el.classList.remove("error");
@@ -1444,46 +1563,7 @@
       }
     }
 
-    function getActiveFromSelectedText(){
-      const selectedText = accessory.options[accessory.selectedIndex]?.text || "";
-      return {
-        heart: selectedText.includes("Heart"),
-        star: selectedText.includes("Star"),
-        bow: selectedText.includes("Bow"),
-        nothing: selectedText.includes("Nothing") || selectedText.includes("Select...")
-      };
-    }
-
-    function hideInactiveAccessories(active){
-      if(!active.heart){
-        heartImg.style.display = "none";
-        heartImg.removeAttribute("src");
-        heartImg.style.opacity = "0";
-      }
-      if(!active.star){
-        starImg.style.display = "none";
-        starImg.removeAttribute("src");
-        starImg.style.opacity = "0";
-      }
-      if(!active.bow){
-        bowImg.style.display = "none";
-        bowImg.removeAttribute("src");
-        bowImg.style.opacity = "0";
-      }
-    }
-
-    function syncColorsFromUI(){
-      const heartSel = document.getElementById("heartSelect");
-      const starSel = document.getElementById("starSelect");
-      const bowSel = document.getElementById("bowSelect");
-
-      if(heartSel) heartColor = normalizeColorLabel(heartSel.value);
-      if(starSel) starColor = normalizeColorLabel(starSel.value);
-      if(bowSel) bowColor = normalizeColorLabel(bowSel.value);
-    }
-
     function animatePreviewElement(el, type = "default"){
-      el.classList.remove("preview-appear", "preview-appear-bow");
       el.style.animation = "none";
       void el.offsetWidth;
 
@@ -1496,32 +1576,239 @@
       }
     }
 
+    function buildBodySwatches(){
+      bodySwatches.innerHTML = "";
+
+      bodyOptions.forEach(option => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "swatch-btn";
+        btn.dataset.value = option.name;
+
+        btn.innerHTML = `
+          <span class="swatch-circle" style="background:${option.color};"></span>
+          <span class="swatch-name">${option.name}</span>
+        `;
+
+        btn.addEventListener("click", () => {
+          bodyColor = option.name;
+          document.querySelectorAll("#bodySwatches .swatch-btn").forEach(el => el.classList.remove("active"));
+          btn.classList.add("active");
+          updatePreview();
+          updatePrice();
+          validateForm();
+          updateSummary();
+          toggleBodyNext();
+        });
+
+        bodySwatches.appendChild(btn);
+      });
+    }
+
+    function buildColorSwatches(targetEl, currentValue, onSelect){
+      targetEl.innerHTML = "";
+
+      colorOptions.forEach(option => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "swatch-btn" + (currentValue === option.name ? " active" : "");
+        btn.dataset.value = option.name;
+
+        btn.innerHTML = `
+          <span class="swatch-circle" style="background:${option.color};"></span>
+          <span class="swatch-name">${option.name}</span>
+        `;
+
+        btn.addEventListener("click", () => onSelect(option.name));
+        targetEl.appendChild(btn);
+      });
+    }
+
+    async function getAccessoryThumbSrc(type, colorLabel){
+      if(type === "heart-bow") return "";
+      if(type === "star-bow") return "";
+      const candidates = accessoryCandidates(type, colorLabel);
+      return new Promise((resolve) => {
+        let i = 0;
+        const probe = new Image();
+
+        const attempt = () => {
+          if(i >= candidates.length){
+            resolve("");
+            return;
+          }
+          const src = candidates[i++];
+          probe.onload = () => resolve(src);
+          probe.onerror = attempt;
+          probe.src = src;
+        };
+        attempt();
+      });
+    }
+
+    async function buildAccessoryCards(){
+      accessoryOptionsGrid.innerHTML = "";
+
+      for (const option of accessoryOptions) {
+        const card = document.createElement("button");
+        card.type = "button";
+        card.className = "option-card";
+        card.dataset.value = option.value;
+
+        let thumbHTML = "";
+
+        if(option.kind === "none"){
+          thumbHTML = `
+            <div class="option-thumb" style="background:#f6f1eb;">
+              <span style="font-size:0.82rem;color:#9b9087;font-weight:600;">No accessory</span>
+            </div>
+          `;
+        } else if(option.thumbType === "heart-bow"){
+          const heartSrc = await getAccessoryThumbSrc("heart", "Red");
+          const bowSrc = await getAccessoryThumbSrc("bow", "Bright pink");
+          thumbHTML = `
+            <div class="option-thumb" style="position:relative;">
+              ${heartSrc ? `<img src="${heartSrc}" alt="" style="position:absolute;width:54%;left:48%;top:57%;transform:translate(-50%,-50%);">` : ""}
+              ${bowSrc ? `<img src="${bowSrc}" alt="" style="position:absolute;width:34%;left:66%;top:32%;transform:translate(-50%,-50%) rotate(29deg);">` : ""}
+            </div>
+          `;
+        } else if(option.thumbType === "star-bow"){
+          const starSrc = await getAccessoryThumbSrc("star", "Yellow");
+          const bowSrc = await getAccessoryThumbSrc("bow", "Bright pink");
+          thumbHTML = `
+            <div class="option-thumb" style="position:relative;">
+              ${starSrc ? `<img src="${starSrc}" alt="" style="position:absolute;width:54%;left:48%;top:57%;transform:translate(-50%,-50%);">` : ""}
+              ${bowSrc ? `<img src="${bowSrc}" alt="" style="position:absolute;width:34%;left:66%;top:32%;transform:translate(-50%,-50%) rotate(29deg);">` : ""}
+            </div>
+          `;
+        } else {
+          const src = await getAccessoryThumbSrc(option.thumbType, option.thumbColor);
+          thumbHTML = `
+            <div class="option-thumb">
+              ${src ? `<img src="${src}" alt="">` : `<span style="font-size:0.8rem;color:#9b9087;">Accessory</span>`}
+            </div>
+          `;
+        }
+
+        card.innerHTML = `
+          ${thumbHTML}
+          <h3>${option.title}</h3>
+          <p>+${option.price} RON</p>
+        `;
+
+        card.addEventListener("click", () => {
+          accessoryValue = option.value;
+          document.querySelectorAll("#accessoryOptionsGrid .option-card").forEach(el => el.classList.remove("active"));
+          card.classList.add("active");
+
+          const combo = option.combo;
+
+          if(!combo.heart) heartColor = "";
+          if(!combo.star) starColor = "";
+          if(!combo.bow) bowColor = "";
+
+          updateAccessoryColorUI();
+          renderAccessories();
+          updatePrice();
+          validateForm();
+          updateSummary();
+        });
+
+        accessoryOptionsGrid.appendChild(card);
+      }
+    }
+
+    function getSelectedAccessory(){
+      return accessoryOptions.find(item => item.value === accessoryValue) || null;
+    }
+
+    function updateAccessoryColorUI(){
+      const selected = getSelectedAccessory();
+
+      if(!selected || selected.value === ""){
+        accessoryColorArea.style.display = "none";
+        heartColorWrap.style.display = "none";
+        starColorWrap.style.display = "none";
+        bowColorWrap.style.display = "none";
+        return;
+      }
+
+      if(selected.value === "0"){
+        accessoryColorArea.style.display = "none";
+        heartColorWrap.style.display = "none";
+        starColorWrap.style.display = "none";
+        bowColorWrap.style.display = "none";
+        return;
+      }
+
+      accessoryColorArea.style.display = "block";
+
+      if(selected.combo.heart){
+        heartColorWrap.style.display = "block";
+        buildColorSwatches(heartSwatches, heartColor, (val) => {
+          heartColor = val;
+          buildColorSwatches(heartSwatches, heartColor, arguments.callee);
+          renderAccessories();
+          validateForm();
+          updateSummary();
+        });
+      } else {
+        heartColorWrap.style.display = "none";
+      }
+
+      if(selected.combo.star){
+        starColorWrap.style.display = "block";
+        buildColorSwatches(starSwatches, starColor, (val) => {
+          starColor = val;
+          buildColorSwatches(starSwatches, starColor, arguments.callee);
+          renderAccessories();
+          validateForm();
+          updateSummary();
+        });
+      } else {
+        starColorWrap.style.display = "none";
+      }
+
+      if(selected.combo.bow){
+        bowColorWrap.style.display = "block";
+        buildColorSwatches(bowSwatches, bowColor, (val) => {
+          bowColor = val;
+          buildColorSwatches(bowSwatches, bowColor, arguments.callee);
+          renderAccessories();
+          validateForm();
+          updateSummary();
+        });
+      } else {
+        bowColorWrap.style.display = "none";
+      }
+    }
+
     function getAccessoryScale(){
       if(window.innerWidth <= 420){
         return {
-          centerWidth: "168px",
-          centerTop: "69%",
-          bowWidth: "104px",
-          bowTop: "37%",
+          centerWidth: "178px",
+          centerTop: "70%",
+          bowWidth: "112px",
+          bowTop: "36%",
           bowLeft: "63%"
         };
       }
 
       if(window.innerWidth <= 760){
         return {
-          centerWidth: "186px",
-          centerTop: "69%",
-          bowWidth: "118px",
-          bowTop: "37%",
+          centerWidth: "196px",
+          centerTop: "70%",
+          bowWidth: "122px",
+          bowTop: "36%",
           bowLeft: "63%"
         };
       }
 
       return {
-        centerWidth: "240px",
+        centerWidth: "260px",
         centerTop: "69%",
-        bowWidth: "160px",
-        bowTop: "37%",
+        bowWidth: "170px",
+        bowTop: "36%",
         bowLeft: "63%"
       };
     }
@@ -1556,14 +1843,14 @@
           imgEl.style.width = scale.bowWidth;
           imgEl.style.transform = "translate(-50%,-50%) rotate(29deg)";
           animatePreviewElement(imgEl, "bow");
-        }else{
+        } else {
           imgEl.style.top = scale.centerTop;
           imgEl.style.left = "50%";
           imgEl.style.width = scale.centerWidth;
           imgEl.style.transform = "translate(-50%,-50%)";
           animatePreviewElement(imgEl, "centered");
         }
-      }else{
+      } else {
         imgEl.style.display = "none";
         imgEl.removeAttribute("src");
         imgEl.style.opacity = "0";
@@ -1571,158 +1858,61 @@
     }
 
     async function renderAccessories(){
-      const active = getActiveFromSelectedText();
-      syncColorsFromUI();
-      hideInactiveAccessories(active);
+      const selected = getSelectedAccessory();
 
-      if(active.heart) await renderAccessory("heart", heartColor);
-      if(active.star) await renderAccessory("star", starColor);
-      if(active.bow) await renderAccessory("bow", bowColor);
-    }
-
-    function updateAccessoryOptions(){
-      const active = getActiveFromSelectedText();
-
-      accessoryColorsWrap.innerHTML = "";
-
-      if(!active.heart) heartColor = "";
-      if(!active.star) starColor = "";
-      if(!active.bow) bowColor = "";
-
-      if(active.nothing){
+      if(!selected){
         heartImg.style.display = "none";
-        heartImg.removeAttribute("src");
         starImg.style.display = "none";
-        starImg.removeAttribute("src");
         bowImg.style.display = "none";
-        bowImg.removeAttribute("src");
-        heartImg.style.opacity = "0";
-        starImg.style.opacity = "0";
-        bowImg.style.opacity = "0";
-        validateForm();
-        updateSummary();
         return;
       }
 
-      if(active.heart){
-        accessoryColorsWrap.innerHTML += `
-          <div class="control-block">
-            <label class="control-label">Heart Colour</label>
-            <select id="heartSelect">${colorOptionsHtml}</select>
-            <div class="hint" id="heartHint"></div>
-          </div>
-        `;
+      if(!selected.combo.heart){
+        heartImg.style.display = "none";
+        heartImg.removeAttribute("src");
+        heartImg.style.opacity = "0";
+      }
+      if(!selected.combo.star){
+        starImg.style.display = "none";
+        starImg.removeAttribute("src");
+        starImg.style.opacity = "0";
+      }
+      if(!selected.combo.bow){
+        bowImg.style.display = "none";
+        bowImg.removeAttribute("src");
+        bowImg.style.opacity = "0";
       }
 
-      if(active.star){
-        accessoryColorsWrap.innerHTML += `
-          <div class="control-block">
-            <label class="control-label">Star Colour</label>
-            <select id="starSelect">${colorOptionsHtml}</select>
-            <div class="hint" id="starHint"></div>
-          </div>
-        `;
-      }
-
-      if(active.bow){
-        accessoryColorsWrap.innerHTML += `
-          <div class="control-block">
-            <label class="control-label">Bow Colour</label>
-            <select id="bowSelect">${colorOptionsHtml}</select>
-            <div class="hint" id="bowHint"></div>
-          </div>
-        `;
-      }
-
-      const heartSel = document.getElementById("heartSelect");
-      const starSel = document.getElementById("starSelect");
-      const bowSel = document.getElementById("bowSelect");
-
-      if(heartSel) heartSel.value = heartColor || "";
-      if(starSel) starSel.value = starColor || "";
-      if(bowSel) bowSel.value = bowColor || "";
-
-      if(heartSel){
-        heartSel.addEventListener("change", async () => {
-          syncColorsFromUI();
-          await renderAccessories();
-          validateForm();
-          updateSummary();
-        });
-      }
-
-      if(starSel){
-        starSel.addEventListener("change", async () => {
-          syncColorsFromUI();
-          await renderAccessories();
-          validateForm();
-          updateSummary();
-        });
-      }
-
-      if(bowSel){
-        bowSel.addEventListener("change", async () => {
-          syncColorsFromUI();
-          await renderAccessories();
-          validateForm();
-          updateSummary();
-        });
-      }
-
-      renderAccessories();
-      updateSummary();
-    }
-
-    function animateBunnyImage(){
-      bunnyImage.classList.remove("preview-appear");
-      bunnyImage.style.animation = "none";
-      void bunnyImage.offsetWidth;
-      bunnyImage.style.animation = "previewAppear 0.26s cubic-bezier(.22,.61,.36,1) forwards";
+      if(selected.combo.heart) await renderAccessory("heart", heartColor);
+      if(selected.combo.star) await renderAccessory("star", starColor);
+      if(selected.combo.bow) await renderAccessory("bow", bowColor);
     }
 
     function updatePreview(){
-      const selected = bodyColor.value;
+      const chosen = bodyOptions.find(item => item.name === bodyColor);
+      const src = chosen ? chosen.src : demoImage;
 
-      if(!selected){
-        bunnyImage.style.display = "none";
-        bunnyImage.style.opacity = "0";
-        previewMessage.style.display = "block";
-        previewMessage.textContent = "Choose your bunny details to see it come to life 🐰";
-        updateSummary();
-        return;
-      }
-
-      const src = imageMap[selected] || "";
-      if(!src){
-        bunnyImage.style.display = "none";
-        bunnyImage.style.opacity = "0";
-        previewMessage.style.display = "block";
-        previewMessage.textContent = "Image missing for this colour 🤍";
-        updateSummary();
-        return;
-      }
-
-      previewMessage.style.display = "none";
       bunnyImage.style.display = "block";
-      bunnyImage.style.opacity = "0";
+      bunnyImage.style.opacity = "1";
       bunnyImage.src = src;
 
       bunnyImage.onload = () => {
-        animateBunnyImage();
+        bunnyImage.style.animation = "none";
+        void bunnyImage.offsetWidth;
+        bunnyImage.style.animation = "previewAppear 0.26s cubic-bezier(.22,.61,.36,1) forwards";
       };
 
       bunnyImage.onerror = () => {
         bunnyImage.style.display = "none";
         previewMessage.style.display = "block";
-        previewMessage.textContent = "Could not load image 🤍 (check file name/path)";
+        previewMessage.textContent = "Could not load bunny image 🤍";
       };
-
-      updateSummary();
     }
 
     function getUnitPrice(){
       const sizeAdd = parseInt(size.value || "0", 10);
-      const accessoryAdd = parseInt(accessory.value || "0", 10);
+      const selected = getSelectedAccessory();
+      const accessoryAdd = selected ? Number(selected.price || 0) : 0;
       return basePrice + sizeAdd + accessoryAdd;
     }
 
@@ -1743,34 +1933,40 @@
     }
 
     function getAccessoryText(){
-      return accessory.options[accessory.selectedIndex]?.text || "Not selected";
+      const selected = getSelectedAccessory();
+      return selected ? selected.label : "Not selected";
     }
 
     function updateSummary(){
-      summaryMaterial.textContent = material.value || "Not selected";
-      summaryBody.textContent = bodyColor.value || "Not selected";
+      summarySize.textContent = getSizeText();
+      summaryBody.textContent = bodyColor || "Not selected";
       summaryAccessory.textContent = getAccessoryText();
 
-      detailsMaterial.textContent = material.value || "Not selected";
       detailsSize.textContent = getSizeText();
-      detailsBody.textContent = bodyColor.value || "Not selected";
+      detailsBody.textContent = bodyColor || "Not selected";
+      detailsAccessory.textContent = getAccessoryText();
+    }
+
+    function toggleBodyNext(){
+      const show = size.value !== "" && bodyColor !== "";
+      bodyNextWrap.classList.toggle("show", show);
     }
 
     function validateForm(){
-      const active = getActiveFromSelectedText();
-      syncColorsFromUI();
+      const selected = getSelectedAccessory();
 
       let valid =
-        material.value &&
         size.value !== "" &&
-        bodyColor.value &&
-        accessory.value !== "";
+        bodyColor &&
+        accessoryValue !== "";
 
-      const heartOk = !active.heart || !!heartColor;
-      const starOk = !active.star || !!starColor;
-      const bowOk = !active.bow || !!bowColor;
-
-      if(!heartOk || !starOk || !bowOk) valid = false;
+      if(selected){
+        if(selected.combo.heart && !heartColor) valid = false;
+        if(selected.combo.star && !starColor) valid = false;
+        if(selected.combo.bow && !bowColor) valid = false;
+      } else {
+        valid = false;
+      }
 
       addBtn.disabled = !valid;
     }
@@ -1789,20 +1985,17 @@
 
       if(total === 0){
         cartCount.style.display = "none";
-      }else{
+      } else {
         cartCount.style.display = "flex";
       }
     }
 
     function addToCart(){
-      syncColorsFromUI();
-
       const item = {
         name: "Bunny",
-        material: material.value,
         size: size.options[size.selectedIndex].text,
-        bodyColor: bodyColor.value,
-        accessory: accessory.options[accessory.selectedIndex].text,
+        bodyColor: bodyColor,
+        accessory: getAccessoryText(),
 
         heartColor: heartColor,
         starColor: starColor,
@@ -1874,46 +2067,18 @@
       window.location.href = "cart.html";
     }
 
-    function setupTabs(){
-      const tabButtons = document.querySelectorAll(".tab-btn");
-      const tabPanels = document.querySelectorAll(".tab-panel");
-
-      tabButtons.forEach(btn => {
-        btn.addEventListener("click", () => {
-          const targetId = btn.dataset.tab;
-
-          tabButtons.forEach(b => b.classList.remove("active"));
-          tabPanels.forEach(p => p.classList.remove("active"));
-
-          btn.classList.add("active");
-          document.getElementById(targetId).classList.add("active");
-        });
-      });
-    }
-
-    material.addEventListener("change", () => {
-      updatePrice();
-      validateForm();
-      updateSummary();
-    });
-
     size.addEventListener("change", () => {
       updatePrice();
       validateForm();
       updateSummary();
+      toggleBodyNext();
     });
 
-    bodyColor.addEventListener("change", () => {
-      updatePreview();
-      validateForm();
-      updateSummary();
-    });
-
-    accessory.addEventListener("change", () => {
-      updateAccessoryOptions();
-      updatePrice();
-      validateForm();
-      updateSummary();
+    bodyNextBtn.addEventListener("click", () => {
+      const target = document.querySelector(".accessories-card");
+      if(target){
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     });
 
     document.addEventListener("mousemove", (e) => {
@@ -1934,18 +2099,17 @@
       renderAccessories();
     });
 
-    window.addEventListener("load", () => {
-      updateCartCount();
+    window.addEventListener("load", async () => {
+      buildBodySwatches();
+      await buildAccessoryCards();
+      updateAccessoryColorUI();
+      updatePreview();
+      updatePrice();
       updateSummary();
-      renderAccessories();
-      setupTabs();
+      updateCartCount();
+      validateForm();
+      toggleBodyNext();
     });
-
-    updatePrice();
-    updatePreview();
-    updateAccessoryOptions();
-    validateForm();
-    updateSummary();
   </script>
 </body>
 </html>
