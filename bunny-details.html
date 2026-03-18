@@ -8,6 +8,7 @@
   <style>
     :root{
       --bg:#f7f1eb;
+      --bg-soft:#fbf7f3;
       --cream:#fffaf6;
       --ocre:#d2b08d;
       --ocre-deep:#b88e67;
@@ -219,7 +220,7 @@
 
     .top-note{
       text-align:center;
-      margin-bottom:24px;
+      margin-bottom:16px;
       opacity:0;
       transform:translateY(22px);
       animation:fadeUp 0.8s var(--ease) forwards 0.12s;
@@ -244,7 +245,7 @@
       position:relative;
       display:flex;
       gap:42px;
-      align-items:center;
+      align-items:flex-start;
       padding:28px;
       background:rgba(255,250,246,0.82);
       border:1px solid var(--line);
@@ -384,6 +385,7 @@
       max-width:500px;
       position:relative;
       z-index:1;
+      width:100%;
     }
 
     .product-info > *{
@@ -430,7 +432,7 @@
       display:inline-flex;
       align-items:center;
       padding:10px 16px;
-      margin-bottom:18px;
+      margin-bottom:12px;
       border-radius:999px;
       background:#f7eee6;
       color:var(--ocre-deep);
@@ -438,49 +440,11 @@
       box-shadow:0 8px 20px rgba(184,142,103,0.08);
     }
 
-    .story{
-      margin-bottom:14px;
-      line-height:1.9;
-      color:var(--brown-soft);
-      font-size:1rem;
-    }
-
-    .mini-quote{
-      margin:16px 0 20px;
-      padding-left:16px;
-      border-left:2px solid rgba(184,142,103,0.35);
-      color:var(--brown);
-      font-style:italic;
-      line-height:1.8;
-    }
-
-    .detail-pills{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin:18px 0 8px;
-    }
-
-    .pill{
-      padding:10px 14px;
-      border-radius:999px;
-      background:rgba(255,255,255,0.72);
-      border:1px solid rgba(184,142,103,0.14);
-      font-size:0.92rem;
-      color:var(--brown);
-      transition:transform 0.22s ease, box-shadow 0.22s ease;
-    }
-
-    .pill:hover{
-      transform:translateY(-2px);
-      box-shadow:0 10px 20px rgba(106,81,69,0.08);
-    }
-
     .button-row{
       display:flex;
       gap:14px;
       flex-wrap:wrap;
-      margin:0 0 18px;
+      margin:0 0 16px;
     }
 
     .button{
@@ -538,6 +502,44 @@
     .soft-link:hover{
       transform:translateY(-2px);
       box-shadow:0 12px 22px rgba(106,81,69,0.10);
+    }
+
+    .story{
+      margin-bottom:14px;
+      line-height:1.9;
+      color:var(--brown-soft);
+      font-size:1rem;
+    }
+
+    .mini-quote{
+      margin:16px 0 20px;
+      padding-left:16px;
+      border-left:2px solid rgba(184,142,103,0.35);
+      color:var(--brown);
+      font-style:italic;
+      line-height:1.8;
+    }
+
+    .detail-pills{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin:18px 0 8px;
+    }
+
+    .pill{
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.72);
+      border:1px solid rgba(184,142,103,0.14);
+      font-size:0.92rem;
+      color:var(--brown);
+      transition:transform 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .pill:hover{
+      transform:translateY(-2px);
+      box-shadow:0 10px 20px rgba(106,81,69,0.08);
     }
 
     .below-section{
@@ -684,130 +686,140 @@
       }
 
       .page{
-        padding:156px 10px 34px;
+        padding:156px 10px 28px;
       }
 
       .top-note{
-        margin-bottom:16px;
+        margin-bottom:14px;
       }
 
       .top-note span{
-        font-size:0.65rem;
-        letter-spacing:0.11em;
+        font-size:0.64rem;
+        letter-spacing:0.10em;
         padding:8px 11px;
       }
 
       .product-shell{
-        gap:18px;
-        padding:12px;
-        border-radius:24px;
+        gap:14px;
+        padding:10px;
+        border-radius:22px;
       }
 
       .product-shell::before{
-        width:160px;
-        height:160px;
-        top:-60px;
-        right:-55px;
+        width:130px;
+        height:130px;
+        top:-50px;
+        right:-45px;
       }
 
       .product-shell::after{
-        width:130px;
-        height:130px;
-        bottom:-65px;
-        left:-28px;
+        width:110px;
+        height:110px;
+        bottom:-50px;
+        left:-20px;
+      }
+
+      .gallery{
+        width:100%;
       }
 
       .gallery-frame{
-        padding:8px;
-        border-radius:20px;
+        padding:7px;
+        border-radius:18px;
       }
 
       .slide{
-        border-radius:16px;
-        aspect-ratio:1 / 1;
+        border-radius:14px;
+        aspect-ratio:1 / 0.78;
+        object-fit:cover;
       }
 
       .slide-btn{
-        width:34px;
-        height:34px;
-        font-size:18px;
+        width:30px;
+        height:30px;
+        font-size:16px;
       }
 
       .prev{ left:8px; }
       .next{ right:8px; }
 
       .thumbs{
-        gap:8px;
-        margin-top:8px;
+        gap:6px;
+        margin-top:6px;
       }
 
       .thumb{
-        border-radius:12px;
+        border-radius:10px;
+      }
+
+      .thumb img{
+        aspect-ratio:1 / 0.68;
+        object-fit:cover;
       }
 
       .eyebrow{
-        margin-bottom:10px;
-        font-size:0.72rem;
+        margin-bottom:8px;
+        font-size:0.7rem;
       }
 
       h1{
-        font-size:clamp(2rem, 10.5vw, 2.8rem);
+        font-size:clamp(1.9rem, 10vw, 2.5rem);
         line-height:0.98;
-        margin-bottom:8px;
+        margin-bottom:6px;
       }
 
       .subtitle{
-        font-size:0.93rem;
-        line-height:1.65;
-        margin-bottom:12px;
+        font-size:0.9rem;
+        line-height:1.55;
+        margin-bottom:10px;
       }
 
       .price{
-        font-size:0.9rem;
+        font-size:0.88rem;
         padding:8px 12px;
-        margin-bottom:12px;
+        margin-bottom:10px;
       }
 
       .button-row{
         flex-direction:column;
-        gap:10px;
-        margin:0 0 14px;
+        gap:8px;
+        margin:0 0 12px;
       }
 
       .button,
       .soft-link{
         width:100%;
         min-width:0;
-        padding:14px 16px;
-        font-size:0.92rem;
+        padding:13px 15px;
+        font-size:0.9rem;
       }
 
       .story{
-        font-size:0.92rem;
-        line-height:1.72;
-        margin-bottom:12px;
+        font-size:0.9rem;
+        line-height:1.62;
+        margin-bottom:10px;
       }
 
       .mini-quote{
-        margin:14px 0 16px;
+        margin:12px 0 14px;
         padding-left:10px;
-        line-height:1.65;
-        font-size:0.92rem;
+        line-height:1.6;
+        font-size:0.9rem;
       }
 
       .detail-pills{
-        gap:8px;
-        margin:14px 0 4px;
+        gap:7px;
+        margin:12px 0 0;
       }
 
       .pill{
-        font-size:0.8rem;
-        padding:8px 11px;
+        font-size:0.78rem;
+        padding:7px 10px;
       }
 
       .below-section{
         gap:10px;
-        margin-top:16px;
+        margin-top:14px;
       }
 
       .info-card{
@@ -816,66 +828,65 @@
       }
 
       .info-card h3{
-        font-size:0.98rem;
+        font-size:0.96rem;
         margin-bottom:6px;
       }
 
       .info-card p{
-        font-size:0.9rem;
-        line-height:1.65;
+        font-size:0.88rem;
+        line-height:1.6;
       }
 
       .footer{
-        margin-top:28px;
-        padding:24px 14px;
-        border-top-left-radius:24px;
-        border-top-right-radius:24px;
-        font-size:0.9rem;
+        margin-top:24px;
+        padding:22px 14px;
+        border-top-left-radius:22px;
+        border-top-right-radius:22px;
+        font-size:0.88rem;
       }
     }
 
     @media (max-width: 420px){
       .page{
-        padding:162px 8px 28px;
-      }
-
-      .nav{
-        padding:10px 10px;
-      }
-
-      .menu{
-        gap:10px 12px;
-        font-size:0.84rem;
+        padding:160px 8px 24px;
       }
 
       .product-shell{
-        padding:10px;
-        gap:14px;
+        padding:9px;
+        gap:12px;
       }
 
       .gallery-frame{
-        padding:7px;
+        padding:6px;
+      }
+
+      .slide{
+        aspect-ratio:1 / 0.74;
+      }
+
+      .thumb img{
+        aspect-ratio:1 / 0.64;
       }
 
       .slide-btn{
-        width:32px;
-        height:32px;
-        font-size:17px;
+        width:28px;
+        height:28px;
+        font-size:15px;
       }
 
       h1{
-        font-size:clamp(1.9rem, 11.5vw, 2.5rem);
+        font-size:clamp(1.8rem, 11vw, 2.3rem);
       }
 
       .subtitle,
       .story,
       .mini-quote{
-        font-size:0.9rem;
+        font-size:0.88rem;
       }
 
       .button,
       .soft-link{
-        padding:13px 14px;
+        padding:12px 14px;
       }
     }
   </style>
