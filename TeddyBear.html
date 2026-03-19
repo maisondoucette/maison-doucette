@@ -1,128 +1,2088 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Teddy Customizer</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maison Doucette – Teddy Bear Customizer</title>
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<style>
+  <style>
+    :root{
+      --bg:#f7f1eb;
+      --panel:#fffaf6;
+      --line:rgba(184,142,103,0.20);
+      --brown:#6a5145;
+      --brown-soft:#8b6f61;
+      --muted:#a19389;
+      --gold:#d2b08d;
+      --gold-deep:#b88e67;
+      --shadow:0 20px 50px rgba(106,81,69,0.10);
+      --shadow-soft:0 12px 26px rgba(106,81,69,0.08);
+      --radius-xl:30px;
+      --radius-lg:22px;
+      --radius-md:16px;
+      --ease:cubic-bezier(.22,.61,.36,1);
+      --topbar-h:68px;
+    }
 
-/* ===== TEDDY (mai mic) ===== */
-#teddyImage{
-  position:absolute;
-  left:50%;
-  bottom:-20px;
-  transform:translateX(-50%);
-  width:min(150%, 820px);
-}
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
 
-/* ===== HEART / STAR ===== */
-#heartImg,
-#starImg{
-  left:50%;
-  top:66%;
-  width:min(58%, 280px);
-  transform:translate(-50%,-50%);
-}
+    body{
+      margin:0;
+      font-family:'Inter',sans-serif;
+      color:var(--brown);
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.78), transparent 26%),
+        radial-gradient(circle at bottom right, rgba(210,176,141,0.10), transparent 28%),
+        linear-gradient(180deg, #faf5f0 0%, #f4ece4 100%);
+      overflow-x:hidden;
+    }
 
-/* ===== BOW (MODIFICAT) ===== */
-#bowImg{
-  left:74%;
-  top:25%;       /* mai jos */
-  width:230px;   /* mai mic */
-  transform:translate(-50%,-50%) rotate(22deg);
-}
+    a{ color:inherit; text-decoration:none; }
+    img{ display:block; max-width:100%; }
+    button, select{ font:inherit; }
 
-/* ===== MOBILE ===== */
-@media (max-width:760px){
+    .cursor-glow{
+      position:fixed;
+      width:340px;
+      height:340px;
+      left:0;
+      top:0;
+      pointer-events:none;
+      z-index:0;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(210,176,141,0.16) 0%, rgba(210,176,141,0.08) 36%, rgba(210,176,141,0.02) 62%, transparent 74%);
+      transform:translate(-50%, -50%);
+      transition:opacity 0.25s ease;
+      mix-blend-mode:multiply;
+      opacity:0.9;
+    }
 
-  #teddyImage{
-    width:min(160%, 620px);
-    bottom:-48px;
-  }
+    .app-shell{
+      max-width:1160px;
+      margin:0 auto;
+      min-height:100vh;
+      position:relative;
+      z-index:2;
+      padding:0 18px 28px;
+    }
 
-  #bowImg{
-    width:min(31%, 118px);
-    top:30%;
-    left:72%;
-  }
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(255,250,246,0.86);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--line);
+      margin:0 -18px;
+      padding:0 18px;
+    }
 
-}
+    .topbar-inner{
+      max-width:1160px;
+      margin:0 auto;
+      min-height:var(--topbar-h);
+      display:grid;
+      grid-template-columns:44px 1fr auto;
+      align-items:center;
+      gap:12px;
+    }
 
-@media (max-width:420px){
+    .icon-btn,
+    .top-cart{
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,0.82);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:var(--shadow-soft);
+      transition:transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+      cursor:pointer;
+      padding:0;
+    }
 
-  #teddyImage{
-    width:min(170%, 560px);
-    bottom:-50px;
-  }
+    .icon-btn:hover,
+    .top-cart:hover{
+      transform:translateY(-1px);
+      box-shadow:0 14px 22px rgba(106,81,69,0.12);
+      background:#fff;
+    }
 
-  #bowImg{
-    width:min(31%, 104px);
-    top:31%;
-    left:73%;
-  }
+    .icon-btn svg,
+    .top-cart svg{
+      width:20px;
+      height:20px;
+      stroke:var(--brown);
+    }
 
-}
+    .top-title{
+      text-align:center;
+      min-width:0;
+    }
 
-</style>
+    .top-title .label{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-weight:600;
+      color:var(--brown);
+      font-size:1.02rem;
+      letter-spacing:0.01em;
+    }
+
+    .top-title .sub{
+      display:block;
+      margin-top:2px;
+      font-size:0.72rem;
+      color:var(--brown-soft);
+      letter-spacing:0.08em;
+      text-transform:uppercase;
+    }
+
+    .top-cart-wrap{
+      position:relative;
+    }
+
+    #cart-count{
+      position:absolute;
+      top:-4px;
+      right:-3px;
+      min-width:18px;
+      height:18px;
+      padding:0 5px;
+      border-radius:999px;
+      background:linear-gradient(135deg,var(--gold-deep),var(--gold));
+      color:#fff;
+      font-size:10px;
+      font-weight:700;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 7px 14px rgba(184,142,103,0.28);
+      line-height:1;
+    }
+
+    .customizer-layout{
+      display:grid;
+      grid-template-columns:minmax(320px, 1.02fr) minmax(320px, 0.98fr);
+      gap:22px;
+      align-items:start;
+      padding-top:16px;
+    }
+
+    .left-column,
+    .right-column{
+      display:grid;
+      gap:18px;
+    }
+
+    .card{
+      background:rgba(255,250,246,0.88);
+      border:1px solid var(--line);
+      border-radius:var(--radius-xl);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      backdrop-filter:blur(6px);
+    }
+
+    .preview-card,
+    .stepper-card,
+    .step-card,
+    .order-card,
+    .rec-card{
+      opacity:0;
+      transform:translateY(22px);
+      animation:fadeUp 0.82s var(--ease) forwards;
+    }
+
+    .preview-card{ animation-delay:0.05s; }
+    .stepper-card{ animation-delay:0.10s; }
+    .step-card{ animation-delay:0.15s; }
+    .order-card{ animation-delay:0.22s; }
+    .rec-card{ animation-delay:0.30s; }
+
+    .preview-card{
+      padding:18px;
+    }
+
+    .preview-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:12px;
+    }
+
+    .preview-head h1{
+      margin:0;
+      font-family:'Playfair Display',serif;
+      font-size:1.55rem;
+      font-weight:500;
+      line-height:1.1;
+    }
+
+    .preview-head p{
+      margin:4px 0 0;
+      font-size:0.88rem;
+      color:var(--brown-soft);
+      line-height:1.5;
+    }
+
+    .preview-badge{
+      flex-shrink:0;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:9px 12px;
+      border-radius:999px;
+      background:#fff;
+      border:1px solid var(--line);
+      color:var(--brown-soft);
+      font-size:0.74rem;
+      text-transform:uppercase;
+      letter-spacing:0.12em;
+      box-shadow:var(--shadow-soft);
+    }
+
+    .preview-stage{
+      position:relative;
+      width:100%;
+      aspect-ratio:0.92/1;
+      min-height:450px;
+      border-radius:26px;
+      overflow:hidden;
+      background:linear-gradient(180deg, #f5f3f1 0%, #ebe8e3 100%);
+      border:1px solid rgba(185,177,170,0.52);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,0.75);
+    }
+
+    .stage-block{
+      position:absolute;
+      background:#d9d4ce;
+      border-radius:18px;
+      opacity:0.62;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,0.35);
+    }
+
+    .b1{ width:98px; height:122px; left:-26px; top:26px; }
+    .b2{ width:116px; height:88px; right:10px; top:34px; }
+    .b3{ width:128px; height:138px; left:10px; bottom:94px; }
+    .b4{ width:142px; height:96px; right:-24px; bottom:118px; }
+    .b5{ width:78px; height:78px; left:50%; transform:translateX(-50%); top:32px; }
+    .b6{ width:168px; height:62px; left:50%; transform:translateX(-50%); bottom:58px; border-radius:22px; }
+
+    .stage-floor{
+      position:absolute;
+      left:8%;
+      right:8%;
+      bottom:18px;
+      height:58px;
+      border-radius:50%;
+      background:radial-gradient(ellipse at center, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.08) 38%, transparent 72%);
+      filter:blur(8px);
+      z-index:1;
+    }
+
+    .stage-glow{
+      position:absolute;
+      width:250px;
+      height:250px;
+      left:50%;
+      top:16px;
+      transform:translateX(-50%);
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.55) 36%, rgba(255,255,255,0) 72%);
+      z-index:1;
+    }
+
+    #previewMessage{
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      text-align:center;
+      color:#aca29a;
+      font-size:0.96rem;
+      line-height:1.7;
+      z-index:3;
+      width:min(78%, 280px);
+      display:none;
+    }
+
+    #teddyImage{
+      position:absolute;
+      left:50%;
+      bottom:-40px;
+      transform:translateX(-50%);
+      width:min(180%, 980px);
+      max-width:none;
+      display:block;
+      opacity:1;
+      z-index:4;
+      filter:drop-shadow(0 18px 26px rgba(0,0,0,0.12));
+    }
+
+    .accessory-img{
+      position:absolute;
+      display:none;
+      opacity:0;
+      z-index:5;
+      pointer-events:none;
+      filter:drop-shadow(0 10px 18px rgba(0,0,0,0.10));
+      max-width:none;
+    }
+
+    #heartImg,
+    #starImg{
+      left:50%;
+      top:66%;
+      width:min(58%, 280px);
+      transform:translate(-50%,-50%);
+    }
+
+    #bowImg{
+      left:63%;
+      top:32%;
+      width:min(42%, 205px);
+      transform:translate(-50%,-50%) rotate(22deg);
+    }
+
+    .summary-row{
+      margin-top:12px;
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:10px;
+    }
+
+    .summary-chip{
+      background:rgba(255,255,255,0.8);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:11px 12px;
+      min-height:68px;
+    }
+
+    .summary-chip .k{
+      font-size:0.68rem;
+      text-transform:uppercase;
+      letter-spacing:0.12em;
+      color:var(--brown-soft);
+      margin-bottom:6px;
+    }
+
+    .summary-chip .v{
+      font-size:0.92rem;
+      line-height:1.35;
+      font-weight:500;
+      color:var(--brown);
+    }
+
+    .stepper-card{
+      padding:14px;
+    }
+
+    .stepper-title{
+      margin:0 0 12px;
+      font-family:'Playfair Display',serif;
+      font-size:1.22rem;
+      font-weight:500;
+    }
+
+    .stepper{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0,1fr));
+      gap:8px;
+      align-items:start;
+    }
+
+    .step-badge{
+      display:grid;
+      justify-items:center;
+      gap:8px;
+      text-align:center;
+      opacity:0.66;
+      transition:opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .step-badge.active{
+      opacity:1;
+      transform:translateY(-1px);
+    }
+
+    .step-badge.done{
+      opacity:0.92;
+    }
+
+    .step-badge .dot{
+      width:34px;
+      height:34px;
+      border-radius:50%;
+      border:1px solid var(--line);
+      background:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:0.86rem;
+      font-weight:700;
+      color:var(--brown-soft);
+      box-shadow:var(--shadow-soft);
+      transition:all 0.2s ease;
+    }
+
+    .step-badge.active .dot,
+    .step-badge.done .dot{
+      background:linear-gradient(135deg, var(--gold-deep), var(--gold));
+      color:#fff;
+      border-color:transparent;
+    }
+
+    .step-badge .txt{
+      font-size:0.73rem;
+      line-height:1.3;
+      color:var(--brown-soft);
+      font-weight:600;
+    }
+
+    .step-card{
+      padding:16px;
+      display:none;
+    }
+
+    .step-card.active{
+      display:block;
+    }
+
+    .section-title{
+      margin:0 0 6px;
+      font-family:'Playfair Display',serif;
+      font-size:1.28rem;
+      font-weight:500;
+    }
+
+    .section-text{
+      margin:0 0 16px;
+      color:var(--brown-soft);
+      font-size:0.92rem;
+      line-height:1.6;
+    }
+
+    .control-block{
+      margin-bottom:16px;
+    }
+
+    .control-label{
+      display:block;
+      font-size:0.72rem;
+      text-transform:uppercase;
+      letter-spacing:0.14em;
+      color:var(--brown-soft);
+      font-weight:600;
+      margin-bottom:10px;
+    }
+
+    select{
+      width:100%;
+      padding:14px 15px;
+      padding-right:42px;
+      border-radius:14px;
+      border:1px solid #ddd3c8;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.90));
+      color:var(--brown);
+      outline:none;
+      transition:border-color 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+      appearance:none;
+      -webkit-appearance:none;
+      background-image:
+        linear-gradient(45deg, transparent 50%, var(--brown-soft) 50%),
+        linear-gradient(135deg, var(--brown-soft) 50%, transparent 50%);
+      background-position:
+        calc(100% - 18px) calc(50% - 2px),
+        calc(100% - 12px) calc(50% - 2px);
+      background-size:6px 6px, 6px 6px;
+      background-repeat:no-repeat;
+      box-shadow:0 8px 18px rgba(106,81,69,0.04);
+    }
+
+    select:hover{ background-color:#fffdfb; }
+    select:focus{
+      border-color:var(--gold);
+      box-shadow:0 0 0 4px rgba(210,176,141,0.12);
+    }
+
+    .swatch-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(62px, 1fr));
+      gap:12px;
+    }
+
+    .swatch-btn{
+      border:none;
+      background:transparent;
+      padding:0;
+      cursor:pointer;
+      transition:transform 0.18s ease;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .swatch-btn:hover{
+      transform:translateY(-1px);
+    }
+
+    .swatch-circle{
+      display:block;
+      width:44px;
+      height:44px;
+      aspect-ratio:1 / 1;
+      border-radius:50%;
+      border:2px solid rgba(184,142,103,0.42);
+      box-shadow:
+        0 0 0 3px rgba(255,250,246,0.95),
+        0 10px 18px rgba(106,81,69,0.08);
+      transition:all 0.2s ease;
+      flex-shrink:0;
+    }
+
+    .swatch-btn.active .swatch-circle{
+      border-color:var(--gold-deep);
+      box-shadow:
+        0 0 0 4px rgba(255,250,246,1),
+        0 0 0 6px rgba(210,176,141,0.34),
+        0 12px 22px rgba(106,81,69,0.12);
+      transform:scale(1.04);
+    }
+
+    .option-grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:12px;
+    }
+
+    .option-card{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,0.8);
+      border-radius:18px;
+      padding:10px;
+      cursor:pointer;
+      transition:all 0.22s ease;
+      box-shadow:var(--shadow-soft);
+    }
+
+    .option-card:hover{
+      transform:translateY(-1px);
+      background:#fff;
+    }
+
+    .option-card.active{
+      border-color:var(--gold-deep);
+      box-shadow:0 0 0 3px rgba(210,176,141,0.18), var(--shadow-soft);
+      background:#fff;
+    }
+
+    .option-thumb{
+      width:100%;
+      aspect-ratio:1/1;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#f7f2ec;
+      border:1px solid rgba(184,142,103,0.16);
+      overflow:hidden;
+      margin-bottom:10px;
+      position:relative;
+    }
+
+    .option-thumb img{
+      width:76%;
+      height:76%;
+      object-fit:contain;
+    }
+
+    .option-card h3{
+      margin:0 0 4px;
+      font-size:0.88rem;
+      line-height:1.2;
+      font-weight:600;
+    }
+
+    .option-card p{
+      margin:0;
+      font-size:0.76rem;
+      color:var(--brown-soft);
+      line-height:1.4;
+    }
+
+    .hint{
+      margin-top:8px;
+      font-size:0.77rem;
+      color:#a39d95;
+      line-height:1.45;
+    }
+
+    .hint.error{ color:#b34a4a; }
+
+    .helper-box{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,0.72);
+      border-radius:18px;
+      padding:14px;
+      color:var(--brown-soft);
+      font-size:0.88rem;
+      line-height:1.6;
+    }
+
+    .helper-box strong{
+      color:var(--brown);
+      font-weight:600;
+    }
+
+    .step-actions{
+      margin-top:18px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .step-btn{
+      border:none;
+      border-radius:16px;
+      padding:14px 16px;
+      cursor:pointer;
+      font-weight:600;
+      letter-spacing:0.04em;
+      text-transform:uppercase;
+      transition:transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+      font-size:0.8rem;
+    }
+
+    .step-btn:hover{
+      transform:translateY(-1px);
+    }
+
+    .step-btn.primary{
+      background:linear-gradient(135deg, var(--gold-deep), var(--gold));
+      color:#fff;
+      box-shadow:0 16px 28px rgba(184,142,103,0.24);
+    }
+
+    .step-btn.soft{
+      background:rgba(255,255,255,0.78);
+      color:var(--brown);
+      border:1px solid var(--line);
+    }
+
+    .step-btn[disabled]{
+      background:#d7cfc6;
+      color:#fff;
+      box-shadow:none;
+      cursor:not-allowed;
+      transform:none;
+      border:none;
+    }
+
+    .order-card{
+      padding:16px;
+    }
+
+    .order-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:14px;
+    }
+
+    .order-top h2{
+      margin:0;
+      font-family:'Playfair Display',serif;
+      font-size:1.35rem;
+      font-weight:500;
+    }
+
+    .price-box{
+      text-align:right;
+    }
+
+    .price-box .label{
+      display:block;
+      font-size:0.7rem;
+      text-transform:uppercase;
+      letter-spacing:0.14em;
+      color:var(--brown-soft);
+      margin-bottom:5px;
+    }
+
+    .price-box .value{
+      font-family:'Playfair Display',serif;
+      font-size:1.7rem;
+      line-height:1;
+      color:var(--brown);
+    }
+
+    .order-grid{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:14px;
+      align-items:end;
+    }
+
+    .qty-box{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-top:8px;
+    }
+
+    .qty-btn{
+      width:42px;
+      height:42px;
+      border-radius:14px;
+      border:1px solid #d8d2ca;
+      background:#fff;
+      color:var(--brown);
+      font-size:1.2rem;
+      cursor:pointer;
+      transition:transform 0.2s ease, box-shadow 0.22s ease, background 0.22s ease;
+    }
+
+    .qty-btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 10px 18px rgba(106,81,69,0.08);
+      background:#fffdfa;
+    }
+
+    .qty-value{
+      min-width:30px;
+      text-align:center;
+      font-weight:700;
+      font-size:1rem;
+    }
+
+    .actions{
+      margin-top:16px;
+      display:grid;
+      gap:10px;
+    }
+
+    .action-btn{
+      width:100%;
+      padding:15px 16px;
+      border:none;
+      border-radius:16px;
+      cursor:pointer;
+      transition:transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease, background 0.22s ease;
+      letter-spacing:0.06em;
+      font-size:0.84rem;
+      font-weight:600;
+      text-transform:uppercase;
+    }
+
+    .action-btn:hover{ transform:translateY(-1px); }
+
+    .primary-btn{
+      background:linear-gradient(135deg, var(--gold-deep), var(--gold));
+      color:#fff;
+      box-shadow:0 16px 28px rgba(184,142,103,0.24);
+    }
+
+    .primary-btn:hover{
+      box-shadow:0 22px 34px rgba(184,142,103,0.30);
+    }
+
+    .primary-btn:disabled{
+      background:#d7cfc6;
+      box-shadow:none;
+      cursor:not-allowed;
+      transform:none;
+    }
+
+    .dark-btn{
+      background:#3e3a36;
+      color:#fff;
+      display:none;
+    }
+
+    .soft-btn{
+      background:rgba(255,255,255,0.78);
+      color:var(--brown);
+      border:1px solid var(--line);
+    }
+
+    .rec-card{
+      padding:16px;
+    }
+
+    .rec-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:14px;
+    }
+
+    .rec-head h2{
+      margin:0;
+      font-family:'Playfair Display',serif;
+      font-size:1.28rem;
+      font-weight:500;
+    }
+
+    .rec-head span{
+      color:var(--brown-soft);
+      font-size:0.84rem;
+    }
+
+    .rec-grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:10px;
+    }
+
+    .rec-item{
+      background:rgba(255,255,255,0.76);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:10px;
+      transition:transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+    }
+
+    .rec-item:hover{
+      transform:translateY(-2px);
+      box-shadow:var(--shadow-soft);
+      background:#fff;
+    }
+
+    .rec-thumb{
+      width:100%;
+      aspect-ratio:1/1.04;
+      border-radius:14px;
+      overflow:hidden;
+      background:#f2ece6;
+      margin-bottom:9px;
+    }
+
+    .rec-thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .rec-name{
+      font-size:0.84rem;
+      font-weight:600;
+      line-height:1.35;
+      margin-bottom:4px;
+    }
+
+    .rec-price{
+      font-size:0.76rem;
+      color:var(--brown-soft);
+    }
+
+    .toast{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      z-index:9999;
+      background:#3e3a36;
+      color:#fff;
+      padding:14px 18px;
+      border-radius:14px;
+      box-shadow:0 12px 28px rgba(0,0,0,0.18);
+      font-size:0.84rem;
+      opacity:0;
+      visibility:hidden;
+      transform:translateY(12px);
+      transition:all 0.3s ease;
+      max-width:min(90vw, 340px);
+    }
+
+    .toast.show{
+      opacity:1;
+      visibility:visible;
+      transform:translateY(0);
+    }
+
+    @keyframes fadeUp{
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    @keyframes previewAppear{
+      0%{ opacity:0; transform:translateX(-50%) translateY(6px) scale(0.985); }
+      100%{ opacity:1; transform:translateX(-50%) translateY(0) scale(1); }
+    }
+
+    @keyframes previewAppearCenter{
+      0%{ opacity:0; transform:translate(-50%,-47%) scale(0.985); }
+      100%{ opacity:1; transform:translate(-50%,-50%) scale(1); }
+    }
+
+    @keyframes previewAppearBow{
+      0%{ opacity:0; transform:translate(-50%,-47%) rotate(22deg) scale(0.985); }
+      100%{ opacity:1; transform:translate(-50%,-50%) rotate(22deg) scale(1); }
+    }
+
+    @media (max-width: 980px){
+      .customizer-layout{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width: 760px){
+      .cursor-glow{ display:none; }
+
+      .app-shell{
+        padding:0 10px 18px;
+      }
+
+      .topbar{
+        margin:0 -10px;
+        padding:0 10px;
+      }
+
+      .topbar-inner{
+        grid-template-columns:42px 1fr 42px;
+        min-height:64px;
+      }
+
+      .top-title .label{
+        font-size:0.98rem;
+      }
+
+      .top-title .sub{
+        font-size:0.66rem;
+      }
+
+      .customizer-layout{
+        display:flex;
+        flex-direction:column;
+        gap:14px;
+        padding-top:12px;
+      }
+
+      .preview-stage{
+        min-height:370px;
+        border-radius:22px;
+      }
+
+      #teddyImage{
+        width:min(190%, 760px);
+        bottom:-80px;
+      }
+
+      #heartImg,
+      #starImg{
+        width:min(60%, 212px);
+        top:73%;
+      }
+
+      #bowImg{
+        width:min(40%, 148px);
+        top:37%;
+        left:63%;
+      }
+
+      .stepper{
+        grid-template-columns:repeat(4, minmax(0,1fr));
+        gap:6px;
+      }
+
+      .step-badge .txt{
+        font-size:0.66rem;
+      }
+
+      .step-card,
+      .order-card,
+      .rec-card,
+      .stepper-card,
+      .preview-card{
+        padding:12px;
+      }
+
+      .swatch-grid{
+        grid-template-columns:repeat(4, minmax(0,1fr));
+        gap:10px;
+      }
+
+      .swatch-circle{
+        width:38px;
+        height:38px;
+      }
+
+      .option-grid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+        gap:10px;
+      }
+
+      .order-grid{
+        grid-template-columns:1fr;
+      }
+
+      .rec-grid{
+        gap:8px;
+      }
+
+      .toast{
+        right:10px;
+        left:10px;
+        bottom:12px;
+        max-width:none;
+        text-align:center;
+      }
+    }
+
+    @media (max-width: 420px){
+      .preview-stage{
+        min-height:346px;
+      }
+
+      #teddyImage{
+        width:min(200%, 680px);
+        bottom:-86px;
+      }
+
+      #heartImg,
+      #starImg{
+        width:min(62%, 188px);
+        top:74%;
+      }
+
+      #bowImg{
+        width:min(40%, 132px);
+        top:38%;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="cursor-glow" id="cursorGlow"></div>
 
-<img id="teddyImage" src="Teddy_Bear_Colors/teddy-bear-cream.png">
-<img id="heartImg">
-<img id="starImg">
-<img id="bowImg">
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <button class="icon-btn" type="button" aria-label="Back" onclick="window.location.href='index.html#shop'">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M15 18l-6-6 6-6"></path>
+          </svg>
+        </button>
 
-<script>
+        <div class="top-title">
+          <span class="label">Customize Teddy Bear</span>
+          <span class="sub">Maison Doucette Atelier</span>
+        </div>
 
-/* ===== SCALE CONTROL (IMPORTANT) ===== */
-function getAccessoryScale(){
+        <div class="top-cart-wrap">
+          <a class="top-cart" href="cart.html" aria-label="View cart">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="9" cy="20" r="1"></circle>
+              <circle cx="18" cy="20" r="1"></circle>
+              <path d="M2 3h3l2.2 10.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.5L21 6H7.1"></path>
+            </svg>
+          </a>
+          <span id="cart-count">0</span>
+        </div>
+      </div>
+    </header>
 
-  if(window.innerWidth <= 420){
-    return {
-      centerWidth: "188px",
-      centerTop: "74%",
-      bowWidth: "104px",
-      bowTop: "31%",
-      bowLeft: "73%"
-    };
-  }
+    <main class="customizer-layout">
+      <div class="left-column">
+        <section class="card preview-card">
+          <div class="preview-head">
+            <div>
+              <h1>Your Teddy</h1>
+              <p>Create your own soft little companion, one detail at a time.</p>
+            </div>
+            <div class="preview-badge">Live preview</div>
+          </div>
 
-  if(window.innerWidth <= 760){
-    return {
-      centerWidth: "212px",
-      centerTop: "73%",
-      bowWidth: "118px",
-      bowTop: "30%",
-      bowLeft: "72%"
-    };
-  }
+          <div class="preview-stage">
+            <div class="stage-glow"></div>
+            <div class="stage-block b1"></div>
+            <div class="stage-block b2"></div>
+            <div class="stage-block b3"></div>
+            <div class="stage-block b4"></div>
+            <div class="stage-block b5"></div>
+            <div class="stage-block b6"></div>
+            <div class="stage-floor"></div>
 
-  return {
-    centerWidth: "280px",
-    centerTop: "66%",
-    bowWidth: "230px",
-    bowTop: "25%",
-    bowLeft: "74%"
-  };
-}
+            <div id="previewMessage">Choose your teddy details to see it come to life 🧸</div>
 
-/* ===== APPLY POSITION ===== */
-function applyBow(){
-  const scale = getAccessoryScale();
-  const bow = document.getElementById("bowImg");
+            <img id="teddyImage" alt="Teddy preview">
+            <img id="heartImg" class="accessory-img" alt="Heart accessory">
+            <img id="starImg" class="accessory-img" alt="Star accessory">
+            <img id="bowImg" class="accessory-img" alt="Bow accessory">
+          </div>
 
-  bow.style.top = scale.bowTop;
-  bow.style.left = scale.bowLeft;
-  bow.style.width = scale.bowWidth;
-}
+          <div class="summary-row">
+            <div class="summary-chip">
+              <div class="k">Size</div>
+              <div class="v" id="summarySize">Not selected</div>
+            </div>
 
-/* ===== INIT ===== */
-window.addEventListener("load", applyBow);
-window.addEventListener("resize", applyBow);
+            <div class="summary-chip">
+              <div class="k">Body</div>
+              <div class="v" id="summaryBody">Cream</div>
+            </div>
 
-</script>
+            <div class="summary-chip">
+              <div class="k">Accessory</div>
+              <div class="v" id="summaryAccessory">Not selected</div>
+            </div>
+          </div>
+        </section>
 
+        <section class="card stepper-card">
+          <h2 class="stepper-title">Create your teddy</h2>
+          <div class="stepper">
+            <div class="step-badge active" data-step-badge="1">
+              <div class="dot">1</div>
+              <div class="txt">Body</div>
+            </div>
+            <div class="step-badge" data-step-badge="2">
+              <div class="dot">2</div>
+              <div class="txt">Accessories</div>
+            </div>
+            <div class="step-badge" data-step-badge="3">
+              <div class="dot">3</div>
+              <div class="txt">Details</div>
+            </div>
+            <div class="step-badge" data-step-badge="4">
+              <div class="dot">4</div>
+              <div class="txt">Order</div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="right-column">
+        <section class="card step-card active" id="step-1">
+          <h2 class="section-title">Choose body details</h2>
+          <p class="section-text">Pick the teddy size and then choose the body colour.</p>
+
+          <div class="control-block">
+            <label class="control-label" for="size">Size</label>
+            <select id="size">
+              <option value="">Select...</option>
+              <option value="0">Small (+0RON)</option>
+              <option value="15">Medium (+15RON)</option>
+              <option value="25">Large (+25RON)</option>
+            </select>
+          </div>
+
+          <div class="control-block">
+            <label class="control-label">Body Colour</label>
+            <div class="swatch-grid" id="bodySwatches"></div>
+          </div>
+
+          <div class="step-actions">
+            <button class="step-btn primary" id="nextFromBody" type="button" disabled>Next — accessories</button>
+          </div>
+        </section>
+
+        <section class="card step-card" id="step-2">
+          <h2 class="section-title">Choose accessories</h2>
+          <p class="section-text">Pick a single accessory or a two-piece combination with the bow.</p>
+
+          <div class="option-grid" id="accessoryOptionsGrid"></div>
+
+          <div id="accessoryColorArea" style="display:none; margin-top:18px;">
+            <div id="heartColorWrap" class="control-block" style="display:none;">
+              <label class="control-label">Heart Colour</label>
+              <div class="swatch-grid" id="heartSwatches"></div>
+              <div class="hint" id="heartHint"></div>
+            </div>
+
+            <div id="starColorWrap" class="control-block" style="display:none;">
+              <label class="control-label">Star Colour</label>
+              <div class="swatch-grid" id="starSwatches"></div>
+              <div class="hint" id="starHint"></div>
+            </div>
+
+            <div id="bowColorWrap" class="control-block" style="display:none;">
+              <label class="control-label">Bow Colour</label>
+              <div class="swatch-grid" id="bowSwatches"></div>
+              <div class="hint" id="bowHint"></div>
+            </div>
+          </div>
+
+          <div class="step-actions">
+            <button class="step-btn soft" type="button" data-prev-step="1">Back</button>
+            <button class="step-btn primary" id="nextFromAccessories" type="button" disabled>Next — details</button>
+          </div>
+        </section>
+
+        <section class="card step-card" id="step-3">
+          <h2 class="section-title">Details</h2>
+          <p class="section-text">Review the teddy you created before bringing it to life.</p>
+
+          <div class="helper-box" style="margin-bottom:14px;">
+            <strong>Chosen size:</strong> <span id="detailsSize">Not selected</span><br>
+            <strong>Chosen body colour:</strong> <span id="detailsBody">Cream</span><br>
+            <strong>Chosen accessory:</strong> <span id="detailsAccessory">Not selected</span>
+          </div>
+
+          <div class="helper-box">
+            Every teddy is handmade, so your final piece will feel special and one of a kind.
+          </div>
+
+          <div class="step-actions">
+            <button class="step-btn soft" type="button" data-prev-step="2">Back</button>
+            <button class="step-btn primary" type="button" id="nextFromDetails">Next — order</button>
+          </div>
+        </section>
+
+        <section class="card step-card" id="step-4">
+          <div class="order-top">
+            <h2>Order & bring it to life</h2>
+
+            <div class="price-box">
+              <span class="label">Total</span>
+              <span class="value"><span id="price">45</span> RON</span>
+            </div>
+          </div>
+
+          <div class="order-grid">
+            <div>
+              <label class="control-label">Quantity</label>
+              <div class="qty-box">
+                <button class="qty-btn" type="button" id="minusBtn">−</button>
+                <span class="qty-value" id="quantity">1</span>
+                <button class="qty-btn" type="button" id="plusBtn">+</button>
+              </div>
+            </div>
+
+            <div class="helper-box">
+              Handmade just for you.
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="action-btn primary-btn" id="addBtn" type="button" disabled>Add to cart</button>
+            <button class="action-btn dark-btn" id="checkoutBtn" type="button">Go to cart</button>
+            <button class="action-btn soft-btn" type="button" onclick="window.location.href='index.html#shop'">Continue shopping</button>
+            <button class="action-btn soft-btn" type="button" data-prev-step="3">Back to details</button>
+          </div>
+        </section>
+
+        <section class="card rec-card">
+          <div class="rec-head">
+            <h2>You may also like</h2>
+            <span>More lovely pieces</span>
+          </div>
+
+          <div class="rec-grid">
+            <a class="rec-item" href="bunny-details.html">
+              <div class="rec-thumb">
+                <img src="images/bunny1.jpg" alt="Bunny">
+              </div>
+              <div class="rec-name">Bunny</div>
+              <div class="rec-price">From 45 RON</div>
+            </a>
+
+            <a class="rec-item" href="strawberry-details.html">
+              <div class="rec-thumb">
+                <img src="images/strawberry1.jpg" alt="Chocolate Covered Strawberry">
+              </div>
+              <div class="rec-name">Strawberry</div>
+              <div class="rec-price">20 RON</div>
+            </a>
+
+            <a class="rec-item" href="index.html#shop">
+              <div class="rec-thumb">
+                <img src="images/teddy1.jpg" alt="See all products">
+              </div>
+              <div class="rec-name">More creations</div>
+              <div class="rec-price">View collection</div>
+            </a>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast" class="toast">Product added to cart successfully.</div>
+
+  <script>
+    let basePrice = 45;
+    let quantity = 1;
+
+    let bodyColor = "Cream";
+    let accessoryValue = "";
+    let heartColor = "";
+    let starColor = "";
+    let bowColor = "";
+    let currentStep = 1;
+
+    const size = document.getElementById("size");
+    const priceEl = document.getElementById("price");
+    const qtyEl = document.getElementById("quantity");
+    const addBtn = document.getElementById("addBtn");
+    const checkoutBtn = document.getElementById("checkoutBtn");
+
+    const nextFromBody = document.getElementById("nextFromBody");
+    const nextFromAccessories = document.getElementById("nextFromAccessories");
+    const nextFromDetails = document.getElementById("nextFromDetails");
+
+    const teddyImage = document.getElementById("teddyImage");
+    const previewMessage = document.getElementById("previewMessage");
+    const heartImg = document.getElementById("heartImg");
+    const starImg = document.getElementById("starImg");
+    const bowImg = document.getElementById("bowImg");
+    const cartCount = document.getElementById("cart-count");
+    const cursorGlow = document.getElementById("cursorGlow");
+
+    const summarySize = document.getElementById("summarySize");
+    const summaryBody = document.getElementById("summaryBody");
+    const summaryAccessory = document.getElementById("summaryAccessory");
+
+    const detailsSize = document.getElementById("detailsSize");
+    const detailsBody = document.getElementById("detailsBody");
+    const detailsAccessory = document.getElementById("detailsAccessory");
+
+    const bodySwatches = document.getElementById("bodySwatches");
+    const accessoryOptionsGrid = document.getElementById("accessoryOptionsGrid");
+    const accessoryColorArea = document.getElementById("accessoryColorArea");
+
+    const heartColorWrap = document.getElementById("heartColorWrap");
+    const starColorWrap = document.getElementById("starColorWrap");
+    const bowColorWrap = document.getElementById("bowColorWrap");
+
+    const heartSwatches = document.getElementById("heartSwatches");
+    const starSwatches = document.getElementById("starSwatches");
+    const bowSwatches = document.getElementById("bowSwatches");
+
+    document.getElementById("minusBtn").addEventListener("click", () => changeQty(-1));
+    document.getElementById("plusBtn").addEventListener("click", () => changeQty(1));
+    checkoutBtn.addEventListener("click", goToCart);
+    addBtn.addEventListener("click", addToCart);
+
+    nextFromBody.addEventListener("click", () => goToStep(2));
+    nextFromAccessories.addEventListener("click", () => goToStep(3));
+    nextFromDetails.addEventListener("click", () => goToStep(4));
+
+    document.querySelectorAll("[data-prev-step]").forEach(btn => {
+      btn.addEventListener("click", () => goToStep(Number(btn.dataset.prevStep)));
+    });
+
+    const bodyOptions = [
+      { name: "Cream", color: "#f4efe7", src: "Teddy_Bear_Colors/teddy-bear-cream.png" },
+      { name: "Brown", color: "#8b5e48", src: "Teddy_Bear_Colors/teddy-bear-brown.png" },
+      { name: "Light brown", color: "#c79b79", src: "Teddy_Bear_Colors/teddy-bear-light-brown.png" },
+      { name: "Light pink", color: "#f2cbd6", src: "Teddy_Bear_Colors/teddy-bear-light-pink.png" },
+      { name: "Light yellow", color: "#f3e6a1", src: "Teddy_Bear_Colors/teddy-bear-light-yellow.png" },
+      { name: "Light blue", color: "#bcd8ef", src: "Teddy_Bear_Colors/teddy-bear-light-blue.png" },
+      { name: "Dark blue", color: "#4a6d9a", src: "Teddy_Bear_Colors/teddy-bear-dark-blue.png" }
+    ];
+
+    const colorOptions = [
+      { name: "Bright pink", color: "#ff4fa3" },
+      { name: "Light pink", color: "#f3bfd1" },
+      { name: "Yellow", color: "#f4d55b" },
+      { name: "Light blue", color: "#9fd3f6" },
+      { name: "Dark blue", color: "#355f9d" },
+      { name: "Red", color: "#d44848" },
+      { name: "Burgundy", color: "#7d2743" }
+    ];
+
+    const accessoryOptions = [
+      {
+        value: "0",
+        label: "Nothing - 0RON",
+        title: "None",
+        price: 0,
+        combo: { heart:false, star:false, bow:false },
+        kind: "none"
+      },
+      {
+        value: "7",
+        label: "Heart - 7RON",
+        title: "Heart",
+        price: 7,
+        combo: { heart:true, star:false, bow:false },
+        thumbType: "heart",
+        thumbColor: "Red",
+        defaultColors: { heart: "Red" }
+      },
+      {
+        value: "8",
+        label: "Star - 8RON",
+        title: "Star",
+        price: 8,
+        combo: { heart:false, star:true, bow:false },
+        thumbType: "star",
+        thumbColor: "Yellow",
+        defaultColors: { star: "Yellow" }
+      },
+      {
+        value: "3",
+        label: "Bow - 3RON",
+        title: "Bow",
+        price: 3,
+        combo: { heart:false, star:false, bow:true },
+        thumbType: "bow",
+        thumbColor: "Bright pink",
+        defaultColors: { bow: "Bright pink" }
+      },
+      {
+        value: "9",
+        label: "Heart + Bow - 9RON",
+        title: "Heart + Bow",
+        price: 9,
+        combo: { heart:true, star:false, bow:true },
+        thumbType: "heart-bow",
+        defaultColors: { heart: "Red", bow: "Bright pink" }
+      },
+      {
+        value: "10",
+        label: "Star + Bow - 10RON",
+        title: "Star + Bow",
+        price: 10,
+        combo: { heart:false, star:true, bow:true },
+        thumbType: "star-bow",
+        defaultColors: { star: "Yellow", bow: "Bright pink" }
+      }
+    ];
+
+    function goToStep(step){
+      currentStep = step;
+
+      document.querySelectorAll(".step-card").forEach(card => {
+        card.classList.toggle("active", card.id === `step-${step}`);
+      });
+
+      document.querySelectorAll("[data-step-badge]").forEach(el => {
+        const n = Number(el.dataset.stepBadge);
+        el.classList.toggle("active", n === step);
+        el.classList.toggle("done", n < step);
+      });
+
+      const activeCard = document.getElementById(`step-${step}`);
+      if (activeCard && window.innerWidth <= 980) {
+        activeCard.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+
+    function normalizeColorLabel(v){
+      return String(v || "").trim();
+    }
+
+    function slugVariants(colorLabel){
+      const c = normalizeColorLabel(colorLabel);
+      const v1 = c.toLowerCase().replace(/\s+/g, "-");
+      const v2 = c.toLowerCase();
+      const v3 = c.toLowerCase().replace(/\s+/g, "_");
+      return Array.from(new Set([v1, v2, v3]));
+    }
+
+    function accessoryCandidates(type, colorLabel){
+      const variants = slugVariants(colorLabel);
+      const folders = ["Accessories", "accessories"];
+      const exts = ["png", "PNG"];
+      const candidates = [];
+
+      folders.forEach(folder => {
+        variants.forEach(v => {
+          exts.forEach(ext => {
+            candidates.push(`${folder}/${type}-${v}.${ext}`);
+          });
+        });
+      });
+
+      return candidates;
+    }
+
+    function trySetImage(imgEl, candidates){
+      return new Promise((resolve) => {
+        let i = 0;
+        imgEl.style.display = "none";
+        imgEl.removeAttribute("src");
+
+        const probe = new Image();
+
+        const attempt = () => {
+          if(i >= candidates.length){
+            resolve({ ok:false, used:"" });
+            return;
+          }
+
+          const src = candidates[i++];
+          probe.onload = () => {
+            imgEl.src = src;
+            imgEl.style.display = "block";
+            resolve({ ok:true, used:src });
+          };
+          probe.onerror = attempt;
+          probe.src = src;
+        };
+
+        attempt();
+      });
+    }
+
+    function showHint(id, ok, example){
+      const el = document.getElementById(id);
+      if(!el) return;
+      if(ok){
+        el.textContent = "";
+        el.classList.remove("error");
+      }else{
+        el.textContent = `Could not find image like: ${example}`;
+        el.classList.add("error");
+      }
+    }
+
+    function animatePreviewElement(el, type = "default"){
+      el.style.animation = "none";
+      void el.offsetWidth;
+
+      if(type === "bow"){
+        el.style.animation = "previewAppearBow 0.26s cubic-bezier(.22,.61,.36,1) forwards";
+      }else if(type === "centered"){
+        el.style.animation = "previewAppearCenter 0.26s cubic-bezier(.22,.61,.36,1) forwards";
+      }else{
+        el.style.animation = "previewAppear 0.26s cubic-bezier(.22,.61,.36,1) forwards";
+      }
+    }
+
+    function buildBodySwatches(){
+      bodySwatches.innerHTML = "";
+
+      bodyOptions.forEach(option => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "swatch-btn" + (option.name === bodyColor ? " active" : "");
+        btn.dataset.value = option.name;
+        btn.setAttribute("aria-label", option.name);
+
+        btn.innerHTML = `<span class="swatch-circle" style="background:${option.color};"></span>`;
+
+        btn.addEventListener("click", () => {
+          bodyColor = option.name;
+          document.querySelectorAll("#bodySwatches .swatch-btn").forEach(el => el.classList.remove("active"));
+          btn.classList.add("active");
+          updatePreview();
+          updatePrice();
+          validateForm();
+          updateSummary();
+          updateStepButtons();
+        });
+
+        bodySwatches.appendChild(btn);
+      });
+    }
+
+    function buildColorSwatches(targetEl, currentValue, onSelect){
+      targetEl.innerHTML = "";
+
+      colorOptions.forEach(option => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "swatch-btn" + (currentValue === option.name ? " active" : "");
+        btn.dataset.value = option.name;
+        btn.setAttribute("aria-label", option.name);
+
+        btn.innerHTML = `<span class="swatch-circle" style="background:${option.color};"></span>`;
+
+        btn.addEventListener("click", () => onSelect(option.name));
+        targetEl.appendChild(btn);
+      });
+    }
+
+    async function getAccessoryThumbSrc(type, colorLabel){
+      const candidates = accessoryCandidates(type, colorLabel);
+      for (const src of candidates) {
+        const ok = await new Promise(resolve => {
+          const img = new Image();
+          img.onload = () => resolve(true);
+          img.onerror = () => resolve(false);
+          img.src = src;
+        });
+        if (ok) return src;
+      }
+      return "";
+    }
+
+    async function buildAccessoryCards(){
+      accessoryOptionsGrid.innerHTML = "";
+
+      for (const option of accessoryOptions) {
+        const card = document.createElement("button");
+        card.type = "button";
+        card.className = "option-card";
+        card.dataset.value = option.value;
+
+        let thumbHTML = "";
+
+        if(option.kind === "none"){
+          thumbHTML = `
+            <div class="option-thumb" style="background:#f8f3ee;">
+              <div style="
+                width:54px;
+                height:54px;
+                border-radius:50%;
+                border:2px solid rgba(184,142,103,0.34);
+                position:relative;
+                background:rgba(255,255,255,0.78);
+                box-shadow:0 8px 16px rgba(106,81,69,0.06);
+              ">
+                <span style="
+                  position:absolute;
+                  left:50%;
+                  top:50%;
+                  width:2px;
+                  height:40px;
+                  background:#b88e67;
+                  transform:translate(-50%,-50%) rotate(45deg);
+                  border-radius:999px;
+                "></span>
+              </div>
+            </div>
+          `;
+        } else if(option.thumbType === "heart-bow"){
+          const heartSrc = await getAccessoryThumbSrc("heart", "Red");
+          const bowSrc = await getAccessoryThumbSrc("bow", "Bright pink");
+          thumbHTML = `
+            <div class="option-thumb">
+              ${heartSrc ? `<img src="${heartSrc}" alt="" style="position:absolute;width:54%;left:48%;top:54%;transform:translate(-50%,-50%);">` : ""}
+              ${bowSrc ? `<img src="${bowSrc}" alt="" style="position:absolute;width:37%;left:66%;top:28%;transform:translate(-50%,-50%) rotate(22deg);">` : ""}
+            </div>
+          `;
+        } else if(option.thumbType === "star-bow"){
+          const starSrc = await getAccessoryThumbSrc("star", "Yellow");
+          const bowSrc = await getAccessoryThumbSrc("bow", "Bright pink");
+          thumbHTML = `
+            <div class="option-thumb">
+              ${starSrc ? `<img src="${starSrc}" alt="" style="position:absolute;width:54%;left:48%;top:54%;transform:translate(-50%,-50%);">` : ""}
+              ${bowSrc ? `<img src="${bowSrc}" alt="" style="position:absolute;width:37%;left:66%;top:28%;transform:translate(-50%,-50%) rotate(22deg);">` : ""}
+            </div>
+          `;
+        } else {
+          const src = await getAccessoryThumbSrc(option.thumbType, option.thumbColor);
+          thumbHTML = `
+            <div class="option-thumb">
+              ${src ? `<img src="${src}" alt="">` : `<span style="font-size:0.8rem;color:#9b9087;">Accessory</span>`}
+            </div>
+          `;
+        }
+
+        card.innerHTML = `
+          ${thumbHTML}
+          <h3>${option.title}</h3>
+          <p>${option.price === 0 ? "0 RON" : "+" + option.price + " RON"}</p>
+        `;
+
+        card.addEventListener("click", () => {
+          accessoryValue = option.value;
+          document.querySelectorAll("#accessoryOptionsGrid .option-card").forEach(el => el.classList.remove("active"));
+          card.classList.add("active");
+
+          const combo = option.combo;
+          const defaults = option.defaultColors || {};
+
+          heartColor = combo.heart ? (heartColor || defaults.heart || "Red") : "";
+          starColor = combo.star ? (starColor || defaults.star || "Yellow") : "";
+          bowColor = combo.bow ? (bowColor || defaults.bow || "Bright pink") : "";
+
+          if(!combo.heart) heartColor = "";
+          if(!combo.star) starColor = "";
+          if(!combo.bow) bowColor = "";
+
+          updateAccessoryColorUI();
+          renderAccessories();
+          updatePrice();
+          validateForm();
+          updateSummary();
+          updateStepButtons();
+        });
+
+        accessoryOptionsGrid.appendChild(card);
+      }
+    }
+
+    function getSelectedAccessory(){
+      return accessoryOptions.find(item => item.value === accessoryValue) || null;
+    }
+
+    function updateAccessoryColorUI(){
+      const selected = getSelectedAccessory();
+
+      if(!selected || selected.value === "" || selected.value === "0"){
+        accessoryColorArea.style.display = "none";
+        heartColorWrap.style.display = "none";
+        starColorWrap.style.display = "none";
+        bowColorWrap.style.display = "none";
+        return;
+      }
+
+      accessoryColorArea.style.display = "block";
+
+      if(selected.combo.heart){
+        heartColorWrap.style.display = "block";
+        buildColorSwatches(heartSwatches, heartColor, (val) => {
+          heartColor = val;
+          updateAccessoryColorUI();
+          renderAccessories();
+          validateForm();
+          updateSummary();
+          updateStepButtons();
+        });
+      } else {
+        heartColorWrap.style.display = "none";
+      }
+
+      if(selected.combo.star){
+        starColorWrap.style.display = "block";
+        buildColorSwatches(starSwatches, starColor, (val) => {
+          starColor = val;
+          updateAccessoryColorUI();
+          renderAccessories();
+          validateForm();
+          updateSummary();
+          updateStepButtons();
+        });
+      } else {
+        starColorWrap.style.display = "none";
+      }
+
+      if(selected.combo.bow){
+        bowColorWrap.style.display = "block";
+        buildColorSwatches(bowSwatches, bowColor, (val) => {
+          bowColor = val;
+          updateAccessoryColorUI();
+          renderAccessories();
+          validateForm();
+          updateSummary();
+          updateStepButtons();
+        });
+      } else {
+        bowColorWrap.style.display = "none";
+      }
+    }
+
+    function getAccessoryScale(){
+      if(window.innerWidth <= 420){
+        return {
+          centerWidth: "188px",
+          centerTop: "74%",
+          bowWidth: "132px",
+          bowTop: "38%",
+          bowLeft: "63%"
+        };
+      }
+
+      if(window.innerWidth <= 760){
+        return {
+          centerWidth: "212px",
+          centerTop: "73%",
+          bowWidth: "148px",
+          bowTop: "37%",
+          bowLeft: "63%"
+        };
+      }
+
+      return {
+        centerWidth: "280px",
+        centerTop: "66%",
+        bowWidth: "205px",
+        bowTop: "32%",
+        bowLeft: "63%"
+      };
+    }
+
+    async function renderAccessory(type, colorLabel){
+      const mapEl = { heart: heartImg, star: starImg, bow: bowImg };
+      const imgEl = mapEl[type];
+      if(!imgEl) return;
+
+      if(!colorLabel){
+        imgEl.style.display = "none";
+        imgEl.removeAttribute("src");
+        imgEl.style.opacity = "0";
+        return;
+      }
+
+      const candidates = accessoryCandidates(type, colorLabel);
+      const result = await trySetImage(imgEl, candidates);
+
+      const example = candidates[0] || "";
+      if(type === "heart") showHint("heartHint", result.ok, example);
+      if(type === "star") showHint("starHint", result.ok, example);
+      if(type === "bow") showHint("bowHint", result.ok, example);
+
+      if(result.ok){
+        const scale = getAccessoryScale();
+        imgEl.style.opacity = "0";
+
+        if(type === "bow"){
+          imgEl.style.top = scale.bowTop;
+          imgEl.style.left = scale.bowLeft;
+          imgEl.style.width = scale.bowWidth;
+          imgEl.style.transform = "translate(-50%,-50%) rotate(22deg)";
+          animatePreviewElement(imgEl, "bow");
+        } else {
+          imgEl.style.top = scale.centerTop;
+          imgEl.style.left = "50%";
+          imgEl.style.width = scale.centerWidth;
+          imgEl.style.transform = "translate(-50%,-50%)";
+          animatePreviewElement(imgEl, "centered");
+        }
+      } else {
+        imgEl.style.display = "none";
+        imgEl.removeAttribute("src");
+        imgEl.style.opacity = "0";
+      }
+    }
+
+    async function renderAccessories(){
+      const selected = getSelectedAccessory();
+
+      if(!selected){
+        heartImg.style.display = "none";
+        starImg.style.display = "none";
+        bowImg.style.display = "none";
+        return;
+      }
+
+      if(!selected.combo.heart){
+        heartImg.style.display = "none";
+        heartImg.removeAttribute("src");
+        heartImg.style.opacity = "0";
+      }
+      if(!selected.combo.star){
+        starImg.style.display = "none";
+        starImg.removeAttribute("src");
+        starImg.style.opacity = "0";
+      }
+      if(!selected.combo.bow){
+        bowImg.style.display = "none";
+        bowImg.removeAttribute("src");
+        bowImg.style.opacity = "0";
+      }
+
+      if(selected.combo.heart) await renderAccessory("heart", heartColor);
+      if(selected.combo.star) await renderAccessory("star", starColor);
+      if(selected.combo.bow) await renderAccessory("bow", bowColor);
+    }
+
+    function updatePreview(){
+      const chosen = bodyOptions.find(item => item.name === bodyColor) || bodyOptions[0];
+      const src = chosen.src;
+
+      previewMessage.style.display = "none";
+      teddyImage.style.display = "block";
+      teddyImage.style.opacity = "1";
+      teddyImage.src = src;
+
+      teddyImage.onload = () => {
+        teddyImage.style.animation = "none";
+        void teddyImage.offsetWidth;
+        teddyImage.style.animation = "previewAppear 0.26s cubic-bezier(.22,.61,.36,1) forwards";
+      };
+
+      teddyImage.onerror = () => {
+        teddyImage.style.display = "none";
+        previewMessage.style.display = "block";
+        previewMessage.textContent = "Could not load teddy image 🤍";
+      };
+    }
+
+    function getUnitPrice(){
+      const sizeAdd = parseInt(size.value || "0", 10);
+      const selected = getSelectedAccessory();
+      const accessoryAdd = selected ? Number(selected.price || 0) : 0;
+      return basePrice + sizeAdd + accessoryAdd;
+    }
+
+    function updatePrice(){
+      priceEl.textContent = String(getUnitPrice() * quantity);
+    }
+
+    function changeQty(delta){
+      quantity += delta;
+      if(quantity < 1) quantity = 1;
+      if(quantity > 20) quantity = 20;
+      qtyEl.textContent = String(quantity);
+      updatePrice();
+    }
+
+    function getSizeText(){
+      return size.options[size.selectedIndex]?.text || "Not selected";
+    }
+
+    function getAccessoryText(){
+      const selected = getSelectedAccessory();
+      return selected ? selected.label : "Not selected";
+    }
+
+    function updateSummary(){
+      summarySize.textContent = getSizeText();
+      summaryBody.textContent = bodyColor || "Not selected";
+      summaryAccessory.textContent = getAccessoryText();
+
+      detailsSize.textContent = getSizeText();
+      detailsBody.textContent = bodyColor || "Not selected";
+      detailsAccessory.textContent = getAccessoryText();
+    }
+
+    function canGoFromBody(){
+      return size.value !== "" && bodyColor !== "";
+    }
+
+    function canGoFromAccessories(){
+      const selected = getSelectedAccessory();
+      if(!selected) return false;
+      if(selected.combo.heart && !heartColor) return false;
+      if(selected.combo.star && !starColor) return false;
+      if(selected.combo.bow && !bowColor) return false;
+      return true;
+    }
+
+    function updateStepButtons(){
+      nextFromBody.disabled = !canGoFromBody();
+      nextFromAccessories.disabled = !canGoFromAccessories();
+    }
+
+    function validateForm(){
+      const valid = canGoFromBody() && canGoFromAccessories();
+      addBtn.disabled = !valid;
+    }
+
+    function updateCartCount(){
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      let total = 0;
+
+      cart.forEach(item => {
+        total += Number(item.quantity || 1);
+      });
+
+      if(!cartCount) return;
+
+      cartCount.textContent = total;
+
+      if(total === 0){
+        cartCount.style.display = "none";
+      } else {
+        cartCount.style.display = "flex";
+      }
+    }
+
+    function addToCart(){
+      const item = {
+        name: "Teddy Bear",
+        size: size.options[size.selectedIndex].text,
+        bodyColor: bodyColor,
+        accessory: getAccessoryText(),
+        heartColor: heartColor,
+        starColor: starColor,
+        bowColor: bowColor,
+        bodyImage: teddyImage.getAttribute("src") || "",
+        heartImage: heartImg.getAttribute("src") || "",
+        starImage: starImg.getAttribute("src") || "",
+        bowImage: bowImg.getAttribute("src") || "",
+        bodyStyle: {
+          top: "0px",
+          left: "0px",
+          width: "100%",
+          height: "100%",
+          transform: "none",
+          maxWidth: "none",
+          maxHeight: "none"
+        },
+        heartStyle: heartImg.getAttribute("src") ? {
+          top: "66%",
+          left: "50%",
+          width: "58%",
+          height: "auto",
+          transform: "translate(-50%,-50%)",
+          maxWidth: "none",
+          maxHeight: "none"
+        } : null,
+        starStyle: starImg.getAttribute("src") ? {
+          top: "66%",
+          left: "50%",
+          width: "58%",
+          height: "auto",
+          transform: "translate(-50%,-50%)",
+          maxWidth: "none",
+          maxHeight: "none"
+        } : null,
+        bowStyle: bowImg.getAttribute("src") ? {
+          top: "32%",
+          left: "63%",
+          width: "42%",
+          height: "auto",
+          transform: "translate(-50%,-50%) rotate(22deg)",
+          maxWidth: "none",
+          maxHeight: "none"
+        } : null,
+        image: teddyImage.getAttribute("src") || "",
+        price: getUnitPrice(),
+        quantity: quantity
+      };
+
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push(item);
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      checkoutBtn.style.display = "block";
+      updateCartCount();
+
+      const toast = document.getElementById("toast");
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 4000);
+    }
+
+    function goToCart(){
+      window.location.href = "cart.html";
+    }
+
+    size.addEventListener("change", () => {
+      updatePrice();
+      updateSummary();
+      updateStepButtons();
+      validateForm();
+    });
+
+    document.addEventListener("mousemove", (e) => {
+      if(!cursorGlow || window.innerWidth <= 760) return;
+      cursorGlow.style.left = `${e.clientX}px`;
+      cursorGlow.style.top = `${e.clientY}px`;
+    });
+
+    document.addEventListener("mouseleave", () => {
+      if(cursorGlow) cursorGlow.style.opacity = "0";
+    });
+
+    document.addEventListener("mouseenter", () => {
+      if(cursorGlow && window.innerWidth > 760) cursorGlow.style.opacity = "0.9";
+    });
+
+    window.addEventListener("resize", () => {
+      renderAccessories();
+    });
+
+    window.addEventListener("load", async () => {
+      buildBodySwatches();
+      await buildAccessoryCards();
+      updatePreview();
+      updatePrice();
+      updateSummary();
+      updateCartCount();
+      updateStepButtons();
+      validateForm();
+      goToStep(1);
+    });
+  </script>
 </body>
 </html>
