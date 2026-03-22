@@ -686,6 +686,80 @@
       border:none;
     }
 
+    .order-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:14px;
+    }
+
+    .order-top h2{
+      margin:0;
+      font-family:'Playfair Display',serif;
+      font-size:1.35rem;
+      font-weight:500;
+    }
+
+    .price-box{
+      text-align:right;
+    }
+
+    .price-box .label{
+      display:block;
+      font-size:0.7rem;
+      text-transform:uppercase;
+      letter-spacing:0.14em;
+      color:var(--brown-soft);
+      margin-bottom:5px;
+    }
+
+    .price-box .value{
+      font-family:'Playfair Display',serif;
+      font-size:1.7rem;
+      line-height:1;
+      color:var(--brown);
+    }
+
+    .order-grid{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:14px;
+      align-items:end;
+    }
+
+    .qty-box{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-top:8px;
+    }
+
+    .qty-btn{
+      width:42px;
+      height:42px;
+      border-radius:14px;
+      border:1px solid #d8d2ca;
+      background:#fff;
+      color:var(--brown);
+      font-size:1.2rem;
+      cursor:pointer;
+      transition:transform 0.2s ease, box-shadow 0.22s ease, background 0.22s ease;
+    }
+
+    .qty-btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 10px 18px rgba(106,81,69,0.08);
+      background:#fffdfa;
+    }
+
+    .qty-value{
+      min-width:30px;
+      text-align:center;
+      font-weight:700;
+      font-size:1rem;
+    }
+
     .actions{
       margin-top:16px;
       display:grid;
@@ -863,7 +937,7 @@
       .cursor-glow{ display:none; }
 
       .app-shell{
-        padding:0 10px 18px;
+        padding:0 10px 16px;
       }
 
       .topbar{
@@ -873,38 +947,35 @@
 
       .topbar-inner{
         grid-template-columns:42px 1fr 42px;
-        min-height:64px;
+        min-height:62px;
       }
 
       .top-title .label{
-        font-size:0.98rem;
+        font-size:0.95rem;
       }
 
       .top-title .sub{
-        font-size:0.66rem;
+        font-size:0.64rem;
       }
 
       .customizer-layout{
         display:flex;
         flex-direction:column;
-        gap:12px;
-        padding-top:10px;
+        gap:10px;
+        padding-top:8px;
       }
 
       .left-column,
       .right-column{
-        gap:12px;
+        gap:10px;
       }
 
       .preview-card,
       .stepper-card,
       .step-card,
       .rec-card{
-        border-radius:22px;
-      }
-
-      .preview-card{
         padding:10px;
+        border-radius:20px;
       }
 
       .preview-head{
@@ -913,77 +984,77 @@
       }
 
       .preview-head h1{
-        font-size:1.18rem;
+        font-size:1.08rem;
       }
 
       .preview-head p{
-        font-size:0.76rem;
-        line-height:1.4;
+        font-size:0.73rem;
+        line-height:1.35;
       }
 
       .preview-badge{
-        font-size:0.62rem;
-        padding:7px 9px;
+        font-size:0.58rem;
+        padding:6px 8px;
       }
 
       .preview-stage{
-        min-height:255px;
-        max-height:255px;
-        border-radius:20px;
-      }
-
-      .summary-row{
-        margin-top:8px;
-        gap:8px;
-      }
-
-      .summary-chip{
-        min-height:auto;
-        padding:9px 8px;
-      }
-
-      .summary-chip .k{
-        font-size:0.58rem;
-        margin-bottom:4px;
-      }
-
-      .summary-chip .v{
-        font-size:0.76rem;
+        min-height:220px;
+        max-height:220px;
+        border-radius:18px;
       }
 
       #bunnyImage{
-        width:min(134%, 520px);
-        bottom:-34px;
+        width:min(126%, 470px);
+        bottom:-24px;
       }
 
       #heartImg,
       #starImg{
-        width:min(37%, 132px);
-        top:70%;
+        width:min(34%, 118px);
+        top:69%;
       }
 
       #bowImg{
-        width:min(24%, 86px);
-        top:31%;
+        width:min(22%, 76px);
+        top:30%;
         left:63%;
       }
 
       .stage-glow{
-        width:160px;
-        height:160px;
-        top:14px;
+        width:145px;
+        height:145px;
+        top:12px;
       }
 
-      .b1{ width:54px; height:72px; left:-16px; top:22px; }
-      .b2{ width:70px; height:54px; right:2px; top:26px; }
-      .b3{ width:76px; height:88px; left:2px; bottom:60px; }
-      .b4{ width:86px; height:58px; right:-16px; bottom:82px; }
-      .b5{ width:50px; height:50px; top:22px; }
-      .b6{ width:112px; height:40px; bottom:38px; }
+      .b1{ width:48px; height:62px; left:-14px; top:18px; }
+      .b2{ width:64px; height:48px; right:2px; top:22px; }
+      .b3{ width:68px; height:78px; left:2px; bottom:52px; }
+      .b4{ width:74px; height:52px; right:-12px; bottom:70px; }
+      .b5{ width:42px; height:42px; top:18px; }
+      .b6{ width:96px; height:34px; bottom:32px; }
 
       .stage-floor{
-        bottom:10px;
-        height:34px;
+        bottom:8px;
+        height:28px;
+      }
+
+      .summary-row{
+        margin-top:8px;
+        gap:6px;
+      }
+
+      .summary-chip{
+        min-height:auto;
+        padding:8px 7px;
+      }
+
+      .summary-chip .k{
+        font-size:0.55rem;
+        margin-bottom:4px;
+      }
+
+      .summary-chip .v{
+        font-size:0.72rem;
       }
 
       .stepper-card{
@@ -991,75 +1062,117 @@
       }
 
       .stepper-title{
-        margin-bottom:10px;
-        font-size:1rem;
+        margin:0 0 8px;
+        font-size:0.98rem;
       }
 
       .stepper{
-        gap:6px;
+        gap:5px;
       }
 
       .step-badge .dot{
-        width:28px;
-        height:28px;
-        font-size:0.75rem;
+        width:26px;
+        height:26px;
+        font-size:0.72rem;
       }
 
       .step-badge .txt{
-        font-size:0.62rem;
-      }
-
-      .step-card,
-      .rec-card{
-        padding:12px;
+        font-size:0.58rem;
       }
 
       .section-title{
-        font-size:1.08rem;
+        font-size:1.02rem;
       }
 
       .section-text{
-        font-size:0.84rem;
+        font-size:0.82rem;
         margin-bottom:12px;
+      }
+
+      .control-block{
+        margin-bottom:13px;
+      }
+
+      .control-label{
+        font-size:0.66rem;
+        margin-bottom:8px;
+      }
+
+      select{
+        padding:12px 13px;
+        padding-right:38px;
+        border-radius:12px;
+        font-size:0.92rem;
       }
 
       .swatch-grid{
         grid-template-columns:repeat(4, minmax(0,1fr));
-        gap:10px;
+        gap:8px;
       }
 
       .swatch-circle{
-        width:34px;
-        height:34px;
+        width:32px;
+        height:32px;
       }
 
       .option-grid{
-        grid-template-columns:repeat(2, minmax(0,1fr));
-        gap:10px;
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+        gap:8px;
       }
 
       .option-card{
         padding:8px;
+        border-radius:14px;
+      }
+
+      .option-thumb{
+        border-radius:12px;
+        margin-bottom:8px;
       }
 
       .option-card h3{
-        font-size:0.8rem;
+        font-size:0.76rem;
       }
 
       .option-card p{
-        font-size:0.72rem;
+        font-size:0.68rem;
+      }
+
+      .helper-box{
+        padding:12px;
+        border-radius:14px;
+        font-size:0.8rem;
       }
 
       .step-actions{
-        margin-top:14px;
+        margin-top:12px;
+        gap:8px;
       }
 
       .step-btn{
         width:100%;
-        justify-content:center;
-        text-align:center;
+        padding:12px 14px;
+        font-size:0.73rem;
+        border-radius:13px;
+      }
+
+      .order-grid{
+        grid-template-columns:1fr;
+      }
+
+      .qty-btn{
+        width:38px;
+        height:38px;
+      }
+
+      .qty-value{
+        font-size:0.94rem;
+      }
+
+      .action-btn{
         padding:13px 14px;
-        font-size:0.76rem;
+        font-size:0.74rem;
+        border-radius:13px;
       }
 
       .rec-grid{
@@ -1067,11 +1180,11 @@
       }
 
       .rec-name{
-        font-size:0.76rem;
+        font-size:0.72rem;
       }
 
       .rec-price{
-        font-size:0.68rem;
+        font-size:0.66rem;
       }
 
       .toast{
@@ -1085,34 +1198,34 @@
 
     @media (max-width: 420px){
       .preview-stage{
-        min-height:232px;
-        max-height:232px;
+        min-height:205px;
+        max-height:205px;
       }
 
       #bunnyImage{
-        width:min(138%, 470px);
-        bottom:-30px;
+        width:min(128%, 430px);
+        bottom:-20px;
       }
 
       #heartImg,
       #starImg{
-        width:min(38%, 122px);
-        top:70%;
+        width:min(35%, 108px);
+        top:69%;
       }
 
       #bowImg{
-        width:min(24%, 78px);
-        top:31%;
+        width:min(22%, 70px);
+        top:30%;
         left:63%;
       }
 
       .summary-chip .v{
-        font-size:0.72rem;
+        font-size:0.68rem;
       }
 
       .swatch-circle{
-        width:32px;
-        height:32px;
+        width:30px;
+        height:30px;
       }
     }
   </style>
@@ -1825,20 +1938,20 @@
     function getAccessoryScale(){
       if(window.innerWidth <= 420){
         return {
-          centerWidth: "122px",
-          centerTop: "70%",
-          bowWidth: "78px",
-          bowTop: "31%",
+          centerWidth: "108px",
+          centerTop: "69%",
+          bowWidth: "70px",
+          bowTop: "30%",
           bowLeft: "63%"
         };
       }
 
       if(window.innerWidth <= 760){
         return {
-          centerWidth: "132px",
-          centerTop: "70%",
-          bowWidth: "86px",
-          bowTop: "31%",
+          centerWidth: "118px",
+          centerTop: "69%",
+          bowWidth: "76px",
+          bowTop: "30%",
           bowLeft: "63%"
         };
       }
@@ -2052,27 +2165,27 @@
           maxHeight: "none"
         },
         heartStyle: heartImg.getAttribute("src") ? {
-          top: window.innerWidth <= 760 ? "70%" : "66%",
+          top: window.innerWidth <= 760 ? "69%" : "66%",
           left: "50%",
-          width: window.innerWidth <= 760 ? "37%" : "58%",
+          width: window.innerWidth <= 760 ? "34%" : "58%",
           height: "auto",
           transform: "translate(-50%,-50%)",
           maxWidth: "none",
           maxHeight: "none"
         } : null,
         starStyle: starImg.getAttribute("src") ? {
-          top: window.innerWidth <= 760 ? "70%" : "66%",
+          top: window.innerWidth <= 760 ? "69%" : "66%",
           left: "50%",
-          width: window.innerWidth <= 760 ? "37%" : "58%",
+          width: window.innerWidth <= 760 ? "34%" : "58%",
           height: "auto",
           transform: "translate(-50%,-50%)",
           maxWidth: "none",
           maxHeight: "none"
         } : null,
         bowStyle: bowImg.getAttribute("src") ? {
-          top: window.innerWidth <= 760 ? "31%" : "32%",
+          top: window.innerWidth <= 760 ? "30%" : "32%",
           left: "63%",
-          width: window.innerWidth <= 760 ? "24%" : "42%",
+          width: window.innerWidth <= 760 ? "22%" : "42%",
           height: "auto",
           transform: "translate(-50%,-50%) rotate(29deg)",
           maxWidth: "none",
