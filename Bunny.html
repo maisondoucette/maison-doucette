@@ -181,6 +181,12 @@
       gap:18px;
     }
 
+    .left-column{
+      position:sticky;
+      top:calc(var(--topbar-h) + 16px);
+      align-self:start;
+    }
+
     .card{
       background:rgba(255,250,246,0.88);
       border:1px solid var(--line);
@@ -857,6 +863,11 @@
       .customizer-layout{
         grid-template-columns:1fr;
       }
+
+      .left-column{
+        position:static;
+        top:auto;
+      }
     }
 
     @media (max-width: 760px){
@@ -897,99 +908,170 @@
       }
 
       .preview-card{
-        padding:10px;
+        padding:12px;
       }
 
       .preview-head{
         margin-bottom:8px;
-        gap:8px;
       }
 
       .preview-head h1{
-        font-size:1.22rem;
+        font-size:1.05rem;
       }
 
       .preview-head p{
-        font-size:0.78rem;
-        line-height:1.4;
-        margin-top:2px;
+        font-size:0.70rem;
+        line-height:1.35;
       }
 
       .preview-badge{
-        padding:7px 10px;
         font-size:0.62rem;
+        padding:7px 9px;
       }
 
       .preview-stage{
-        min-height:235px;
-        border-radius:20px;
+        min-height:200px;
+        aspect-ratio:1.16/1;
+        border-radius:18px;
       }
 
       #bunnyImage{
-        width:min(122%, 430px);
-        bottom:-12px;
+        width:min(110%, 340px);
+        bottom:-5px;
       }
 
       #heartImg,
       #starImg{
-        width:min(34%, 118px);
-        top:67%;
+        width:min(30%, 95px);
+        top:68%;
       }
 
       #bowImg{
-        width:min(22%, 74px);
+        width:min(20%, 60px);
         top:30%;
-        left:63%;
+        left:64%;
       }
 
       .summary-row{
-        margin-top:8px;
         gap:8px;
+        margin-top:8px;
       }
 
       .summary-chip{
-        padding:9px 8px;
-        min-height:58px;
+        padding:6px 6px;
+        min-height:50px;
       }
 
       .summary-chip .k{
-        font-size:0.58rem;
+        font-size:0.56rem;
         margin-bottom:4px;
       }
 
       .summary-chip .v{
-        font-size:0.78rem;
-        line-height:1.25;
+        font-size:0.70rem;
+        line-height:1.2;
       }
 
-      .stepper{
-        grid-template-columns:repeat(4, minmax(0,1fr));
-        gap:6px;
-      }
-
-      .step-badge .txt{
-        font-size:0.66rem;
-      }
-
-      .step-card,
       .stepper-card,
+      .step-card,
       .rec-card{
         padding:12px;
       }
 
+      .stepper{
+        gap:6px;
+      }
+
+      .step-badge .dot{
+        width:28px;
+        height:28px;
+        font-size:0.78rem;
+      }
+
+      .step-badge .txt{
+        font-size:0.60rem;
+      }
+
+      .section-title{
+        font-size:1.08rem;
+      }
+
+      .section-text{
+        font-size:0.82rem;
+        margin-bottom:12px;
+      }
+
+      .control-block{
+        margin-bottom:12px;
+      }
+
+      .control-label{
+        font-size:0.64rem;
+        margin-bottom:8px;
+      }
+
+      select{
+        padding:12px 14px;
+        padding-right:40px;
+        font-size:0.92rem;
+      }
+
       .swatch-grid{
         grid-template-columns:repeat(4, minmax(0,1fr));
-        gap:10px;
+        gap:8px;
       }
 
       .swatch-circle{
-        width:38px;
-        height:38px;
+        width:34px;
+        height:34px;
       }
 
       .option-grid{
         grid-template-columns:repeat(2, minmax(0, 1fr));
         gap:10px;
+      }
+
+      .option-card{
+        padding:8px;
+      }
+
+      .option-card h3{
+        font-size:0.78rem;
+      }
+
+      .option-card p{
+        font-size:0.68rem;
+      }
+
+      .step-btn,
+      .action-btn{
+        padding:13px 14px;
+        font-size:0.74rem;
+      }
+
+      .helper-box{
+        font-size:0.80rem;
+        padding:12px;
+      }
+
+      .rec-head h2{
+        font-size:1.05rem;
+      }
+
+      .rec-head span{
+        font-size:0.72rem;
+      }
+
+      .rec-grid{
+        gap:8px;
+      }
+
+      .rec-name{
+        font-size:0.74rem;
+      }
+
+      .rec-price{
+        font-size:0.66rem;
       }
 
       .toast{
@@ -1003,36 +1085,28 @@
 
     @media (max-width: 420px){
       .preview-stage{
-        min-height:215px;
+        min-height:190px;
       }
 
       #bunnyImage{
-        width:min(118%, 380px);
-        bottom:-10px;
+        width:min(108%, 315px);
+        bottom:-3px;
       }
 
       #heartImg,
       #starImg{
-        width:min(32%, 102px);
-        top:67%;
+        width:min(30%, 88px);
+        top:68%;
       }
 
       #bowImg{
-        width:min(21%, 66px);
-        top:30%;
-        left:63%;
-      }
-
-      .preview-head h1{
-        font-size:1.12rem;
-      }
-
-      .preview-head p{
-        font-size:0.74rem;
+        width:min(19%, 56px);
+        top:31%;
+        left:64%;
       }
 
       .summary-chip .v{
-        font-size:0.72rem;
+        font-size:0.66rem;
       }
     }
   </style>
@@ -1215,27 +1289,37 @@
         </section>
 
         <section class="card step-card" id="step-4">
-          <h2 class="section-title">Order & bring it to life</h2>
-          <p class="section-text">Choose quantity and add your bunny to cart.</p>
+          <div style="padding:16px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;">
+              <h2 style="margin:0;font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:500;">Order & bring it to life</h2>
 
-          <div class="helper-box" style="margin-bottom:14px;">
-            <strong>Total:</strong> <span id="price">45</span> RON
-          </div>
-
-          <div class="control-block">
-            <label class="control-label">Quantity</label>
-            <div class="qty-box">
-              <button class="qty-btn" type="button" id="minusBtn">−</button>
-              <span class="qty-value" id="quantity">1</span>
-              <button class="qty-btn" type="button" id="plusBtn">+</button>
+              <div class="price-box">
+                <span class="label">Total</span>
+                <span class="value"><span id="price">45</span> RON</span>
+              </div>
             </div>
-          </div>
 
-          <div class="actions">
-            <button class="action-btn primary-btn" id="addBtn" type="button" disabled>Add to cart</button>
-            <button class="action-btn dark-btn" id="checkoutBtn" type="button">Go to cart</button>
-            <button class="action-btn soft-btn" type="button" onclick="window.location.href='index.html#shop'">Continue shopping</button>
-            <button class="action-btn soft-btn" type="button" data-prev-step="3">Back to details</button>
+            <div style="display:grid;grid-template-columns:1fr auto;gap:14px;align-items:end;" class="order-grid-mobile">
+              <div>
+                <label class="control-label">Quantity</label>
+                <div class="qty-box">
+                  <button class="qty-btn" type="button" id="minusBtn">−</button>
+                  <span class="qty-value" id="quantity">1</span>
+                  <button class="qty-btn" type="button" id="plusBtn">+</button>
+                </div>
+              </div>
+
+              <div class="helper-box">
+                Handmade just for you.
+              </div>
+            </div>
+
+            <div class="actions">
+              <button class="action-btn primary-btn" id="addBtn" type="button" disabled>Add to cart</button>
+              <button class="action-btn dark-btn" id="checkoutBtn" type="button">Go to cart</button>
+              <button class="action-btn soft-btn" type="button" onclick="window.location.href='index.html#shop'">Continue shopping</button>
+              <button class="action-btn soft-btn" type="button" data-prev-step="3">Back to details</button>
+            </div>
           </div>
         </section>
 
@@ -1331,12 +1415,12 @@
     checkoutBtn.addEventListener("click", goToCart);
     addBtn.addEventListener("click", addToCart);
 
-    nextFromBody.addEventListener("click", () => goToStep(2));
-    nextFromAccessories.addEventListener("click", () => goToStep(3));
-    nextFromDetails.addEventListener("click", () => goToStep(4));
+    nextFromBody.addEventListener("click", () => goToStep(2, true));
+    nextFromAccessories.addEventListener("click", () => goToStep(3, true));
+    nextFromDetails.addEventListener("click", () => goToStep(4, true));
 
     document.querySelectorAll("[data-prev-step]").forEach(btn => {
-      btn.addEventListener("click", () => goToStep(Number(btn.dataset.prevStep)));
+      btn.addEventListener("click", () => goToStep(Number(btn.dataset.prevStep), true));
     });
 
     const bodyOptions = [
@@ -1418,7 +1502,7 @@
       }
     ];
 
-    function goToStep(step, shouldScroll = true){
+    function goToStep(step, allowScroll = true){
       currentStep = step;
 
       document.querySelectorAll(".step-card").forEach(card => {
@@ -1431,11 +1515,9 @@
         el.classList.toggle("done", n < step);
       });
 
-      if(shouldScroll){
-        const activeCard = document.getElementById(`step-${step}`);
-        if (activeCard && window.innerWidth <= 980) {
-          activeCard.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
+      const activeCard = document.getElementById(`step-${step}`);
+      if (allowScroll && activeCard && window.innerWidth <= 980) {
+        activeCard.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }
 
@@ -1739,21 +1821,21 @@
     function getAccessoryScale(){
       if(window.innerWidth <= 420){
         return {
-          centerWidth: "102px",
-          centerTop: "67%",
-          bowWidth: "66px",
-          bowTop: "30%",
-          bowLeft: "63%"
+          centerWidth: "88px",
+          centerTop: "68%",
+          bowWidth: "56px",
+          bowTop: "31%",
+          bowLeft: "64%"
         };
       }
 
       if(window.innerWidth <= 760){
         return {
-          centerWidth: "118px",
-          centerTop: "67%",
-          bowWidth: "74px",
+          centerWidth: "95px",
+          centerTop: "68%",
+          bowWidth: "60px",
           bowTop: "30%",
-          bowLeft: "63%"
+          bowLeft: "64%"
         };
       }
 
@@ -1966,27 +2048,27 @@
           maxHeight: "none"
         },
         heartStyle: heartImg.getAttribute("src") ? {
-          top: "66%",
+          top: window.innerWidth <= 760 ? "68%" : "66%",
           left: "50%",
-          width: "58%",
+          width: window.innerWidth <= 760 ? "95px" : "58%",
           height: "auto",
           transform: "translate(-50%,-50%)",
           maxWidth: "none",
           maxHeight: "none"
         } : null,
         starStyle: starImg.getAttribute("src") ? {
-          top: "66%",
+          top: window.innerWidth <= 760 ? "68%" : "66%",
           left: "50%",
-          width: "58%",
+          width: window.innerWidth <= 760 ? "95px" : "58%",
           height: "auto",
           transform: "translate(-50%,-50%)",
           maxWidth: "none",
           maxHeight: "none"
         } : null,
         bowStyle: bowImg.getAttribute("src") ? {
-          top: "32%",
-          left: "63%",
-          width: "42%",
+          top: window.innerWidth <= 760 ? "30%" : "32%",
+          left: window.innerWidth <= 760 ? "64%" : "63%",
+          width: window.innerWidth <= 760 ? "60px" : "42%",
           height: "auto",
           transform: "translate(-50%,-50%) rotate(29deg)",
           maxWidth: "none",
