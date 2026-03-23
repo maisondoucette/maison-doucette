@@ -181,6 +181,12 @@
       gap:18px;
     }
 
+    .left-column{
+      position:sticky;
+      top:calc(var(--topbar-h) + 14px);
+      align-self:start;
+    }
+
     .card{
       background:rgba(255,250,246,0.88);
       border:1px solid var(--line);
@@ -861,6 +867,11 @@
       .customizer-layout{
         grid-template-columns:1fr;
       }
+
+      .left-column{
+        position:static;
+        top:auto;
+      }
     }
 
     @media (max-width: 760px){
@@ -898,12 +909,12 @@
       .left-column{
         display:grid;
         gap:10px;
+        position:sticky;
+        top:68px;
+        z-index:35;
       }
 
       .preview-card{
-        position:sticky;
-        top:70px;
-        z-index:30;
         padding:9px;
         border-radius:20px;
         box-shadow:0 12px 24px rgba(106,81,69,0.09);
@@ -1128,8 +1139,11 @@
     }
 
     @media (max-width: 420px){
+      .left-column{
+        top:66px;
+      }
+
       .preview-card{
-        top:68px;
         padding:8px;
       }
 
@@ -1404,17 +1418,9 @@
                 <div class="rec-price">View collection</div>
               </a>
 
-              <div class="rec-item rec-future">
-                Future product
-              </div>
-
-              <div class="rec-item rec-future">
-                Future product
-              </div>
-
-              <div class="rec-item rec-future">
-                Future product
-              </div>
+              <div class="rec-item rec-future">Future product</div>
+              <div class="rec-item rec-future">Future product</div>
+              <div class="rec-item rec-future">Future product</div>
             </div>
 
             <div class="rec-controls">
@@ -1608,7 +1614,6 @@
       });
 
       const activeCard = document.getElementById(`step-${step}`);
-
       if (activeCard && window.innerWidth > 760) {
         activeCard.scrollIntoView({ behavior: "smooth", block: "start" });
       }
@@ -2085,8 +2090,7 @@
       if(!selected) return false;
       if(selected.combo.heart && !heartColor) return false;
       if(selected.combo.star && !starColor) return false;
-      ifselected = selected.combo.bow && !bowColor;
-      if(ifselected) return false;
+      if(selected.combo.bow && !bowColor) return false;
       return true;
     }
 
