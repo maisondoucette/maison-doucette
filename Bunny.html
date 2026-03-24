@@ -515,8 +515,8 @@
 
     .swatch-grid{
       display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(62px, 1fr));
-      gap:12px;
+      grid-template-columns:repeat(auto-fit, minmax(54px, 1fr));
+      gap:10px;
     }
 
     .swatch-btn{
@@ -528,6 +528,7 @@
       display:flex;
       align-items:center;
       justify-content:center;
+      min-height:46px;
     }
 
     .swatch-btn:hover{
@@ -536,31 +537,47 @@
 
     .swatch-circle{
       display:block;
-      width:44px;
-      height:44px;
+      width:36px;
+      height:36px;
       aspect-ratio:1 / 1;
       border-radius:50%;
-      border:2px solid rgba(184,142,103,0.42);
+      border:1.5px solid rgba(184,142,103,0.35);
       box-shadow:
-        0 0 0 3px rgba(255,250,246,0.95),
-        0 10px 18px rgba(106,81,69,0.08);
-      transition:all 0.2s ease;
+        0 0 0 2px rgba(255,250,246,0.96),
+        0 8px 16px rgba(106,81,69,0.08);
+      transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        border-color 0.22s ease,
+        filter 0.22s ease;
       flex-shrink:0;
+      position:relative;
     }
 
     .swatch-btn.active .swatch-circle{
-      border-color:var(--gold-deep);
+      border-color:rgba(184,142,103,0.95);
       box-shadow:
-        0 0 0 4px rgba(255,250,246,1),
-        0 0 0 6px rgba(210,176,141,0.34),
-        0 12px 22px rgba(106,81,69,0.12);
-      transform:scale(1.04);
+        0 0 0 2px rgba(255,250,246,1),
+        0 0 0 5px rgba(210,176,141,0.22),
+        0 0 0 8px rgba(255,255,255,0.92),
+        0 14px 24px rgba(106,81,69,0.14);
+      transform:scale(1.05);
+      filter:saturate(1.03);
+    }
+
+    .swatch-btn.active .swatch-circle::after{
+      content:"";
+      position:absolute;
+      inset:-7px;
+      border-radius:50%;
+      border:1px solid rgba(184,142,103,0.32);
+      pointer-events:none;
     }
 
     .option-grid{
       display:grid;
       grid-template-columns:repeat(3, minmax(0, 1fr));
-      gap:10px;
+      gap:8px;
     }
 
     .option-card{
@@ -606,14 +623,14 @@
 
     .option-card h3{
       margin:0 0 3px;
-      font-size:0.78rem;
+      font-size:0.8rem;
       line-height:1.2;
       font-weight:600;
     }
 
     .option-card p{
       margin:0;
-      font-size:0.68rem;
+      font-size:0.7rem;
       color:var(--brown-soft);
       line-height:1.35;
     }
@@ -640,6 +657,14 @@
     .helper-box strong{
       color:var(--brown);
       font-weight:600;
+    }
+
+    .qty-box{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-top:8px;
+      flex-wrap:wrap;
     }
 
     .step-actions{
@@ -710,11 +735,12 @@
       font-size:0.84rem;
     }
 
-    .rec-scroll-wrap{
+    .rec-slider-wrap{
       position:relative;
+      overflow:hidden;
     }
 
-    .rec-track{
+    .rec-slider{
       display:flex;
       gap:10px;
       overflow-x:auto;
@@ -723,14 +749,12 @@
       scrollbar-width:none;
     }
 
-    .rec-track::-webkit-scrollbar{
+    .rec-slider::-webkit-scrollbar{
       display:none;
     }
 
     .rec-item{
-      min-width:145px;
-      max-width:145px;
-      flex:0 0 145px;
+      flex:0 0 118px;
       background:rgba(255,255,255,0.76);
       border:1px solid var(--line);
       border-radius:16px;
@@ -746,11 +770,11 @@
 
     .rec-thumb{
       width:100%;
-      aspect-ratio:1/1.02;
+      aspect-ratio:1/1.04;
       border-radius:12px;
       overflow:hidden;
       background:#f2ece6;
-      margin-bottom:7px;
+      margin-bottom:8px;
     }
 
     .rec-thumb img{
@@ -763,39 +787,37 @@
       font-size:0.76rem;
       font-weight:600;
       line-height:1.3;
-      margin-bottom:3px;
+      margin-bottom:4px;
     }
 
     .rec-price{
-      font-size:0.66rem;
+      font-size:0.68rem;
       color:var(--brown-soft);
+      line-height:1.25;
+    }
+
+    .rec-nav{
+      display:flex;
+      gap:8px;
+      justify-content:flex-end;
+      margin-top:10px;
     }
 
     .rec-arrow{
-      position:absolute;
-      top:50%;
-      transform:translateY(-50%);
       width:34px;
       height:34px;
-      border:none;
       border-radius:50%;
-      background:rgba(255,255,255,0.92);
       border:1px solid var(--line);
-      box-shadow:var(--shadow-soft);
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      background:#fff;
+      color:var(--brown);
       cursor:pointer;
-      z-index:3;
+      box-shadow:var(--shadow-soft);
+      transition:transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .rec-arrow.left{ left:-6px; }
-    .rec-arrow.right{ right:-6px; }
-
-    .rec-arrow svg{
-      width:16px;
-      height:16px;
-      stroke:var(--brown);
+    .rec-arrow:hover{
+      transform:translateY(-1px);
+      box-shadow:0 12px 20px rgba(106,81,69,0.10);
     }
 
     .toast{
@@ -885,9 +907,6 @@
       .left-column{
         display:grid;
         gap:12px;
-        position:static;
-        top:auto;
-        z-index:auto;
       }
 
       .preview-card{
@@ -1011,12 +1030,16 @@
 
       .swatch-grid{
         grid-template-columns:repeat(4, minmax(0,1fr));
-        gap:10px;
+        gap:8px;
+      }
+
+      .swatch-btn{
+        min-height:38px;
       }
 
       .swatch-circle{
-        width:36px;
-        height:36px;
+        width:30px;
+        height:30px;
       }
 
       .option-grid{
@@ -1025,7 +1048,7 @@
       }
 
       .option-card{
-        padding:6px;
+        padding:7px;
         border-radius:14px;
       }
 
@@ -1034,19 +1057,12 @@
         margin-bottom:6px;
       }
 
-      .option-thumb img{
-        width:68%;
-        height:68%;
-      }
-
       .option-card h3{
-        font-size:0.66rem;
-        line-height:1.15;
+        font-size:0.68rem;
       }
 
       .option-card p{
-        font-size:0.58rem;
-        line-height:1.2;
+        font-size:0.6rem;
       }
 
       .step-actions{
@@ -1061,14 +1077,15 @@
       }
 
       .rec-item{
-        min-width:128px;
-        max-width:128px;
-        flex:0 0 128px;
+        flex:0 0 104px;
       }
 
-      .rec-arrow{
-        width:30px;
-        height:30px;
+      .rec-name{
+        font-size:0.72rem;
+      }
+
+      .rec-price{
+        font-size:0.64rem;
       }
 
       .toast{
@@ -1082,56 +1099,43 @@
 
     @media (max-width: 420px){
       .preview-card{
-        top:66px;
-        padding:8px;
+        top:70px;
+        padding:9px;
       }
 
       .preview-stage{
-        min-height:204px;
-        max-height:204px;
+        min-height:228px;
+        max-height:228px;
       }
 
       #bunnyImage{
-        width:min(118%, 360px);
-        bottom:-18px;
+        width:min(128%, 420px);
+        bottom:-24px;
       }
 
       #heartImg,
       #starImg{
-        width:min(34%, 92px);
-        top:61%;
+        width:min(39%, 118px);
+        top:67%;
       }
 
       #bowImg{
-        width:min(21%, 54px);
-        top:26%;
-        left:60%;
+        width:min(24%, 72px);
+        top:30%;
+        left:64%;
+      }
+
+      .swatch-circle{
+        width:26px;
+        height:26px;
       }
 
       .summary-chip .v{
-        font-size:0.64rem;
-      }
-
-      .option-grid{
-        gap:7px;
-      }
-
-      .option-card{
-        padding:5px;
-      }
-
-      .option-card h3{
-        font-size:0.62rem;
-      }
-
-      .option-card p{
-        font-size:0.55rem;
+        font-size:0.7rem;
       }
 
       .rec-item{
-        min-width:118px;
-        max-width:118px;
-        flex:0 0 118px;
+        flex:0 0 98px;
       }
     }
   </style>
@@ -1322,7 +1326,7 @@
 
           <div class="control-block">
             <label class="control-label">Quantity</label>
-            <div class="qty-box" style="display:flex; gap:10px; align-items:center;">
+            <div class="qty-box">
               <button class="step-btn soft" type="button" id="minusBtn" style="padding:10px 14px; min-width:52px;">−</button>
               <div class="helper-box" style="padding:10px 16px; min-width:68px; text-align:center;">
                 <strong id="quantity">1</strong>
@@ -1349,14 +1353,8 @@
             <span>More lovely pieces</span>
           </div>
 
-          <div class="rec-scroll-wrap">
-            <button class="rec-arrow left" type="button" id="recPrev" aria-label="Previous">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M15 18l-6-6 6-6"></path>
-              </svg>
-            </button>
-
-            <div class="rec-track" id="recTrack">
+          <div class="rec-slider-wrap">
+            <div class="rec-slider" id="recSlider">
               <a class="rec-item" href="teddy-details.html">
                 <div class="rec-thumb">
                   <img src="images/teddy1.jpg" alt="Teddy Bear">
@@ -1375,7 +1373,7 @@
 
               <a class="rec-item" href="index.html#shop">
                 <div class="rec-thumb">
-                  <img src="images/bunny1.jpg" alt="See all products">
+                  <img src="images/bunny1.jpg" alt="More creations">
                 </div>
                 <div class="rec-name">More creations</div>
                 <div class="rec-price">View collection</div>
@@ -1392,19 +1390,12 @@
                 <div class="rec-name">Future product</div>
                 <div class="rec-price">Coming soon</div>
               </a>
-
-              <a class="rec-item" href="#">
-                <div class="rec-thumb"></div>
-                <div class="rec-name">Future product</div>
-                <div class="rec-price">Coming soon</div>
-              </a>
             </div>
 
-            <button class="rec-arrow right" type="button" id="recNext" aria-label="Next">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 18l6-6-6-6"></path>
-              </svg>
-            </button>
+            <div class="rec-nav">
+              <button class="rec-arrow" type="button" id="recPrev">‹</button>
+              <button class="rec-arrow" type="button" id="recNext">›</button>
+            </div>
           </div>
         </section>
       </div>
@@ -1462,7 +1453,7 @@
     const starSwatches = document.getElementById("starSwatches");
     const bowSwatches = document.getElementById("bowSwatches");
 
-    const recTrack = document.getElementById("recTrack");
+    const recSlider = document.getElementById("recSlider");
     const recPrev = document.getElementById("recPrev");
     const recNext = document.getElementById("recNext");
 
@@ -1479,13 +1470,13 @@
       btn.addEventListener("click", () => goToStep(Number(btn.dataset.prevStep)));
     });
 
-    if (recPrev && recNext && recTrack) {
+    if(recPrev && recNext && recSlider){
       recPrev.addEventListener("click", () => {
-        recTrack.scrollBy({ left: -170, behavior: "smooth" });
+        recSlider.scrollBy({ left: -180, behavior: "smooth" });
       });
 
       recNext.addEventListener("click", () => {
-        recTrack.scrollBy({ left: 170, behavior: "smooth" });
+        recSlider.scrollBy({ left: 180, behavior: "smooth" });
       });
     }
 
@@ -1742,8 +1733,8 @@
           thumbHTML = `
             <div class="option-thumb" style="background:#f8f3ee;">
               <div style="
-                width:42px;
-                height:42px;
+                width:46px;
+                height:46px;
                 border-radius:50%;
                 border:2px solid rgba(184,142,103,0.34);
                 position:relative;
@@ -1755,7 +1746,7 @@
                   left:50%;
                   top:50%;
                   width:2px;
-                  height:28px;
+                  height:34px;
                   background:#b88e67;
                   transform:translate(-50%,-50%) rotate(45deg);
                   border-radius:999px;
@@ -1768,8 +1759,8 @@
           const bowSrc = await getAccessoryThumbSrc("bow", "Bright pink");
           thumbHTML = `
             <div class="option-thumb">
-              ${heartSrc ? `<img src="${heartSrc}" alt="" style="position:absolute;width:48%;left:48%;top:56%;transform:translate(-50%,-50%);">` : ""}
-              ${bowSrc ? `<img src="${bowSrc}" alt="" style="position:absolute;width:30%;left:65%;top:28%;transform:translate(-50%,-50%) rotate(29deg);">` : ""}
+              ${heartSrc ? `<img src="${heartSrc}" alt="" style="position:absolute;width:50%;left:48%;top:54%;transform:translate(-50%,-50%);">` : ""}
+              ${bowSrc ? `<img src="${bowSrc}" alt="" style="position:absolute;width:31%;left:65%;top:28%;transform:translate(-50%,-50%) rotate(29deg);">` : ""}
             </div>
           `;
         } else if(option.thumbType === "star-bow"){
@@ -1777,15 +1768,15 @@
           const bowSrc = await getAccessoryThumbSrc("bow", "Bright pink");
           thumbHTML = `
             <div class="option-thumb">
-              ${starSrc ? `<img src="${starSrc}" alt="" style="position:absolute;width:48%;left:48%;top:56%;transform:translate(-50%,-50%);">` : ""}
-              ${bowSrc ? `<img src="${bowSrc}" alt="" style="position:absolute;width:30%;left:65%;top:28%;transform:translate(-50%,-50%) rotate(29deg);">` : ""}
+              ${starSrc ? `<img src="${starSrc}" alt="" style="position:absolute;width:50%;left:48%;top:54%;transform:translate(-50%,-50%);">` : ""}
+              ${bowSrc ? `<img src="${bowSrc}" alt="" style="position:absolute;width:31%;left:65%;top:28%;transform:translate(-50%,-50%) rotate(29deg);">` : ""}
             </div>
           `;
         } else {
           const src = await getAccessoryThumbSrc(option.thumbType, option.thumbColor);
           thumbHTML = `
             <div class="option-thumb">
-              ${src ? `<img src="${src}" alt="">` : `<span style="font-size:0.7rem;color:#9b9087;">Accessory</span>`}
+              ${src ? `<img src="${src}" alt="">` : `<span style="font-size:0.72rem;color:#9b9087;">Accessory</span>`}
             </div>
           `;
         }
@@ -1888,10 +1879,10 @@
       if(window.innerWidth <= 420){
         return {
           centerWidth: "118px",
-          centerTop: "63%",
-          bowWidth: "54px",
-          bowTop: "26%",
-          bowLeft: "60%"
+          centerTop: "67%",
+          bowWidth: "72px",
+          bowTop: "30%",
+          bowLeft: "64%"
         };
       }
 
@@ -2114,27 +2105,27 @@
           maxHeight: "none"
         },
         heartStyle: heartImg.getAttribute("src") ? {
-          top: "66%",
+          top: heartImg.style.top || "66%",
           left: "50%",
-          width: "58%",
+          width: heartImg.style.width || "58%",
           height: "auto",
           transform: "translate(-50%,-50%)",
           maxWidth: "none",
           maxHeight: "none"
         } : null,
         starStyle: starImg.getAttribute("src") ? {
-          top: "66%",
+          top: starImg.style.top || "66%",
           left: "50%",
-          width: "58%",
+          width: starImg.style.width || "58%",
           height: "auto",
           transform: "translate(-50%,-50%)",
           maxWidth: "none",
           maxHeight: "none"
         } : null,
         bowStyle: bowImg.getAttribute("src") ? {
-          top: "32%",
-          left: "63%",
-          width: "42%",
+          top: bowImg.style.top || "32%",
+          left: bowImg.style.left || "63%",
+          width: bowImg.style.width || "42%",
           height: "auto",
           transform: "translate(-50%,-50%) rotate(29deg)",
           maxWidth: "none",
