@@ -181,12 +181,6 @@
       gap:18px;
     }
 
-    .left-column{
-      position:sticky;
-      top:calc(var(--topbar-h) + 14px);
-      align-self:start;
-    }
-
     .card{
       background:rgba(255,250,246,0.88);
       border:1px solid var(--line);
@@ -716,25 +710,13 @@
       font-size:0.84rem;
     }
 
-    .rec-carousel{
-      position:relative;
-    }
-
-    .rec-track{
-      display:flex;
+    .rec-grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
       gap:10px;
-      overflow-x:auto;
-      scroll-behavior:smooth;
-      scrollbar-width:none;
-      padding-bottom:2px;
-    }
-
-    .rec-track::-webkit-scrollbar{
-      display:none;
     }
 
     .rec-item{
-      flex:0 0 150px;
       background:rgba(255,255,255,0.76);
       border:1px solid var(--line);
       border-radius:18px;
@@ -773,48 +755,6 @@
     .rec-price{
       font-size:0.76rem;
       color:var(--brown-soft);
-    }
-
-    .rec-future{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      min-height:100%;
-      color:var(--brown-soft);
-      font-size:0.78rem;
-      line-height:1.4;
-      padding:12px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.86), rgba(248,242,236,0.86));
-      border:1px dashed rgba(184,142,103,0.34);
-    }
-
-    .rec-controls{
-      display:flex;
-      gap:8px;
-      margin-top:12px;
-    }
-
-    .rec-arrow{
-      width:38px;
-      height:38px;
-      border-radius:50%;
-      border:1px solid var(--line);
-      background:#fff;
-      color:var(--brown);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      cursor:pointer;
-      box-shadow:var(--shadow-soft);
-      transition:transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    }
-
-    .rec-arrow:hover{
-      transform:translateY(-1px);
-      box-shadow:0 12px 18px rgba(106,81,69,0.10);
-      background:#fffdfa;
     }
 
     .toast{
@@ -867,11 +807,6 @@
       .customizer-layout{
         grid-template-columns:1fr;
       }
-
-      .left-column{
-        position:static;
-        top:auto;
-      }
     }
 
     @media (max-width: 760px){
@@ -888,245 +823,193 @@
 
       .topbar-inner{
         grid-template-columns:42px 1fr 42px;
-        min-height:62px;
+        min-height:64px;
       }
 
       .top-title .label{
-        font-size:0.95rem;
+        font-size:0.98rem;
       }
 
       .top-title .sub{
-        font-size:0.62rem;
+        font-size:0.66rem;
       }
 
       .customizer-layout{
         display:flex;
         flex-direction:column;
-        gap:10px;
-        padding-top:8px;
+        gap:12px;
+        padding-top:10px;
       }
 
       .left-column{
         display:grid;
-        gap:10px;
-        position:sticky;
-        top:68px;
-        z-index:35;
+        gap:12px;
+        position:static;
+        top:auto;
+        z-index:auto;
       }
 
       .preview-card{
-        padding:9px;
-        border-radius:20px;
-        box-shadow:0 12px 24px rgba(106,81,69,0.09);
+        position:sticky;
+        top:74px;
+        z-index:30;
+        padding:10px;
+        border-radius:22px;
+        box-shadow:0 14px 30px rgba(106,81,69,0.10);
       }
 
       .preview-head{
-        margin-bottom:7px;
-        gap:7px;
+        margin-bottom:8px;
+        gap:8px;
       }
 
       .preview-head h1{
-        font-size:1.08rem;
+        font-size:1.18rem;
       }
 
       .preview-head p{
-        font-size:0.72rem;
-        line-height:1.35;
-        margin-top:2px;
+        font-size:0.76rem;
+        line-height:1.4;
+        margin-top:3px;
       }
 
       .preview-badge{
-        padding:6px 8px;
-        font-size:0.58rem;
-        letter-spacing:0.08em;
+        padding:7px 9px;
+        font-size:0.62rem;
+        letter-spacing:0.10em;
       }
 
       .preview-stage{
-        min-height:218px;
-        max-height:218px;
-        border-radius:18px;
+        min-height:250px;
+        max-height:250px;
+        border-radius:20px;
       }
 
       #bunnyImage{
-        width:min(122%, 400px);
-        bottom:-20px;
+        width:min(132%, 470px);
+        bottom:-28px;
       }
 
       #heartImg,
       #starImg{
-        width:min(33%, 100px);
-        top:64%;
+        width:min(37%, 126px);
+        top:68%;
       }
 
       #bowImg{
-        width:min(21%, 58px);
-        top:28%;
-        left:63%;
+        width:min(24%, 78px);
+        top:30%;
+        left:66%;
       }
 
       .summary-row{
-        margin-top:7px;
-        gap:6px;
+        margin-top:8px;
+        gap:8px;
       }
 
       .summary-chip{
         min-height:auto;
-        padding:7px 8px;
-        border-radius:13px;
+        padding:8px 9px;
+        border-radius:14px;
       }
 
       .summary-chip .k{
-        font-size:0.52rem;
-        margin-bottom:3px;
+        font-size:0.56rem;
+        margin-bottom:4px;
       }
 
       .summary-chip .v{
-        font-size:0.68rem;
-        line-height:1.2;
+        font-size:0.74rem;
+        line-height:1.25;
       }
 
       .stepper-card{
-        padding:9px;
+        padding:10px;
       }
 
       .stepper-title{
-        font-size:0.96rem;
-        margin-bottom:8px;
+        font-size:1rem;
+        margin-bottom:10px;
       }
 
       .stepper{
-        gap:5px;
+        grid-template-columns:repeat(4, minmax(0,1fr));
+        gap:6px;
       }
 
       .step-badge .dot{
-        width:28px;
-        height:28px;
-        font-size:0.72rem;
+        width:30px;
+        height:30px;
+        font-size:0.75rem;
       }
 
       .step-badge .txt{
-        font-size:0.58rem;
+        font-size:0.62rem;
       }
 
       .step-card,
       .rec-card{
-        padding:10px;
-        border-radius:20px;
+        padding:12px;
+        border-radius:22px;
       }
 
       .section-title{
-        font-size:1.02rem;
+        font-size:1.12rem;
       }
 
       .section-text{
-        font-size:0.78rem;
-        line-height:1.45;
-        margin-bottom:12px;
-      }
-
-      .control-block{
-        margin-bottom:13px;
+        font-size:0.82rem;
+        line-height:1.5;
+        margin-bottom:14px;
       }
 
       .control-label{
-        font-size:0.60rem;
-        margin-bottom:7px;
-      }
-
-      select{
-        padding:12px 14px;
-        padding-right:40px;
-        border-radius:13px;
-        font-size:0.88rem;
+        font-size:0.64rem;
+        margin-bottom:8px;
       }
 
       .swatch-grid{
         grid-template-columns:repeat(4, minmax(0,1fr));
-        gap:8px;
+        gap:10px;
       }
 
       .swatch-circle{
-        width:32px;
-        height:32px;
+        width:36px;
+        height:36px;
       }
 
       .option-grid{
         grid-template-columns:repeat(2, minmax(0, 1fr));
-        gap:8px;
+        gap:10px;
       }
 
       .option-card{
-        padding:8px;
-        border-radius:15px;
-      }
-
-      .option-thumb{
-        border-radius:12px;
-        margin-bottom:8px;
+        padding:9px;
+        border-radius:16px;
       }
 
       .option-card h3{
-        font-size:0.75rem;
+        font-size:0.8rem;
       }
 
       .option-card p{
-        font-size:0.68rem;
-      }
-
-      .helper-box{
-        padding:11px;
-        font-size:0.78rem;
-        border-radius:15px;
+        font-size:0.72rem;
       }
 
       .step-actions{
-        gap:7px;
-        margin-top:12px;
+        gap:8px;
+        margin-top:14px;
       }
 
       .step-btn{
         width:100%;
-        padding:12px 13px;
-        font-size:0.70rem;
-        border-radius:14px;
+        padding:13px 14px;
+        font-size:0.74rem;
       }
 
-      .rec-head h2{
-        font-size:1.04rem;
-      }
-
-      .rec-head span{
-        font-size:0.72rem;
-      }
-
-      .rec-item{
-        flex:0 0 118px;
-        padding:8px;
-        border-radius:15px;
-      }
-
-      .rec-thumb{
-        border-radius:11px;
-        margin-bottom:7px;
-      }
-
-      .rec-name{
-        font-size:0.70rem;
-        margin-bottom:3px;
-      }
-
-      .rec-price{
-        font-size:0.63rem;
-      }
-
-      .rec-future{
-        font-size:0.66rem;
-        padding:10px;
-      }
-
-      .rec-arrow{
-        width:34px;
-        height:34px;
+      .rec-grid{
+        grid-template-columns:1fr 1fr;
+        gap:8px;
       }
 
       .toast{
@@ -1139,11 +1022,8 @@
     }
 
     @media (max-width: 420px){
-      .left-column{
-        top:66px;
-      }
-
       .preview-card{
+        top:66px;
         padding:8px;
       }
 
@@ -1173,8 +1053,8 @@
         font-size:0.64rem;
       }
 
-      .rec-item{
-        flex:0 0 110px;
+      .rec-grid{
+        grid-template-columns:1fr;
       }
     }
   </style>
@@ -1392,49 +1272,30 @@
             <span>More lovely pieces</span>
           </div>
 
-          <div class="rec-carousel">
-            <div class="rec-track" id="recTrack">
-              <a class="rec-item" href="teddy-details.html">
-                <div class="rec-thumb">
-                  <img src="images/teddy1.jpg" alt="Teddy Bear">
-                </div>
-                <div class="rec-name">Teddy Bear</div>
-                <div class="rec-price">From 45 RON</div>
-              </a>
+          <div class="rec-grid">
+            <a class="rec-item" href="teddy-details.html">
+              <div class="rec-thumb">
+                <img src="images/teddy1.jpg" alt="Teddy Bear">
+              </div>
+              <div class="rec-name">Teddy Bear</div>
+              <div class="rec-price">From 45 RON</div>
+            </a>
 
-              <a class="rec-item" href="strawberry-details.html">
-                <div class="rec-thumb">
-                  <img src="images/strawberry1.jpg" alt="Chocolate Covered Strawberry">
-                </div>
-                <div class="rec-name">Strawberry</div>
-                <div class="rec-price">20 RON</div>
-              </a>
+            <a class="rec-item" href="strawberry-details.html">
+              <div class="rec-thumb">
+                <img src="images/strawberry1.jpg" alt="Chocolate Covered Strawberry">
+              </div>
+              <div class="rec-name">Strawberry</div>
+              <div class="rec-price">20 RON</div>
+            </a>
 
-              <a class="rec-item" href="index.html#shop">
-                <div class="rec-thumb">
-                  <img src="images/bunny1.jpg" alt="More creations">
-                </div>
-                <div class="rec-name">More creations</div>
-                <div class="rec-price">View collection</div>
-              </a>
-
-              <div class="rec-item rec-future">Future product</div>
-              <div class="rec-item rec-future">Future product</div>
-              <div class="rec-item rec-future">Future product</div>
-            </div>
-
-            <div class="rec-controls">
-              <button class="rec-arrow" type="button" id="recPrev" aria-label="Previous">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M15 18l-6-6 6-6"></path>
-                </svg>
-              </button>
-              <button class="rec-arrow" type="button" id="recNext" aria-label="Next">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M9 18l6-6-6-6"></path>
-                </svg>
-              </button>
-            </div>
+            <a class="rec-item" href="index.html#shop">
+              <div class="rec-thumb">
+                <img src="images/bunny1.jpg" alt="See all products">
+              </div>
+              <div class="rec-name">More creations</div>
+              <div class="rec-price">View collection</div>
+            </a>
           </div>
         </section>
       </div>
@@ -1492,10 +1353,6 @@
     const starSwatches = document.getElementById("starSwatches");
     const bowSwatches = document.getElementById("bowSwatches");
 
-    const recTrack = document.getElementById("recTrack");
-    const recPrev = document.getElementById("recPrev");
-    const recNext = document.getElementById("recNext");
-
     document.getElementById("minusBtn").addEventListener("click", () => changeQty(-1));
     document.getElementById("plusBtn").addEventListener("click", () => changeQty(1));
     checkoutBtn.addEventListener("click", goToCart);
@@ -1508,18 +1365,6 @@
     document.querySelectorAll("[data-prev-step]").forEach(btn => {
       btn.addEventListener("click", () => goToStep(Number(btn.dataset.prevStep)));
     });
-
-    if (recPrev && recTrack) {
-      recPrev.addEventListener("click", () => {
-        recTrack.scrollBy({ left: -170, behavior: "smooth" });
-      });
-    }
-
-    if (recNext && recTrack) {
-      recNext.addEventListener("click", () => {
-        recTrack.scrollBy({ left: 170, behavior: "smooth" });
-      });
-    }
 
     const bodyOptions = [
       { name: "Cream", color: "#f4efe7", src: "Bunny_Colors/bunny-cream.png" },
@@ -1614,6 +1459,7 @@
       });
 
       const activeCard = document.getElementById(`step-${step}`);
+
       if (activeCard && window.innerWidth > 760) {
         activeCard.scrollIntoView({ behavior: "smooth", block: "start" });
       }
@@ -1919,7 +1765,7 @@
     function getAccessoryScale(){
       if(window.innerWidth <= 420){
         return {
-          centerWidth: "92px",
+          centerWidth: "118px",
           centerTop: "63%",
           bowWidth: "54px",
           bowTop: "27%",
@@ -1929,11 +1775,11 @@
 
       if(window.innerWidth <= 760){
         return {
-          centerWidth: "100px",
-          centerTop: "64%",
-          bowWidth: "58px",
-          bowTop: "28%",
-          bowLeft: "63%"
+          centerWidth: "126px",
+          centerTop: "68%",
+          bowWidth: "78px",
+          bowTop: "30%",
+          bowLeft: "66%"
         };
       }
 
