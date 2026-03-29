@@ -3,15 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Maison Doucette - The Atelier Box</title>
+  <title>Maison Doucette — The Atelier Box</title>
   <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
-  <meta name="description" content="Maison Doucette — The Atelier Box, a curated mystery crochet experience." />
+  <meta
+    name="description"
+    content="Maison Doucette — choose your world, then create your own Atelier Box mystery experience."
+  />
 
   <style>
     :root {
       --bg: #f8f3ef;
       --bg-2: #f4ece6;
-      --card: rgba(255, 250, 246, 0.9);
+      --card: rgba(255, 250, 246, 0.90);
       --white: #fffaf7;
       --text: #5b473f;
       --muted: #8a6f64;
@@ -23,14 +26,10 @@
       --radius-xl: 34px;
       --radius-lg: 24px;
       --radius-md: 18px;
-      --container: 1160px;
+      --container: 1180px;
       --nav-h: 96px;
       --ease: cubic-bezier(.22,.61,.36,1);
-
-      --world-soft-romance: linear-gradient(180deg, #fbf3f5 0%, #f7ecea 100%);
-      --world-blue-dream: linear-gradient(180deg, #f2f6fb 0%, #edf3f8 100%);
-      --world-dark-cherry: linear-gradient(180deg, #f6efef 0%, #efe4e3 100%);
-      --world-golden-hour: linear-gradient(180deg, #faf4e8 0%, #f5ebdb 100%);
+      --hero-overlay: rgba(255, 255, 255, 0.10);
     }
 
     * {
@@ -49,31 +48,7 @@
         radial-gradient(circle at top left, rgba(255,255,255,0.8), transparent 28%),
         linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
       overflow-x: hidden;
-      transition: background 0.45s ease;
-    }
-
-    body.world-soft-romance {
-      background:
-        radial-gradient(circle at top left, rgba(255,255,255,0.82), transparent 28%),
-        var(--world-soft-romance);
-    }
-
-    body.world-blue-dream {
-      background:
-        radial-gradient(circle at top left, rgba(255,255,255,0.84), transparent 28%),
-        var(--world-blue-dream);
-    }
-
-    body.world-dark-cherry {
-      background:
-        radial-gradient(circle at top left, rgba(255,255,255,0.76), transparent 28%),
-        var(--world-dark-cherry);
-    }
-
-    body.world-golden-hour {
-      background:
-        radial-gradient(circle at top left, rgba(255,255,255,0.82), transparent 28%),
-        var(--world-golden-hour);
+      transition: background 0.45s ease, color 0.45s ease;
     }
 
     img {
@@ -88,7 +63,6 @@
 
     button,
     input,
-    textarea,
     select {
       font: inherit;
     }
@@ -98,18 +72,13 @@
       inset: 0;
       pointer-events: none;
       z-index: 1;
-      opacity: 0.85;
+      opacity: 0.82;
       background:
-        radial-gradient(circle at 12% 18%, rgba(255,255,255,0.20) 0 0, rgba(255,255,255,0.20) 0 18px, transparent 42px),
-        radial-gradient(circle at 24% 34%, rgba(255,248,242,0.16) 0 0, rgba(255,248,242,0.16) 0 14px, transparent 36px),
-        radial-gradient(circle at 38% 14%, rgba(255,255,255,0.18) 0 0, rgba(255,255,255,0.18) 0 16px, transparent 40px),
-        radial-gradient(circle at 56% 24%, rgba(255,250,245,0.16) 0 0, rgba(255,250,245,0.16) 0 20px, transparent 46px),
-        radial-gradient(circle at 74% 18%, rgba(255,255,255,0.18) 0 0, rgba(255,255,255,0.18) 0 16px, transparent 40px),
-        radial-gradient(circle at 88% 28%, rgba(255,248,242,0.15) 0 0, rgba(255,248,242,0.15) 0 18px, transparent 42px),
-        radial-gradient(circle at 18% 70%, rgba(255,255,255,0.14) 0 0, rgba(255,255,255,0.14) 0 20px, transparent 46px),
-        radial-gradient(circle at 42% 82%, rgba(255,248,242,0.14) 0 0, rgba(255,248,242,0.14) 0 16px, transparent 40px),
-        radial-gradient(circle at 68% 76%, rgba(255,255,255,0.16) 0 0, rgba(255,255,255,0.16) 0 18px, transparent 42px),
-        radial-gradient(circle at 84% 68%, rgba(255,250,245,0.13) 0 0, rgba(255,250,245,0.13) 0 22px, transparent 50px);
+        radial-gradient(circle at 12% 18%, rgba(255,255,255,0.18) 0 0, rgba(255,255,255,0.18) 0 18px, transparent 42px),
+        radial-gradient(circle at 26% 34%, rgba(255,248,242,0.15) 0 0, rgba(255,248,242,0.15) 0 14px, transparent 36px),
+        radial-gradient(circle at 44% 20%, rgba(255,255,255,0.17) 0 0, rgba(255,255,255,0.17) 0 16px, transparent 40px),
+        radial-gradient(circle at 66% 24%, rgba(255,250,245,0.14) 0 0, rgba(255,250,245,0.14) 0 20px, transparent 46px),
+        radial-gradient(circle at 84% 28%, rgba(255,248,242,0.13) 0 0, rgba(255,248,242,0.13) 0 18px, transparent 42px);
       filter: blur(14px);
       animation: shimmerBlur 6s ease-in-out infinite;
     }
@@ -143,14 +112,14 @@
       left: 0;
       right: 0;
       z-index: 1000;
-      background: rgba(255, 250, 246, 0.78);
+      background: rgba(255, 250, 246, 0.80);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--line);
       transition: box-shadow 0.3s ease, background 0.3s ease;
     }
 
     .site-header.scrolled {
-      background: rgba(255, 250, 246, 0.9);
+      background: rgba(255, 250, 246, 0.92);
       box-shadow: 0 8px 24px rgba(100, 74, 63, 0.08);
     }
 
@@ -283,17 +252,17 @@
     }
 
     .hero {
-      min-height: 92vh;
+      min-height: 88vh;
       display: flex;
       align-items: center;
       padding-top: calc(var(--nav-h) + 42px);
-      padding-bottom: 46px;
+      padding-bottom: 48px;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.02fr 0.98fr;
-      gap: 38px;
+      grid-template-columns: 1.04fr 0.96fr;
+      gap: 40px;
       align-items: center;
     }
 
@@ -328,13 +297,13 @@
 
     .hero h1 {
       margin: 0 0 18px;
-      font-size: clamp(2.8rem, 6vw, 5.3rem);
+      font-size: clamp(2.8rem, 6vw, 5rem);
       line-height: 0.96;
     }
 
     .hero p {
       margin: 0 0 28px;
-      max-width: 560px;
+      max-width: 590px;
       line-height: 1.82;
       font-size: 1.03rem;
       color: var(--muted);
@@ -371,7 +340,7 @@
     }
 
     .btn-secondary {
-      background: rgba(255,255,255,0.72);
+      background: rgba(255,255,255,0.74);
       border: 1px solid var(--line);
       color: var(--text);
     }
@@ -391,8 +360,18 @@
       position: relative;
       overflow: hidden;
       border-radius: 28px;
-      aspect-ratio: 0.92 / 1;
+      aspect-ratio: 0.95 / 1;
       background: linear-gradient(160deg, #f7ebe4, #efddd2);
+      isolation: isolate;
+    }
+
+    .hero-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent, var(--hero-overlay));
+      z-index: 1;
+      pointer-events: none;
     }
 
     .hero-image img {
@@ -422,7 +401,7 @@
 
     .section-head h2 {
       margin: 0 0 12px;
-      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-size: clamp(2rem, 4vw, 3.1rem);
       line-height: 1.05;
     }
 
@@ -446,48 +425,41 @@
       box-shadow: 0 12px 22px rgba(188,145,130,0.22);
     }
 
-    .options-grid {
+    .worlds-grid {
       display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 20px;
     }
 
-    .worlds-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .boxes-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .choice-card {
+    .world-card {
       position: relative;
       display: block;
       width: 100%;
       text-align: left;
       border: 1px solid var(--line);
-      background: rgba(255,255,255,0.76);
+      background: rgba(255,255,255,0.78);
       border-radius: 24px;
       padding: 18px;
-      box-shadow: 0 10px 24px rgba(100, 74, 63, 0.06);
+      box-shadow: 0 10px 24px rgba(100,74,63,0.06);
       cursor: pointer;
       transition: transform 0.28s var(--ease), box-shadow 0.28s var(--ease), border-color 0.28s ease, background 0.28s ease;
     }
 
-    .choice-card:hover {
+    .world-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 18px 34px rgba(100, 74, 63, 0.12);
+      box-shadow: 0 18px 34px rgba(100,74,63,0.12);
     }
 
-    .choice-card.is-selected {
-      border-color: rgba(188, 145, 130, 0.55);
-      background: rgba(255, 255, 255, 0.96);
+    .world-card.is-selected {
+      border-color: rgba(188,145,130,0.55);
+      background: rgba(255,255,255,0.96);
       box-shadow: 0 20px 38px rgba(188,145,130,0.18);
     }
 
     .choice-media {
       overflow: hidden;
       border-radius: 20px;
-      aspect-ratio: 1 / 1.02;
+      aspect-ratio: 1 / 0.92;
       background: linear-gradient(160deg, #f7ebe4, #efddd2);
       margin-bottom: 16px;
     }
@@ -499,35 +471,21 @@
       transition: transform 0.45s ease;
     }
 
-    .choice-card:hover .choice-media img {
+    .world-card:hover .choice-media img {
       transform: scale(1.03);
     }
 
-    .choice-card h3 {
+    .world-card h3 {
       margin: 0 0 8px;
-      font-size: 1.15rem;
+      font-size: 1.16rem;
       line-height: 1.15;
     }
 
-    .choice-card p {
+    .world-card p {
       margin: 0 0 10px;
       color: var(--muted);
       line-height: 1.68;
       font-size: 0.95rem;
-    }
-
-    .choice-meta {
-      color: var(--accent-deep);
-      font-size: 0.94rem;
-      line-height: 1.5;
-    }
-
-    .world-card .choice-media {
-      aspect-ratio: 1 / 0.88;
-    }
-
-    .box-card .choice-media {
-      aspect-ratio: 1 / 0.92;
     }
 
     .swatch-row {
@@ -545,16 +503,12 @@
       box-shadow: inset 0 0 0 1px rgba(255,255,255,0.34);
     }
 
-    .selected-note,
     .world-selected-note {
       margin-top: 18px;
       text-align: center;
       color: var(--text);
       font-size: 0.97rem;
       min-height: 24px;
-    }
-
-    .world-selected-note {
       font-style: italic;
       opacity: 0;
       transform: translateY(8px);
@@ -566,167 +520,181 @@
       transform: translateY(0);
     }
 
-    .form-shell {
-      max-width: 760px;
-      margin: 0 auto;
+    .world-page {
+      display: none;
     }
 
-    .form-grid {
+    .world-page.is-visible {
+      display: block;
+    }
+
+    .world-banner {
       display: grid;
-      gap: 18px;
-    }
-
-    .field-group {
-      display: grid;
-      gap: 10px;
-    }
-
-    .field-group label {
-      font-size: 0.95rem;
-    }
-
-    .radio-row {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .radio-card {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 16px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.76);
-      border: 1px solid var(--line);
-    }
-
-    .radio-card input {
-      accent-color: var(--accent-deep);
-      width: 18px;
-      height: 18px;
-      margin: 0;
-      flex-shrink: 0;
-    }
-
-    .text-input,
-    .textarea-input,
-    .select-input {
-      width: 100%;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.82);
-      border-radius: 18px;
-      padding: 15px 16px;
-      color: var(--text);
-      outline: none;
-      transition: border-color 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .textarea-input {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    .text-input:focus,
-    .textarea-input:focus,
-    .select-input:focus {
-      border-color: rgba(188, 145, 130, 0.5);
-      box-shadow: 0 0 0 4px rgba(213,178,165,0.12);
-    }
-
-    .glimpse-shell {
-      display: grid;
-      grid-template-columns: 0.94fr 1.06fr;
-      gap: 26px;
+      grid-template-columns: 0.98fr 1.02fr;
+      gap: 28px;
       align-items: center;
     }
 
-    .glimpse-copy h3 {
+    .world-banner-copy h2 {
       margin: 0 0 12px;
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      line-height: 1.08;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.02;
     }
 
-    .glimpse-copy p {
-      margin: 0;
+    .world-banner-copy p {
+      margin: 0 0 14px;
       color: var(--muted);
       line-height: 1.8;
-    }
-
-    .glimpse-slideshow {
-      position: relative;
-      overflow: hidden;
-      border-radius: 28px;
-      aspect-ratio: 4 / 5;
-      background: linear-gradient(160deg, #f7ebe4, #efddd2);
-      border: 1px solid var(--line);
-    }
-
-    .glimpse-slide {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0;
-      transition: opacity 0.7s ease;
-    }
-
-    .glimpse-slide.active {
-      opacity: 1;
-    }
-
-    .inside-grid {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .inside-item {
-      padding: 18px 14px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.74);
-      border: 1px solid var(--line);
-      text-align: center;
-      min-height: 100%;
-    }
-
-    .inside-item strong {
-      display: block;
-      margin-bottom: 8px;
       font-size: 1rem;
     }
 
-    .inside-item span {
-      color: var(--muted);
-      font-size: 0.92rem;
-      line-height: 1.55;
+    .world-banner-copy .micro-line {
+      font-style: italic;
     }
 
-    .cta-shell {
-      max-width: 860px;
-      margin: 0 auto;
-      text-align: center;
+    .world-banner-visual {
+      overflow: hidden;
+      border-radius: 28px;
+      aspect-ratio: 4 / 5;
+      border: 1px solid var(--line);
+      background: linear-gradient(160deg, #f7ebe4, #efddd2);
+      box-shadow: var(--shadow);
+    }
+
+    .world-banner-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .selector-grid {
+      display: grid;
+      gap: 22px;
+    }
+
+    .selector-block {
+      background: rgba(255,255,255,0.66);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 22px;
+    }
+
+    .selector-block h3 {
+      margin: 0 0 8px;
+      font-size: 1.35rem;
+      line-height: 1.12;
+    }
+
+    .selector-block p {
+      margin: 0 0 16px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    .selector-options {
+      display: grid;
+      gap: 12px;
+    }
+
+    .selector-options.columns-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .selector-options.columns-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .selector-options.columns-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pill-card {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 14px 14px 15px;
+      background: rgba(255,255,255,0.82);
+      cursor: pointer;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+      min-height: 100%;
+    }
+
+    .pill-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 22px rgba(100,74,63,0.08);
+    }
+
+    .pill-card.is-selected {
+      border-color: rgba(188,145,130,0.52);
+      background: rgba(255,255,255,0.98);
+      box-shadow: 0 14px 28px rgba(188,145,130,0.15);
+    }
+
+    .pill-card strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.98rem;
+      line-height: 1.2;
+    }
+
+    .pill-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.45;
+    }
+
+    .price-line {
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding-top: 14px;
+      border-top: 1px solid rgba(188,145,130,0.14);
+    }
+
+    .price-line strong {
+      font-size: 1.12rem;
+    }
+
+    .price-badge {
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.86);
+      border: 1px solid var(--line);
+      box-shadow: 0 8px 18px rgba(100,74,63,0.05);
+    }
+
+    .price-badge span {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-right: 6px;
+    }
+
+    .price-badge strong {
+      font-size: 1rem;
+      color: var(--accent-deep);
     }
 
     .summary-card {
-      margin-top: 28px;
-      padding: 22px;
+      padding: 24px;
       border-radius: 24px;
       background: rgba(255,255,255,0.78);
       border: 1px solid var(--line);
       box-shadow: 0 12px 26px rgba(100,74,63,0.08);
+      margin-top: 26px;
     }
 
-    .summary-title {
+    .summary-card h3 {
       margin: 0 0 14px;
-      font-size: 1.2rem;
+      font-size: 1.28rem;
     }
 
     .summary-lines {
       display: grid;
       gap: 10px;
-      text-align: left;
       margin-bottom: 18px;
     }
 
@@ -736,7 +704,7 @@
       gap: 18px;
       padding-bottom: 10px;
       border-bottom: 1px solid rgba(188,145,130,0.14);
-      font-size: 0.96rem;
+      font-size: 0.95rem;
     }
 
     .summary-line span:last-child {
@@ -745,11 +713,11 @@
 
     .price-total {
       margin: 0 0 18px;
-      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      font-size: clamp(1.45rem, 3vw, 1.9rem);
     }
 
     .tiny-finish {
-      margin-top: 20px;
+      margin-top: 18px;
       color: var(--muted);
       font-size: 0.95rem;
       line-height: 1.75;
@@ -816,8 +784,54 @@
 
     .reveal-delay-1 { transition-delay: 0.08s; }
     .reveal-delay-2 { transition-delay: 0.16s; }
-    .reveal-delay-3 { transition-delay: 0.24s; }
-    .reveal-delay-4 { transition-delay: 0.32s; }
+
+    body.theme-soft-romance {
+      --bg: #fff6f8;
+      --bg-2: #faedf0;
+      --card: rgba(255, 247, 249, 0.90);
+      --text: #6c4d58;
+      --muted: #9a7482;
+      --accent: #e5b6c5;
+      --accent-deep: #cb8fa5;
+      --line: rgba(203, 143, 165, 0.24);
+      --hero-overlay: rgba(255, 221, 232, 0.14);
+    }
+
+    body.theme-blue-dream {
+      --bg: #f4f9ff;
+      --bg-2: #eaf2fb;
+      --card: rgba(247, 251, 255, 0.90);
+      --text: #4b6074;
+      --muted: #73879a;
+      --accent: #a9c7e6;
+      --accent-deep: #7ea8d3;
+      --line: rgba(126, 168, 211, 0.22);
+      --hero-overlay: rgba(196, 222, 247, 0.14);
+    }
+
+    body.theme-dark-cherry {
+      --bg: #f8eef1;
+      --bg-2: #efe2e6;
+      --card: rgba(251, 243, 245, 0.90);
+      --text: #66404b;
+      --muted: #87616c;
+      --accent: #bf8796;
+      --accent-deep: #9a5f71;
+      --line: rgba(154, 95, 113, 0.24);
+      --hero-overlay: rgba(160, 76, 104, 0.12);
+    }
+
+    body.theme-golden-hour {
+      --bg: #fff8ec;
+      --bg-2: #f6edda;
+      --card: rgba(255, 251, 241, 0.90);
+      --text: #6c5a40;
+      --muted: #8b7a61;
+      --accent: #e2c37b;
+      --accent-deep: #cfa553;
+      --line: rgba(207, 165, 83, 0.22);
+      --hero-overlay: rgba(239, 195, 95, 0.12);
+    }
 
     @keyframes shimmerBlur {
       0%, 100% { opacity: 0.45; transform: scale(1); }
@@ -847,17 +861,9 @@
 
     @media (max-width: 1100px) {
       .hero-grid,
-      .glimpse-shell,
+      .world-banner,
       .footer-grid {
         grid-template-columns: 1fr;
-      }
-
-      .inside-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .boxes-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
     }
 
@@ -945,15 +951,15 @@
       }
 
       .hero h1 {
-        font-size: clamp(2.3rem, 10vw, 3.55rem);
+        font-size: clamp(2.24rem, 10vw, 3.4rem);
         margin-bottom: 14px;
       }
 
       .hero p {
         margin: 0 auto 24px;
         max-width: 100%;
-        font-size: 0.96rem;
-        line-height: 1.74;
+        font-size: 0.95rem;
+        line-height: 1.72;
       }
 
       .eyebrow {
@@ -977,16 +983,12 @@
       .section-shell,
       .footer-card {
         border-radius: 24px;
-      }
-
-      .hero-card,
-      .section-shell,
-      .footer-card {
         padding: 18px;
       }
 
       .hero-image,
-      .glimpse-slideshow {
+      .choice-media,
+      .world-banner-visual {
         border-radius: 22px;
       }
 
@@ -998,11 +1000,13 @@
         margin-bottom: 22px;
       }
 
-      .section-head h2 {
-        font-size: clamp(1.75rem, 7vw, 2.4rem);
+      .section-head h2,
+      .world-banner-copy h2 {
+        font-size: clamp(1.75rem, 7vw, 2.35rem);
       }
 
-      .section-head p {
+      .section-head p,
+      .world-banner-copy p {
         font-size: 0.95rem;
         line-height: 1.7;
       }
@@ -1012,44 +1016,24 @@
         gap: 10px;
       }
 
-      .boxes-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 8px;
-      }
-
-      .choice-card {
+      .world-card {
         padding: 10px;
         border-radius: 18px;
       }
 
       .choice-media {
-        border-radius: 14px;
         margin-bottom: 10px;
       }
 
-      .world-card .choice-media {
-        aspect-ratio: 1 / 0.94;
-      }
-
-      .box-card .choice-media {
-        aspect-ratio: 1 / 0.96;
-      }
-
-      .choice-card h3 {
+      .world-card h3 {
         font-size: 0.88rem;
         margin-bottom: 4px;
-        line-height: 1.15;
       }
 
-      .choice-card p {
-        font-size: 0.76rem;
-        line-height: 1.45;
+      .world-card p {
+        font-size: 0.75rem;
+        line-height: 1.42;
         margin-bottom: 8px;
-      }
-
-      .choice-meta {
-        font-size: 0.76rem;
-        line-height: 1.4;
       }
 
       .swatch-row {
@@ -1062,23 +1046,37 @@
         height: 12px;
       }
 
-      .selected-note,
       .world-selected-note {
         font-size: 0.88rem;
         min-height: 20px;
       }
 
-      .radio-row,
-      .inside-grid {
+      .selector-options.columns-3,
+      .selector-options.columns-4,
+      .selector-options.columns-2 {
         grid-template-columns: 1fr;
       }
 
-      .glimpse-copy {
-        text-align: center;
+      .selector-block {
+        padding: 16px;
+        border-radius: 20px;
       }
 
-      .glimpse-copy h3 {
-        font-size: clamp(1.35rem, 6vw, 1.8rem);
+      .selector-block h3 {
+        font-size: 1.16rem;
+      }
+
+      .pill-card {
+        padding: 12px;
+        border-radius: 16px;
+      }
+
+      .pill-card strong {
+        font-size: 0.92rem;
+      }
+
+      .pill-card span {
+        font-size: 0.8rem;
       }
 
       .summary-card {
@@ -1122,11 +1120,11 @@
       }
 
       .hero h1 {
-        font-size: clamp(2.05rem, 11vw, 3rem);
+        font-size: clamp(2.02rem, 11vw, 2.85rem);
       }
 
       .hero p {
-        font-size: 0.92rem;
+        font-size: 0.91rem;
       }
 
       .btn {
@@ -1144,46 +1142,29 @@
         gap: 8px;
       }
 
-      .boxes-grid {
-        gap: 6px;
-      }
-
-      .choice-card {
+      .world-card {
         padding: 8px;
         border-radius: 16px;
       }
 
-      .choice-media {
-        border-radius: 12px;
-        margin-bottom: 8px;
-      }
-
-      .choice-card h3 {
+      .world-card h3 {
         font-size: 0.8rem;
       }
 
-      .choice-card p {
+      .world-card p {
         font-size: 0.69rem;
         line-height: 1.35;
         margin-bottom: 6px;
-      }
-
-      .choice-meta {
-        font-size: 0.7rem;
       }
 
       .swatch {
         width: 10px;
         height: 10px;
       }
-
-      .summary-line {
-        gap: 12px;
-      }
     }
   </style>
 </head>
-<body class="world-soft-romance">
+<body class="theme-soft-romance">
   <div class="sparkle-layer"></div>
   <div class="cursor-glow" id="cursorGlow"></div>
 
@@ -1221,20 +1202,20 @@
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <span class="eyebrow">A curated mystery experience</span>
-          <h1><i>The<br />Atelier Box</i></h1>
+          <span class="eyebrow">Choose your world first</span>
+          <h1><i>The Atelier Box</i></h1>
           <p>
-            First, choose the world you want to step into. Then choose the box size that fits the level of surprise you want. Each set is built around feeling, colour, styling and mystery.
+            Choose the vibe you want to step into. Once you select it, the whole page transforms around that feeling — and you can shape your box through size, passion and music mood.
           </p>
           <div class="button-row">
-            <a class="btn btn-primary" href="#step-1">Begin the experience</a>
+            <a class="btn btn-primary" href="#step-1">Choose your vibe</a>
             <a class="btn btn-secondary" href="index.html#shop">Back to the collection</a>
           </div>
         </div>
 
         <div class="hero-card">
           <div class="hero-image">
-            <img src="images/atelier-box/atelier-box-hero.jpg" alt="Maison Doucette Atelier Box" />
+            <img id="heroPreview" src="images/worlds/soft-romance/soft-romance-1.jpg" alt="Atelier Box preview" />
           </div>
         </div>
       </div>
@@ -1245,64 +1226,64 @@
         <div class="section-shell">
           <div class="section-head reveal reveal-delay-1">
             <div class="step-tag">01</div>
-            <h2><i>Choose your world</i></h2>
-            <p>Select the aesthetic universe that should guide the colours, styling and overall mood of your Atelier Box.</p>
+            <h2><i>Choose your vibe</i></h2>
+            <p>Pick the world you want your Atelier Box to belong to. The styling of the entire page — and of the box itself — will follow that feeling.</p>
           </div>
 
-          <div class="options-grid worlds-grid reveal reveal-delay-2" id="worldOptions">
-            <button class="choice-card world-card is-selected" type="button" data-world="soft-romance" data-world-name="Soft Romance">
+          <div class="worlds-grid reveal reveal-delay-2" id="worldOptions">
+            <button class="world-card is-selected" type="button" data-world="soft-romance">
               <div class="choice-media">
                 <img src="images/worlds/soft-romance/soft-romance-cover.jpg" alt="Soft Romance" />
               </div>
               <h3>Soft Romance</h3>
-              <p>Delicate, warm and tender — soft blush tones, cream details and gentle sweetness.</p>
+              <p>Romantic, delicate, coquette and soft — full of blush tones and dreamy sweetness.</p>
               <div class="swatch-row">
-                <span class="swatch" style="background:#f1d6db;"></span>
+                <span class="swatch" style="background:#f4d4de;"></span>
+                <span class="swatch" style="background:#ffdfe8;"></span>
                 <span class="swatch" style="background:#f8eee8;"></span>
-                <span class="swatch" style="background:#eac2cb;"></span>
-                <span class="swatch" style="background:#fff8f5;"></span>
+                <span class="swatch" style="background:#e7b7c8;"></span>
               </div>
             </button>
 
-            <button class="choice-card world-card" type="button" data-world="blue-dream" data-world-name="Blue Dream">
+            <button class="world-card" type="button" data-world="blue-dream">
               <div class="choice-media">
                 <img src="images/worlds/blue-dream/blue-dream-cover.jpg" alt="Blue Dream" />
               </div>
               <h3>Blue Dream</h3>
-              <p>Calm, airy and luminous — light blue, cloud-soft neutrals and quiet charm.</p>
+              <p>Airy and soft with a beachy whisper — light, calm, dreamy and sunlit in a cooler way.</p>
               <div class="swatch-row">
-                <span class="swatch" style="background:#dce8f5;"></span>
-                <span class="swatch" style="background:#f3f8fd;"></span>
-                <span class="swatch" style="background:#b8cee7;"></span>
-                <span class="swatch" style="background:#eef2f6;"></span>
+                <span class="swatch" style="background:#c9dff3;"></span>
+                <span class="swatch" style="background:#a8c8e8;"></span>
+                <span class="swatch" style="background:#ebf4fb;"></span>
+                <span class="swatch" style="background:#d9e8f5;"></span>
               </div>
             </button>
 
-            <button class="choice-card world-card" type="button" data-world="dark-cherry" data-world-name="Dark Cherry">
+            <button class="world-card" type="button" data-world="dark-cherry">
               <div class="choice-media">
                 <img src="images/worlds/dark-cherry/dark-cherry-cover.jpg" alt="Dark Cherry" />
               </div>
               <h3>Dark Cherry</h3>
-              <p>Deep, rich and romantic — burgundy, muted rose, dark cocoa and soft luxury.</p>
+              <p>Romantic in a darker way — mysterious, velvety, cherry-toned and softly dramatic.</p>
               <div class="swatch-row">
-                <span class="swatch" style="background:#7f4b53;"></span>
-                <span class="swatch" style="background:#c5989f;"></span>
-                <span class="swatch" style="background:#5b403b;"></span>
-                <span class="swatch" style="background:#efe1df;"></span>
+                <span class="swatch" style="background:#7d3348;"></span>
+                <span class="swatch" style="background:#9a4d63;"></span>
+                <span class="swatch" style="background:#e7c2ca;"></span>
+                <span class="swatch" style="background:#f4e6ea;"></span>
               </div>
             </button>
 
-            <button class="choice-card world-card" type="button" data-world="golden-hour" data-world-name="Golden Hour">
+            <button class="world-card" type="button" data-world="golden-hour">
               <div class="choice-media">
                 <img src="images/worlds/golden-hour/golden-hour-cover.jpg" alt="Golden Hour" />
               </div>
               <h3>Golden Hour</h3>
-              <p>Warm, nostalgic and sunlit — soft golden shades full of comfort and glow.</p>
+              <p>Warm, stylish and glowing — soft golds, creamy light and a mood like midnight sun.</p>
               <div class="swatch-row">
-                <span class="swatch" style="background:#e7c98b;"></span>
-                <span class="swatch" style="background:#f3e5c7;"></span>
-                <span class="swatch" style="background:#dcb270;"></span>
-                <span class="swatch" style="background:#fff7e8;"></span>
+                <span class="swatch" style="background:#e9c86b;"></span>
+                <span class="swatch" style="background:#f6ddb0;"></span>
+                <span class="swatch" style="background:#fff4da;"></span>
+                <span class="swatch" style="background:#d7ad53;"></span>
               </div>
             </button>
           </div>
@@ -1314,204 +1295,561 @@
       </div>
     </section>
 
-    <section id="step-2" class="reveal">
+    <!-- SOFT ROMANCE -->
+    <section class="world-page is-visible" id="page-soft-romance">
       <div class="container">
         <div class="section-shell">
-          <div class="section-head reveal reveal-delay-1">
-            <div class="step-tag">02</div>
-            <h2><i>Choose your box</i></h2>
-            <p>Now choose how much detail and surprise you want inside the world you selected.</p>
-          </div>
-
-          <div class="options-grid boxes-grid reveal reveal-delay-2" id="boxOptions">
-            <button class="choice-card box-card is-selected" type="button" data-box="petite" data-price="75">
-              <div class="choice-media">
-                <img src="images/atelier-box/box-petite.jpg" alt="Petite Box" />
-              </div>
-              <h3>Petite</h3>
-              <p>Plush, one accessory, short story and QR song.</p>
-              <div class="choice-meta">75 RON</div>
-            </button>
-
-            <button class="choice-card box-card" type="button" data-box="signature" data-price="105">
-              <div class="choice-media">
-                <img src="images/atelier-box/box-signature.jpg" alt="Signature Box" />
-              </div>
-              <h3>Signature</h3>
-              <p>Plush, accessories, outfit, story and matched mood.</p>
-              <div class="choice-meta">105 RON</div>
-            </button>
-
-            <button class="choice-card box-card" type="button" data-box="grand" data-price="135">
-              <div class="choice-media">
-                <img src="images/atelier-box/box-grand.jpg" alt="Grand Box" />
-              </div>
-              <h3>Grand</h3>
-              <p>Richer styling, more detail and an even fuller reveal.</p>
-              <div class="choice-meta">135 RON</div>
-            </button>
-          </div>
-
-          <div class="selected-note" id="boxSelectedNote">Selected: Petite Box</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="step-3" class="reveal">
-      <div class="container">
-        <div class="section-shell">
-          <div class="section-head reveal reveal-delay-1">
-            <div class="step-tag">03</div>
-            <h2><i>A few final touches</i></h2>
-            <p>Just enough detail to guide the experience, without taking away the mystery.</p>
-          </div>
-
-          <div class="form-shell reveal reveal-delay-2">
-            <div class="form-grid">
-              <div class="field-group">
-                <label>This box is for:</label>
-                <div class="radio-row">
-                  <label class="radio-card">
-                    <input type="radio" name="recipient-type" value="Myself" checked />
-                    <span>Myself</span>
-                  </label>
-
-                  <label class="radio-card">
-                    <input type="radio" name="recipient-type" value="A gift" />
-                    <span>A gift</span>
-                  </label>
-                </div>
-              </div>
-
-              <div class="field-group">
-                <label for="gift-message">A little message (optional)</label>
-                <textarea id="gift-message" class="textarea-input" placeholder="Write something soft..."></textarea>
-              </div>
-
-              <div class="field-group">
-                <label for="musicMood">Music mood</label>
-                <select id="musicMood" class="select-input">
-                  <option value="Calm">Calm</option>
-                  <option value="Romantic">Romantic</option>
-                  <option value="Dreamy">Dreamy</option>
-                  <option value="Surprise me">Surprise me</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="step-4" class="reveal">
-      <div class="container">
-        <div class="section-shell">
-          <div class="section-head reveal reveal-delay-1">
-            <div class="step-tag">04</div>
-            <h2><i>A glimpse into this world</i></h2>
-            <p>Not the full reveal — only the atmosphere, colours and textures that guide your box.</p>
-          </div>
-
-          <div class="glimpse-shell reveal reveal-delay-2">
-            <div class="glimpse-copy">
-              <h3 id="glimpseTitle">Soft Romance</h3>
-              <p id="glimpseText">
-                Blush softness, cream details and a gentle light that makes everything feel a little more delicate.
+          <div class="world-banner">
+            <div class="world-banner-copy">
+              <span class="eyebrow">Soft Romance</span>
+              <h2><i>Romantic, coquette, delicate</i></h2>
+              <p>
+                This world is all about softness, blush tones, gentle details and a quietly feminine kind of sweetness.
+              </p>
+              <p class="micro-line">
+                Think ribbons, poetry, little keepsakes and a soft pink mood.
               </p>
             </div>
 
-            <div class="glimpse-slideshow" id="glimpseSlideshow">
-              <img src="images/worlds/soft-romance/soft-romance-1.jpg" alt="Soft Romance glimpse" class="glimpse-slide active" />
-              <img src="images/worlds/soft-romance/soft-romance-2.jpg" alt="Soft Romance glimpse" class="glimpse-slide" />
-              <img src="images/worlds/soft-romance/soft-romance-3.jpg" alt="Soft Romance glimpse" class="glimpse-slide" />
+            <div class="world-banner-visual">
+              <img src="images/worlds/soft-romance/soft-romance-2.jpg" alt="Soft Romance world" />
             </div>
           </div>
-        </div>
-      </div>
-    </section>
 
-    <section id="step-5" class="reveal">
-      <div class="container">
-        <div class="section-shell">
-          <div class="section-head reveal reveal-delay-1">
-            <div class="step-tag">05</div>
-            <h2><i>Inside your box</i></h2>
-            <p>The contents adapt to the size you choose, while the chosen world shapes the entire feeling.</p>
-          </div>
+          <div class="selector-grid">
+            <div class="selector-block">
+              <h3>Choose your box size</h3>
+              <p>Start with the scale of the mystery. The price updates instantly.</p>
 
-          <div class="inside-grid reveal reveal-delay-2" id="insideGrid">
-            <div class="inside-item">
-              <strong>Handmade plush</strong>
-              <span>One curated plush creation imagined within your chosen world.</span>
-            </div>
+              <div class="selector-options columns-3 size-options">
+                <button class="pill-card is-selected" type="button" data-size="Petite Box" data-price="75">
+                  <strong>Petite Box</strong>
+                  <span>Small reveal, soft details</span>
+                </button>
 
-            <div class="inside-item">
-              <strong>Accessory</strong>
-              <span>One matching prop or soft styling detail.</span>
-            </div>
+                <button class="pill-card" type="button" data-size="Signature Box" data-price="105">
+                  <strong>Signature Box</strong>
+                  <span>Most balanced experience</span>
+                </button>
 
-            <div class="inside-item">
-              <strong>Short story</strong>
-              <span>A little written moment created especially for the box.</span>
-            </div>
-
-            <div class="inside-item">
-              <strong>QR song</strong>
-              <span>A mood-matching melody chosen for the feeling of the world.</span>
-            </div>
-
-            <div class="inside-item">
-              <strong>Presentation</strong>
-              <span>Wrapped and arranged to feel thoughtful from the first glance.</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="step-6" class="reveal">
-      <div class="container">
-        <div class="section-shell">
-          <div class="cta-shell reveal reveal-delay-1">
-            <div class="step-tag">06</div>
-            <div class="section-head">
-              <h2><i>Create your box</i></h2>
-              <p>Your Atelier Box will be created by hand, guided first by the world you chose and then by the size of the experience.</p>
-            </div>
-
-            <div class="summary-card">
-              <h3 class="summary-title">Your selection</h3>
-
-              <div class="summary-lines">
-                <div class="summary-line">
-                  <span>Chosen world</span>
-                  <span id="summaryWorld">Soft Romance</span>
-                </div>
-
-                <div class="summary-line">
-                  <span>Chosen box</span>
-                  <span id="summaryBox">Petite Box</span>
-                </div>
-
-                <div class="summary-line">
-                  <span>This box is for</span>
-                  <span id="summaryRecipient">Myself</span>
-                </div>
-
-                <div class="summary-line">
-                  <span>Music mood</span>
-                  <span id="summaryMood">Calm</span>
-                </div>
+                <button class="pill-card" type="button" data-size="Grand Box" data-price="135">
+                  <strong>Grand Box</strong>
+                  <span>Richer reveal, fuller styling</span>
+                </button>
               </div>
 
-              <p class="price-total">Total: <strong id="summaryPrice">75 RON</strong></p>
+              <div class="price-line">
+                <strong>Current box total</strong>
+                <div class="price-badge">
+                  <span>Total:</span>
+                  <strong class="live-price">75 RON</strong>
+                </div>
+              </div>
+            </div>
 
-              <a class="btn btn-primary" id="createBoxBtn" href="contact.html">Create my box</a>
+            <div class="selector-block">
+              <h3>Choose a passion</h3>
+              <p>Pick the little world this box leans toward.</p>
 
-              <p class="tiny-finish">
-                No two boxes are ever the same. Each one is made slowly, for a moment that will never exist again.
+              <div class="selector-options columns-4 passion-options">
+                <button class="pill-card is-selected" type="button" data-passion="Poetry">
+                  <strong>Poetry</strong>
+                  <span>Soft words, diary energy</span>
+                </button>
+
+                <button class="pill-card" type="button" data-passion="Photography">
+                  <strong>Photography</strong>
+                  <span>Captured moments, pretty frames</span>
+                </button>
+
+                <button class="pill-card" type="button" data-passion="Music">
+                  <strong>Music</strong>
+                  <span>Melodic, dreamy, sentimental</span>
+                </button>
+
+                <button class="pill-card" type="button" data-passion="Fashion">
+                  <strong>Fashion</strong>
+                  <span>Coquette styling, ribbons, details</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="selector-block">
+              <h3>Choose a music mood</h3>
+              <p>Set the emotional tone of the reveal.</p>
+
+              <div class="selector-options columns-4 music-options">
+                <button class="pill-card is-selected" type="button" data-music="Tender">
+                  <strong>Tender</strong>
+                  <span>Warm and gentle</span>
+                </button>
+
+                <button class="pill-card" type="button" data-music="Dreamy">
+                  <strong>Dreamy</strong>
+                  <span>Soft and floating</span>
+                </button>
+
+                <button class="pill-card" type="button" data-music="Romantic">
+                  <strong>Romantic</strong>
+                  <span>Sweet and intimate</span>
+                </button>
+
+                <button class="pill-card" type="button" data-music="Slow dance">
+                  <strong>Slow dance</strong>
+                  <span>Soft elegance</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="summary-card">
+            <h3>Your Soft Romance box</h3>
+
+            <div class="summary-lines">
+              <div class="summary-line">
+                <span>World</span>
+                <span>Soft Romance</span>
+              </div>
+
+              <div class="summary-line">
+                <span>Box size</span>
+                <span class="summary-size">Petite Box</span>
+              </div>
+
+              <div class="summary-line">
+                <span>Passion</span>
+                <span class="summary-passion">Poetry</span>
+              </div>
+
+              <div class="summary-line">
+                <span>Music mood</span>
+                <span class="summary-music">Tender</span>
+              </div>
+            </div>
+
+            <p class="price-total">Total: <strong class="summary-price">75 RON</strong></p>
+            <a class="btn btn-primary" href="contact.html">Create my box</a>
+            <p class="tiny-finish">You won’t know the exact reveal. That is part of the romance.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLUE DREAM -->
+    <section class="world-page" id="page-blue-dream">
+      <div class="container">
+        <div class="section-shell">
+          <div class="world-banner">
+            <div class="world-banner-copy">
+              <span class="eyebrow">Blue Dream</span>
+              <h2><i>Airy, soft, lightly beachy</i></h2>
+              <p>
+                Calm blues, pale light and a dreamy freshness — like a quiet shore, soft linen and the gentlest breeze.
+              </p>
+              <p class="micro-line">
+                Think sea glass, clouds, light photography and music that feels open and airy.
               </p>
             </div>
+
+            <div class="world-banner-visual">
+              <img src="images/worlds/blue-dream/blue-dream-2.jpg" alt="Blue Dream world" />
+            </div>
+          </div>
+
+          <div class="selector-grid">
+            <div class="selector-block">
+              <h3>Choose your box size</h3>
+              <p>The price updates as soon as you change the size.</p>
+
+              <div class="selector-options columns-3 size-options">
+                <button class="pill-card is-selected" type="button" data-size="Petite Box" data-price="75">
+                  <strong>Petite Box</strong>
+                  <span>Light and delicate</span>
+                </button>
+
+                <button class="pill-card" type="button" data-size="Signature Box" data-price="105">
+                  <strong>Signature Box</strong>
+                  <span>Balanced and dreamy</span>
+                </button>
+
+                <button class="pill-card" type="button" data-size="Grand Box" data-price="135">
+                  <strong>Grand Box</strong>
+                  <span>More styling, fuller reveal</span>
+                </button>
+              </div>
+
+              <div class="price-line">
+                <strong>Current box total</strong>
+                <div class="price-badge">
+                  <span>Total:</span>
+                  <strong class="live-price">75 RON</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="selector-block">
+              <h3>Choose a passion</h3>
+              <p>Let the box drift toward one little inspiration.</p>
+
+              <div class="selector-options columns-4 passion-options">
+                <button class="pill-card is-selected" type="button" data-passion="Photography">
+                  <strong>Photography</strong>
+                  <span>Cool light, sea-glass moments</span>
+                </button>
+
+                <button class="pill-card" type="button" data-passion="Music">
+                  <strong>Music</strong>
+                  <span>Airy, open, floating</span>
+                </button>
+
+                <button class="pill-card" type="button" data-passion="Reading">
+                  <strong>Reading</strong>
+                  <span>Quiet pages, slow afternoons</span>
+                </button>
+
+                <button class="pill-card" type="button" data-passion="Fashion">
+                  <strong>Fashion</strong>
+                  <span>Soft linen, coastal lightness</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="selector-block">
+              <h3>Choose a music mood</h3>
+              <p>Keep the tone cool, soft and expansive.</p>
+
+              <div class="selector-options columns-4 music-options">
+                <button class="pill-card is-selected" type="button" data-music="Floating">
+                  <strong>Floating</strong>
+                  <span>Weightless and airy</span>
+                </button>
+
+                <button class="pill-card" type="button" data-music="Sea breeze">
+                  <strong>Sea breeze</strong>
+                  <span>Fresh, soft, open</span>
+                </button>
+
+                <button class="pill-card" type="button" data-music="Daydream">
+                  <strong>Daydream</strong>
+                  <span>Light and distant</span>
+                </button>
+
+                <button class="pill-card" type="button" data-music="Sunlit calm">
+                  <strong>Sunlit calm</strong>
+                  <span>Quiet brightness</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="summary-card">
+            <h3>Your Blue Dream box</h3>
+
+            <div class="summary-lines">
+              <div class="summary-line">
+                <span>World</span>
+                <span>Blue Dream</span>
+              </div>
+
+              <div class="summary-line">
+                <span>Box size</span>
+                <span class="summary-size">Petite Box</span>
+              </div>
+
+              <div class="summary-line">
+                <span>Passion</span>
+                <span class="summary-passion">Photography</span>
+              </div>
+
+              <div class="summary-line">
+                <span>Music mood</span>
+                <span class="summary-music">Floating</span>
+              </div>
+            </div>
+
+            <p class="price-total">Total: <strong class="summary-price">75 RON</strong></p>
+            <a class="btn btn-primary" href="contact.html">Create my box</a>
+            <p class="tiny-finish">This one should feel like a soft horizon you can hold.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DARK CHERRY -->
+    <section class="world-page" id="page-dark-cherry">
+      <div class="container">
+        <div class="section-shell">
+          <div class="world-banner">
+            <div class="world-banner-copy">
+              <span class="eyebrow">Dark Cherry</span>
+              <h2><i>Mysterious, romantic, cherry-toned</i></h2>
+              <p>
+                Deep burgundy light, soft drama and a more secretive kind of romance — intimate, rich and quietly magnetic.
+              </p>
+              <p class="micro-line">
+                Think velvet ribbons, cherry notes, low light, longing and beautiful little secrets.
+              </p>
+            </div>
+
+            <div class="world-banner-visual">
+              <img src="images/worlds/dark-cherry/dark-cherry-2.jpg" alt="Dark Cherry world" />
+            </div>
+          </div>
+
+          <div class="selector-grid">
+            <div class="selector-block">
+              <h3>Choose your box size</h3>
+              <p>The price updates the moment you change the reveal size.</p>
+
+              <div class="selector-options columns-3 size-options">
+                <button class="pill-card is-selected" type="button" data-size="Petite Box" data-price="75">
+                  <strong>Petite Box</strong>
+                  <span>Subtle, rich, intimate</span>
+                </button>
+
+                <button class="pill-card" type="button" data-size="Signature Box" data-price="105">
+                  <strong>Signature Box</strong>
+                  <span>The most balanced mystery</span>
+                </button>
+
+                <button class="pill-card" type="button" data-size="Grand Box" data-price="135">
+                  <strong>Grand Box</strong>
+                  <span>More layers, more drama</span>
+                </button>
+              </div>
+
+              <div class="price-line">
+                <strong>Current box total</strong>
+                <div class="price-badge">
+                  <span>Total:</span>
+                  <strong class="live-price">75 RON</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="selector-block">
+              <h3>Choose a passion</h3>
+              <p>Give the box a richer point of gravity.</p>
+
+              <div class="selector-options columns-4 passion-options">
+                <button class="pill-card is-selected" type="button" data-passion="Music">
+                  <strong>Music</strong>
+                  <span>Velvet mood, dark romance</span>
+                </button>
+
+                <button class="pill-card" type="button" data-passion="Photography">
+                  <strong>Photography</strong>
+                  <span>Low light, cherry tones</span>
+                </button>
+
+                <button class="pill-card" type="button" data-passion="Reading">
+                  <strong>Reading</strong>
+                  <span>Midnight pages, hidden notes</span>
+                </button>
+
+                <button class="pill-card" type="button" data-passion="Fashion">
+                  <strong>Fashion</strong>
+                  <span>Velvet bows, rich silhouettes</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="selector-block">
+              <h3>Choose a music mood</h3>
+              <p>Keep it romantic, but with shadow and depth.</p>
+
+              <div class="selector-options columns-4 music-options">
+                <button class="pill-card is-selected" type="button" data-music="Velvet">
+                  <strong>Velvet</strong>
+                  <span>Soft and dark</span>
+                </button>
+
+                <button class="pill-card" type="button" data-music="Cherry glow">
+                  <strong>Cherry glow</strong>
+                  <span>Warm but mysterious</span>
+                </button>
+
+                <button class="pill-card" type="button" data-music="After dark">
+                  <strong>After dark</strong>
+                  <span>Romantic with shadow</span>
+                </button>
+
+                <button class="pill-card" type="button" data-music="Slow burn">
+                  <strong>Slow burn</strong>
+                  <span>Deep and intimate</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="summary-card">
+            <h3>Your Dark Cherry box</h3>
+
+            <div class="summary-lines">
+              <div class="summary-line">
+                <span>World</span>
+                <span>Dark Cherry</span>
+              </div>
+
+              <div class="summary-line">
+                <span>Box size</span>
+                <span class="summary-size">Petite Box</span>
+              </div>
+
+              <div class="summary-line">
+                <span>Passion</span>
+                <span class="summary-passion">Music</span>
+              </div>
+
+              <div class="summary-line">
+                <span>Music mood</span>
+                <span class="summary-music">Velvet</span>
+              </div>
+            </div>
+
+            <p class="price-total">Total: <strong class="summary-price">75 RON</strong></p>
+            <a class="btn btn-primary" href="contact.html">Create my box</a>
+            <p class="tiny-finish">Some boxes should feel like a secret you almost keep to yourself.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GOLDEN HOUR -->
+    <section class="world-page" id="page-golden-hour">
+      <div class="container">
+        <div class="section-shell">
+          <div class="world-banner">
+            <div class="world-banner-copy">
+              <span class="eyebrow">Golden Hour</span>
+              <h2><i>Stylish, warm, like midnight sun</i></h2>
+              <p>
+                This world glows. It should feel polished, warm, a little cinematic and softly radiant — like the golden part of a memory.
+              </p>
+              <p class="micro-line">
+                Think honey light, elegant styling, warmth on skin and a sun that lingers longer than expected.
+              </p>
+            </div>
+
+            <div class="world-banner-visual">
+              <img src="images/worlds/golden-hour/golden-hour-2.jpg" alt="Golden Hour world" />
+            </div>
+          </div>
+
+          <div class="selector-grid">
+            <div class="selector-block">
+              <h3>Choose your box size</h3>
+              <p>The total changes with the size you choose.</p>
+
+              <div class="selector-options columns-3 size-options">
+                <button class="pill-card is-selected" type="button" data-size="Petite Box" data-price="75">
+                  <strong>Petite Box</strong>
+                  <span>Warm and softly styled</span>
+                </button>
+
+                <button class="pill-card" type="button" data-size="Signature Box" data-price="105">
+                  <strong>Signature Box</strong>
+                  <span>Our most balanced glow</span>
+                </button>
+
+                <button class="pill-card" type="button" data-size="Grand Box" data-price="135">
+                  <strong>Grand Box</strong>
+                  <span>Fuller styling, richer reveal</span>
+                </button>
+              </div>
+
+              <div class="price-line">
+                <strong>Current box total</strong>
+                <div class="price-badge">
+                  <span>Total:</span>
+                  <strong class="live-price">75 RON</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="selector-block">
+              <h3>Choose a passion</h3>
+              <p>Give the warmth a direction.</p>
+
+              <div class="selector-options columns-4 passion-options">
+                <button class="pill-card is-selected" type="button" data-passion="Fashion">
+                  <strong>Fashion</strong>
+                  <span>Stylish, polished, sunlit</span>
+                </button>
+
+                <button class="pill-card" type="button" data-passion="Photography">
+                  <strong>Photography</strong>
+                  <span>Golden frames, light on skin</span>
+                </button>
+
+                <button class="pill-card" type="button" data-passion="Music">
+                  <strong>Music</strong>
+                  <span>Warm and cinematic</span>
+                </button>
+
+                <button class="pill-card" type="button" data-passion="Reading">
+                  <strong>Reading</strong>
+                  <span>Late sun, slow chapters</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="selector-block">
+              <h3>Choose a music mood</h3>
+              <p>Let it glow like a song you never want to end.</p>
+
+              <div class="selector-options columns-4 music-options">
+                <button class="pill-card is-selected" type="button" data-music="Midnight sun">
+                  <strong>Midnight sun</strong>
+                  <span>Warm, cinematic, glowing</span>
+                </button>
+
+                <button class="pill-card" type="button" data-music="Golden">
+                  <strong>Golden</strong>
+                  <span>Bright and honey-soft</span>
+                </button>
+
+                <button class="pill-card" type="button" data-music="Radiant">
+                  <strong>Radiant</strong>
+                  <span>Elegant warmth</span>
+                </button>
+
+                <button class="pill-card" type="button" data-music="Soft summer">
+                  <strong>Soft summer</strong>
+                  <span>Light that lingers</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="summary-card">
+            <h3>Your Golden Hour box</h3>
+
+            <div class="summary-lines">
+              <div class="summary-line">
+                <span>World</span>
+                <span>Golden Hour</span>
+              </div>
+
+              <div class="summary-line">
+                <span>Box size</span>
+                <span class="summary-size">Petite Box</span>
+              </div>
+
+              <div class="summary-line">
+                <span>Passion</span>
+                <span class="summary-passion">Fashion</span>
+              </div>
+
+              <div class="summary-line">
+                <span>Music mood</span>
+                <span class="summary-music">Midnight sun</span>
+              </div>
+            </div>
+
+            <p class="price-total">Total: <strong class="summary-price">75 RON</strong></p>
+            <a class="btn btn-primary" href="contact.html">Create my box</a>
+            <p class="tiny-finish">This one should feel like warmth dressed beautifully.</p>
           </div>
         </div>
       </div>
@@ -1541,126 +1879,44 @@
   </footer>
 
   <script>
-    const siteHeader = document.getElementById('siteHeader');
-    const cursorGlow = document.getElementById('cursorGlow');
-    const cartCount = document.getElementById('cart-count');
-    const revealItems = document.querySelectorAll('.reveal');
+    const siteHeader = document.getElementById("siteHeader");
+    const cursorGlow = document.getElementById("cursorGlow");
+    const cartCount = document.getElementById("cart-count");
+    const revealItems = document.querySelectorAll(".reveal");
+    const worldCards = document.querySelectorAll(".world-card");
+    const worldPages = document.querySelectorAll(".world-page");
+    const worldSelectedNote = document.getElementById("worldSelectedNote");
+    const heroPreview = document.getElementById("heroPreview");
 
-    const boxCards = document.querySelectorAll('.box-card');
-    const worldCards = document.querySelectorAll('.world-card');
-
-    const boxSelectedNote = document.getElementById('boxSelectedNote');
-    const worldSelectedNote = document.getElementById('worldSelectedNote');
-
-    const glimpseSlideshow = document.getElementById('glimpseSlideshow');
-    const glimpseTitle = document.getElementById('glimpseTitle');
-    const glimpseText = document.getElementById('glimpseText');
-
-    const summaryBox = document.getElementById('summaryBox');
-    const summaryWorld = document.getElementById('summaryWorld');
-    const summaryRecipient = document.getElementById('summaryRecipient');
-    const summaryMood = document.getElementById('summaryMood');
-    const summaryPrice = document.getElementById('summaryPrice');
-
-    const musicMood = document.getElementById('musicMood');
-    const recipientInputs = document.querySelectorAll('input[name="recipient-type"]');
-    const insideGrid = document.getElementById('insideGrid');
-
-    const worldData = {
+    const worldConfig = {
       "soft-romance": {
-        name: "Soft Romance",
-        title: "Soft Romance",
-        text: "Blush softness, cream details and a gentle light that makes everything feel a little more delicate.",
-        bodyClass: "world-soft-romance",
-        images: [
-          "images/worlds/soft-romance/soft-romance-1.jpg",
-          "images/worlds/soft-romance/soft-romance-2.jpg",
-          "images/worlds/soft-romance/soft-romance-3.jpg"
-        ]
+        bodyClass: "theme-soft-romance",
+        hero: "images/worlds/soft-romance/soft-romance-1.jpg"
       },
       "blue-dream": {
-        name: "Blue Dream",
-        title: "Blue Dream",
-        text: "Airy blues, quiet texture and a calm, cloudlike feeling that keeps the whole box light and serene.",
-        bodyClass: "world-blue-dream",
-        images: [
-          "images/worlds/blue-dream/blue-dream-1.jpg",
-          "images/worlds/blue-dream/blue-dream-2.jpg",
-          "images/worlds/blue-dream/blue-dream-3.jpg"
-        ]
+        bodyClass: "theme-blue-dream",
+        hero: "images/worlds/blue-dream/blue-dream-1.jpg"
       },
       "dark-cherry": {
-        name: "Dark Cherry",
-        title: "Dark Cherry",
-        text: "Rich burgundy notes, softened darkness and a more mysterious mood with a romantic depth.",
-        bodyClass: "world-dark-cherry",
-        images: [
-          "images/worlds/dark-cherry/dark-cherry-1.jpg",
-          "images/worlds/dark-cherry/dark-cherry-2.jpg",
-          "images/worlds/dark-cherry/dark-cherry-3.jpg"
-        ]
+        bodyClass: "theme-dark-cherry",
+        hero: "images/worlds/dark-cherry/dark-cherry-1.jpg"
       },
       "golden-hour": {
-        name: "Golden Hour",
-        title: "Golden Hour",
-        text: "Warm honey tones, sunlit softness and a nostalgic glow that feels gentle, sweet and comforting.",
-        bodyClass: "world-golden-hour",
-        images: [
-          "images/worlds/golden-hour/golden-hour-1.jpg",
-          "images/worlds/golden-hour/golden-hour-2.jpg",
-          "images/worlds/golden-hour/golden-hour-3.jpg"
-        ]
+        bodyClass: "theme-golden-hour",
+        hero: "images/worlds/golden-hour/golden-hour-1.jpg"
       }
     };
 
-    const boxContents = {
-      petite: [
-        { title: "Handmade plush", text: "One curated plush creation imagined within your chosen world." },
-        { title: "Accessory", text: "One matching prop or soft styling detail." },
-        { title: "Short story", text: "A little written moment created especially for the box." },
-        { title: "QR song", text: "A mood-matching melody chosen for the feeling of the world." },
-        { title: "Presentation", text: "Wrapped and arranged to feel thoughtful from the first glance." }
-      ],
-      signature: [
-        { title: "Handmade plush", text: "One curated plush creation with more detail and styling." },
-        { title: "Accessories", text: "Two matching accents selected to suit the chosen world." },
-        { title: "Crocheted outfit", text: "A soft outfit or styling layer designed within the aesthetic." },
-        { title: "Story + QR song", text: "A short story and a carefully matched musical mood." },
-        { title: "Presentation", text: "A fuller unboxing experience with a more layered reveal." }
-      ],
-      grand: [
-        { title: "Handmade plush", text: "One plush creation imagined as the heart of a fuller world." },
-        { title: "Multiple details", text: "Extra accessories and styling touches chosen around the vibe." },
-        { title: "Crocheted outfit", text: "A richer outfit or layered handmade clothing detail." },
-        { title: "Extended story", text: "A longer atmosphere-led story and a matched QR melody." },
-        { title: "Extra surprise", text: "An added little detail to make the unboxing feel even more special." }
-      ]
-    };
-
-    let selectedBox = {
-      key: "petite",
-      name: "Petite Box",
-      price: 75
-    };
-
-    let selectedWorld = {
-      key: "soft-romance",
-      name: "Soft Romance"
-    };
-
-    let glimpseIndex = 0;
-    let glimpseInterval;
-
     function handleHeaderShadow() {
       if (window.scrollY > 14) {
-        siteHeader.classList.add('scrolled');
+        siteHeader.classList.add("scrolled");
       } else {
-        siteHeader.classList.remove('scrolled');
+        siteHeader.classList.remove("scrolled");
       }
     }
 
     function updateCartCount() {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
       let total = 0;
 
       cart.forEach(item => {
@@ -1669,113 +1925,98 @@
 
       if (!cartCount) return;
       cartCount.textContent = total;
-      cartCount.style.display = total === 0 ? 'none' : 'flex';
+      cartCount.style.display = total === 0 ? "none" : "flex";
     }
 
-    function updateSummary() {
-      summaryWorld.textContent = selectedWorld.name;
-      summaryBox.textContent = selectedBox.name;
-      summaryPrice.textContent = `${selectedBox.price} RON`;
-
-      const checkedRecipient = document.querySelector('input[name="recipient-type"]:checked');
-      summaryRecipient.textContent = checkedRecipient ? checkedRecipient.value : 'Myself';
-      summaryMood.textContent = musicMood.value;
-    }
-
-    function renderInsideItems() {
-      const items = boxContents[selectedBox.key];
-      insideGrid.innerHTML = items.map(item => `
-        <div class="inside-item">
-          <strong>${item.title}</strong>
-          <span>${item.text}</span>
-        </div>
-      `).join('');
-    }
-
-    function setBodyWorldClass(worldKey) {
+    function setTheme(worldKey) {
       document.body.classList.remove(
-        'world-soft-romance',
-        'world-blue-dream',
-        'world-dark-cherry',
-        'world-golden-hour'
+        "theme-soft-romance",
+        "theme-blue-dream",
+        "theme-dark-cherry",
+        "theme-golden-hour"
       );
 
-      document.body.classList.add(worldData[worldKey].bodyClass);
-    }
+      document.body.classList.add(worldConfig[worldKey].bodyClass);
+      heroPreview.src = worldConfig[worldKey].hero;
 
-    function renderGlimpseSlides(worldKey) {
-      const { images, title, text } = worldData[worldKey];
-      glimpseTitle.textContent = title;
-      glimpseText.textContent = text;
-
-      glimpseSlideshow.innerHTML = images.map((src, index) => `
-        <img src="${src}" alt="${title} glimpse" class="glimpse-slide ${index === 0 ? 'active' : ''}" />
-      `).join('');
-
-      glimpseIndex = 0;
-
-      if (glimpseInterval) {
-        clearInterval(glimpseInterval);
-      }
-
-      glimpseInterval = setInterval(nextGlimpseSlide, 3600);
-    }
-
-    function nextGlimpseSlide() {
-      const slides = glimpseSlideshow.querySelectorAll('.glimpse-slide');
-      if (!slides.length) return;
-
-      slides[glimpseIndex].classList.remove('active');
-      glimpseIndex = (glimpseIndex + 1) % slides.length;
-      slides[glimpseIndex].classList.add('active');
-    }
-
-    boxCards.forEach(card => {
-      card.addEventListener('click', () => {
-        boxCards.forEach(item => item.classList.remove('is-selected'));
-        card.classList.add('is-selected');
-
-        selectedBox = {
-          key: card.dataset.box,
-          name: `${card.querySelector('h3').textContent.trim()} Box`,
-          price: Number(card.dataset.price)
-        };
-
-        boxSelectedNote.textContent = `Selected: ${selectedBox.name}`;
-        renderInsideItems();
-        updateSummary();
+      worldPages.forEach(page => {
+        page.classList.remove("is-visible");
       });
-    });
+
+      const activePage = document.getElementById(`page-${worldKey}`);
+      if (activePage) {
+        activePage.classList.add("is-visible");
+      }
+    }
 
     worldCards.forEach(card => {
-      card.addEventListener('click', () => {
-        worldCards.forEach(item => item.classList.remove('is-selected'));
-        card.classList.add('is-selected');
+      card.addEventListener("click", () => {
+        worldCards.forEach(item => item.classList.remove("is-selected"));
+        card.classList.add("is-selected");
 
-        selectedWorld = {
-          key: card.dataset.world,
-          name: card.dataset.worldName
-        };
+        const selectedWorld = card.dataset.world;
+        setTheme(selectedWorld);
 
-        worldSelectedNote.textContent = 'We will create something unique for you, within this world.';
-        worldSelectedNote.classList.add('is-visible');
+        worldSelectedNote.textContent = "We will create something unique for you, within this world.";
+        worldSelectedNote.classList.add("is-visible");
 
-        setBodyWorldClass(selectedWorld.key);
-        renderGlimpseSlides(selectedWorld.key);
-        updateSummary();
+        const stepTarget = document.getElementById(`page-${selectedWorld}`);
+        if (stepTarget) {
+          setTimeout(() => {
+            stepTarget.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 120);
+        }
       });
     });
 
-    recipientInputs.forEach(input => {
-      input.addEventListener('change', updateSummary);
-    });
+    function setupSelectorGroup(section) {
+      const sizeCards = section.querySelectorAll(".size-options .pill-card");
+      const passionCards = section.querySelectorAll(".passion-options .pill-card");
+      const musicCards = section.querySelectorAll(".music-options .pill-card");
 
-    musicMood.addEventListener('change', updateSummary);
+      const livePrice = section.querySelector(".live-price");
+      const summarySize = section.querySelector(".summary-size");
+      const summaryPassion = section.querySelector(".summary-passion");
+      const summaryMusic = section.querySelector(".summary-music");
+      const summaryPrice = section.querySelector(".summary-price");
+
+      sizeCards.forEach(card => {
+        card.addEventListener("click", () => {
+          sizeCards.forEach(item => item.classList.remove("is-selected"));
+          card.classList.add("is-selected");
+
+          const size = card.dataset.size;
+          const price = card.dataset.price;
+
+          summarySize.textContent = size;
+          livePrice.textContent = `${price} RON`;
+          summaryPrice.textContent = `${price} RON`;
+        });
+      });
+
+      passionCards.forEach(card => {
+        card.addEventListener("click", () => {
+          passionCards.forEach(item => item.classList.remove("is-selected"));
+          card.classList.add("is-selected");
+          summaryPassion.textContent = card.dataset.passion;
+        });
+      });
+
+      musicCards.forEach(card => {
+        card.addEventListener("click", () => {
+          musicCards.forEach(item => item.classList.remove("is-selected"));
+          card.classList.add("is-selected");
+          summaryMusic.textContent = card.dataset.music;
+        });
+      });
+    }
+
+    document.querySelectorAll(".world-page").forEach(setupSelectorGroup);
 
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
+          entry.target.classList.add("is-visible");
           revealObserver.unobserve(entry.target);
         }
       });
@@ -1785,29 +2026,26 @@
 
     revealItems.forEach(item => revealObserver.observe(item));
 
-    window.addEventListener('load', () => {
+    window.addEventListener("load", () => {
       handleHeaderShadow();
       updateCartCount();
-      renderInsideItems();
-      updateSummary();
-      setBodyWorldClass(selectedWorld.key);
-      renderGlimpseSlides(selectedWorld.key);
+      setTheme("soft-romance");
     });
 
-    window.addEventListener('scroll', handleHeaderShadow);
+    window.addEventListener("scroll", handleHeaderShadow);
 
-    document.addEventListener('mousemove', (e) => {
+    document.addEventListener("mousemove", (e) => {
       if (!cursorGlow || window.innerWidth <= 760) return;
       cursorGlow.style.left = `${e.clientX}px`;
       cursorGlow.style.top = `${e.clientY}px`;
     });
 
-    document.addEventListener('mouseleave', () => {
-      if (cursorGlow) cursorGlow.style.opacity = '0';
+    document.addEventListener("mouseleave", () => {
+      if (cursorGlow) cursorGlow.style.opacity = "0";
     });
 
-    document.addEventListener('mouseenter', () => {
-      if (cursorGlow && window.innerWidth > 760) cursorGlow.style.opacity = '0.9';
+    document.addEventListener("mouseenter", () => {
+      if (cursorGlow && window.innerWidth > 760) cursorGlow.style.opacity = "0.9";
     });
   </script>
 </body>
