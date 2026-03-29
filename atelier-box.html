@@ -22,7 +22,6 @@
       --accent-deep: #bc9182;
       --line: rgba(188, 145, 130, 0.22);
       --shadow: 0 18px 45px rgba(100, 74, 63, 0.12);
-      --shadow-strong: 0 24px 55px rgba(100, 74, 63, 0.18);
       --radius-xl: 34px;
       --radius-lg: 24px;
       --radius-md: 18px;
@@ -32,6 +31,8 @@
       --hero-overlay: rgba(255, 255, 255, 0.10);
       --theme-ring: rgba(188,145,130,0.65);
       --theme-glow: rgba(188,145,130,0.22);
+      --theme-text-strong: #6a5145;
+      --theme-text-soft: #8b6f61;
     }
 
     * {
@@ -74,7 +75,7 @@
       inset: 0;
       pointer-events: none;
       z-index: 1;
-      opacity: 0.82;
+      opacity: 0.76;
       background:
         radial-gradient(circle at 12% 18%, rgba(255,255,255,0.18) 0 0, rgba(255,255,255,0.18) 0 18px, transparent 42px),
         radial-gradient(circle at 26% 34%, rgba(255,248,242,0.15) 0 0, rgba(255,248,242,0.15) 0 14px, transparent 36px),
@@ -102,7 +103,7 @@
     }
 
     .container {
-      width: min(var(--container), calc(100% - 40px));
+      width: min(var(--container), calc(100% - 32px));
       margin: 0 auto;
       position: relative;
       z-index: 2;
@@ -114,14 +115,14 @@
       left: 0;
       right: 0;
       z-index: 1000;
-      background: rgba(255, 250, 246, 0.80);
+      background: rgba(255, 250, 246, 0.84);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--line);
       transition: box-shadow 0.3s ease, background 0.3s ease;
     }
 
     .site-header.scrolled {
-      background: rgba(255, 250, 246, 0.92);
+      background: rgba(255, 250, 246, 0.95);
       box-shadow: 0 8px 24px rgba(100, 74, 63, 0.08);
     }
 
@@ -130,13 +131,13 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 22px;
+      gap: 18px;
     }
 
     .logo-wrap {
       display: inline-flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       min-width: 0;
       transition: transform 0.35s var(--ease);
       flex-shrink: 0;
@@ -147,8 +148,8 @@
     }
 
     .logo-wrap img {
-      width: 56px;
-      height: 56px;
+      width: 52px;
+      height: 52px;
       object-fit: contain;
       border-radius: 50%;
       background: rgba(255,255,255,0.82);
@@ -158,7 +159,7 @@
     }
 
     .brand-text {
-      font-size: 1.02rem;
+      font-size: 0.98rem;
       letter-spacing: 0.04em;
       white-space: nowrap;
     }
@@ -166,23 +167,23 @@
     .nav-right {
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 14px;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 22px;
+      gap: 18px;
       list-style: none;
       margin: 0;
       padding: 0;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
     }
 
     .nav-links a {
       display: inline-flex;
       align-items: center;
-      padding: 12px 0;
+      padding: 10px 0;
       transition: opacity 0.25s ease, transform 0.25s ease;
     }
 
@@ -192,7 +193,7 @@
     }
 
     .nav-links .active-link a {
-      padding: 10px 16px;
+      padding: 9px 14px;
       border-radius: 999px;
       background: rgba(255,255,255,0.76);
       border: 1px solid var(--line);
@@ -208,8 +209,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
       background: rgba(255, 247, 240, 0.88);
       border: 1px solid rgba(188, 145, 130, 0.25);
@@ -224,8 +225,8 @@
     }
 
     .cart-icon svg {
-      width: 23px;
-      height: 23px;
+      width: 21px;
+      height: 21px;
       stroke: var(--text);
     }
 
@@ -233,13 +234,13 @@
       position: absolute;
       top: -4px;
       right: -4px;
-      min-width: 19px;
-      height: 19px;
+      min-width: 18px;
+      height: 18px;
       padding: 0 5px;
       border-radius: 999px;
       background: linear-gradient(135deg, var(--accent-deep), var(--accent));
       color: white;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
       display: flex;
       align-items: center;
@@ -262,23 +263,23 @@
     }
 
     .hero {
-      min-height: 88vh;
+      min-height: 84vh;
       display: flex;
       align-items: center;
-      padding-top: calc(var(--nav-h) + 42px);
-      padding-bottom: 48px;
+      padding-top: calc(var(--nav-h) + 30px);
+      padding-bottom: 34px;
     }
 
     .hero-grid {
       display: grid;
       grid-template-columns: 1.04fr 0.96fr;
-      gap: 40px;
+      gap: 28px;
       align-items: center;
     }
 
     .hero-copy > * {
       opacity: 0;
-      transform: translateY(26px);
+      transform: translateY(20px);
       animation: heroReveal 0.9s var(--ease) forwards;
     }
 
@@ -290,53 +291,56 @@
     .eyebrow {
       display: inline-flex;
       align-items: center;
-      padding: 8px 14px;
+      padding: 7px 12px;
       border-radius: 999px;
       border: 1px solid var(--line);
       background: rgba(255,255,255,0.68);
-      font-size: 0.78rem;
-      letter-spacing: 0.16em;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
       box-shadow: 0 8px 20px rgba(91, 71, 63, 0.05);
+      color: var(--theme-text-strong);
     }
 
     h1, h2, h3 {
       font-weight: 500;
+      color: var(--theme-text-strong);
     }
 
     .hero h1 {
-      margin: 0 0 18px;
-      font-size: clamp(2.8rem, 6vw, 5rem);
-      line-height: 0.96;
+      margin: 0 0 14px;
+      font-size: clamp(2.3rem, 5.4vw, 4.2rem);
+      line-height: 0.98;
     }
 
     .hero p {
-      margin: 0 0 28px;
-      max-width: 590px;
-      line-height: 1.82;
-      font-size: 1.03rem;
-      color: var(--muted);
+      margin: 0 0 22px;
+      max-width: 540px;
+      line-height: 1.72;
+      font-size: 0.96rem;
+      color: var(--theme-text-soft);
     }
 
     .button-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 14px;
+      gap: 12px;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 210px;
-      padding: 16px 28px;
+      min-width: 180px;
+      padding: 14px 22px;
       border-radius: 999px;
       border: none;
       cursor: pointer;
       transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, opacity 0.25s ease;
       position: relative;
       overflow: hidden;
+      font-size: 0.94rem;
     }
 
     .btn:hover {
@@ -346,13 +350,13 @@
     .btn-primary {
       color: var(--white);
       background: linear-gradient(135deg, var(--accent-deep), var(--accent));
-      box-shadow: 0 16px 32px rgba(188,145,130,0.34);
+      box-shadow: 0 14px 28px rgba(188,145,130,0.30);
     }
 
     .btn-secondary {
       background: rgba(255,255,255,0.74);
       border: 1px solid var(--line);
-      color: var(--text);
+      color: var(--theme-text-strong);
     }
 
     .hero-card,
@@ -367,19 +371,19 @@
     .hero-card {
       background: var(--card);
       border: 1px solid var(--line);
-      border-radius: var(--radius-xl);
-      padding: 18px;
+      border-radius: 28px;
+      padding: 14px;
       box-shadow: var(--shadow);
       opacity: 0;
-      transform: translateY(30px) scale(0.98);
+      transform: translateY(24px) scale(0.98);
       animation: heroImageReveal 1s var(--ease) forwards 0.34s;
     }
 
     .hero-image {
       position: relative;
       overflow: hidden;
-      border-radius: 28px;
-      aspect-ratio: 0.95 / 1;
+      border-radius: 22px;
+      aspect-ratio: 0.98 / 1;
       background: linear-gradient(160deg, #f7ebe4, #efddd2);
       isolation: isolate;
     }
@@ -401,53 +405,54 @@
     }
 
     section {
-      padding: 84px 0;
+      padding: 68px 0;
     }
 
     .section-shell {
       background: var(--card);
       border: 1px solid var(--line);
-      border-radius: var(--radius-xl);
-      padding: 30px;
+      border-radius: 28px;
+      padding: 24px;
       box-shadow: var(--shadow);
     }
 
     .section-head {
-      max-width: 760px;
-      margin: 0 auto 28px;
+      max-width: 720px;
+      margin: 0 auto 22px;
       text-align: center;
     }
 
     .section-head h2 {
-      margin: 0 0 12px;
-      font-size: clamp(2rem, 4vw, 3.1rem);
-      line-height: 1.05;
+      margin: 0 0 10px;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.06;
     }
 
     .section-head p {
       margin: 0;
-      color: var(--muted);
-      line-height: 1.8;
+      color: var(--theme-text-soft);
+      line-height: 1.72;
+      font-size: 0.94rem;
     }
 
     .step-tag {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 44px;
-      height: 44px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
-      margin: 0 auto 16px;
+      margin: 0 auto 14px;
       background: linear-gradient(135deg, var(--accent-deep), var(--accent));
       color: white;
-      font-size: 0.92rem;
+      font-size: 0.84rem;
       box-shadow: 0 12px 22px rgba(188,145,130,0.22);
     }
 
     .worlds-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 20px;
+      gap: 14px;
     }
 
     .world-card {
@@ -457,30 +462,30 @@
       text-align: left;
       border: 1px solid var(--line);
       background: rgba(255,255,255,0.78);
-      border-radius: 24px;
-      padding: 18px;
-      box-shadow: 0 10px 24px rgba(100,74,63,0.06);
+      border-radius: 20px;
+      padding: 12px;
+      box-shadow: 0 8px 18px rgba(100,74,63,0.06);
       cursor: pointer;
       transition: transform 0.28s var(--ease), box-shadow 0.28s var(--ease), border-color 0.28s ease, background 0.28s ease;
     }
 
     .world-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 18px 34px rgba(100,74,63,0.12);
+      transform: translateY(-3px);
+      box-shadow: 0 14px 28px rgba(100,74,63,0.10);
     }
 
     .world-card.is-selected {
       border-color: var(--theme-ring);
-      box-shadow: 0 0 0 2px var(--theme-ring), 0 18px 34px var(--theme-glow);
-      background: rgba(255,255,255,0.96);
+      box-shadow: 0 0 0 2px var(--theme-ring), 0 16px 30px var(--theme-glow);
+      background: rgba(255,255,255,0.97);
     }
 
     .choice-media {
       overflow: hidden;
-      border-radius: 20px;
+      border-radius: 16px;
       aspect-ratio: 1 / 0.92;
       background: linear-gradient(160deg, #f7ebe4, #efddd2);
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
 
     .choice-media img {
@@ -495,39 +500,39 @@
     }
 
     .world-card h3 {
-      margin: 0 0 8px;
-      font-size: 1.16rem;
+      margin: 0 0 6px;
+      font-size: 1rem;
       line-height: 1.15;
     }
 
     .world-card p {
-      margin: 0 0 10px;
-      color: var(--muted);
-      line-height: 1.68;
-      font-size: 0.95rem;
+      margin: 0 0 8px;
+      color: var(--theme-text-soft);
+      line-height: 1.52;
+      font-size: 0.84rem;
     }
 
     .swatch-row {
       display: flex;
-      gap: 8px;
-      margin-top: 12px;
+      gap: 6px;
+      margin-top: 8px;
       flex-wrap: wrap;
     }
 
     .swatch {
-      width: 16px;
-      height: 16px;
+      width: 13px;
+      height: 13px;
       border-radius: 50%;
       border: 1px solid rgba(91, 71, 63, 0.12);
       box-shadow: inset 0 0 0 1px rgba(255,255,255,0.34);
     }
 
     .world-selected-note {
-      margin-top: 18px;
+      margin-top: 16px;
       text-align: center;
-      color: var(--text);
-      font-size: 0.97rem;
-      min-height: 24px;
+      color: var(--theme-text-strong);
+      font-size: 0.9rem;
+      min-height: 22px;
       font-style: italic;
       opacity: 0;
       transform: translateY(8px);
@@ -540,11 +545,11 @@
     }
 
     .world-page {
-      padding-top: calc(var(--nav-h) + 34px);
+      padding-top: calc(var(--nav-h) + 20px);
     }
 
     .back-row {
-      margin-bottom: 18px;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
       justify-content: flex-start;
@@ -554,12 +559,14 @@
       border: 1px solid var(--line);
       background: rgba(255,255,255,0.78);
       border-radius: 999px;
-      padding: 10px 16px;
+      padding: 9px 14px;
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       cursor: pointer;
       box-shadow: 0 8px 18px rgba(100,74,63,0.06);
+      color: var(--theme-text-strong);
+      font-size: 0.88rem;
     }
 
     .back-chip:hover {
@@ -568,30 +575,30 @@
     }
 
     .back-chip svg {
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
       stroke: currentColor;
       flex-shrink: 0;
     }
 
     .world-banner {
       display: grid;
-      grid-template-columns: 0.98fr 1.02fr;
-      gap: 28px;
-      align-items: center;
+      grid-template-columns: 1fr 0.92fr;
+      gap: 20px;
+      align-items: start;
     }
 
     .world-banner-copy h2 {
-      margin: 0 0 12px;
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      line-height: 1.02;
+      margin: 0 0 10px;
+      font-size: clamp(1.85rem, 4vw, 2.9rem);
+      line-height: 1.04;
     }
 
     .world-banner-copy p {
-      margin: 0 0 14px;
-      color: var(--muted);
-      line-height: 1.8;
-      font-size: 1rem;
+      margin: 0 0 10px;
+      color: var(--theme-text-soft);
+      line-height: 1.7;
+      font-size: 0.94rem;
     }
 
     .world-banner-copy .micro-line {
@@ -599,49 +606,100 @@
     }
 
     .world-banner-visual {
-      overflow: hidden;
-      border-radius: 28px;
-      aspect-ratio: 4 / 5;
+      border-radius: 22px;
       border: 1px solid var(--line);
-      background: linear-gradient(160deg, #f7ebe4, #efddd2);
-      box-shadow: var(--shadow);
+      background: rgba(255,255,255,0.78);
+      box-shadow: 0 10px 24px rgba(100,74,63,0.06);
+      padding: 12px;
+      max-width: 360px;
+      width: 100%;
+      justify-self: end;
     }
 
-    .world-banner-visual img {
+    .gallery-main {
+      overflow: hidden;
+      border-radius: 16px;
+      aspect-ratio: 1 / 1;
+      background: linear-gradient(160deg, #f7ebe4, #efddd2);
+      margin-bottom: 10px;
+    }
+
+    .gallery-main img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
+    .gallery-thumbs {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .gallery-thumb {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.86);
+      border-radius: 14px;
+      padding: 6px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .gallery-thumb:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 16px rgba(100,74,63,0.08);
+    }
+
+    .gallery-thumb.is-active {
+      border-color: var(--theme-ring);
+      box-shadow: 0 0 0 2px var(--theme-ring), 0 10px 18px var(--theme-glow);
+    }
+
+    .gallery-thumb img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 5px;
+    }
+
+    .gallery-thumb span {
+      display: block;
+      text-align: center;
+      font-size: 0.72rem;
+      color: var(--theme-text-soft);
+      line-height: 1.25;
+    }
+
     .selector-grid {
       display: grid;
-      gap: 22px;
-      margin-top: 28px;
+      gap: 16px;
+      margin-top: 22px;
     }
 
     .selector-block {
       background: rgba(255,255,255,0.66);
       border: 1px solid var(--line);
-      border-radius: 24px;
-      padding: 22px;
+      border-radius: 20px;
+      padding: 18px;
     }
 
     .selector-block h3 {
-      margin: 0 0 8px;
-      font-size: 1.35rem;
+      margin: 0 0 6px;
+      font-size: 1.12rem;
       line-height: 1.12;
     }
 
     .selector-block p {
-      margin: 0 0 16px;
-      color: var(--muted);
-      line-height: 1.7;
-      font-size: 0.95rem;
+      margin: 0 0 12px;
+      color: var(--theme-text-soft);
+      line-height: 1.65;
+      font-size: 0.88rem;
     }
 
     .selector-options {
       display: grid;
-      gap: 12px;
+      gap: 10px;
     }
 
     .selector-options.columns-3 {
@@ -654,12 +712,13 @@
 
     .pill-card {
       border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 14px 14px 15px;
+      border-radius: 16px;
+      padding: 12px;
       background: rgba(255,255,255,0.82);
       cursor: pointer;
       transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease;
       min-height: 100%;
+      text-align: left;
     }
 
     .pill-card:hover {
@@ -675,35 +734,37 @@
 
     .pill-card strong {
       display: block;
-      margin-bottom: 6px;
-      font-size: 0.98rem;
+      margin-bottom: 5px;
+      font-size: 0.9rem;
       line-height: 1.2;
+      color: var(--theme-text-strong);
     }
 
     .pill-card span {
       display: block;
-      color: var(--muted);
-      font-size: 0.84rem;
-      line-height: 1.45;
+      color: var(--theme-text-soft);
+      font-size: 0.76rem;
+      line-height: 1.4;
     }
 
     .price-line {
-      margin-top: 16px;
+      margin-top: 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      gap: 12px;
       flex-wrap: wrap;
-      padding-top: 14px;
+      padding-top: 12px;
       border-top: 1px solid rgba(188,145,130,0.14);
     }
 
     .price-line strong {
-      font-size: 1.12rem;
+      font-size: 1rem;
+      color: var(--theme-text-strong);
     }
 
     .price-badge {
-      padding: 10px 16px;
+      padding: 9px 14px;
       border-radius: 999px;
       background: rgba(255,255,255,0.86);
       border: 1px solid var(--line);
@@ -711,43 +772,44 @@
     }
 
     .price-badge span {
-      font-size: 0.9rem;
-      color: var(--muted);
-      margin-right: 6px;
+      font-size: 0.84rem;
+      color: var(--theme-text-soft);
+      margin-right: 5px;
     }
 
     .price-badge strong {
-      font-size: 1rem;
+      font-size: 0.94rem;
       color: var(--accent-deep);
     }
 
     .summary-card {
-      padding: 24px;
-      border-radius: 24px;
+      padding: 18px;
+      border-radius: 20px;
       background: rgba(255,255,255,0.78);
       border: 1px solid var(--line);
       box-shadow: 0 12px 26px rgba(100,74,63,0.08);
-      margin-top: 26px;
+      margin-top: 20px;
     }
 
     .summary-card h3 {
-      margin: 0 0 14px;
-      font-size: 1.28rem;
+      margin: 0 0 12px;
+      font-size: 1.12rem;
     }
 
     .summary-lines {
       display: grid;
-      gap: 10px;
-      margin-bottom: 18px;
+      gap: 8px;
+      margin-bottom: 16px;
     }
 
     .summary-line {
       display: flex;
       justify-content: space-between;
       gap: 18px;
-      padding-bottom: 10px;
+      padding-bottom: 8px;
       border-bottom: 1px solid rgba(188,145,130,0.14);
-      font-size: 0.95rem;
+      font-size: 0.88rem;
+      color: var(--theme-text-strong);
     }
 
     .summary-line span:last-child {
@@ -755,68 +817,83 @@
     }
 
     .price-total {
-      margin: 0 0 18px;
-      font-size: clamp(1.45rem, 3vw, 1.9rem);
+      margin: 0 0 14px;
+      font-size: clamp(1.25rem, 3vw, 1.65rem);
+      color: var(--theme-text-strong);
+    }
+
+    .cart-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .go-cart-btn {
+      display: none;
+    }
+
+    .go-cart-btn.is-visible {
+      display: inline-flex;
     }
 
     .tiny-finish {
-      margin-top: 18px;
-      color: var(--muted);
-      font-size: 0.95rem;
-      line-height: 1.75;
+      margin-top: 14px;
+      color: var(--theme-text-soft);
+      font-size: 0.88rem;
+      line-height: 1.7;
     }
 
     .footer {
-      margin-top: 36px;
-      padding: 80px 0 34px;
+      margin-top: 30px;
+      padding: 62px 0 28px;
       background: linear-gradient(180deg, rgba(240, 224, 215, 0.42), rgba(236, 214, 203, 0.78));
-      border-top-left-radius: 40px;
-      border-top-right-radius: 40px;
+      border-top-left-radius: 32px;
+      border-top-right-radius: 32px;
     }
 
     .footer-grid {
       display: grid;
       grid-template-columns: 1.08fr 0.92fr;
-      gap: 28px;
+      gap: 20px;
     }
 
     .footer-card {
       background: rgba(255,250,246,0.82);
       border: 1px solid var(--line);
-      border-radius: 28px;
-      padding: 28px;
+      border-radius: 24px;
+      padding: 20px;
       box-shadow: var(--shadow);
     }
 
     .footer-card h3 {
-      margin: 0 0 12px;
-      font-size: 2rem;
-      line-height: 1.1;
+      margin: 0 0 10px;
+      font-size: 1.55rem;
+      line-height: 1.08;
     }
 
     .footer-card p,
     .contact-list {
       margin: 0;
-      color: var(--muted);
-      line-height: 1.8;
+      color: var(--theme-text-soft);
+      line-height: 1.72;
+      font-size: 0.9rem;
     }
 
     .contact-list {
       display: grid;
-      gap: 12px;
-      font-size: 0.98rem;
+      gap: 10px;
     }
 
     .tiny-note {
-      margin-top: 24px;
+      margin-top: 18px;
       text-align: center;
-      color: var(--muted);
-      font-size: 0.9rem;
+      color: var(--theme-text-soft);
+      font-size: 0.84rem;
     }
 
     .reveal {
       opacity: 0;
-      transform: translateY(34px);
+      transform: translateY(28px);
       transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
     }
 
@@ -838,8 +915,10 @@
       --accent-deep: #cb8fa5;
       --line: rgba(203, 143, 165, 0.24);
       --hero-overlay: rgba(255, 221, 232, 0.14);
-      --theme-ring: rgba(203, 143, 165, 0.85);
-      --theme-glow: rgba(203, 143, 165, 0.22);
+      --theme-ring: rgba(203, 143, 165, 0.88);
+      --theme-glow: rgba(203, 143, 165, 0.24);
+      --theme-text-strong: #8b4f67;
+      --theme-text-soft: #ab7289;
     }
 
     body.theme-blue-dream {
@@ -854,6 +933,8 @@
       --hero-overlay: rgba(196, 222, 247, 0.14);
       --theme-ring: rgba(126, 168, 211, 0.88);
       --theme-glow: rgba(126, 168, 211, 0.24);
+      --theme-text-strong: #5b7b99;
+      --theme-text-soft: #7f9ab3;
     }
 
     body.theme-dark-cherry {
@@ -868,6 +949,8 @@
       --hero-overlay: rgba(160, 76, 104, 0.12);
       --theme-ring: rgba(154, 95, 113, 0.88);
       --theme-glow: rgba(154, 95, 113, 0.24);
+      --theme-text-strong: #8b3f58;
+      --theme-text-soft: #9e6274;
     }
 
     body.theme-golden-hour {
@@ -882,6 +965,8 @@
       --hero-overlay: rgba(239, 195, 95, 0.12);
       --theme-ring: rgba(207, 165, 83, 0.88);
       --theme-glow: rgba(207, 165, 83, 0.24);
+      --theme-text-strong: #a67c2f;
+      --theme-text-soft: #ae8d53;
     }
 
     @keyframes shimmerBlur {
@@ -910,21 +995,34 @@
       }
     }
 
-    @media (max-width: 1100px) {
+    @media (max-width: 980px) {
       .hero-grid,
       .world-banner,
       .footer-grid {
         grid-template-columns: 1fr;
       }
+
+      .world-banner-visual {
+        justify-self: start;
+        max-width: 320px;
+      }
+
+      .selector-options.columns-4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .selector-options.columns-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
     }
 
     @media (max-width: 760px) {
       :root {
-        --nav-h: 190px;
+        --nav-h: 174px;
       }
 
       .sparkle-layer {
-        opacity: 0.45;
+        opacity: 0.4;
       }
 
       .cursor-glow {
@@ -932,19 +1030,19 @@
       }
 
       .container {
-        width: min(var(--container), calc(100% - 24px));
+        width: min(var(--container), calc(100% - 18px));
       }
 
       .site-header {
-        background: rgba(255, 250, 246, 0.9);
+        background: rgba(255, 250, 246, 0.92);
       }
 
       .nav {
         flex-direction: column;
         align-items: stretch;
         justify-content: center;
-        padding: 12px 0;
-        gap: 10px;
+        padding: 10px 0;
+        gap: 8px;
       }
 
       .logo-wrap {
@@ -952,27 +1050,27 @@
       }
 
       .logo-wrap img {
-        width: 50px;
-        height: 50px;
+        width: 46px;
+        height: 46px;
       }
 
       .brand-text {
-        font-size: 0.96rem;
+        font-size: 0.9rem;
       }
 
       .nav-right {
         width: 100%;
         justify-content: center;
-        gap: 10px;
+        gap: 8px;
       }
 
       .nav-links {
-        width: calc(100% - 54px);
-        gap: 8px 14px;
+        width: calc(100% - 50px);
+        gap: 7px 12px;
         flex-wrap: wrap;
         justify-content: center;
         text-align: center;
-        font-size: 0.88rem;
+        font-size: 0.82rem;
       }
 
       .nav-links .active-link {
@@ -988,17 +1086,17 @@
 
       .hero,
       .world-page {
-        padding-top: calc(var(--nav-h) + 26px);
+        padding-top: calc(var(--nav-h) + 18px);
       }
 
       .hero {
         min-height: auto;
-        padding-bottom: 26px;
+        padding-bottom: 20px;
       }
 
       .hero-grid {
         grid-template-columns: 1fr;
-        gap: 24px;
+        gap: 16px;
       }
 
       .hero-copy {
@@ -1006,32 +1104,34 @@
       }
 
       .hero h1 {
-        font-size: clamp(2.24rem, 10vw, 3.4rem);
-        margin-bottom: 14px;
+        font-size: clamp(2rem, 9.4vw, 2.9rem);
+        margin-bottom: 10px;
       }
 
       .hero p {
-        margin: 0 auto 24px;
+        margin: 0 auto 16px;
         max-width: 100%;
-        font-size: 0.95rem;
-        line-height: 1.72;
+        font-size: 0.88rem;
+        line-height: 1.62;
       }
 
       .eyebrow {
-        font-size: 0.66rem;
-        letter-spacing: 0.13em;
-        padding: 7px 12px;
-        margin-bottom: 14px;
+        font-size: 0.62rem;
+        letter-spacing: 0.12em;
+        padding: 6px 10px;
+        margin-bottom: 10px;
       }
 
       .button-row {
         flex-direction: column;
+        gap: 8px;
       }
 
       .btn {
         width: 100%;
         min-width: 0;
-        padding: 15px 20px;
+        padding: 12px 16px;
+        font-size: 0.88rem;
       }
 
       .hero-card,
@@ -1039,149 +1139,42 @@
       .footer-card,
       .summary-card,
       .selector-block {
-        border-radius: 24px;
-        padding: 18px;
+        border-radius: 18px;
+        padding: 12px;
       }
 
       .hero-image,
       .choice-media,
-      .world-banner-visual {
-        border-radius: 22px;
+      .world-banner-visual,
+      .gallery-main {
+        border-radius: 14px;
       }
 
       section,
       .world-page {
-        padding-bottom: 62px;
+        padding-bottom: 42px;
       }
 
       .section-head {
-        margin-bottom: 22px;
+        margin-bottom: 16px;
       }
 
       .section-head h2,
       .world-banner-copy h2 {
-        font-size: clamp(1.75rem, 7vw, 2.35rem);
+        font-size: clamp(1.45rem, 7vw, 2rem);
       }
 
       .section-head p,
       .world-banner-copy p {
-        font-size: 0.95rem;
-        line-height: 1.7;
+        font-size: 0.84rem;
+        line-height: 1.58;
       }
 
-      .worlds-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 10px;
-      }
-
-      .world-card {
-        padding: 10px;
-        border-radius: 18px;
-      }
-
-      .choice-media {
+      .step-tag {
+        width: 32px;
+        height: 32px;
+        font-size: 0.76rem;
         margin-bottom: 10px;
-      }
-
-      .world-card h3 {
-        font-size: 0.88rem;
-        margin-bottom: 4px;
-      }
-
-      .world-card p {
-        font-size: 0.75rem;
-        line-height: 1.42;
-        margin-bottom: 8px;
-      }
-
-      .swatch-row {
-        gap: 6px;
-        margin-top: 8px;
-      }
-
-      .swatch {
-        width: 12px;
-        height: 12px;
-      }
-
-      .world-selected-note {
-        font-size: 0.88rem;
-        min-height: 20px;
-      }
-
-      .selector-options.columns-3,
-      .selector-options.columns-4 {
-        grid-template-columns: 1fr;
-      }
-
-      .pill-card {
-        padding: 12px;
-        border-radius: 16px;
-      }
-
-      .pill-card strong {
-        font-size: 0.92rem;
-      }
-
-      .pill-card span {
-        font-size: 0.8rem;
-      }
-
-      .summary-line {
-        font-size: 0.9rem;
-      }
-
-      .footer {
-        padding-top: 62px;
-        padding-bottom: 28px;
-        border-top-left-radius: 28px;
-        border-top-right-radius: 28px;
-      }
-
-      .footer-card h3 {
-        font-size: 1.6rem;
-      }
-
-      .footer-card p,
-      .contact-list,
-      .tiny-note {
-        font-size: 0.92rem;
-      }
-    }
-
-    @media (max-width: 520px) {
-      :root {
-        --nav-h: 206px;
-      }
-
-      .container {
-        width: min(var(--container), calc(100% - 18px));
-      }
-
-      .hero,
-      .world-page {
-        padding-top: calc(var(--nav-h) + 22px);
-      }
-
-      .hero h1 {
-        font-size: clamp(2.02rem, 11vw, 2.85rem);
-      }
-
-      .hero p {
-        font-size: 0.91rem;
-      }
-
-      .btn {
-        font-size: 0.95rem;
-        padding: 14px 18px;
-      }
-
-      .section-shell,
-      .hero-card,
-      .footer-card,
-      .summary-card,
-      .selector-block {
-        padding: 16px;
       }
 
       .worlds-grid {
@@ -1193,19 +1186,157 @@
         border-radius: 16px;
       }
 
+      .choice-media {
+        margin-bottom: 8px;
+      }
+
       .world-card h3 {
         font-size: 0.8rem;
+        margin-bottom: 3px;
       }
 
       .world-card p {
-        font-size: 0.69rem;
-        line-height: 1.35;
-        margin-bottom: 6px;
+        font-size: 0.68rem;
+        line-height: 1.32;
+        margin-bottom: 5px;
       }
 
       .swatch {
         width: 10px;
         height: 10px;
+      }
+
+      .world-selected-note {
+        font-size: 0.8rem;
+        min-height: 18px;
+      }
+
+      .back-row {
+        margin-bottom: 8px;
+      }
+
+      .back-chip {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+      }
+
+      .world-banner {
+        gap: 12px;
+      }
+
+      .world-banner-visual {
+        max-width: 220px;
+        padding: 8px;
+      }
+
+      .gallery-thumbs {
+        gap: 6px;
+      }
+
+      .gallery-thumb {
+        padding: 4px;
+        border-radius: 10px;
+      }
+
+      .gallery-thumb img {
+        border-radius: 8px;
+        margin-bottom: 4px;
+      }
+
+      .gallery-thumb span {
+        font-size: 0.62rem;
+      }
+
+      .selector-grid {
+        gap: 12px;
+        margin-top: 14px;
+      }
+
+      .selector-block h3 {
+        font-size: 0.98rem;
+        margin-bottom: 4px;
+      }
+
+      .selector-block p {
+        font-size: 0.8rem;
+        line-height: 1.5;
+        margin-bottom: 10px;
+      }
+
+      .selector-options.columns-3,
+      .selector-options.columns-4 {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .pill-card {
+        padding: 10px;
+        border-radius: 14px;
+      }
+
+      .pill-card strong {
+        font-size: 0.84rem;
+      }
+
+      .pill-card span {
+        font-size: 0.72rem;
+      }
+
+      .price-line {
+        margin-top: 10px;
+        padding-top: 10px;
+      }
+
+      .price-line strong {
+        font-size: 0.88rem;
+      }
+
+      .price-badge {
+        padding: 8px 12px;
+      }
+
+      .price-badge span,
+      .price-badge strong {
+        font-size: 0.8rem;
+      }
+
+      .summary-card h3 {
+        font-size: 1rem;
+      }
+
+      .summary-line {
+        font-size: 0.8rem;
+        gap: 10px;
+      }
+
+      .price-total {
+        font-size: 1.15rem;
+      }
+
+      .cart-actions {
+        flex-direction: column;
+      }
+
+      .tiny-finish {
+        font-size: 0.8rem;
+        line-height: 1.56;
+      }
+
+      .footer {
+        padding-top: 42px;
+        padding-bottom: 22px;
+        border-top-left-radius: 24px;
+        border-top-right-radius: 24px;
+      }
+
+      .footer-card h3 {
+        font-size: 1.2rem;
+      }
+
+      .footer-card p,
+      .contact-list,
+      .tiny-note {
+        font-size: 0.82rem;
       }
     }
   </style>
@@ -1257,7 +1388,7 @@
             </p>
             <div class="button-row">
               <a class="btn btn-primary" href="#step-1">Choose your vibe</a>
-              <a class="btn btn-secondary" href="index.html#shop">Back to the collection</a>
+              <a class="btn btn-secondary" href="cart.html">Go to cart</a>
             </div>
           </div>
 
@@ -1371,7 +1502,24 @@
               </div>
 
               <div class="world-banner-visual">
-                <img src="images/worlds/soft-romance/soft-romance-2.jpg" alt="Soft Romance world" />
+                <div class="gallery-main">
+                  <img class="gallery-main-img" src="images/worlds/soft-romance/soft-romance-petite.jpg" alt="Soft Romance box preview" />
+                </div>
+
+                <div class="gallery-thumbs">
+                  <button class="gallery-thumb is-active" type="button" data-gallery-size="Petite Box">
+                    <img src="images/worlds/soft-romance/soft-romance-petite.jpg" alt="Soft Romance Petite Box" />
+                    <span>Petite</span>
+                  </button>
+                  <button class="gallery-thumb" type="button" data-gallery-size="Signature Box">
+                    <img src="images/worlds/soft-romance/soft-romance-signature.jpg" alt="Soft Romance Signature Box" />
+                    <span>Signature</span>
+                  </button>
+                  <button class="gallery-thumb" type="button" data-gallery-size="Grand Box">
+                    <img src="images/worlds/soft-romance/soft-romance-grand.jpg" alt="Soft Romance Grand Box" />
+                    <span>Grand</span>
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -1487,7 +1635,12 @@
               </div>
 
               <p class="price-total">Total: <strong class="summary-price">75 RON</strong></p>
-              <a class="btn btn-primary" href="contact.html">Create my box</a>
+
+              <div class="cart-actions">
+                <button class="btn btn-primary create-box-btn" type="button" data-world="Soft Romance">Create my box</button>
+                <a class="btn btn-secondary go-cart-btn" href="cart.html">Go to cart</a>
+              </div>
+
               <p class="tiny-finish">You won’t know the exact reveal. That is part of the romance.</p>
             </div>
           </div>
@@ -1522,7 +1675,24 @@
               </div>
 
               <div class="world-banner-visual">
-                <img src="images/worlds/blue-dream/blue-dream-2.jpg" alt="Blue Dream world" />
+                <div class="gallery-main">
+                  <img class="gallery-main-img" src="images/worlds/blue-dream/blue-dream-petite.jpg" alt="Blue Dream box preview" />
+                </div>
+
+                <div class="gallery-thumbs">
+                  <button class="gallery-thumb is-active" type="button" data-gallery-size="Petite Box">
+                    <img src="images/worlds/blue-dream/blue-dream-petite.jpg" alt="Blue Dream Petite Box" />
+                    <span>Petite</span>
+                  </button>
+                  <button class="gallery-thumb" type="button" data-gallery-size="Signature Box">
+                    <img src="images/worlds/blue-dream/blue-dream-signature.jpg" alt="Blue Dream Signature Box" />
+                    <span>Signature</span>
+                  </button>
+                  <button class="gallery-thumb" type="button" data-gallery-size="Grand Box">
+                    <img src="images/worlds/blue-dream/blue-dream-grand.jpg" alt="Blue Dream Grand Box" />
+                    <span>Grand</span>
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -1638,7 +1808,12 @@
               </div>
 
               <p class="price-total">Total: <strong class="summary-price">75 RON</strong></p>
-              <a class="btn btn-primary" href="contact.html">Create my box</a>
+
+              <div class="cart-actions">
+                <button class="btn btn-primary create-box-btn" type="button" data-world="Blue Dream">Create my box</button>
+                <a class="btn btn-secondary go-cart-btn" href="cart.html">Go to cart</a>
+              </div>
+
               <p class="tiny-finish">This one should feel like a soft horizon you can hold.</p>
             </div>
           </div>
@@ -1673,7 +1848,24 @@
               </div>
 
               <div class="world-banner-visual">
-                <img src="images/worlds/dark-cherry/dark-cherry-2.jpg" alt="Dark Cherry world" />
+                <div class="gallery-main">
+                  <img class="gallery-main-img" src="images/worlds/dark-cherry/dark-cherry-petite.jpg" alt="Dark Cherry box preview" />
+                </div>
+
+                <div class="gallery-thumbs">
+                  <button class="gallery-thumb is-active" type="button" data-gallery-size="Petite Box">
+                    <img src="images/worlds/dark-cherry/dark-cherry-petite.jpg" alt="Dark Cherry Petite Box" />
+                    <span>Petite</span>
+                  </button>
+                  <button class="gallery-thumb" type="button" data-gallery-size="Signature Box">
+                    <img src="images/worlds/dark-cherry/dark-cherry-signature.jpg" alt="Dark Cherry Signature Box" />
+                    <span>Signature</span>
+                  </button>
+                  <button class="gallery-thumb" type="button" data-gallery-size="Grand Box">
+                    <img src="images/worlds/dark-cherry/dark-cherry-grand.jpg" alt="Dark Cherry Grand Box" />
+                    <span>Grand</span>
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -1789,7 +1981,12 @@
               </div>
 
               <p class="price-total">Total: <strong class="summary-price">75 RON</strong></p>
-              <a class="btn btn-primary" href="contact.html">Create my box</a>
+
+              <div class="cart-actions">
+                <button class="btn btn-primary create-box-btn" type="button" data-world="Dark Cherry">Create my box</button>
+                <a class="btn btn-secondary go-cart-btn" href="cart.html">Go to cart</a>
+              </div>
+
               <p class="tiny-finish">Some boxes should feel like a secret you almost keep to yourself.</p>
             </div>
           </div>
@@ -1824,7 +2021,24 @@
               </div>
 
               <div class="world-banner-visual">
-                <img src="images/worlds/golden-hour/golden-hour-2.jpg" alt="Golden Hour world" />
+                <div class="gallery-main">
+                  <img class="gallery-main-img" src="images/worlds/golden-hour/golden-hour-petite.jpg" alt="Golden Hour box preview" />
+                </div>
+
+                <div class="gallery-thumbs">
+                  <button class="gallery-thumb is-active" type="button" data-gallery-size="Petite Box">
+                    <img src="images/worlds/golden-hour/golden-hour-petite.jpg" alt="Golden Hour Petite Box" />
+                    <span>Petite</span>
+                  </button>
+                  <button class="gallery-thumb" type="button" data-gallery-size="Signature Box">
+                    <img src="images/worlds/golden-hour/golden-hour-signature.jpg" alt="Golden Hour Signature Box" />
+                    <span>Signature</span>
+                  </button>
+                  <button class="gallery-thumb" type="button" data-gallery-size="Grand Box">
+                    <img src="images/worlds/golden-hour/golden-hour-grand.jpg" alt="Golden Hour Grand Box" />
+                    <span>Grand</span>
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -1940,7 +2154,12 @@
               </div>
 
               <p class="price-total">Total: <strong class="summary-price">75 RON</strong></p>
-              <a class="btn btn-primary" href="contact.html">Create my box</a>
+
+              <div class="cart-actions">
+                <button class="btn btn-primary create-box-btn" type="button" data-world="Golden Hour">Create my box</button>
+                <a class="btn btn-secondary go-cart-btn" href="cart.html">Go to cart</a>
+              </div>
+
               <p class="tiny-finish">This one should feel like warmth dressed beautifully.</p>
             </div>
           </div>
@@ -1986,22 +2205,42 @@
       "soft-romance": {
         bodyClass: "theme-soft-romance",
         hero: "images/worlds/soft-romance/soft-romance-1.jpg",
-        pageId: "page-soft-romance"
+        pageId: "page-soft-romance",
+        gallery: {
+          "Petite Box": "images/worlds/soft-romance/soft-romance-petite.jpg",
+          "Signature Box": "images/worlds/soft-romance/soft-romance-signature.jpg",
+          "Grand Box": "images/worlds/soft-romance/soft-romance-grand.jpg"
+        }
       },
       "blue-dream": {
         bodyClass: "theme-blue-dream",
         hero: "images/worlds/blue-dream/blue-dream-1.jpg",
-        pageId: "page-blue-dream"
+        pageId: "page-blue-dream",
+        gallery: {
+          "Petite Box": "images/worlds/blue-dream/blue-dream-petite.jpg",
+          "Signature Box": "images/worlds/blue-dream/blue-dream-signature.jpg",
+          "Grand Box": "images/worlds/blue-dream/blue-dream-grand.jpg"
+        }
       },
       "dark-cherry": {
         bodyClass: "theme-dark-cherry",
         hero: "images/worlds/dark-cherry/dark-cherry-1.jpg",
-        pageId: "page-dark-cherry"
+        pageId: "page-dark-cherry",
+        gallery: {
+          "Petite Box": "images/worlds/dark-cherry/dark-cherry-petite.jpg",
+          "Signature Box": "images/worlds/dark-cherry/dark-cherry-signature.jpg",
+          "Grand Box": "images/worlds/dark-cherry/dark-cherry-grand.jpg"
+        }
       },
       "golden-hour": {
         bodyClass: "theme-golden-hour",
         hero: "images/worlds/golden-hour/golden-hour-1.jpg",
-        pageId: "page-golden-hour"
+        pageId: "page-golden-hour",
+        gallery: {
+          "Petite Box": "images/worlds/golden-hour/golden-hour-petite.jpg",
+          "Signature Box": "images/worlds/golden-hour/golden-hour-signature.jpg",
+          "Grand Box": "images/worlds/golden-hour/golden-hour-grand.jpg"
+        }
       }
     };
 
@@ -2067,16 +2306,35 @@
       });
     });
 
+    function syncGallery(section, sizeLabel) {
+      const worldSectionId = section.id.replace("page-", "");
+      const galleryMap = worldConfig[worldSectionId].gallery;
+      const mainImg = section.querySelector(".gallery-main-img");
+      const thumbs = section.querySelectorAll(".gallery-thumb");
+
+      if (mainImg && galleryMap[sizeLabel]) {
+        mainImg.src = galleryMap[sizeLabel];
+      }
+
+      thumbs.forEach(thumb => {
+        thumb.classList.toggle("is-active", thumb.dataset.gallerySize === sizeLabel);
+      });
+    }
+
     function setupSelectorGroup(section) {
       const sizeCards = section.querySelectorAll(".size-options .pill-card");
       const passionCards = section.querySelectorAll(".passion-options .pill-card");
       const musicCards = section.querySelectorAll(".music-options .pill-card");
+      const galleryThumbs = section.querySelectorAll(".gallery-thumb");
 
       const livePrice = section.querySelector(".live-price");
       const summarySize = section.querySelector(".summary-size");
       const summaryPassion = section.querySelector(".summary-passion");
       const summaryMusic = section.querySelector(".summary-music");
       const summaryPrice = section.querySelector(".summary-price");
+
+      const createBtn = section.querySelector(".create-box-btn");
+      const goCartBtn = section.querySelector(".go-cart-btn");
 
       sizeCards.forEach(card => {
         card.addEventListener("click", () => {
@@ -2089,6 +2347,18 @@
           summarySize.textContent = size;
           livePrice.textContent = `${price} RON`;
           summaryPrice.textContent = `${price} RON`;
+
+          syncGallery(section, size);
+        });
+      });
+
+      galleryThumbs.forEach(thumb => {
+        thumb.addEventListener("click", () => {
+          const selectedSize = thumb.dataset.gallerySize;
+          const matchingSizeCard = [...sizeCards].find(card => card.dataset.size === selectedSize);
+          if (matchingSizeCard) {
+            matchingSizeCard.click();
+          }
         });
       });
 
@@ -2106,6 +2376,33 @@
           card.classList.add("is-selected");
           summaryMusic.textContent = card.dataset.music;
         });
+      });
+
+      createBtn.addEventListener("click", () => {
+        const selectedSizeCard = section.querySelector(".size-options .pill-card.is-selected");
+        const selectedPassionCard = section.querySelector(".passion-options .pill-card.is-selected");
+        const selectedMusicCard = section.querySelector(".music-options .pill-card.is-selected");
+
+        const item = {
+          id: `atelier-${Date.now()}`,
+          type: "Atelier Box",
+          name: `${createBtn.dataset.world} Atelier Box`,
+          world: createBtn.dataset.world,
+          size: selectedSizeCard.dataset.size,
+          passion: selectedPassionCard.dataset.passion,
+          musicMood: selectedMusicCard.dataset.music,
+          price: Number(selectedSizeCard.dataset.price),
+          quantity: 1,
+          image: section.querySelector(".gallery-main-img").src
+        };
+
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        cart.push(item);
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        updateCartCount();
+        goCartBtn.classList.add("is-visible");
+        createBtn.textContent = "Added to cart";
       });
     }
 
