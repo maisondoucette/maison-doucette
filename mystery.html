@@ -3,2446 +3,2349 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Maison Doucette — The Atelier Box</title>
-  <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+  <title>Maison Doucette — Mystery Experience</title>
   <meta
     name="description"
-    content="Maison Doucette — choose your world, then create your own Atelier Box mystery experience."
+    content="Maison Mystery Experience — alege vibe-ul, mărimea cutiei și câteva indicii, iar Maison Doucette creează un reveal special pentru tine."
   />
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --bg: #f8f3ef;
-      --bg-2: #f4ece6;
-      --card: rgba(255, 250, 246, 0.90);
-      --white: #fffaf7;
-      --text: #5b473f;
-      --muted: #8a6f64;
-      --accent: #d5b2a5;
-      --accent-deep: #bc9182;
-      --line: rgba(188, 145, 130, 0.22);
-      --shadow: 0 18px 45px rgba(100, 74, 63, 0.12);
-      --radius-xl: 34px;
-      --radius-lg: 24px;
-      --radius-md: 18px;
-      --container: 1180px;
-      --nav-h: 96px;
-      --ease: cubic-bezier(.22,.61,.36,1);
-      --hero-overlay: rgba(255, 255, 255, 0.10);
-      --theme-ring: rgba(188,145,130,0.65);
-      --theme-glow: rgba(188,145,130,0.22);
-      --theme-text-strong: #6a5145;
-      --theme-text-soft: #8b6f61;
+    :root{
+      --bg:#f7f1eb;
+      --bg-2:#efe4d8;
+      --cream:#fffaf5;
+      --sand:#eadbc8;
+      --taupe:#d8c0a5;
+      --taupe-deep:#b99266;
+      --gold:#d2ad73;
+      --gold-deep:#ae7f43;
+      --brown:#654f43;
+      --brown-soft:#866f61;
+      --line:rgba(101,79,67,0.12);
+      --shadow:0 18px 45px rgba(101,79,67,0.10);
+      --shadow-strong:0 28px 60px rgba(101,79,67,0.16);
+
+      --romance:#f2c8d8;
+      --blue:#bfd7f1;
+      --cherry:#8b1538;
+      --golden:#d9ba7a;
+
+      --active-vibe:#ae7f43;
+      --active-vibe-soft:rgba(174,127,67,0.12);
+
+      --radius-xl:40px;
+      --radius-lg:28px;
+      --radius-md:20px;
+      --container:1240px;
+      --nav-h:96px;
+      --ease:cubic-bezier(.22,.61,.36,1);
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      color: var(--text);
-      font-family: Georgia, "Times New Roman", serif;
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:'Manrope', sans-serif;
+      color:var(--brown);
       background:
-        radial-gradient(circle at top left, rgba(255,255,255,0.8), transparent 28%),
+        radial-gradient(circle at top left, rgba(255,255,255,0.92), transparent 24%),
         linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
-      overflow-x: hidden;
-      transition: background 0.45s ease, color 0.45s ease;
+      overflow-x:hidden;
     }
 
-    img {
-      display: block;
-      max-width: 100%;
+    body.vibe-soft-romance{
+      --active-vibe:#d79ab6;
+      --active-vibe-soft:rgba(242,200,216,0.18);
+    }
+    body.vibe-blue-dream{
+      --active-vibe:#7da7d7;
+      --active-vibe-soft:rgba(191,215,241,0.18);
+    }
+    body.vibe-dark-cherry{
+      --active-vibe:#8b1538;
+      --active-vibe-soft:rgba(139,21,56,0.14);
+    }
+    body.vibe-golden-hour{
+      --active-vibe:#c99a43;
+      --active-vibe-soft:rgba(217,186,122,0.18);
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+    img{display:block;max-width:100%}
+    a{text-decoration:none;color:inherit}
+    button,input,textarea,select{font:inherit}
+
+    .display,h1,h2,h3,.brand-text,.page-subtitle,.summary-title{
+      font-family:'Cormorant Garamond', serif;
+      letter-spacing:-0.02em;
     }
 
-    button,
-    input,
-    select {
-      font: inherit;
+    .container{
+      width:min(var(--container), calc(100% - 28px));
+      margin:0 auto;
+      position:relative;
+      z-index:2;
     }
 
-    .sparkle-layer {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-      opacity: 0.76;
+    .cursor-glow{
+      position:fixed;
+      width:280px;
+      height:280px;
+      left:0;
+      top:0;
+      transform:translate(-50%, -50%);
+      border-radius:50%;
+      pointer-events:none;
+      z-index:0;
+      background:radial-gradient(circle, rgba(210,173,115,0.12) 0%, rgba(210,173,115,0.06) 40%, transparent 72%);
+      opacity:.85;
+      mix-blend-mode:multiply;
+      transition:opacity .22s ease;
+    }
+
+    .top-bar{
+      position:sticky;
+      top:0;
+      z-index:1500;
+      background:linear-gradient(135deg, var(--taupe-deep), var(--gold));
+      color:#fffdfa;
+      text-align:center;
+      padding:12px 16px;
+      font-size:.9rem;
+      line-height:1.4;
+      box-shadow:0 8px 22px rgba(174,127,67,0.18);
+    }
+
+    .top-bar a{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      margin-left:10px;
+      padding:8px 18px;
+      border-radius:999px;
+      background:rgba(255,255,255,.9);
+      color:var(--gold-deep);
+      font-weight:700;
+    }
+
+    .site-header{
+      position:sticky;
+      top:48px;
+      z-index:1400;
+      background:rgba(255,250,245,0.88);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--line);
+    }
+
+    .nav{
+      min-height:var(--nav-h);
+      display:grid;
+      grid-template-columns:1fr auto 1fr;
+      align-items:center;
+      gap:12px;
+    }
+
+    .nav-left,
+    .nav-right{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      min-width:0;
+    }
+
+    .nav-left{justify-content:flex-start}
+    .nav-right{justify-content:flex-end}
+
+    .nav-links{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      list-style:none;
+      margin:0;
+      padding:0;
+      font-size:.92rem;
+    }
+
+    .nav-links a{
+      opacity:.92;
+      transition:opacity .22s ease, transform .22s ease;
+    }
+
+    .nav-links a:hover{
+      opacity:1;
+      transform:translateY(-1px);
+    }
+
+    .nav-pill{
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.72);
+      border:1px solid var(--line);
+    }
+
+    .logo-wrap{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+      min-width:0;
+      text-align:center;
+    }
+
+    .logo-wrap img{
+      width:72px;
+      height:72px;
+      object-fit:contain;
+      border-radius:50%;
+      background:rgba(255,255,255,.92);
+      padding:5px;
+      box-shadow:0 12px 24px rgba(101,79,67,0.10);
+      flex-shrink:0;
+    }
+
+    .brand-stack{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      line-height:1;
+    }
+
+    .brand-text{
+      font-size:1.9rem;
+      font-weight:700;
+      color:var(--brown);
+      letter-spacing:.03em;
+    }
+
+    .brand-sub{
+      margin-top:4px;
+      font-size:.72rem;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      color:var(--brown-soft);
+    }
+
+    .icon-btn{
+      width:46px;
+      height:46px;
+      border-radius:50%;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.74);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      box-shadow:0 10px 18px rgba(101,79,67,0.08);
+      transition:transform .22s ease, box-shadow .22s ease;
+      padding:0;
+    }
+
+    .icon-btn:hover{
+      transform:translateY(-2px);
+      box-shadow:0 14px 24px rgba(101,79,67,0.12);
+    }
+
+    .icon-btn svg{
+      width:22px;
+      height:22px;
+      stroke:var(--brown);
+      fill:none;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+      stroke-width:1.8;
+    }
+
+    .cart-btn{position:relative}
+
+    #cart-count,
+    #mobile-cart-count{
+      position:absolute;
+      top:-4px;
+      right:-4px;
+      min-width:18px;
+      height:18px;
+      border-radius:999px;
+      background:linear-gradient(135deg, var(--gold-deep), var(--gold));
+      color:#fff;
+      font-size:10px;
+      font-weight:700;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:0 4px;
+      box-shadow:0 6px 14px rgba(174,127,67,0.22);
+    }
+
+    .mobile-left,
+    .mobile-right{
+      display:none;
+      align-items:center;
+    }
+    .mobile-left{justify-content:flex-start}
+    .mobile-right{justify-content:flex-end}
+
+    .page-hero{
+      position:relative;
+      overflow:hidden;
+      padding:56px 0 70px;
       background:
-        radial-gradient(circle at 12% 18%, rgba(255,255,255,0.18) 0 0, rgba(255,255,255,0.18) 0 18px, transparent 42px),
-        radial-gradient(circle at 26% 34%, rgba(255,248,242,0.15) 0 0, rgba(255,248,242,0.15) 0 14px, transparent 36px),
-        radial-gradient(circle at 44% 20%, rgba(255,255,255,0.17) 0 0, rgba(255,255,255,0.17) 0 16px, transparent 40px),
-        radial-gradient(circle at 66% 24%, rgba(255,250,245,0.14) 0 0, rgba(255,250,245,0.14) 0 20px, transparent 46px),
-        radial-gradient(circle at 84% 28%, rgba(255,248,242,0.13) 0 0, rgba(255,248,242,0.13) 0 18px, transparent 42px);
-      filter: blur(14px);
-      animation: shimmerBlur 6s ease-in-out infinite;
-    }
-
-    .cursor-glow {
-      position: fixed;
-      width: 360px;
-      height: 360px;
-      left: 0;
-      top: 0;
-      pointer-events: none;
-      z-index: 0;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(213,178,165,0.16) 0%, rgba(213,178,165,0.08) 36%, rgba(213,178,165,0.02) 62%, transparent 74%);
-      transform: translate(-50%, -50%);
-      transition: opacity 0.25s ease;
-      mix-blend-mode: multiply;
-      opacity: 0.9;
-    }
-
-    .container {
-      width: min(var(--container), calc(100% - 32px));
-      margin: 0 auto;
-      position: relative;
-      z-index: 2;
-    }
-
-    .site-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      background: rgba(255, 250, 246, 0.84);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--line);
-      transition: box-shadow 0.3s ease, background 0.3s ease;
-    }
-
-    .site-header.scrolled {
-      background: rgba(255, 250, 246, 0.95);
-      box-shadow: 0 8px 24px rgba(100, 74, 63, 0.08);
-    }
-
-    .nav {
-      min-height: var(--nav-h);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-    }
-
-    .logo-wrap {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 0;
-      transition: transform 0.35s var(--ease);
-      flex-shrink: 0;
-    }
-
-    .logo-wrap:hover {
-      transform: translateY(-1px);
-    }
-
-    .logo-wrap img {
-      width: 52px;
-      height: 52px;
-      object-fit: contain;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.82);
-      box-shadow: 0 8px 20px rgba(91, 71, 63, 0.08);
-      padding: 4px;
-      flex-shrink: 0;
-    }
-
-    .brand-text {
-      font-size: 0.98rem;
-      letter-spacing: 0.04em;
-      white-space: nowrap;
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      font-size: 0.9rem;
+        radial-gradient(circle at 18% 18%, rgba(255,255,255,0.52), transparent 18%),
+        radial-gradient(circle at 84% 18%, rgba(255,255,255,0.34), transparent 16%),
+        linear-gradient(180deg, #eadccf 0%, #ddc6aa 42%, #d4b48e 100%);
     }
 
-    .nav-links a {
-      display: inline-flex;
-      align-items: center;
-      padding: 10px 0;
-      transition: opacity 0.25s ease, transform 0.25s ease;
+    .page-hero-inner{
+      max-width:980px;
+      margin:0 auto;
+      text-align:center;
+      animation:heroFadeUp 1s var(--ease) both;
     }
 
-    .nav-links a:hover {
-      opacity: 0.72;
-      transform: translateY(-1px);
+    .page-tag{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:9px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.40);
+      border:1px solid rgba(101,79,67,0.10);
+      backdrop-filter:blur(8px);
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      font-size:.74rem;
+      color:var(--brown-soft);
+      margin-bottom:24px;
     }
 
-    .nav-links .active-link a {
-      padding: 9px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.76);
-      border: 1px solid var(--line);
-      box-shadow: 0 8px 18px rgba(91, 71, 63, 0.06);
+    .page-title{
+      margin:0;
+      font-size:clamp(3.3rem, 10vw, 6.2rem);
+      line-height:.84;
+      color:var(--brown);
     }
 
-    .cart-icon {
-      position: relative;
-      flex-shrink: 0;
+    .page-subtitle{
+      margin:22px auto 0;
+      max-width:760px;
+      font-size:clamp(1.3rem, 4vw, 2rem);
+      line-height:1.04;
+      color:var(--brown);
     }
 
-    .cart-icon a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: rgba(255, 247, 240, 0.88);
-      border: 1px solid rgba(188, 145, 130, 0.25);
-      box-shadow: 0 10px 18px rgba(91, 71, 63, 0.06);
-      padding: 0;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    .page-copy{
+      margin:18px auto 0;
+      max-width:760px;
+      font-size:1rem;
+      line-height:1.9;
+      color:var(--brown-soft);
     }
 
-    .cart-icon a:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 24px rgba(91, 71, 63, 0.10);
+    section{
+      padding:72px 0;
     }
 
-    .cart-icon svg {
-      width: 21px;
-      height: 21px;
-      stroke: var(--text);
+    .section-head{
+      max-width:860px;
+      margin:0 auto 28px;
+      text-align:center;
     }
 
-    #cart-count {
-      position: absolute;
-      top: -4px;
-      right: -4px;
-      min-width: 18px;
-      height: 18px;
-      padding: 0 5px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--accent-deep), var(--accent));
-      color: white;
-      font-size: 10px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 6px 14px rgba(188,145,130,0.28);
-      line-height: 1;
+    .section-head h2{
+      margin:0 0 10px;
+      font-size:clamp(2.5rem, 7vw, 4rem);
+      line-height:.92;
+      color:var(--brown);
     }
 
-    main {
-      position: relative;
-      z-index: 2;
+    .section-head p{
+      margin:0;
+      color:var(--brown-soft);
+      line-height:1.85;
+      font-size:.98rem;
     }
 
-    .app-page {
-      display: none;
+    .vibe-selector{
+      background:linear-gradient(180deg, #fbf6f1 0%, #f5ece3 100%);
     }
 
-    .app-page.is-visible {
-      display: block;
+    .vibe-grid{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0,1fr));
+      gap:16px;
+      margin-top:28px;
     }
 
-    .hero {
-      min-height: 84vh;
-      display: flex;
-      align-items: center;
-      padding-top: calc(var(--nav-h) + 30px);
-      padding-bottom: 34px;
+    .vibe-card{
+      min-height:220px;
+      border-radius:28px;
+      padding:18px;
+      display:flex;
+      align-items:flex-end;
+      color:#fff;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+      transition:transform .25s ease, box-shadow .25s ease;
+      cursor:pointer;
+      border:none;
+      text-align:left;
     }
 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.04fr 0.96fr;
-      gap: 28px;
-      align-items: center;
+    .vibe-card:hover{
+      transform:translateY(-4px);
+      box-shadow:var(--shadow-strong);
     }
 
-    .hero-copy > * {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: heroReveal 0.9s var(--ease) forwards;
+    .vibe-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.20));
     }
 
-    .hero-copy .eyebrow { animation-delay: 0.10s; }
-    .hero-copy h1 { animation-delay: 0.22s; }
-    .hero-copy p { animation-delay: 0.34s; }
-    .hero-copy .button-row { animation-delay: 0.46s; }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      padding: 7px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.68);
-      font-size: 0.72rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-      box-shadow: 0 8px 20px rgba(91, 71, 63, 0.05);
-      color: var(--theme-text-strong);
+    .vibe-card > div{
+      position:relative;
+      z-index:1;
     }
 
-    h1, h2, h3 {
-      font-weight: 500;
-      color: var(--theme-text-strong);
+    .vibe-card h3{
+      margin:0 0 6px;
+      font-size:1.8rem;
+      line-height:.95;
     }
 
-    .hero h1 {
-      margin: 0 0 14px;
-      font-size: clamp(2.3rem, 5.4vw, 4.2rem);
-      line-height: 0.98;
+    .vibe-card p{
+      margin:0;
+      font-size:.9rem;
+      line-height:1.6;
+      opacity:.98;
     }
 
-    .hero p {
-      margin: 0 0 22px;
-      max-width: 540px;
-      line-height: 1.72;
-      font-size: 0.96rem;
-      color: var(--theme-text-soft);
-    }
+    .soft-romance{background:linear-gradient(160deg, #f2c8d8, #cf86a6)}
+    .blue-dream{background:linear-gradient(160deg, #bfd7f1, #7ea9d8)}
+    .dark-cherry{background:linear-gradient(160deg, #b43a61, #8b1538)}
+    .golden-hour{background:linear-gradient(160deg, #e3cb96, #c99a43)}
 
-    .button-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
+    .vibe-page{
+      display:none;
+      animation:fadePage .45s ease;
     }
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 180px;
-      padding: 14px 22px;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, opacity 0.25s ease;
-      position: relative;
-      overflow: hidden;
-      font-size: 0.94rem;
+    .vibe-page.active{
+      display:block;
     }
 
-    .btn:hover {
-      transform: translateY(-2px);
+    .back-row{
+      display:flex;
+      justify-content:flex-start;
+      margin-bottom:18px;
     }
 
-    .btn-primary {
-      color: var(--white);
-      background: linear-gradient(135deg, var(--accent-deep), var(--accent));
-      box-shadow: 0 14px 28px rgba(188,145,130,0.30);
+    .back-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:12px 16px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--brown);
+      cursor:pointer;
+      box-shadow:var(--shadow);
     }
 
-    .btn-secondary {
-      background: rgba(255,255,255,0.74);
-      border: 1px solid var(--line);
-      color: var(--theme-text-strong);
+    .vibe-layout{
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      gap:24px;
+      align-items:start;
     }
 
-    .hero-card,
-    .section-shell,
-    .footer-card,
-    .summary-card,
-    .selector-block,
-    .back-chip {
-      transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, color 0.25s ease;
+    .vibe-left,
+    .vibe-right{
+      background:var(--cream);
+      border:1px solid var(--line);
+      border-radius:32px;
+      padding:24px;
+      box-shadow:var(--shadow);
     }
 
-    .hero-card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 28px;
-      padding: 14px;
-      box-shadow: var(--shadow);
-      opacity: 0;
-      transform: translateY(24px) scale(0.98);
-      animation: heroImageReveal 1s var(--ease) forwards 0.34s;
+    .vibe-page-head{
+      margin-bottom:18px;
     }
 
-    .hero-image {
-      position: relative;
-      overflow: hidden;
-      border-radius: 22px;
-      aspect-ratio: 0.98 / 1;
-      background: linear-gradient(160deg, #f7ebe4, #efddd2);
-      isolation: isolate;
+    .vibe-page-head h2{
+      margin:0 0 8px;
+      font-size:clamp(2.4rem, 6vw, 3.8rem);
+      line-height:.9;
+      color:var(--active-vibe);
     }
 
-    .hero-image::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, transparent, var(--hero-overlay));
-      z-index: 1;
-      pointer-events: none;
+    .vibe-page-head p{
+      margin:0;
+      color:var(--brown-soft);
+      line-height:1.8;
+      font-size:.96rem;
     }
 
-    .hero-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      animation: gentleFloat 6s ease-in-out infinite;
+    .step-block{
+      margin-top:22px;
+      padding-top:22px;
+      border-top:1px solid var(--line);
     }
 
-    section {
-      padding: 68px 0;
+    .step-block:first-of-type{
+      margin-top:0;
+      padding-top:0;
+      border-top:none;
     }
 
-    .section-shell {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 28px;
-      padding: 24px;
-      box-shadow: var(--shadow);
+    .step-title{
+      margin:0 0 12px;
+      font-size:1.9rem;
+      line-height:.95;
+      color:var(--brown);
     }
 
-    .section-head {
-      max-width: 720px;
-      margin: 0 auto 22px;
-      text-align: center;
+    .option-grid{
+      display:grid;
+      gap:12px;
     }
 
-    .section-head h2 {
-      margin: 0 0 10px;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      line-height: 1.06;
+    .option-grid.three{
+      grid-template-columns:repeat(3, minmax(0,1fr));
     }
 
-    .section-head p {
-      margin: 0;
-      color: var(--theme-text-soft);
-      line-height: 1.72;
-      font-size: 0.94rem;
+    .option-grid.two{
+      grid-template-columns:repeat(2, minmax(0,1fr));
     }
 
-    .step-tag {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      margin: 0 auto 14px;
-      background: linear-gradient(135deg, var(--accent-deep), var(--accent));
-      color: white;
-      font-size: 0.84rem;
-      box-shadow: 0 12px 22px rgba(188,145,130,0.22);
+    .option-card{
+      border:1.5px solid var(--line);
+      background:#fffdf9;
+      border-radius:20px;
+      padding:14px;
+      cursor:pointer;
+      transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease;
+      min-height:100%;
     }
 
-    .worlds-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
+    .option-card:hover{
+      transform:translateY(-2px);
+      box-shadow:var(--shadow);
     }
 
-    .world-card {
-      position: relative;
-      display: block;
-      width: 100%;
-      text-align: left;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.78);
-      border-radius: 20px;
-      padding: 12px;
-      box-shadow: 0 8px 18px rgba(100,74,63,0.06);
-      cursor: pointer;
-      transition: transform 0.28s var(--ease), box-shadow 0.28s var(--ease), border-color 0.28s ease, background 0.28s ease;
+    .option-card.selected{
+      border-color:var(--active-vibe);
+      box-shadow:0 0 0 4px var(--active-vibe-soft), var(--shadow);
+      background:linear-gradient(180deg, #fffdf9 0%, rgba(255,255,255,.82) 100%);
     }
 
-    .world-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 14px 28px rgba(100,74,63,0.10);
+    .option-card strong{
+      display:block;
+      font-size:1rem;
+      color:var(--brown);
+      margin-bottom:6px;
     }
 
-    .world-card.is-selected {
-      border-color: var(--theme-ring);
-      box-shadow: 0 0 0 2px var(--theme-ring), 0 16px 30px var(--theme-glow);
-      background: rgba(255,255,255,0.97);
+    .option-card span{
+      display:block;
+      color:var(--brown-soft);
+      font-size:.86rem;
+      line-height:1.6;
     }
 
-    .choice-media {
-      overflow: hidden;
-      border-radius: 16px;
-      aspect-ratio: 1 / 0.92;
-      background: linear-gradient(160deg, #f7ebe4, #efddd2);
-      margin-bottom: 12px;
+    .slideshow-shell{
+      position:relative;
+      border-radius:28px;
+      overflow:hidden;
+      aspect-ratio:4 / 5;
+      background:#eadccf;
+      margin-bottom:18px;
     }
 
-    .choice-media img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.45s ease;
+    .size-slide{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      opacity:0;
+      transition:opacity .45s ease;
     }
 
-    .world-card:hover .choice-media img {
-      transform: scale(1.03);
+    .size-slide.active{
+      opacity:1;
     }
 
-    .world-card h3 {
-      margin: 0 0 6px;
-      font-size: 1rem;
-      line-height: 1.15;
+    .size-floating{
+      position:absolute;
+      left:16px;
+      bottom:16px;
+      z-index:2;
+      padding:9px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.9);
+      color:var(--active-vibe);
+      font-size:.78rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      backdrop-filter:blur(8px);
     }
 
-    .world-card p {
-      margin: 0 0 8px;
-      color: var(--theme-text-soft);
-      line-height: 1.52;
-      font-size: 0.84rem;
+    .summary-title{
+      margin:0 0 14px;
+      font-size:2.2rem;
+      line-height:.9;
+      color:var(--active-vibe);
     }
 
-    .swatch-row {
-      display: flex;
-      gap: 6px;
-      margin-top: 8px;
-      flex-wrap: wrap;
+    .summary-box{
+      display:grid;
+      gap:12px;
+      margin-top:10px;
     }
 
-    .swatch {
-      width: 13px;
-      height: 13px;
-      border-radius: 50%;
-      border: 1px solid rgba(91, 71, 63, 0.12);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.34);
+    .summary-line{
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      padding:12px 14px;
+      border-radius:18px;
+      background:#fffdf9;
+      border:1px solid var(--line);
     }
 
-    .world-selected-note {
-      margin-top: 16px;
-      text-align: center;
-      color: var(--theme-text-strong);
-      font-size: 0.9rem;
-      min-height: 22px;
-      font-style: italic;
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 0.35s ease, transform 0.35s ease;
+    .summary-line span{
+      color:var(--brown-soft);
+      font-size:.9rem;
     }
 
-    .world-selected-note.is-visible {
-      opacity: 1;
-      transform: translateY(0);
+    .summary-line strong{
+      color:var(--brown);
+      font-size:.95rem;
+      text-align:right;
     }
 
-    .world-page {
-      padding-top: calc(var(--nav-h) + 20px);
+    .total-card{
+      margin-top:18px;
+      padding:18px;
+      border-radius:22px;
+      background:linear-gradient(180deg, #fffdf9, #f9f2ea);
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
     }
 
-    .back-row {
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
+    .total-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
     }
 
-    .back-chip {
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.78);
-      border-radius: 999px;
-      padding: 9px 14px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      box-shadow: 0 8px 18px rgba(100,74,63,0.06);
-      color: var(--theme-text-strong);
-      font-size: 0.88rem;
+    .total-row span{
+      color:var(--brown-soft);
+      font-size:1rem;
     }
 
-    .back-chip:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 12px 24px rgba(100,74,63,0.08);
+    .total-row strong{
+      color:var(--active-vibe);
+      font-size:1.4rem;
     }
 
-    .back-chip svg {
-      width: 16px;
-      height: 16px;
-      stroke: currentColor;
-      flex-shrink: 0;
+    .add-btn{
+      width:100%;
+      margin-top:14px;
+      min-height:52px;
+      border:none;
+      border-radius:999px;
+      background:linear-gradient(135deg, var(--active-vibe), color-mix(in srgb, var(--active-vibe) 65%, white));
+      color:#fff;
+      font-weight:700;
+      cursor:pointer;
+      transition:transform .22s ease, box-shadow .22s ease;
+      box-shadow:0 16px 34px rgba(0,0,0,0.10);
     }
 
-    .world-banner {
-      display: grid;
-      grid-template-columns: 1fr 0.92fr;
-      gap: 20px;
-      align-items: start;
+    .add-btn:hover{
+      transform:translateY(-2px);
     }
 
-    .world-banner-copy h2 {
-      margin: 0 0 10px;
-      font-size: clamp(1.85rem, 4vw, 2.9rem);
-      line-height: 1.04;
+    .success-box{
+      display:none;
+      margin-top:14px;
+      padding:14px 16px;
+      border-radius:18px;
+      background:var(--active-vibe-soft);
+      border:1px solid color-mix(in srgb, var(--active-vibe) 40%, white);
+      color:var(--brown);
+      font-size:.92rem;
+      animation:fadeSuccess .35s ease;
     }
 
-    .world-banner-copy p {
-      margin: 0 0 10px;
-      color: var(--theme-text-soft);
-      line-height: 1.7;
-      font-size: 0.94rem;
+    .success-box.show{
+      display:block;
     }
 
-    .world-banner-copy .micro-line {
-      font-style: italic;
+    .post-actions{
+      display:none;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:14px;
     }
 
-    .world-banner-visual {
-      border-radius: 22px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.78);
-      box-shadow: 0 10px 24px rgba(100,74,63,0.06);
-      padding: 12px;
-      max-width: 360px;
-      width: 100%;
-      justify-self: end;
+    .post-actions.show{
+      display:grid;
     }
 
-    .gallery-main {
-      overflow: hidden;
-      border-radius: 16px;
-      aspect-ratio: 1 / 1;
-      background: linear-gradient(160deg, #f7ebe4, #efddd2);
-      margin-bottom: 10px;
+    .secondary-btn,
+    .outline-btn{
+      min-height:48px;
+      border-radius:999px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:12px 16px;
+      transition:transform .22s ease;
     }
 
-    .gallery-main img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .secondary-btn{
+      background:linear-gradient(135deg, var(--active-vibe), color-mix(in srgb, var(--active-vibe) 65%, white));
+      color:#fff;
     }
 
-    .gallery-thumbs {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 8px;
+    .outline-btn{
+      background:#fff;
+      border:1px solid var(--line);
+      color:var(--brown);
     }
 
-    .gallery-thumb {
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.86);
-      border-radius: 14px;
-      padding: 6px;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    .secondary-btn:hover,
+    .outline-btn:hover{
+      transform:translateY(-1px);
     }
 
-    .gallery-thumb:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 8px 16px rgba(100,74,63,0.08);
+    .footer{
+      margin-top:34px;
+      padding:74px 0 30px;
+      background:linear-gradient(180deg, #efe6e0, #e8ddd7);
+      border-top-left-radius:34px;
+      border-top-right-radius:34px;
     }
 
-    .gallery-thumb.is-active {
-      border-color: var(--theme-ring);
-      box-shadow: 0 0 0 2px var(--theme-ring), 0 10px 18px var(--theme-glow);
+    .footer-grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:18px;
     }
 
-    .gallery-thumb img {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      border-radius: 10px;
-      margin-bottom: 5px;
+    .footer-card{
+      background:rgba(255,250,246,0.78);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:22px;
+      box-shadow:var(--shadow);
+      transition:transform .24s ease, box-shadow .24s ease;
     }
 
-    .gallery-thumb span {
-      display: block;
-      text-align: center;
-      font-size: 0.72rem;
-      color: var(--theme-text-soft);
-      line-height: 1.25;
+    .footer-card:hover{
+      transform:translateY(-3px);
+      box-shadow:var(--shadow-strong);
     }
 
-    .selector-grid {
-      display: grid;
-      gap: 16px;
-      margin-top: 22px;
+    .footer-card h3{
+      margin:0 0 10px;
+      font-size:2.2rem;
+      line-height:.95;
+      font-family:'Cormorant Garamond', serif;
+      font-weight:700;
     }
 
-    .selector-block {
-      background: rgba(255,255,255,0.66);
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 18px;
+    .footer-card p{
+      margin:0;
+      color:var(--brown-soft);
+      line-height:1.8;
+      font-size:.95rem;
     }
 
-    .selector-block h3 {
-      margin: 0 0 6px;
-      font-size: 1.12rem;
-      line-height: 1.12;
+    .contact-list{
+      display:grid;
+      gap:10px;
+      font-size:.95rem;
+      color:var(--brown-soft);
     }
 
-    .selector-block p {
-      margin: 0 0 12px;
-      color: var(--theme-text-soft);
-      line-height: 1.65;
-      font-size: 0.88rem;
+    .tiny-note{
+      margin-top:18px;
+      text-align:center;
+      font-size:.85rem;
+      color:var(--brown-soft);
     }
 
-    .selector-options {
-      display: grid;
-      gap: 10px;
+    .cart-overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(64,45,35,.28);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .25s ease;
+      z-index:2000;
     }
 
-    .selector-options.columns-3 {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+    .cart-overlay.open{
+      opacity:1;
+      pointer-events:auto;
     }
 
-    .selector-options.columns-4 {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+    .cart-drawer{
+      position:fixed;
+      top:0;
+      right:0;
+      width:min(430px, 100%);
+      height:100vh;
+      background:#fffdf9;
+      box-shadow:-20px 0 50px rgba(52,38,32,.18);
+      transform:translateX(100%);
+      transition:transform .3s var(--ease);
+      z-index:2100;
+      display:flex;
+      flex-direction:column;
     }
 
-    .pill-card {
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 12px;
-      background: rgba(255,255,255,0.82);
-      cursor: pointer;
-      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease;
-      min-height: 100%;
-      text-align: left;
+    .cart-drawer.open{
+      transform:translateX(0);
     }
 
-    .pill-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 22px rgba(100,74,63,0.08);
+    .cart-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:22px 20px 16px;
+      border-bottom:1px solid var(--line);
     }
 
-    .pill-card.is-selected {
-      border-color: var(--theme-ring);
-      background: rgba(255,255,255,0.98);
-      box-shadow: 0 0 0 2px var(--theme-ring), 0 14px 28px var(--theme-glow);
+    .cart-head h3{
+      margin:0;
+      font-size:2rem;
+      font-family:'Cormorant Garamond', serif;
+      font-weight:700;
     }
 
-    .pill-card strong {
-      display: block;
-      margin-bottom: 5px;
-      font-size: 0.9rem;
-      line-height: 1.2;
-      color: var(--theme-text-strong);
+    .cart-close{
+      border:none;
+      background:none;
+      font-size:1.5rem;
+      cursor:pointer;
+      color:var(--brown-soft);
     }
 
-    .pill-card span {
-      display: block;
-      color: var(--theme-text-soft);
-      font-size: 0.76rem;
-      line-height: 1.4;
+    .cart-body{
+      flex:1;
+      overflow:auto;
+      padding:18px 20px;
     }
 
-    .price-line {
-      margin-top: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      padding-top: 12px;
-      border-top: 1px solid rgba(188,145,130,0.14);
+    .cart-empty{
+      color:var(--brown-soft);
+      line-height:1.8;
+      padding:10px 0;
     }
 
-    .price-line strong {
-      font-size: 1rem;
-      color: var(--theme-text-strong);
+    .cart-item{
+      display:grid;
+      grid-template-columns:76px 1fr auto;
+      gap:14px;
+      padding:14px 0;
+      border-bottom:1px solid var(--line);
+      align-items:start;
     }
 
-    .price-badge {
-      padding: 9px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.86);
-      border: 1px solid var(--line);
-      box-shadow: 0 8px 18px rgba(100,74,63,0.05);
+    .cart-item img{
+      width:76px;
+      height:76px;
+      object-fit:cover;
+      border-radius:16px;
+      background:#f2e8df;
     }
 
-    .price-badge span {
-      font-size: 0.84rem;
-      color: var(--theme-text-soft);
-      margin-right: 5px;
+    .cart-item h4{
+      margin:0 0 6px;
+      font-size:1rem;
+      line-height:1.35;
     }
 
-    .price-badge strong {
-      font-size: 0.94rem;
-      color: var(--accent-deep);
+    .cart-meta{
+      font-size:.85rem;
+      color:var(--brown-soft);
+      line-height:1.6;
     }
 
-    .summary-card {
-      padding: 18px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.78);
-      border: 1px solid var(--line);
-      box-shadow: 0 12px 26px rgba(100,74,63,0.08);
-      margin-top: 20px;
+    .cart-price{
+      font-size:.95rem;
+      font-weight:700;
+      color:var(--brown);
+      margin-top:6px;
     }
 
-    .summary-card h3 {
-      margin: 0 0 12px;
-      font-size: 1.12rem;
+    .cart-remove{
+      border:none;
+      background:none;
+      color:var(--brown-soft);
+      cursor:pointer;
+      padding:4px;
+      font-size:1.05rem;
     }
 
-    .summary-lines {
-      display: grid;
-      gap: 8px;
-      margin-bottom: 16px;
+    .qty-row{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      margin-top:10px;
     }
 
-    .summary-line {
-      display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid rgba(188,145,130,0.14);
-      font-size: 0.88rem;
-      color: var(--theme-text-strong);
+    .qty-btn{
+      width:28px;
+      height:28px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:#fff;
+      cursor:pointer;
+      color:var(--brown);
     }
 
-    .summary-line span:last-child {
-      text-align: right;
+    .qty-value{
+      min-width:18px;
+      text-align:center;
+      font-size:.92rem;
     }
 
-    .price-total {
-      margin: 0 0 14px;
-      font-size: clamp(1.25rem, 3vw, 1.65rem);
-      color: var(--theme-text-strong);
+    .cart-footer{
+      border-top:1px solid var(--line);
+      padding:18px 20px 22px;
+      background:#fffdf9;
     }
 
-    .cart-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+    .cart-total{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-size:1rem;
+      margin-bottom:14px;
     }
 
-    .go-cart-btn {
-      display: none;
+    .cart-total strong{
+      font-size:1.12rem;
     }
 
-    .go-cart-btn.is-visible {
-      display: inline-flex;
+    .cart-actions{
+      display:grid;
+      gap:10px;
     }
 
-    .tiny-finish {
-      margin-top: 14px;
-      color: var(--theme-text-soft);
-      font-size: 0.88rem;
-      line-height: 1.7;
+    .cart-primary,
+    .cart-secondary{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:50px;
+      border-radius:999px;
+      transition:transform .22s ease;
     }
 
-    .footer {
-      margin-top: 30px;
-      padding: 62px 0 28px;
-      background: linear-gradient(180deg, rgba(240, 224, 215, 0.42), rgba(236, 214, 203, 0.78));
-      border-top-left-radius: 32px;
-      border-top-right-radius: 32px;
+    .cart-primary{
+      background:linear-gradient(135deg, var(--gold-deep), var(--gold));
+      color:#fff;
+      font-weight:700;
     }
 
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 1.08fr 0.92fr;
-      gap: 20px;
+    .cart-secondary{
+      background:#fff;
+      border:1px solid var(--line);
+      color:var(--brown);
+      cursor:pointer;
     }
 
-    .footer-card {
-      background: rgba(255,250,246,0.82);
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      padding: 20px;
-      box-shadow: var(--shadow);
+    .cart-primary:hover,
+    .cart-secondary:hover{
+      transform:translateY(-1px);
     }
 
-    .footer-card h3 {
-      margin: 0 0 10px;
-      font-size: 1.55rem;
-      line-height: 1.08;
+    .mobile-menu-overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(64,45,35,.28);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .25s ease;
+      z-index:1800;
     }
 
-    .footer-card p,
-    .contact-list {
-      margin: 0;
-      color: var(--theme-text-soft);
-      line-height: 1.72;
-      font-size: 0.9rem;
+    .mobile-menu-overlay.open{
+      opacity:1;
+      pointer-events:auto;
     }
 
-    .contact-list {
-      display: grid;
-      gap: 10px;
+    .mobile-menu{
+      position:fixed;
+      top:0;
+      left:0;
+      width:min(340px, 100%);
+      height:100vh;
+      background:#fffdf9;
+      box-shadow:20px 0 50px rgba(52,38,32,.14);
+      transform:translateX(-100%);
+      transition:transform .3s var(--ease);
+      z-index:1900;
+      padding:24px 20px;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
     }
 
-    .tiny-note {
-      margin-top: 18px;
-      text-align: center;
-      color: var(--theme-text-soft);
-      font-size: 0.84rem;
+    .mobile-menu.open{
+      transform:translateX(0);
     }
 
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+    .mobile-menu-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
     }
 
-    .reveal.is-visible {
-      opacity: 1;
-      transform: translateY(0);
+    .mobile-menu-title{
+      font-size:1.8rem;
+      font-family:'Cormorant Garamond', serif;
+      font-weight:700;
     }
-
-    .reveal-delay-1 { transition-delay: 0.08s; }
-    .reveal-delay-2 { transition-delay: 0.16s; }
 
-    body.theme-soft-romance {
-      --bg: #fff6f8;
-      --bg-2: #faedf0;
-      --card: rgba(255, 247, 249, 0.90);
-      --text: #6c4d58;
-      --muted: #9a7482;
-      --accent: #e5b6c5;
-      --accent-deep: #cb8fa5;
-      --line: rgba(203, 143, 165, 0.24);
-      --hero-overlay: rgba(255, 221, 232, 0.14);
-      --theme-ring: rgba(203, 143, 165, 0.88);
-      --theme-glow: rgba(203, 143, 165, 0.24);
-      --theme-text-strong: #8b4f67;
-      --theme-text-soft: #ab7289;
+    .mobile-close{
+      border:none;
+      background:none;
+      font-size:1.5rem;
+      color:var(--brown-soft);
+      cursor:pointer;
     }
 
-    body.theme-blue-dream {
-      --bg: #f4f9ff;
-      --bg-2: #eaf2fb;
-      --card: rgba(247, 251, 255, 0.90);
-      --text: #4b6074;
-      --muted: #73879a;
-      --accent: #a9c7e6;
-      --accent-deep: #7ea8d3;
-      --line: rgba(126, 168, 211, 0.22);
-      --hero-overlay: rgba(196, 222, 247, 0.14);
-      --theme-ring: rgba(126, 168, 211, 0.88);
-      --theme-glow: rgba(126, 168, 211, 0.24);
-      --theme-text-strong: #5b7b99;
-      --theme-text-soft: #7f9ab3;
+    .mobile-menu a{
+      padding:12px 0;
+      border-bottom:1px solid var(--line);
+      font-size:1rem;
+      color:var(--brown);
     }
 
-    body.theme-dark-cherry {
-      --bg: #f8eef1;
-      --bg-2: #efe2e6;
-      --card: rgba(251, 243, 245, 0.90);
-      --text: #66404b;
-      --muted: #87616c;
-      --accent: #bf8796;
-      --accent-deep: #9a5f71;
-      --line: rgba(154, 95, 113, 0.24);
-      --hero-overlay: rgba(160, 76, 104, 0.12);
-      --theme-ring: rgba(154, 95, 113, 0.88);
-      --theme-glow: rgba(154, 95, 113, 0.24);
-      --theme-text-strong: #8b3f58;
-      --theme-text-soft: #9e6274;
+    .reveal-up,
+    .reveal-soft{
+      opacity:0;
+      will-change:transform, opacity;
     }
 
-    body.theme-golden-hour {
-      --bg: #fff8ec;
-      --bg-2: #f6edda;
-      --card: rgba(255, 251, 241, 0.90);
-      --text: #6c5a40;
-      --muted: #8b7a61;
-      --accent: #e2c37b;
-      --accent-deep: #cfa553;
-      --line: rgba(207, 165, 83, 0.22);
-      --hero-overlay: rgba(239, 195, 95, 0.12);
-      --theme-ring: rgba(207, 165, 83, 0.88);
-      --theme-glow: rgba(207, 165, 83, 0.24);
-      --theme-text-strong: #a67c2f;
-      --theme-text-soft: #ae8d53;
+    .reveal-up{
+      transform:translateY(34px);
+      transition:opacity .9s var(--ease), transform .9s var(--ease);
     }
 
-    @keyframes shimmerBlur {
-      0%, 100% { opacity: 0.45; transform: scale(1); }
-      50% { opacity: 0.82; transform: scale(1.03); }
+    .reveal-soft{
+      transform:scale(.985) translateY(24px);
+      transition:opacity .95s var(--ease), transform .95s var(--ease);
     }
 
-    @keyframes heroReveal {
-      to { opacity: 1; transform: translateY(0); }
+    .reveal-up.is-visible,
+    .reveal-soft.is-visible{
+      opacity:1;
+      transform:translateY(0) scale(1);
     }
 
-    @keyframes heroImageReveal {
-      to { opacity: 1; transform: translateY(0) scale(1); }
+    @keyframes heroFadeUp{
+      from{opacity:0; transform:translateY(24px);}
+      to{opacity:1; transform:translateY(0);}
     }
 
-    @keyframes gentleFloat {
-      0%, 100% { transform: scale(1) translateY(0px); }
-      50% { transform: scale(1.015) translateY(-6px); }
+    @keyframes fadePage{
+      from{opacity:0; transform:translateY(14px);}
+      to{opacity:1; transform:translateY(0);}
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation: none !important;
-        transition: none !important;
-        scroll-behavior: auto !important;
-      }
+    @keyframes fadeSuccess{
+      from{opacity:0; transform:translateY(10px);}
+      to{opacity:1; transform:translateY(0);}
     }
-
-    @media (max-width: 980px) {
-      .hero-grid,
-      .world-banner,
-      .footer-grid {
-        grid-template-columns: 1fr;
-      }
 
-      .world-banner-visual {
-        justify-self: start;
-        max-width: 320px;
+    @media (max-width: 1080px){
+      .vibe-grid{
+        grid-template-columns:repeat(2, minmax(0,1fr));
       }
 
-      .selector-options.columns-4 {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+      .vibe-layout,
+      .footer-grid{
+        grid-template-columns:1fr;
       }
 
-      .selector-options.columns-3 {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+      .option-grid.three{
+        grid-template-columns:repeat(3, minmax(0,1fr));
       }
     }
-
-    @media (max-width: 760px) {
-      :root {
-        --nav-h: 174px;
-      }
-
-      .sparkle-layer {
-        opacity: 0.4;
-      }
-
-      .cursor-glow {
-        display: none;
-      }
-
-      .container {
-        width: min(var(--container), calc(100% - 18px));
-      }
-
-      .site-header {
-        background: rgba(255, 250, 246, 0.92);
-      }
-
-      .nav {
-        flex-direction: column;
-        align-items: stretch;
-        justify-content: center;
-        padding: 10px 0;
-        gap: 8px;
-      }
-
-      .logo-wrap {
-        justify-content: center;
-      }
-
-      .logo-wrap img {
-        width: 46px;
-        height: 46px;
-      }
-
-      .brand-text {
-        font-size: 0.9rem;
-      }
-
-      .nav-right {
-        width: 100%;
-        justify-content: center;
-        gap: 8px;
-      }
-
-      .nav-links {
-        width: calc(100% - 50px);
-        gap: 7px 12px;
-        flex-wrap: wrap;
-        justify-content: center;
-        text-align: center;
-        font-size: 0.82rem;
-      }
 
-      .nav-links .active-link {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-      }
-
-      .nav-links .active-link a {
-        width: 100%;
-        justify-content: center;
-      }
-
-      .hero,
-      .world-page {
-        padding-top: calc(var(--nav-h) + 18px);
-      }
-
-      .hero {
-        min-height: auto;
-        padding-bottom: 20px;
-      }
-
-      .hero-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-
-      .hero-copy {
-        text-align: center;
-      }
-
-      .hero h1 {
-        font-size: clamp(2rem, 9.4vw, 2.9rem);
-        margin-bottom: 10px;
-      }
-
-      .hero p {
-        margin: 0 auto 16px;
-        max-width: 100%;
-        font-size: 0.88rem;
-        line-height: 1.62;
-      }
-
-      .eyebrow {
-        font-size: 0.62rem;
-        letter-spacing: 0.12em;
-        padding: 6px 10px;
-        margin-bottom: 10px;
-      }
-
-      .button-row {
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .btn {
-        width: 100%;
-        min-width: 0;
-        padding: 12px 16px;
-        font-size: 0.88rem;
-      }
-
-      .hero-card,
-      .section-shell,
-      .footer-card,
-      .summary-card,
-      .selector-block {
-        border-radius: 18px;
-        padding: 12px;
-      }
-
-      .hero-image,
-      .choice-media,
-      .world-banner-visual,
-      .gallery-main {
-        border-radius: 14px;
-      }
-
-      section,
-      .world-page {
-        padding-bottom: 42px;
-      }
-
-      .section-head {
-        margin-bottom: 16px;
-      }
+    @media (max-width: 760px){
+      .cursor-glow{display:none}
 
-      .section-head h2,
-      .world-banner-copy h2 {
-        font-size: clamp(1.45rem, 7vw, 2rem);
+      .top-bar{
+        padding:10px 12px;
+        font-size:.82rem;
       }
 
-      .section-head p,
-      .world-banner-copy p {
-        font-size: 0.84rem;
-        line-height: 1.58;
+      .top-bar a{
+        display:block;
+        width:max-content;
+        margin:8px auto 0;
       }
 
-      .step-tag {
-        width: 32px;
-        height: 32px;
-        font-size: 0.76rem;
-        margin-bottom: 10px;
+      .site-header{
+        position:relative;
+        top:0;
       }
 
-      .worlds-grid {
-        gap: 8px;
+      .nav{
+        grid-template-columns:1fr auto 1fr;
+        min-height:78px;
       }
 
-      .world-card {
-        padding: 8px;
-        border-radius: 16px;
+      .nav-left,
+      .nav-right{
+        display:none;
       }
 
-      .choice-media {
-        margin-bottom: 8px;
+      .mobile-left,
+      .mobile-right{
+        display:flex;
       }
 
-      .world-card h3 {
-        font-size: 0.8rem;
-        margin-bottom: 3px;
+      .logo-wrap img{
+        width:58px;
+        height:58px;
       }
 
-      .world-card p {
-        font-size: 0.68rem;
-        line-height: 1.32;
-        margin-bottom: 5px;
+      .brand-text{
+        font-size:1.52rem;
       }
 
-      .swatch {
-        width: 10px;
-        height: 10px;
+      .brand-sub{
+        display:none;
       }
 
-      .world-selected-note {
-        font-size: 0.8rem;
-        min-height: 18px;
+      .page-hero{
+        padding:38px 0 48px;
       }
 
-      .back-row {
-        margin-bottom: 8px;
+      .page-title{
+        font-size:clamp(2.9rem, 12vw, 4.6rem);
       }
 
-      .back-chip {
-        padding: 8px 12px;
-        font-size: 0.8rem;
+      .page-subtitle{
+        font-size:clamp(1.15rem, 5vw, 1.6rem);
       }
 
-      .world-banner {
-        gap: 12px;
+      .page-copy{
+        font-size:.9rem;
+        line-height:1.72;
       }
 
-      .world-banner-visual {
-        max-width: 220px;
-        padding: 8px;
+      section{
+        padding:58px 0;
       }
 
-      .gallery-thumbs {
-        gap: 6px;
+      .section-head{
+        margin-bottom:20px;
       }
 
-      .gallery-thumb {
-        padding: 4px;
-        border-radius: 10px;
+      .section-head h2{
+        font-size:clamp(2.15rem, 10vw, 3.2rem);
       }
 
-      .gallery-thumb img {
-        border-radius: 8px;
-        margin-bottom: 4px;
+      .section-head p{
+        font-size:.9rem;
       }
 
-      .gallery-thumb span {
-        font-size: 0.62rem;
+      .vibe-grid{
+        grid-template-columns:repeat(2, minmax(0,1fr));
+        gap:10px;
       }
 
-      .selector-grid {
-        gap: 12px;
-        margin-top: 14px;
+      .vibe-card{
+        min-height:150px;
+        border-radius:20px;
+        padding:14px;
       }
 
-      .selector-block h3 {
-        font-size: 0.98rem;
-        margin-bottom: 4px;
+      .vibe-card h3{
+        font-size:1.35rem;
       }
 
-      .selector-block p {
-        font-size: 0.8rem;
-        line-height: 1.5;
-        margin-bottom: 10px;
+      .vibe-card p{
+        font-size:.78rem;
+        line-height:1.45;
       }
 
-      .selector-options.columns-3,
-      .selector-options.columns-4 {
-        grid-template-columns: 1fr;
-        gap: 8px;
+      .vibe-left,
+      .vibe-right{
+        border-radius:24px;
+        padding:18px;
       }
 
-      .pill-card {
-        padding: 10px;
-        border-radius: 14px;
+      .vibe-page-head h2{
+        font-size:clamp(2.1rem, 9vw, 3rem);
       }
 
-      .pill-card strong {
-        font-size: 0.84rem;
+      .vibe-page-head p{
+        font-size:.9rem;
       }
 
-      .pill-card span {
-        font-size: 0.72rem;
+      .step-title{
+        font-size:1.65rem;
       }
 
-      .price-line {
-        margin-top: 10px;
-        padding-top: 10px;
+      .option-grid.three,
+      .option-grid.two{
+        grid-template-columns:1fr;
       }
 
-      .price-line strong {
-        font-size: 0.88rem;
+      .option-card{
+        border-radius:16px;
+        padding:12px;
       }
 
-      .price-badge {
-        padding: 8px 12px;
+      .option-card strong{
+        font-size:.95rem;
       }
 
-      .price-badge span,
-      .price-badge strong {
-        font-size: 0.8rem;
+      .option-card span{
+        font-size:.82rem;
       }
 
-      .summary-card h3 {
-        font-size: 1rem;
+      .slideshow-shell{
+        border-radius:22px;
       }
 
-      .summary-line {
-        font-size: 0.8rem;
-        gap: 10px;
+      .summary-title{
+        font-size:1.9rem;
       }
 
-      .price-total {
-        font-size: 1.15rem;
+      .summary-line{
+        border-radius:16px;
+        padding:11px 12px;
       }
 
-      .cart-actions {
-        flex-direction: column;
+      .summary-line span,
+      .summary-line strong{
+        font-size:.85rem;
       }
 
-      .tiny-finish {
-        font-size: 0.8rem;
-        line-height: 1.56;
+      .post-actions{
+        grid-template-columns:1fr;
       }
 
-      .footer {
-        padding-top: 42px;
-        padding-bottom: 22px;
-        border-top-left-radius: 24px;
-        border-top-right-radius: 24px;
+      .footer-card{
+        border-radius:18px;
+        padding:16px;
       }
 
-      .footer-card h3 {
-        font-size: 1.2rem;
+      .footer-card h3{
+        font-size:1.8rem;
       }
 
       .footer-card p,
-      .contact-list,
-      .tiny-note {
-        font-size: 0.82rem;
+      .contact-list{
+        font-size:.86rem;
+        line-height:1.65;
+      }
+
+      .cart-drawer{
+        width:100%;
       }
     }
   </style>
 </head>
-<body class="theme-soft-romance">
-  <div class="sparkle-layer"></div>
+<body>
   <div class="cursor-glow" id="cursorGlow"></div>
 
-  <header class="site-header" id="siteHeader">
+  <div class="top-bar">
+    NOU • Secretul Maison te așteaptă
+    <a href="#vibe-selector">Alege un vibe</a>
+  </div>
+
+  <header class="site-header">
     <div class="container nav">
-      <a href="index.html#home" class="logo-wrap" aria-label="Maison Doucette Home">
-        <img src="images/logo.jpg" alt="Maison Doucette logo" />
-        <span class="brand-text">Maison Doucette</span>
+      <div class="mobile-left">
+        <button class="icon-btn" id="mobileMenuOpenBtn" aria-label="Deschide meniul">
+          <svg viewBox="0 0 24 24">
+            <path d="M3 6h18"></path>
+            <path d="M3 12h18"></path>
+            <path d="M3 18h18"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div class="nav-left">
+        <nav>
+          <ul class="nav-links">
+            <li><a href="index.html#home">Acasă</a></li>
+            <li><a href="index.html#worlds">Cumpără acum</a></li>
+            <li><a href="index.html#atelier" class="nav-pill">Atelierul Maison Doucette</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <a href="index.html#home" class="logo-wrap" aria-label="Maison Doucette Acasă">
+        <img src="images/logo.jpg" alt="Logo Maison Doucette">
+        <div class="brand-stack">
+          <span class="brand-text">Maison Doucette</span>
+          <span class="brand-sub">mystery experience</span>
+        </div>
       </a>
 
       <div class="nav-right">
-        <ul class="nav-links">
-          <li><a href="index.html#home">Home</a></li>
-          <li><a href="index.html#shop">Our collection</a></li>
-          <li class="active-link"><a href="#top">The Atelier Box</a></li>
-          <li><a href="index.html#about">About us</a></li>
-          <li><a href="#contact">Contact us</a></li>
-        </ul>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="index.html#about">Despre</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </nav>
 
-        <div class="cart-icon">
-          <a href="cart.html" aria-label="View cart">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="9" cy="20" r="1"></circle>
-              <circle cx="18" cy="20" r="1"></circle>
-              <path d="M2 3h3l2.2 10.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.5L21 6H7.1"></path>
-            </svg>
-            <span id="cart-count">0</span>
-          </a>
-        </div>
+        <button class="icon-btn cart-btn" id="cartOpenBtn" aria-label="Deschide coșul">
+          <svg viewBox="0 0 24 24">
+            <circle cx="9" cy="20" r="1"></circle>
+            <circle cx="18" cy="20" r="1"></circle>
+            <path d="M2 3h3l2.2 10.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.5L21 6H7.1"></path>
+          </svg>
+          <span id="cart-count">0</span>
+        </button>
+      </div>
+
+      <div class="mobile-right">
+        <button class="icon-btn cart-btn" id="mobileCartOpenBtn" aria-label="Deschide coșul">
+          <svg viewBox="0 0 24 24">
+            <circle cx="9" cy="20" r="1"></circle>
+            <circle cx="18" cy="20" r="1"></circle>
+            <path d="M2 3h3l2.2 10.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.5L21 6H7.1"></path>
+          </svg>
+          <span id="mobile-cart-count">0</span>
+        </button>
       </div>
     </div>
   </header>
 
-  <main id="top">
-    <!-- PAGE 1: WORLD CHOOSER -->
-    <div class="app-page is-visible" id="page-chooser">
-      <section class="hero">
-        <div class="container hero-grid">
-          <div class="hero-copy">
-            <span class="eyebrow">Choose your world first</span>
-            <h1><i>The Atelier Box</i></h1>
-            <p>
-              Choose the vibe you want to step into. When you select it, you enter its own page and build your box inside that exact feeling.
-            </p>
-            <div class="button-row">
-              <a class="btn btn-primary" href="#step-1">Choose your vibe</a>
-              <a class="btn btn-secondary" href="cart.html">Go to cart</a>
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="page-hero-inner">
+          <div class="page-tag">Maison Mystery Experience</div>
+          <h1 class="page-title display">Secretul Maison</h1>
+          <div class="page-subtitle">
+            Alege vibe-ul, cutia și câteva indicii. Restul rămâne secret până la reveal.
+          </div>
+          <div class="page-copy">
+            Tu alegi lumea în care vrei să intri. Noi alegem felul în care aceasta prinde viață.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="vibe-selector reveal-up" id="vibe-selector">
+      <div class="container">
+        <div class="section-head reveal-up">
+          <h2>Alege vibe-ul tău</h2>
+          <p>
+            Fiecare vibe deschide o pagină proprie, cu propria atmosferă, propria paletă și propriul ritm.
+          </p>
+        </div>
+
+        <div class="vibe-grid">
+          <button class="vibe-card soft-romance reveal-up" data-vibe="soft-romance">
+            <div>
+              <h3>Soft Romance</h3>
+              <p>baby pink, romantic, coquette</p>
+            </div>
+          </button>
+
+          <button class="vibe-card blue-dream reveal-up" data-vibe="blue-dream">
+            <div>
+              <h3>Blue Dream</h3>
+              <p>airy, calm, dreamy</p>
+            </div>
+          </button>
+
+          <button class="vibe-card dark-cherry reveal-up" data-vibe="dark-cherry">
+            <div>
+              <h3>Dark Cherry</h3>
+              <p>burgundy, mysterious, velvet</p>
+            </div>
+          </button>
+
+          <button class="vibe-card golden-hour reveal-up" data-vibe="golden-hour">
+            <div>
+              <h3>Golden Hour</h3>
+              <p>warm gold, luminous, elegant</p>
+            </div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOFT ROMANCE -->
+    <section class="vibe-page" id="page-soft-romance">
+      <div class="container">
+        <div class="back-row">
+          <button class="back-btn" data-back>← Înapoi la vibe-uri</button>
+        </div>
+
+        <div class="vibe-layout">
+          <div class="vibe-left">
+            <div class="vibe-page-head">
+              <h2>Soft Romance</h2>
+              <p>
+                O lume delicată, baby pink, romantică și blândă, cu o energie tandră și dreamy.
+              </p>
+            </div>
+
+            <div class="step-block">
+              <h3 class="step-title">Alege mărimea cutiei</h3>
+              <div class="option-grid three size-options" data-group="size">
+                <button class="option-card selected" data-size="Petite Box" data-price="75" data-slide="petite">
+                  <strong>Petite Box</strong>
+                  <span>75 RON · un reveal mic și delicat</span>
+                </button>
+                <button class="option-card" data-size="Signature Box" data-price="105" data-slide="signature">
+                  <strong>Signature Box</strong>
+                  <span>105 RON · cea mai echilibrată experiență</span>
+                </button>
+                <button class="option-card" data-size="Grand Box" data-price="135" data-slide="grand">
+                  <strong>Grand Box</strong>
+                  <span>135 RON · varianta wow, mai bogată</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="step-block">
+              <h3 class="step-title">Alege pasiunea</h3>
+              <div class="option-grid two passion-options" data-group="passion">
+                <button class="option-card selected" data-passion="Lectură">
+                  <strong>Lectură</strong>
+                  <span>soft, poetic, intim</span>
+                </button>
+                <button class="option-card" data-passion="Muzică">
+                  <strong>Muzică</strong>
+                  <span>emoție, ritm, atmosferă</span>
+                </button>
+                <button class="option-card" data-passion="Fotografie">
+                  <strong>Fotografie</strong>
+                  <span>cadre delicate și lumină</span>
+                </button>
+                <button class="option-card" data-passion="Fashion">
+                  <strong>Fashion</strong>
+                  <span>detalii, styling, coquette touch</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="step-block">
+              <h3 class="step-title">Alege music mood</h3>
+              <div class="option-grid two mood-options" data-group="mood">
+                <button class="option-card selected" data-mood="Dream Pop">
+                  <strong>Dream Pop</strong>
+                  <span>airy și diafan</span>
+                </button>
+                <button class="option-card" data-mood="Indie Acoustic">
+                  <strong>Indie Acoustic</strong>
+                  <span>cald și blând</span>
+                </button>
+                <button class="option-card" data-mood="Soft Classical">
+                  <strong>Soft Classical</strong>
+                  <span>romantic și elegant</span>
+                </button>
+                <button class="option-card" data-mood="Lo-fi">
+                  <strong>Lo-fi</strong>
+                  <span>intim și cozy</span>
+                </button>
+              </div>
             </div>
           </div>
 
-          <div class="hero-card">
-            <div class="hero-image">
-              <img id="heroPreview" src="images/worlds/soft-romance/soft-romance-1.jpg" alt="Atelier Box preview" />
+          <div class="vibe-right">
+            <div class="slideshow-shell">
+              <img src="images/worlds/soft-romance/soft-romance-petite.jpg" class="size-slide active" data-size-slide="petite" alt="Soft Romance Petite">
+              <img src="images/worlds/soft-romance/soft-romance-signature.jpg" class="size-slide" data-size-slide="signature" alt="Soft Romance Signature">
+              <img src="images/worlds/soft-romance/soft-romance-grand.jpg" class="size-slide" data-size-slide="grand" alt="Soft Romance Grand">
+              <div class="size-floating">Soft Romance</div>
+            </div>
+
+            <h3 class="summary-title">Rezumatul alegerilor</h3>
+
+            <div class="summary-box">
+              <div class="summary-line">
+                <span>Vibe</span>
+                <strong class="summary-vibe">Soft Romance</strong>
+              </div>
+              <div class="summary-line">
+                <span>Mărime</span>
+                <strong class="summary-size">Petite Box</strong>
+              </div>
+              <div class="summary-line">
+                <span>Pasiune</span>
+                <strong class="summary-passion">Lectură</strong>
+              </div>
+              <div class="summary-line">
+                <span>Music mood</span>
+                <strong class="summary-mood">Dream Pop</strong>
+              </div>
+            </div>
+
+            <div class="total-card">
+              <div class="total-row">
+                <span>Total</span>
+                <strong class="summary-total">75 RON</strong>
+              </div>
+
+              <button class="add-btn">Creează acest reveal</button>
+
+              <div class="success-box">✨ Produsul a fost adăugat în coș.</div>
+
+              <div class="post-actions">
+                <a href="#" class="secondary-btn open-cart-link">Vezi coșul</a>
+                <a href="index.html#worlds" class="outline-btn">Descoperă în continuare universul Maison Doucette</a>
+              </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section id="step-1" class="reveal">
-        <div class="container">
-          <div class="section-shell">
-            <div class="section-head reveal reveal-delay-1">
-              <div class="step-tag">01</div>
-              <h2><i>Choose your vibe</i></h2>
-              <p>Pick the world you want your Atelier Box to belong to. You will be taken into a separate page for that exact atmosphere.</p>
+    <!-- BLUE DREAM -->
+    <section class="vibe-page" id="page-blue-dream">
+      <div class="container">
+        <div class="back-row">
+          <button class="back-btn" data-back>← Înapoi la vibe-uri</button>
+        </div>
+
+        <div class="vibe-layout">
+          <div class="vibe-left">
+            <div class="vibe-page-head">
+              <h2>Blue Dream</h2>
+              <p>
+                O lume airy, calmă și ușor rece, cu lumină albastră, oceanic soft și energie dreamy.
+              </p>
             </div>
 
-            <div class="worlds-grid reveal reveal-delay-2" id="worldOptions">
-              <button class="world-card is-selected" type="button" data-world="soft-romance">
-                <div class="choice-media">
-                  <img src="images/worlds/soft-romance/soft-romance-cover.jpg" alt="Soft Romance" />
-                </div>
-                <h3>Soft Romance</h3>
-                <p>Romantic, delicate, coquette and soft — full of blush tones and dreamy sweetness.</p>
-                <div class="swatch-row">
-                  <span class="swatch" style="background:#f4d4de;"></span>
-                  <span class="swatch" style="background:#ffdfe8;"></span>
-                  <span class="swatch" style="background:#f8eee8;"></span>
-                  <span class="swatch" style="background:#e7b7c8;"></span>
-                </div>
-              </button>
-
-              <button class="world-card" type="button" data-world="blue-dream">
-                <div class="choice-media">
-                  <img src="images/worlds/blue-dream/blue-dream-cover.jpg" alt="Blue Dream" />
-                </div>
-                <h3>Blue Dream</h3>
-                <p>Airy and soft with a beachy whisper — light, calm, dreamy and sunlit in a cooler way.</p>
-                <div class="swatch-row">
-                  <span class="swatch" style="background:#c9dff3;"></span>
-                  <span class="swatch" style="background:#a8c8e8;"></span>
-                  <span class="swatch" style="background:#ebf4fb;"></span>
-                  <span class="swatch" style="background:#d9e8f5;"></span>
-                </div>
-              </button>
-
-              <button class="world-card" type="button" data-world="dark-cherry">
-                <div class="choice-media">
-                  <img src="images/worlds/dark-cherry/dark-cherry-cover.jpg" alt="Dark Cherry" />
-                </div>
-                <h3>Dark Cherry</h3>
-                <p>Romantic in a darker way — mysterious, velvety, cherry-toned and softly dramatic.</p>
-                <div class="swatch-row">
-                  <span class="swatch" style="background:#7d3348;"></span>
-                  <span class="swatch" style="background:#9a4d63;"></span>
-                  <span class="swatch" style="background:#e7c2ca;"></span>
-                  <span class="swatch" style="background:#f4e6ea;"></span>
-                </div>
-              </button>
-
-              <button class="world-card" type="button" data-world="golden-hour">
-                <div class="choice-media">
-                  <img src="images/worlds/golden-hour/golden-hour-cover.jpg" alt="Golden Hour" />
-                </div>
-                <h3>Golden Hour</h3>
-                <p>Warm, stylish and glowing — soft golds, creamy light and a mood like midnight sun.</p>
-                <div class="swatch-row">
-                  <span class="swatch" style="background:#e9c86b;"></span>
-                  <span class="swatch" style="background:#f6ddb0;"></span>
-                  <span class="swatch" style="background:#fff4da;"></span>
-                  <span class="swatch" style="background:#d7ad53;"></span>
-                </div>
-              </button>
+            <div class="step-block">
+              <h3 class="step-title">Alege mărimea cutiei</h3>
+              <div class="option-grid three size-options" data-group="size">
+                <button class="option-card selected" data-size="Petite Box" data-price="75" data-slide="petite">
+                  <strong>Petite Box</strong>
+                  <span>75 RON · reveal delicat</span>
+                </button>
+                <button class="option-card" data-size="Signature Box" data-price="105" data-slide="signature">
+                  <strong>Signature Box</strong>
+                  <span>105 RON · experiență echilibrată</span>
+                </button>
+                <button class="option-card" data-size="Grand Box" data-price="135" data-slide="grand">
+                  <strong>Grand Box</strong>
+                  <span>135 RON · reveal bogat</span>
+                </button>
+              </div>
             </div>
 
-            <div class="world-selected-note is-visible" id="worldSelectedNote">
-              We will create something unique for you, within this world.
+            <div class="step-block">
+              <h3 class="step-title">Alege pasiunea</h3>
+              <div class="option-grid two passion-options" data-group="passion">
+                <button class="option-card selected" data-passion="Lectură">
+                  <strong>Lectură</strong>
+                  <span>visătoare și calmă</span>
+                </button>
+                <button class="option-card" data-passion="Muzică">
+                  <strong>Muzică</strong>
+                  <span>fluidă și atmospheric</span>
+                </button>
+                <button class="option-card" data-passion="Fotografie">
+                  <strong>Fotografie</strong>
+                  <span>lumină rece și compoziție</span>
+                </button>
+                <button class="option-card" data-passion="Fashion">
+                  <strong>Fashion</strong>
+                  <span>clean și modern</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="step-block">
+              <h3 class="step-title">Alege music mood</h3>
+              <div class="option-grid two mood-options" data-group="mood">
+                <button class="option-card selected" data-mood="Ambient">
+                  <strong>Ambient</strong>
+                  <span>aerisit și cinematic</span>
+                </button>
+                <button class="option-card" data-mood="Dream Pop">
+                  <strong>Dream Pop</strong>
+                  <span>fluid și soft</span>
+                </button>
+                <button class="option-card" data-mood="Indie Electronic">
+                  <strong>Indie Electronic</strong>
+                  <span>cool și curat</span>
+                </button>
+                <button class="option-card" data-mood="Lo-fi">
+                  <strong>Lo-fi</strong>
+                  <span>calm și cozy</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="vibe-right">
+            <div class="slideshow-shell">
+              <img src="images/worlds/blue-dream/blue-dream-petite.jpg" class="size-slide active" data-size-slide="petite" alt="Blue Dream Petite">
+              <img src="images/worlds/blue-dream/blue-dream-signature.jpg" class="size-slide" data-size-slide="signature" alt="Blue Dream Signature">
+              <img src="images/worlds/blue-dream/blue-dream-grand.jpg" class="size-slide" data-size-slide="grand" alt="Blue Dream Grand">
+              <div class="size-floating">Blue Dream</div>
+            </div>
+
+            <h3 class="summary-title">Rezumatul alegerilor</h3>
+
+            <div class="summary-box">
+              <div class="summary-line">
+                <span>Vibe</span>
+                <strong class="summary-vibe">Blue Dream</strong>
+              </div>
+              <div class="summary-line">
+                <span>Mărime</span>
+                <strong class="summary-size">Petite Box</strong>
+              </div>
+              <div class="summary-line">
+                <span>Pasiune</span>
+                <strong class="summary-passion">Lectură</strong>
+              </div>
+              <div class="summary-line">
+                <span>Music mood</span>
+                <strong class="summary-mood">Ambient</strong>
+              </div>
+            </div>
+
+            <div class="total-card">
+              <div class="total-row">
+                <span>Total</span>
+                <strong class="summary-total">75 RON</strong>
+              </div>
+
+              <button class="add-btn">Creează acest reveal</button>
+
+              <div class="success-box">✨ Produsul a fost adăugat în coș.</div>
+
+              <div class="post-actions">
+                <a href="#" class="secondary-btn open-cart-link">Vezi coșul</a>
+                <a href="index.html#worlds" class="outline-btn">Descoperă în continuare universul Maison Doucette</a>
+              </div>
             </div>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
 
-    <!-- PAGE 2: SOFT ROMANCE -->
-    <div class="app-page world-page" id="page-soft-romance">
-      <section>
-        <div class="container">
-          <div class="back-row">
-            <button class="back-chip" type="button" data-back="chooser">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M15 18l-6-6 6-6"></path>
-              </svg>
-              <span>Back to the vibe selection</span>
-            </button>
+    <!-- DARK CHERRY -->
+    <section class="vibe-page" id="page-dark-cherry">
+      <div class="container">
+        <div class="back-row">
+          <button class="back-btn" data-back>← Înapoi la vibe-uri</button>
+        </div>
+
+        <div class="vibe-layout">
+          <div class="vibe-left">
+            <div class="vibe-page-head">
+              <h2>Dark Cherry</h2>
+              <p>
+                O lume intensă, romantică și misterioasă, cu energie burgundy, velvet și puțin dramatică.
+              </p>
+            </div>
+
+            <div class="step-block">
+              <h3 class="step-title">Alege mărimea cutiei</h3>
+              <div class="option-grid three size-options" data-group="size">
+                <button class="option-card selected" data-size="Petite Box" data-price="75" data-slide="petite">
+                  <strong>Petite Box</strong>
+                  <span>75 RON · reveal mic și intens</span>
+                </button>
+                <button class="option-card" data-size="Signature Box" data-price="105" data-slide="signature">
+                  <strong>Signature Box</strong>
+                  <span>105 RON · experiență echilibrată</span>
+                </button>
+                <button class="option-card" data-size="Grand Box" data-price="135" data-slide="grand">
+                  <strong>Grand Box</strong>
+                  <span>135 RON · varianta wow</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="step-block">
+              <h3 class="step-title">Alege pasiunea</h3>
+              <div class="option-grid two passion-options" data-group="passion">
+                <button class="option-card selected" data-passion="Lectură">
+                  <strong>Lectură</strong>
+                  <span>dark romance și poezie</span>
+                </button>
+                <button class="option-card" data-passion="Muzică">
+                  <strong>Muzică</strong>
+                  <span>dramă și intensitate</span>
+                </button>
+                <button class="option-card" data-passion="Fotografie">
+                  <strong>Fotografie</strong>
+                  <span>contrast și shadow play</span>
+                </button>
+                <button class="option-card" data-passion="Fashion">
+                  <strong>Fashion</strong>
+                  <span>luxury, velvet, bold</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="step-block">
+              <h3 class="step-title">Alege music mood</h3>
+              <div class="option-grid two mood-options" data-group="mood">
+                <button class="option-card selected" data-mood="Alternative Pop">
+                  <strong>Alternative Pop</strong>
+                  <span>moody și magnetic</span>
+                </button>
+                <button class="option-card" data-mood="Dark Indie">
+                  <strong>Dark Indie</strong>
+                  <span>misterios și stylish</span>
+                </button>
+                <button class="option-card" data-mood="Cinematic">
+                  <strong>Cinematic</strong>
+                  <span>dramatic și amplu</span>
+                </button>
+                <button class="option-card" data-mood="R&B Soft">
+                  <strong>R&B Soft</strong>
+                  <span>catifelat și profund</span>
+                </button>
+              </div>
+            </div>
           </div>
 
-          <div class="section-shell">
-            <div class="world-banner">
-              <div class="world-banner-copy">
-                <span class="eyebrow">Soft Romance</span>
-                <h2><i>Romantic, coquette, delicate</i></h2>
-                <p>
-                  This world is all about softness, blush tones, gentle details and a quietly feminine kind of sweetness.
-                </p>
-                <p class="micro-line">
-                  Think ribbons, poetry, little keepsakes and a soft pink mood.
-                </p>
+          <div class="vibe-right">
+            <div class="slideshow-shell">
+              <img src="images/worlds/dark-cherry/dark-cherry-petite.jpg" class="size-slide active" data-size-slide="petite" alt="Dark Cherry Petite">
+              <img src="images/worlds/dark-cherry/dark-cherry-signature.jpg" class="size-slide" data-size-slide="signature" alt="Dark Cherry Signature">
+              <img src="images/worlds/dark-cherry/dark-cherry-grand.jpg" class="size-slide" data-size-slide="grand" alt="Dark Cherry Grand">
+              <div class="size-floating">Dark Cherry</div>
+            </div>
+
+            <h3 class="summary-title">Rezumatul alegerilor</h3>
+
+            <div class="summary-box">
+              <div class="summary-line">
+                <span>Vibe</span>
+                <strong class="summary-vibe">Dark Cherry</strong>
               </div>
-
-              <div class="world-banner-visual">
-                <div class="gallery-main">
-                  <img class="gallery-main-img" src="images/worlds/soft-romance/soft-romance-petite.jpg" alt="Soft Romance box preview" />
-                </div>
-
-                <div class="gallery-thumbs">
-                  <button class="gallery-thumb is-active" type="button" data-gallery-size="Petite Box">
-                    <img src="images/worlds/soft-romance/soft-romance-petite.jpg" alt="Soft Romance Petite Box" />
-                    <span>Petite</span>
-                  </button>
-                  <button class="gallery-thumb" type="button" data-gallery-size="Signature Box">
-                    <img src="images/worlds/soft-romance/soft-romance-signature.jpg" alt="Soft Romance Signature Box" />
-                    <span>Signature</span>
-                  </button>
-                  <button class="gallery-thumb" type="button" data-gallery-size="Grand Box">
-                    <img src="images/worlds/soft-romance/soft-romance-grand.jpg" alt="Soft Romance Grand Box" />
-                    <span>Grand</span>
-                  </button>
-                </div>
+              <div class="summary-line">
+                <span>Mărime</span>
+                <strong class="summary-size">Petite Box</strong>
+              </div>
+              <div class="summary-line">
+                <span>Pasiune</span>
+                <strong class="summary-passion">Lectură</strong>
+              </div>
+              <div class="summary-line">
+                <span>Music mood</span>
+                <strong class="summary-mood">Alternative Pop</strong>
               </div>
             </div>
 
-            <div class="selector-grid">
-              <div class="selector-block">
-                <h3>Choose your box size</h3>
-                <p>Start with the scale of the mystery. The price updates instantly.</p>
-
-                <div class="selector-options columns-3 size-options">
-                  <button class="pill-card is-selected" type="button" data-size="Petite Box" data-price="75">
-                    <strong>Petite Box</strong>
-                    <span>Small reveal, soft details</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-size="Signature Box" data-price="105">
-                    <strong>Signature Box</strong>
-                    <span>Most balanced experience</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-size="Grand Box" data-price="135">
-                    <strong>Grand Box</strong>
-                    <span>Richer reveal, fuller styling</span>
-                  </button>
-                </div>
-
-                <div class="price-line">
-                  <strong>Current box total</strong>
-                  <div class="price-badge">
-                    <span>Total:</span>
-                    <strong class="live-price">75 RON</strong>
-                  </div>
-                </div>
+            <div class="total-card">
+              <div class="total-row">
+                <span>Total</span>
+                <strong class="summary-total">75 RON</strong>
               </div>
 
-              <div class="selector-block">
-                <h3>Choose a passion</h3>
-                <p>Pick the little world this box leans toward.</p>
+              <button class="add-btn">Creează acest reveal</button>
 
-                <div class="selector-options columns-4 passion-options">
-                  <button class="pill-card is-selected" type="button" data-passion="Poetry">
-                    <strong>Poetry</strong>
-                    <span>Soft words, diary energy</span>
-                  </button>
+              <div class="success-box">✨ Produsul a fost adăugat în coș.</div>
 
-                  <button class="pill-card" type="button" data-passion="Photography">
-                    <strong>Photography</strong>
-                    <span>Captured moments, pretty frames</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-passion="Music">
-                    <strong>Music</strong>
-                    <span>Melodic, dreamy, sentimental</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-passion="Fashion">
-                    <strong>Fashion</strong>
-                    <span>Coquette styling, ribbons, details</span>
-                  </button>
-                </div>
+              <div class="post-actions">
+                <a href="#" class="secondary-btn open-cart-link">Vezi coșul</a>
+                <a href="index.html#worlds" class="outline-btn">Descoperă în continuare universul Maison Doucette</a>
               </div>
-
-              <div class="selector-block">
-                <h3>Choose a music mood</h3>
-                <p>Set the emotional tone of the reveal.</p>
-
-                <div class="selector-options columns-4 music-options">
-                  <button class="pill-card is-selected" type="button" data-music="Tender">
-                    <strong>Tender</strong>
-                    <span>Warm and gentle</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-music="Dreamy">
-                    <strong>Dreamy</strong>
-                    <span>Soft and floating</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-music="Romantic">
-                    <strong>Romantic</strong>
-                    <span>Sweet and intimate</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-music="Slow dance">
-                    <strong>Slow dance</strong>
-                    <span>Soft elegance</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div class="summary-card">
-              <h3>Your Soft Romance box</h3>
-
-              <div class="summary-lines">
-                <div class="summary-line">
-                  <span>World</span>
-                  <span>Soft Romance</span>
-                </div>
-
-                <div class="summary-line">
-                  <span>Box size</span>
-                  <span class="summary-size">Petite Box</span>
-                </div>
-
-                <div class="summary-line">
-                  <span>Passion</span>
-                  <span class="summary-passion">Poetry</span>
-                </div>
-
-                <div class="summary-line">
-                  <span>Music mood</span>
-                  <span class="summary-music">Tender</span>
-                </div>
-              </div>
-
-              <p class="price-total">Total: <strong class="summary-price">75 RON</strong></p>
-
-              <div class="cart-actions">
-                <button class="btn btn-primary create-box-btn" type="button" data-world="Soft Romance">Create my box</button>
-                <a class="btn btn-secondary go-cart-btn" href="cart.html">Go to cart</a>
-              </div>
-
-              <p class="tiny-finish">You won’t know the exact reveal. That is part of the romance.</p>
             </div>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
 
-    <!-- PAGE 3: BLUE DREAM -->
-    <div class="app-page world-page" id="page-blue-dream">
-      <section>
-        <div class="container">
-          <div class="back-row">
-            <button class="back-chip" type="button" data-back="chooser">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M15 18l-6-6 6-6"></path>
-              </svg>
-              <span>Back to the vibe selection</span>
-            </button>
+    <!-- GOLDEN HOUR -->
+    <section class="vibe-page" id="page-golden-hour">
+      <div class="container">
+        <div class="back-row">
+          <button class="back-btn" data-back>← Înapoi la vibe-uri</button>
+        </div>
+
+        <div class="vibe-layout">
+          <div class="vibe-left">
+            <div class="vibe-page-head">
+              <h2>Golden Hour</h2>
+              <p>
+                O lume luminoasă, stylish și caldă, cu energie de apus, aur și eleganță subtilă.
+              </p>
+            </div>
+
+            <div class="step-block">
+              <h3 class="step-title">Alege mărimea cutiei</h3>
+              <div class="option-grid three size-options" data-group="size">
+                <button class="option-card selected" data-size="Petite Box" data-price="75" data-slide="petite">
+                  <strong>Petite Box</strong>
+                  <span>75 RON · reveal mic și solar</span>
+                </button>
+                <button class="option-card" data-size="Signature Box" data-price="105" data-slide="signature">
+                  <strong>Signature Box</strong>
+                  <span>105 RON · experiență luminoasă</span>
+                </button>
+                <button class="option-card" data-size="Grand Box" data-price="135" data-slide="grand">
+                  <strong>Grand Box</strong>
+                  <span>135 RON · varianta radiantă</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="step-block">
+              <h3 class="step-title">Alege pasiunea</h3>
+              <div class="option-grid two passion-options" data-group="passion">
+                <button class="option-card selected" data-passion="Lectură">
+                  <strong>Lectură</strong>
+                  <span>calmă, poetică, solară</span>
+                </button>
+                <button class="option-card" data-passion="Muzică">
+                  <strong>Muzică</strong>
+                  <span>bright și cinematic</span>
+                </button>
+                <button class="option-card" data-passion="Fotografie">
+                  <strong>Fotografie</strong>
+                  <span>golden light și glow</span>
+                </button>
+                <button class="option-card" data-passion="Fashion">
+                  <strong>Fashion</strong>
+                  <span>elegant și editorial</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="step-block">
+              <h3 class="step-title">Alege music mood</h3>
+              <div class="option-grid two mood-options" data-group="mood">
+                <button class="option-card selected" data-mood="Indie Pop">
+                  <strong>Indie Pop</strong>
+                  <span>light și warm</span>
+                </button>
+                <button class="option-card" data-mood="Cinematic">
+                  <strong>Cinematic</strong>
+                  <span>grand și luminous</span>
+                </button>
+                <button class="option-card" data-mood="Soul Soft">
+                  <strong>Soul Soft</strong>
+                  <span>catifelat și elegant</span>
+                </button>
+                <button class="option-card" data-mood="Acoustic Glow">
+                  <strong>Acoustic Glow</strong>
+                  <span>cald și blând</span>
+                </button>
+              </div>
+            </div>
           </div>
 
-          <div class="section-shell">
-            <div class="world-banner">
-              <div class="world-banner-copy">
-                <span class="eyebrow">Blue Dream</span>
-                <h2><i>Airy, soft, lightly beachy</i></h2>
-                <p>
-                  Calm blues, pale light and a dreamy freshness — like a quiet shore, soft linen and the gentlest breeze.
-                </p>
-                <p class="micro-line">
-                  Think sea glass, clouds, light photography and music that feels open and airy.
-                </p>
+          <div class="vibe-right">
+            <div class="slideshow-shell">
+              <img src="images/worlds/golden-hour/golden-hour-petite.jpg" class="size-slide active" data-size-slide="petite" alt="Golden Hour Petite">
+              <img src="images/worlds/golden-hour/golden-hour-signature.jpg" class="size-slide" data-size-slide="signature" alt="Golden Hour Signature">
+              <img src="images/worlds/golden-hour/golden-hour-grand.jpg" class="size-slide" data-size-slide="grand" alt="Golden Hour Grand">
+              <div class="size-floating">Golden Hour</div>
+            </div>
+
+            <h3 class="summary-title">Rezumatul alegerilor</h3>
+
+            <div class="summary-box">
+              <div class="summary-line">
+                <span>Vibe</span>
+                <strong class="summary-vibe">Golden Hour</strong>
               </div>
-
-              <div class="world-banner-visual">
-                <div class="gallery-main">
-                  <img class="gallery-main-img" src="images/worlds/blue-dream/blue-dream-petite.jpg" alt="Blue Dream box preview" />
-                </div>
-
-                <div class="gallery-thumbs">
-                  <button class="gallery-thumb is-active" type="button" data-gallery-size="Petite Box">
-                    <img src="images/worlds/blue-dream/blue-dream-petite.jpg" alt="Blue Dream Petite Box" />
-                    <span>Petite</span>
-                  </button>
-                  <button class="gallery-thumb" type="button" data-gallery-size="Signature Box">
-                    <img src="images/worlds/blue-dream/blue-dream-signature.jpg" alt="Blue Dream Signature Box" />
-                    <span>Signature</span>
-                  </button>
-                  <button class="gallery-thumb" type="button" data-gallery-size="Grand Box">
-                    <img src="images/worlds/blue-dream/blue-dream-grand.jpg" alt="Blue Dream Grand Box" />
-                    <span>Grand</span>
-                  </button>
-                </div>
+              <div class="summary-line">
+                <span>Mărime</span>
+                <strong class="summary-size">Petite Box</strong>
+              </div>
+              <div class="summary-line">
+                <span>Pasiune</span>
+                <strong class="summary-passion">Lectură</strong>
+              </div>
+              <div class="summary-line">
+                <span>Music mood</span>
+                <strong class="summary-mood">Indie Pop</strong>
               </div>
             </div>
 
-            <div class="selector-grid">
-              <div class="selector-block">
-                <h3>Choose your box size</h3>
-                <p>The price updates as soon as you change the size.</p>
-
-                <div class="selector-options columns-3 size-options">
-                  <button class="pill-card is-selected" type="button" data-size="Petite Box" data-price="75">
-                    <strong>Petite Box</strong>
-                    <span>Light and delicate</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-size="Signature Box" data-price="105">
-                    <strong>Signature Box</strong>
-                    <span>Balanced and dreamy</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-size="Grand Box" data-price="135">
-                    <strong>Grand Box</strong>
-                    <span>More styling, fuller reveal</span>
-                  </button>
-                </div>
-
-                <div class="price-line">
-                  <strong>Current box total</strong>
-                  <div class="price-badge">
-                    <span>Total:</span>
-                    <strong class="live-price">75 RON</strong>
-                  </div>
-                </div>
+            <div class="total-card">
+              <div class="total-row">
+                <span>Total</span>
+                <strong class="summary-total">75 RON</strong>
               </div>
 
-              <div class="selector-block">
-                <h3>Choose a passion</h3>
-                <p>Let the box drift toward one little inspiration.</p>
+              <button class="add-btn">Creează acest reveal</button>
 
-                <div class="selector-options columns-4 passion-options">
-                  <button class="pill-card is-selected" type="button" data-passion="Photography">
-                    <strong>Photography</strong>
-                    <span>Cool light, sea-glass moments</span>
-                  </button>
+              <div class="success-box">✨ Produsul a fost adăugat în coș.</div>
 
-                  <button class="pill-card" type="button" data-passion="Music">
-                    <strong>Music</strong>
-                    <span>Airy, open, floating</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-passion="Reading">
-                    <strong>Reading</strong>
-                    <span>Quiet pages, slow afternoons</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-passion="Fashion">
-                    <strong>Fashion</strong>
-                    <span>Soft linen, coastal lightness</span>
-                  </button>
-                </div>
+              <div class="post-actions">
+                <a href="#" class="secondary-btn open-cart-link">Vezi coșul</a>
+                <a href="index.html#worlds" class="outline-btn">Descoperă în continuare universul Maison Doucette</a>
               </div>
-
-              <div class="selector-block">
-                <h3>Choose a music mood</h3>
-                <p>Keep the tone cool, soft and expansive.</p>
-
-                <div class="selector-options columns-4 music-options">
-                  <button class="pill-card is-selected" type="button" data-music="Floating">
-                    <strong>Floating</strong>
-                    <span>Weightless and airy</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-music="Sea breeze">
-                    <strong>Sea breeze</strong>
-                    <span>Fresh, soft, open</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-music="Daydream">
-                    <strong>Daydream</strong>
-                    <span>Light and distant</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-music="Sunlit calm">
-                    <strong>Sunlit calm</strong>
-                    <span>Quiet brightness</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div class="summary-card">
-              <h3>Your Blue Dream box</h3>
-
-              <div class="summary-lines">
-                <div class="summary-line">
-                  <span>World</span>
-                  <span>Blue Dream</span>
-                </div>
-
-                <div class="summary-line">
-                  <span>Box size</span>
-                  <span class="summary-size">Petite Box</span>
-                </div>
-
-                <div class="summary-line">
-                  <span>Passion</span>
-                  <span class="summary-passion">Photography</span>
-                </div>
-
-                <div class="summary-line">
-                  <span>Music mood</span>
-                  <span class="summary-music">Floating</span>
-                </div>
-              </div>
-
-              <p class="price-total">Total: <strong class="summary-price">75 RON</strong></p>
-
-              <div class="cart-actions">
-                <button class="btn btn-primary create-box-btn" type="button" data-world="Blue Dream">Create my box</button>
-                <a class="btn btn-secondary go-cart-btn" href="cart.html">Go to cart</a>
-              </div>
-
-              <p class="tiny-finish">This one should feel like a soft horizon you can hold.</p>
             </div>
           </div>
         </div>
-      </section>
-    </div>
-
-    <!-- PAGE 4: DARK CHERRY -->
-    <div class="app-page world-page" id="page-dark-cherry">
-      <section>
-        <div class="container">
-          <div class="back-row">
-            <button class="back-chip" type="button" data-back="chooser">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M15 18l-6-6 6-6"></path>
-              </svg>
-              <span>Back to the vibe selection</span>
-            </button>
-          </div>
-
-          <div class="section-shell">
-            <div class="world-banner">
-              <div class="world-banner-copy">
-                <span class="eyebrow">Dark Cherry</span>
-                <h2><i>Mysterious, romantic, cherry-toned</i></h2>
-                <p>
-                  Deep burgundy light, soft drama and a more secretive kind of romance — intimate, rich and quietly magnetic.
-                </p>
-                <p class="micro-line">
-                  Think velvet ribbons, cherry notes, low light, longing and beautiful little secrets.
-                </p>
-              </div>
-
-              <div class="world-banner-visual">
-                <div class="gallery-main">
-                  <img class="gallery-main-img" src="images/worlds/dark-cherry/dark-cherry-petite.jpg" alt="Dark Cherry box preview" />
-                </div>
-
-                <div class="gallery-thumbs">
-                  <button class="gallery-thumb is-active" type="button" data-gallery-size="Petite Box">
-                    <img src="images/worlds/dark-cherry/dark-cherry-petite.jpg" alt="Dark Cherry Petite Box" />
-                    <span>Petite</span>
-                  </button>
-                  <button class="gallery-thumb" type="button" data-gallery-size="Signature Box">
-                    <img src="images/worlds/dark-cherry/dark-cherry-signature.jpg" alt="Dark Cherry Signature Box" />
-                    <span>Signature</span>
-                  </button>
-                  <button class="gallery-thumb" type="button" data-gallery-size="Grand Box">
-                    <img src="images/worlds/dark-cherry/dark-cherry-grand.jpg" alt="Dark Cherry Grand Box" />
-                    <span>Grand</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div class="selector-grid">
-              <div class="selector-block">
-                <h3>Choose your box size</h3>
-                <p>The price updates the moment you change the reveal size.</p>
-
-                <div class="selector-options columns-3 size-options">
-                  <button class="pill-card is-selected" type="button" data-size="Petite Box" data-price="75">
-                    <strong>Petite Box</strong>
-                    <span>Subtle, rich, intimate</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-size="Signature Box" data-price="105">
-                    <strong>Signature Box</strong>
-                    <span>The most balanced mystery</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-size="Grand Box" data-price="135">
-                    <strong>Grand Box</strong>
-                    <span>More layers, more drama</span>
-                  </button>
-                </div>
-
-                <div class="price-line">
-                  <strong>Current box total</strong>
-                  <div class="price-badge">
-                    <span>Total:</span>
-                    <strong class="live-price">75 RON</strong>
-                  </div>
-                </div>
-              </div>
-
-              <div class="selector-block">
-                <h3>Choose a passion</h3>
-                <p>Give the box a richer point of gravity.</p>
-
-                <div class="selector-options columns-4 passion-options">
-                  <button class="pill-card is-selected" type="button" data-passion="Music">
-                    <strong>Music</strong>
-                    <span>Velvet mood, dark romance</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-passion="Photography">
-                    <strong>Photography</strong>
-                    <span>Low light, cherry tones</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-passion="Reading">
-                    <strong>Reading</strong>
-                    <span>Midnight pages, hidden notes</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-passion="Fashion">
-                    <strong>Fashion</strong>
-                    <span>Velvet bows, rich silhouettes</span>
-                  </button>
-                </div>
-              </div>
-
-              <div class="selector-block">
-                <h3>Choose a music mood</h3>
-                <p>Keep it romantic, but with shadow and depth.</p>
-
-                <div class="selector-options columns-4 music-options">
-                  <button class="pill-card is-selected" type="button" data-music="Velvet">
-                    <strong>Velvet</strong>
-                    <span>Soft and dark</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-music="Cherry glow">
-                    <strong>Cherry glow</strong>
-                    <span>Warm but mysterious</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-music="After dark">
-                    <strong>After dark</strong>
-                    <span>Romantic with shadow</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-music="Slow burn">
-                    <strong>Slow burn</strong>
-                    <span>Deep and intimate</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div class="summary-card">
-              <h3>Your Dark Cherry box</h3>
-
-              <div class="summary-lines">
-                <div class="summary-line">
-                  <span>World</span>
-                  <span>Dark Cherry</span>
-                </div>
-
-                <div class="summary-line">
-                  <span>Box size</span>
-                  <span class="summary-size">Petite Box</span>
-                </div>
-
-                <div class="summary-line">
-                  <span>Passion</span>
-                  <span class="summary-passion">Music</span>
-                </div>
-
-                <div class="summary-line">
-                  <span>Music mood</span>
-                  <span class="summary-music">Velvet</span>
-                </div>
-              </div>
-
-              <p class="price-total">Total: <strong class="summary-price">75 RON</strong></p>
-
-              <div class="cart-actions">
-                <button class="btn btn-primary create-box-btn" type="button" data-world="Dark Cherry">Create my box</button>
-                <a class="btn btn-secondary go-cart-btn" href="cart.html">Go to cart</a>
-              </div>
-
-              <p class="tiny-finish">Some boxes should feel like a secret you almost keep to yourself.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- PAGE 5: GOLDEN HOUR -->
-    <div class="app-page world-page" id="page-golden-hour">
-      <section>
-        <div class="container">
-          <div class="back-row">
-            <button class="back-chip" type="button" data-back="chooser">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M15 18l-6-6 6-6"></path>
-              </svg>
-              <span>Back to the vibe selection</span>
-            </button>
-          </div>
-
-          <div class="section-shell">
-            <div class="world-banner">
-              <div class="world-banner-copy">
-                <span class="eyebrow">Golden Hour</span>
-                <h2><i>Stylish, warm, like midnight sun</i></h2>
-                <p>
-                  This world glows. It should feel polished, warm, a little cinematic and softly radiant — like the golden part of a memory.
-                </p>
-                <p class="micro-line">
-                  Think honey light, elegant styling, warmth on skin and a sun that lingers longer than expected.
-                </p>
-              </div>
-
-              <div class="world-banner-visual">
-                <div class="gallery-main">
-                  <img class="gallery-main-img" src="images/worlds/golden-hour/golden-hour-petite.jpg" alt="Golden Hour box preview" />
-                </div>
-
-                <div class="gallery-thumbs">
-                  <button class="gallery-thumb is-active" type="button" data-gallery-size="Petite Box">
-                    <img src="images/worlds/golden-hour/golden-hour-petite.jpg" alt="Golden Hour Petite Box" />
-                    <span>Petite</span>
-                  </button>
-                  <button class="gallery-thumb" type="button" data-gallery-size="Signature Box">
-                    <img src="images/worlds/golden-hour/golden-hour-signature.jpg" alt="Golden Hour Signature Box" />
-                    <span>Signature</span>
-                  </button>
-                  <button class="gallery-thumb" type="button" data-gallery-size="Grand Box">
-                    <img src="images/worlds/golden-hour/golden-hour-grand.jpg" alt="Golden Hour Grand Box" />
-                    <span>Grand</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div class="selector-grid">
-              <div class="selector-block">
-                <h3>Choose your box size</h3>
-                <p>The total changes with the size you choose.</p>
-
-                <div class="selector-options columns-3 size-options">
-                  <button class="pill-card is-selected" type="button" data-size="Petite Box" data-price="75">
-                    <strong>Petite Box</strong>
-                    <span>Warm and softly styled</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-size="Signature Box" data-price="105">
-                    <strong>Signature Box</strong>
-                    <span>Our most balanced glow</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-size="Grand Box" data-price="135">
-                    <strong>Grand Box</strong>
-                    <span>Fuller styling, richer reveal</span>
-                  </button>
-                </div>
-
-                <div class="price-line">
-                  <strong>Current box total</strong>
-                  <div class="price-badge">
-                    <span>Total:</span>
-                    <strong class="live-price">75 RON</strong>
-                  </div>
-                </div>
-              </div>
-
-              <div class="selector-block">
-                <h3>Choose a passion</h3>
-                <p>Give the warmth a direction.</p>
-
-                <div class="selector-options columns-4 passion-options">
-                  <button class="pill-card is-selected" type="button" data-passion="Fashion">
-                    <strong>Fashion</strong>
-                    <span>Stylish, polished, sunlit</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-passion="Photography">
-                    <strong>Photography</strong>
-                    <span>Golden frames, light on skin</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-passion="Music">
-                    <strong>Music</strong>
-                    <span>Warm and cinematic</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-passion="Reading">
-                    <strong>Reading</strong>
-                    <span>Late sun, slow chapters</span>
-                  </button>
-                </div>
-              </div>
-
-              <div class="selector-block">
-                <h3>Choose a music mood</h3>
-                <p>Let it glow like a song you never want to end.</p>
-
-                <div class="selector-options columns-4 music-options">
-                  <button class="pill-card is-selected" type="button" data-music="Midnight sun">
-                    <strong>Midnight sun</strong>
-                    <span>Warm, cinematic, glowing</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-music="Golden">
-                    <strong>Golden</strong>
-                    <span>Bright and honey-soft</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-music="Radiant">
-                    <strong>Radiant</strong>
-                    <span>Elegant warmth</span>
-                  </button>
-
-                  <button class="pill-card" type="button" data-music="Soft summer">
-                    <strong>Soft summer</strong>
-                    <span>Light that lingers</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div class="summary-card">
-              <h3>Your Golden Hour box</h3>
-
-              <div class="summary-lines">
-                <div class="summary-line">
-                  <span>World</span>
-                  <span>Golden Hour</span>
-                </div>
-
-                <div class="summary-line">
-                  <span>Box size</span>
-                  <span class="summary-size">Petite Box</span>
-                </div>
-
-                <div class="summary-line">
-                  <span>Passion</span>
-                  <span class="summary-passion">Fashion</span>
-                </div>
-
-                <div class="summary-line">
-                  <span>Music mood</span>
-                  <span class="summary-music">Midnight sun</span>
-                </div>
-              </div>
-
-              <p class="price-total">Total: <strong class="summary-price">75 RON</strong></p>
-
-              <div class="cart-actions">
-                <button class="btn btn-primary create-box-btn" type="button" data-world="Golden Hour">Create my box</button>
-                <a class="btn btn-secondary go-cart-btn" href="cart.html">Go to cart</a>
-              </div>
-
-              <p class="tiny-finish">This one should feel like warmth dressed beautifully.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+      </div>
+    </section>
   </main>
 
-  <footer class="footer reveal" id="contact">
+  <footer class="footer reveal-up">
     <div class="container footer-grid">
-      <div class="footer-card reveal reveal-delay-1">
-        <span class="eyebrow">Contact</span>
-        <h3>Let’s create something lovely</h3>
+      <div class="footer-card reveal-up">
+        <h3>Hai să creăm ceva frumos</h3>
         <p>
-          For custom requests, collaborations or questions about an order, feel free to get in touch.
+          Pentru întrebări, idei sau comenzi personalizate, ne poți scrie și îți răspundem cu drag.
         </p>
       </div>
 
-      <div class="footer-card reveal reveal-delay-2">
+      <div class="footer-card reveal-up">
         <div class="contact-list">
           <div><strong>Instagram:</strong> maison.doucette</div>
-          <div><strong>Email:</strong> hello@maisondoucette.com</div>
-          <div><strong>Phone:</strong> 0754233314 | 0749765214</div>
-          <div><strong>Location:</strong> Galati, Romania</div>
+          <div><strong>Email:</strong> maisondoucette.dd@gmail.com</div>
+          <div><strong>Telefon:</strong> 0754233314 | 0749765214</div>
+          <div><strong>Locație:</strong> Galați, România</div>
         </div>
       </div>
     </div>
-    <div class="container tiny-note">© Maison Doucette — handmade with love.</div>
+
+    <div class="container tiny-note">© Maison Doucette — handmade cu drag.</div>
   </footer>
 
+  <div class="cart-overlay" id="cartOverlay"></div>
+
+  <aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+    <div class="cart-head">
+      <h3>Coșul tău</h3>
+      <button class="cart-close" id="cartCloseBtn" aria-label="Închide coșul">×</button>
+    </div>
+
+    <div class="cart-body" id="cartBody"></div>
+
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total estimat</span>
+        <strong id="cartTotal">0 RON</strong>
+      </div>
+
+      <div class="cart-actions">
+        <a href="checkout.html" class="cart-primary">Continuă spre checkout</a>
+        <button class="cart-secondary" id="continueShoppingBtn">Continuă cumpărăturile</button>
+      </div>
+    </div>
+  </aside>
+
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+  <aside class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-head">
+      <div class="mobile-menu-title">Maison Doucette</div>
+      <button class="mobile-close" id="mobileMenuCloseBtn">×</button>
+    </div>
+
+    <a href="index.html#home" class="mobile-link">Acasă</a>
+    <a href="index.html#worlds" class="mobile-link">Cumpără acum</a>
+    <a href="index.html#atelier" class="mobile-link">Atelierul Maison Doucette</a>
+    <a href="#vibe-selector" class="mobile-link">Secretul Maison</a>
+    <a href="index.html#contact" class="mobile-link">Contact</a>
+  </aside>
+
   <script>
-    const siteHeader = document.getElementById("siteHeader");
-    const cursorGlow = document.getElementById("cursorGlow");
-    const cartCount = document.getElementById("cart-count");
-    const revealItems = document.querySelectorAll(".reveal");
-    const heroPreview = document.getElementById("heroPreview");
-    const worldCards = document.querySelectorAll(".world-card");
-    const appPages = document.querySelectorAll(".app-page");
-    const backButtons = document.querySelectorAll("[data-back='chooser']");
-    const worldSelectedNote = document.getElementById("worldSelectedNote");
+    const cartKey = 'cart';
 
-    const worldConfig = {
-      "soft-romance": {
-        bodyClass: "theme-soft-romance",
-        hero: "images/worlds/soft-romance/soft-romance-1.jpg",
-        pageId: "page-soft-romance",
-        gallery: {
-          "Petite Box": "images/worlds/soft-romance/soft-romance-petite.jpg",
-          "Signature Box": "images/worlds/soft-romance/soft-romance-signature.jpg",
-          "Grand Box": "images/worlds/soft-romance/soft-romance-grand.jpg"
-        }
-      },
-      "blue-dream": {
-        bodyClass: "theme-blue-dream",
-        hero: "images/worlds/blue-dream/blue-dream-1.jpg",
-        pageId: "page-blue-dream",
-        gallery: {
-          "Petite Box": "images/worlds/blue-dream/blue-dream-petite.jpg",
-          "Signature Box": "images/worlds/blue-dream/blue-dream-signature.jpg",
-          "Grand Box": "images/worlds/blue-dream/blue-dream-grand.jpg"
-        }
-      },
-      "dark-cherry": {
-        bodyClass: "theme-dark-cherry",
-        hero: "images/worlds/dark-cherry/dark-cherry-1.jpg",
-        pageId: "page-dark-cherry",
-        gallery: {
-          "Petite Box": "images/worlds/dark-cherry/dark-cherry-petite.jpg",
-          "Signature Box": "images/worlds/dark-cherry/dark-cherry-signature.jpg",
-          "Grand Box": "images/worlds/dark-cherry/dark-cherry-grand.jpg"
-        }
-      },
-      "golden-hour": {
-        bodyClass: "theme-golden-hour",
-        hero: "images/worlds/golden-hour/golden-hour-1.jpg",
-        pageId: "page-golden-hour",
-        gallery: {
-          "Petite Box": "images/worlds/golden-hour/golden-hour-petite.jpg",
-          "Signature Box": "images/worlds/golden-hour/golden-hour-signature.jpg",
-          "Grand Box": "images/worlds/golden-hour/golden-hour-grand.jpg"
-        }
-      }
-    };
+    const cartOpenBtn = document.getElementById('cartOpenBtn');
+    const mobileCartOpenBtn = document.getElementById('mobileCartOpenBtn');
+    const cartCloseBtn = document.getElementById('cartCloseBtn');
+    const cartOverlay = document.getElementById('cartOverlay');
+    const cartDrawer = document.getElementById('cartDrawer');
+    const cartBody = document.getElementById('cartBody');
+    const cartTotal = document.getElementById('cartTotal');
+    const cartCount = document.getElementById('cart-count');
+    const mobileCartCount = document.getElementById('mobile-cart-count');
+    const continueShoppingBtn = document.getElementById('continueShoppingBtn');
 
-    function handleHeaderShadow() {
-      if (window.scrollY > 14) {
-        siteHeader.classList.add("scrolled");
-      } else {
-        siteHeader.classList.remove("scrolled");
+    const mobileMenuOpenBtn = document.getElementById('mobileMenuOpenBtn');
+    const mobileMenuCloseBtn = document.getElementById('mobileMenuCloseBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+
+    const revealItems = document.querySelectorAll('.reveal-up, .reveal-soft');
+    const cursorGlow = document.getElementById('cursorGlow');
+
+    const vibeCards = document.querySelectorAll('.vibe-card');
+    const vibePages = document.querySelectorAll('.vibe-page');
+    const backButtons = document.querySelectorAll('[data-back]');
+    const vibeSelectorSection = document.getElementById('vibe-selector');
+
+    function getCart() {
+      try {
+        return JSON.parse(localStorage.getItem(cartKey)) || [];
+      } catch {
+        return [];
       }
     }
 
-    function updateCartCount() {
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    function setCart(cart) {
+      localStorage.setItem(cartKey, JSON.stringify(cart));
+    }
+
+    function formatPrice(value) {
+      return `${Number(value).toFixed(0)} RON`;
+    }
+
+    function updateCartBadge() {
+      const cart = getCart();
+      const totalQty = cart.reduce((sum, item) => sum + Number(item.quantity || 1), 0);
+
+      if (cartCount) {
+        cartCount.textContent = totalQty;
+        cartCount.style.display = totalQty === 0 ? 'none' : 'flex';
+      }
+
+      if (mobileCartCount) {
+        mobileCartCount.textContent = totalQty;
+        mobileCartCount.style.display = totalQty === 0 ? 'none' : 'flex';
+      }
+    }
+
+    function renderCart() {
+      const cart = getCart();
+      updateCartBadge();
+
+      if (!cart.length) {
+        cartBody.innerHTML = `
+          <div class="cart-empty">
+            Coșul este gol momentan. Alege un reveal și el va apărea aici.
+          </div>
+        `;
+        cartTotal.textContent = formatPrice(0);
+        return;
+      }
+
       let total = 0;
 
-      cart.forEach(item => {
-        total += Number(item.quantity || 1);
-      });
+      cartBody.innerHTML = cart.map((item, index) => {
+        const qty = Number(item.quantity || 1);
+        const price = Number(item.price || 0);
+        const lineTotal = qty * price;
+        total += lineTotal;
 
-      if (!cartCount) return;
-      cartCount.textContent = total;
-      cartCount.style.display = total === 0 ? "none" : "flex";
+        const details = item.details || [];
+        const detailsHtml = details.length
+          ? details.map(detail => `<div>${detail}</div>`).join('')
+          : '';
+
+        const image = item.image || 'images/placeholder-product.jpg';
+
+        return `
+          <div class="cart-item">
+            <img src="${image}" alt="${item.name}">
+            <div>
+              <h4>${item.name}</h4>
+              <div class="cart-meta">${detailsHtml}</div>
+              <div class="qty-row">
+                <button class="qty-btn" onclick="changeQuantity(${index}, -1)">−</button>
+                <div class="qty-value">${qty}</div>
+                <button class="qty-btn" onclick="changeQuantity(${index}, 1)">+</button>
+              </div>
+              <div class="cart-price">${formatPrice(lineTotal)}</div>
+            </div>
+            <button class="cart-remove" onclick="removeCartItem(${index})" aria-label="Șterge produsul">🗑</button>
+          </div>
+        `;
+      }).join('');
+
+      cartTotal.textContent = formatPrice(total);
     }
 
-    function setTheme(worldKey) {
-      document.body.classList.remove(
-        "theme-soft-romance",
-        "theme-blue-dream",
-        "theme-dark-cherry",
-        "theme-golden-hour"
-      );
-
-      document.body.classList.add(worldConfig[worldKey].bodyClass);
-      if (heroPreview) heroPreview.src = worldConfig[worldKey].hero;
+    function openCart() {
+      renderCart();
+      cartDrawer.classList.add('open');
+      cartOverlay.classList.add('open');
+      cartDrawer.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
     }
 
-    function showPage(pageId) {
-      appPages.forEach(page => page.classList.remove("is-visible"));
-      document.getElementById(pageId).classList.add("is-visible");
-      window.scrollTo({ top: 0, behavior: "smooth" });
+    function closeCart() {
+      cartDrawer.classList.remove('open');
+      cartOverlay.classList.remove('open');
+      cartDrawer.setAttribute('aria-hidden', 'true');
+      if (!mobileMenu.classList.contains('open')) {
+        document.body.style.overflow = '';
+      }
     }
 
-    worldCards.forEach(card => {
-      card.addEventListener("click", () => {
-        worldCards.forEach(item => item.classList.remove("is-selected"));
-        card.classList.add("is-selected");
+    function removeCartItem(index) {
+      const cart = getCart();
+      cart.splice(index, 1);
+      setCart(cart);
+      renderCart();
+    }
 
-        const worldKey = card.dataset.world;
-        setTheme(worldKey);
+    function changeQuantity(index, delta) {
+      const cart = getCart();
+      if (!cart[index]) return;
 
-        worldSelectedNote.textContent = "We will create something unique for you, within this world.";
-        worldSelectedNote.classList.add("is-visible");
+      cart[index].quantity = Number(cart[index].quantity || 1) + delta;
 
-        setTimeout(() => {
-          showPage(worldConfig[worldKey].pageId);
-        }, 120);
-      });
-    });
-
-    backButtons.forEach(button => {
-      button.addEventListener("click", () => {
-        showPage("page-chooser");
-      });
-    });
-
-    function syncGallery(section, sizeLabel) {
-      const worldSectionId = section.id.replace("page-", "");
-      const galleryMap = worldConfig[worldSectionId].gallery;
-      const mainImg = section.querySelector(".gallery-main-img");
-      const thumbs = section.querySelectorAll(".gallery-thumb");
-
-      if (mainImg && galleryMap[sizeLabel]) {
-        mainImg.src = galleryMap[sizeLabel];
+      if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
       }
 
-      thumbs.forEach(thumb => {
-        thumb.classList.toggle("is-active", thumb.dataset.gallerySize === sizeLabel);
-      });
+      setCart(cart);
+      renderCart();
     }
 
-    function setupSelectorGroup(section) {
-      const sizeCards = section.querySelectorAll(".size-options .pill-card");
-      const passionCards = section.querySelectorAll(".passion-options .pill-card");
-      const musicCards = section.querySelectorAll(".music-options .pill-card");
-      const galleryThumbs = section.querySelectorAll(".gallery-thumb");
+    function openMobileMenu() {
+      mobileMenu.classList.add('open');
+      mobileMenuOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
 
-      const livePrice = section.querySelector(".live-price");
-      const summarySize = section.querySelector(".summary-size");
-      const summaryPassion = section.querySelector(".summary-passion");
-      const summaryMusic = section.querySelector(".summary-music");
-      const summaryPrice = section.querySelector(".summary-price");
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('open');
+      mobileMenuOverlay.classList.remove('open');
+      if (!cartDrawer.classList.contains('open')) {
+        document.body.style.overflow = '';
+      }
+    }
 
-      const createBtn = section.querySelector(".create-box-btn");
-      const goCartBtn = section.querySelector(".go-cart-btn");
+    window.removeCartItem = removeCartItem;
+    window.changeQuantity = changeQuantity;
 
-      sizeCards.forEach(card => {
-        card.addEventListener("click", () => {
-          sizeCards.forEach(item => item.classList.remove("is-selected"));
-          card.classList.add("is-selected");
+    cartOpenBtn?.addEventListener('click', openCart);
+    mobileCartOpenBtn?.addEventListener('click', openCart);
+    cartCloseBtn?.addEventListener('click', closeCart);
+    cartOverlay?.addEventListener('click', closeCart);
+    continueShoppingBtn?.addEventListener('click', closeCart);
 
-          const size = card.dataset.size;
-          const price = card.dataset.price;
+    mobileMenuOpenBtn?.addEventListener('click', openMobileMenu);
+    mobileMenuCloseBtn?.addEventListener('click', closeMobileMenu);
+    mobileMenuOverlay?.addEventListener('click', closeMobileMenu);
 
-          summarySize.textContent = size;
-          livePrice.textContent = `${price} RON`;
-          summaryPrice.textContent = `${price} RON`;
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
 
-          syncGallery(section, size);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeCart();
+        closeMobileMenu();
+      }
+    });
+
+    function hideAllVibePages() {
+      vibePages.forEach(page => page.classList.remove('active'));
+      document.body.classList.remove(
+        'vibe-soft-romance',
+        'vibe-blue-dream',
+        'vibe-dark-cherry',
+        'vibe-golden-hour'
+      );
+    }
+
+    function openVibePage(vibe) {
+      hideAllVibePages();
+      const page = document.getElementById(`page-${vibe}`);
+      if (!page) return;
+
+      page.classList.add('active');
+
+      if (vibe === 'soft-romance') document.body.classList.add('vibe-soft-romance');
+      if (vibe === 'blue-dream') document.body.classList.add('vibe-blue-dream');
+      if (vibe === 'dark-cherry') document.body.classList.add('vibe-dark-cherry');
+      if (vibe === 'golden-hour') document.body.classList.add('vibe-golden-hour');
+
+      page.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    vibeCards.forEach(card => {
+      card.addEventListener('click', () => {
+        openVibePage(card.dataset.vibe);
+      });
+    });
+
+    backButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        hideAllVibePages();
+        vibeSelectorSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    function setupVibePage(pageId, config) {
+      const page = document.getElementById(pageId);
+      if (!page) return;
+
+      const sizeButtons = page.querySelectorAll('.size-options .option-card');
+      const passionButtons = page.querySelectorAll('.passion-options .option-card');
+      const moodButtons = page.querySelectorAll('.mood-options .option-card');
+      const slides = page.querySelectorAll('.size-slide');
+
+      const summaryVibe = page.querySelector('.summary-vibe');
+      const summarySize = page.querySelector('.summary-size');
+      const summaryPassion = page.querySelector('.summary-passion');
+      const summaryMood = page.querySelector('.summary-mood');
+      const summaryTotal = page.querySelector('.summary-total');
+
+      const addBtn = page.querySelector('.add-btn');
+      const successBox = page.querySelector('.success-box');
+      const postActions = page.querySelector('.post-actions');
+      const openCartLink = page.querySelector('.open-cart-link');
+
+      const state = {
+        vibe: config.vibeName,
+        size: 'Petite Box',
+        price: 75,
+        passion: 'Lectură',
+        mood: config.defaultMood
+      };
+
+      function selectOne(buttons, selectedButton) {
+        buttons.forEach(btn => btn.classList.remove('selected'));
+        selectedButton.classList.add('selected');
+      }
+
+      function updateSlides(slideKey) {
+        slides.forEach(slide => {
+          slide.classList.toggle('active', slide.dataset.sizeSlide === slideKey);
+        });
+      }
+
+      function renderSummary() {
+        summaryVibe.textContent = state.vibe;
+        summarySize.textContent = state.size;
+        summaryPassion.textContent = state.passion;
+        summaryMood.textContent = state.mood;
+        summaryTotal.textContent = formatPrice(state.price);
+      }
+
+      sizeButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          selectOne(sizeButtons, btn);
+          state.size = btn.dataset.size;
+          state.price = Number(btn.dataset.price);
+          updateSlides(btn.dataset.slide);
+          renderSummary();
         });
       });
 
-      galleryThumbs.forEach(thumb => {
-        thumb.addEventListener("click", () => {
-          const selectedSize = thumb.dataset.gallerySize;
-          const matchingSizeCard = [...sizeCards].find(card => card.dataset.size === selectedSize);
-          if (matchingSizeCard) {
-            matchingSizeCard.click();
-          }
+      passionButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          selectOne(passionButtons, btn);
+          state.passion = btn.dataset.passion;
+          renderSummary();
         });
       });
 
-      passionCards.forEach(card => {
-        card.addEventListener("click", () => {
-          passionCards.forEach(item => item.classList.remove("is-selected"));
-          card.classList.add("is-selected");
-          summaryPassion.textContent = card.dataset.passion;
+      moodButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          selectOne(moodButtons, btn);
+          state.mood = btn.dataset.mood;
+          renderSummary();
         });
       });
 
-      musicCards.forEach(card => {
-        card.addEventListener("click", () => {
-          musicCards.forEach(item => item.classList.remove("is-selected"));
-          card.classList.add("is-selected");
-          summaryMusic.textContent = card.dataset.music;
-        });
-      });
+      addBtn.addEventListener('click', () => {
+        const cart = getCart();
 
-      createBtn.addEventListener("click", () => {
-        const selectedSizeCard = section.querySelector(".size-options .pill-card.is-selected");
-        const selectedPassionCard = section.querySelector(".passion-options .pill-card.is-selected");
-        const selectedMusicCard = section.querySelector(".music-options .pill-card.is-selected");
-
-        const item = {
-          id: `atelier-${Date.now()}`,
-          type: "Atelier Box",
-          name: `${createBtn.dataset.world} Atelier Box`,
-          world: createBtn.dataset.world,
-          size: selectedSizeCard.dataset.size,
-          passion: selectedPassionCard.dataset.passion,
-          musicMood: selectedMusicCard.dataset.music,
-          price: Number(selectedSizeCard.dataset.price),
+        cart.push({
+          name: 'Secretul Maison',
+          price: state.price,
           quantity: 1,
-          image: section.querySelector(".gallery-main-img").src
-        };
+          image: config.cartImage,
+          details: [
+            `Vibe: ${state.vibe}`,
+            `Mărime: ${state.size}`,
+            `Pasiune: ${state.passion}`,
+            `Music mood: ${state.mood}`
+          ]
+        });
 
-        const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        cart.push(item);
-        localStorage.setItem("cart", JSON.stringify(cart));
+        setCart(cart);
+        updateCartBadge();
 
-        updateCartCount();
-        goCartBtn.classList.add("is-visible");
-        createBtn.textContent = "Added to cart";
+        successBox.classList.add('show');
+        postActions.classList.add('show');
+        addBtn.style.display = 'none';
       });
+
+      openCartLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        openCart();
+      });
+
+      renderSummary();
     }
 
-    document.querySelectorAll(".world-page").forEach(setupSelectorGroup);
+    setupVibePage('page-soft-romance', {
+      vibeName: 'Soft Romance',
+      defaultMood: 'Dream Pop',
+      cartImage: 'images/worlds/soft-romance/soft-romance-cover.jpg'
+    });
+
+    setupVibePage('page-blue-dream', {
+      vibeName: 'Blue Dream',
+      defaultMood: 'Ambient',
+      cartImage: 'images/worlds/blue-dream/blue-dream-cover.jpg'
+    });
+
+    setupVibePage('page-dark-cherry', {
+      vibeName: 'Dark Cherry',
+      defaultMood: 'Alternative Pop',
+      cartImage: 'images/worlds/dark-cherry/dark-cherry-cover.jpg'
+    });
+
+    setupVibePage('page-golden-hour', {
+      vibeName: 'Golden Hour',
+      defaultMood: 'Indie Pop',
+      cartImage: 'images/worlds/golden-hour/golden-hour-cover.jpg'
+    });
 
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
+          entry.target.classList.add('is-visible');
           revealObserver.unobserve(entry.target);
         }
       });
     }, {
-      threshold: 0.14
+      threshold: 0.12
     });
 
     revealItems.forEach(item => revealObserver.observe(item));
 
-    window.addEventListener("load", () => {
-      handleHeaderShadow();
-      updateCartCount();
-      setTheme("soft-romance");
-      showPage("page-chooser");
-    });
-
-    window.addEventListener("scroll", handleHeaderShadow);
-
-    document.addEventListener("mousemove", (e) => {
+    document.addEventListener('mousemove', (e) => {
       if (!cursorGlow || window.innerWidth <= 760) return;
       cursorGlow.style.left = `${e.clientX}px`;
       cursorGlow.style.top = `${e.clientY}px`;
     });
 
-    document.addEventListener("mouseleave", () => {
-      if (cursorGlow) cursorGlow.style.opacity = "0";
+    document.addEventListener('mouseleave', () => {
+      if (cursorGlow) cursorGlow.style.opacity = '0';
     });
 
-    document.addEventListener("mouseenter", () => {
-      if (cursorGlow && window.innerWidth > 760) cursorGlow.style.opacity = "0.9";
+    document.addEventListener('mouseenter', () => {
+      if (cursorGlow && window.innerWidth > 760) cursorGlow.style.opacity = '0.85';
     });
+
+    updateCartBadge();
   </script>
 </body>
 </html>
