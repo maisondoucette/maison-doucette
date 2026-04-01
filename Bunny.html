@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Maison Doucette – Personalizează Iepurașul</title>
+  <title>Maison Doucette – Bunny Customizer</title>
   <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -23,9 +23,6 @@
       --radius-lg:22px;
       --radius-md:16px;
       --ease:cubic-bezier(.22,.61,.36,1);
-      --topbar-h:48px;
-      --header-h:78px;
-      --preview-mobile-top:138px;
     }
 
     *{ box-sizing:border-box; }
@@ -46,7 +43,7 @@
     img{ display:block; max-width:100%; }
     button, select{ font:inherit; }
 
-    .display, h1, h2, h3, .brand-text{
+    .display,h1,h2,h3,.brand-text,.hero-sub,.quote-text,.section-title,.stepper-title{
       font-family:'Cormorant Garamond',serif;
       letter-spacing:-0.02em;
     }
@@ -75,7 +72,7 @@
       color:#fffdfa;
       text-align:center;
       padding:12px 16px;
-      font-size:.86rem;
+      font-size:.88rem;
       line-height:1.4;
       box-shadow:0 8px 22px rgba(174,127,67,0.18);
     }
@@ -85,9 +82,9 @@
       align-items:center;
       justify-content:center;
       margin-left:10px;
-      padding:7px 16px;
+      padding:8px 18px;
       border-radius:999px;
-      background:rgba(255,255,255,.92);
+      background:rgba(255,255,255,.9);
       color:var(--gold-deep);
       font-weight:700;
     }
@@ -101,14 +98,14 @@
       border-bottom:1px solid var(--line);
     }
 
-    .nav-shell{
-      max-width:1180px;
+    .header-shell{
+      max-width:1160px;
       margin:0 auto;
       padding:0 18px;
     }
 
     .nav{
-      min-height:var(--header-h);
+      min-height:84px;
       display:grid;
       grid-template-columns:1fr auto 1fr;
       align-items:center;
@@ -123,8 +120,8 @@
       min-width:0;
     }
 
-    .nav-left{ justify-content:flex-start; }
-    .nav-right{ justify-content:flex-end; }
+    .nav-left{justify-content:flex-start}
+    .nav-right{justify-content:flex-end}
 
     .nav-links{
       display:flex;
@@ -206,13 +203,14 @@
       justify-content:center;
       cursor:pointer;
       box-shadow:0 10px 18px rgba(101,79,67,0.08);
-      transition:transform .22s ease, box-shadow .22s ease;
+      transition:transform .22s ease, box-shadow .22s ease, background .22s ease;
       padding:0;
     }
 
     .icon-btn:hover{
       transform:translateY(-2px);
       box-shadow:0 14px 24px rgba(101,79,67,0.12);
+      background:#fff;
     }
 
     .icon-btn svg{
@@ -250,10 +248,12 @@
     .mobile-right{
       display:none;
       align-items:center;
+      justify-content:flex-start;
     }
 
-    .mobile-left{ justify-content:flex-start; }
-    .mobile-right{ justify-content:flex-end; }
+    .mobile-right{
+      justify-content:flex-end;
+    }
 
     .app-shell{
       max-width:1160px;
@@ -284,14 +284,6 @@
       box-shadow:var(--shadow);
       overflow:hidden;
       backdrop-filter:blur(6px);
-    }
-
-    .preview-card,
-    .stepper-card,
-    .step-card,
-    .rec-card{
-      opacity:0;
-      transform:translateY(22px);
     }
 
     .preview-card{
@@ -618,7 +610,9 @@
       min-height:46px;
     }
 
-    .swatch-btn:hover{ transform:translateY(-1px); }
+    .swatch-btn:hover{
+      transform:translateY(-1px);
+    }
 
     .swatch-circle{
       display:block;
@@ -752,6 +746,20 @@
       flex-wrap:wrap;
     }
 
+    .qty-control{
+      padding:10px 14px;
+      min-width:52px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .qty-display{
+      padding:10px 16px;
+      min-width:68px;
+      text-align:center;
+    }
+
     .step-actions{
       margin-top:18px;
       display:flex;
@@ -833,7 +841,9 @@
       scrollbar-width:none;
     }
 
-    .rec-slider::-webkit-scrollbar{ display:none; }
+    .rec-slider::-webkit-scrollbar{
+      display:none;
+    }
 
     .rec-item{
       flex:0 0 118px;
@@ -1158,6 +1168,7 @@
 
     .mobile-menu-title{
       font-size:1.8rem;
+      font-family:'Cormorant Garamond',serif;
       font-weight:700;
     }
 
@@ -1238,13 +1249,13 @@
         top:0;
       }
 
-      .nav-shell{
+      .header-shell{
         padding:0 10px;
       }
 
       .nav{
         grid-template-columns:1fr auto 1fr;
-        min-height:72px;
+        min-height:78px;
       }
 
       .nav-left,
@@ -1288,7 +1299,7 @@
 
       .preview-card{
         position:sticky;
-        top:var(--preview-mobile-top);
+        top:74px;
         z-index:30;
         padding:10px;
         border-radius:22px;
@@ -1453,6 +1464,27 @@
         font-size:0.74rem;
       }
 
+      .qty-box{
+        display:flex;
+        align-items:center;
+        justify-content:flex-start;
+        gap:10px;
+        flex-wrap:nowrap;
+      }
+
+      .qty-box .step-btn{
+        width:52px !important;
+        min-width:52px;
+        flex:0 0 52px;
+        padding:10px 0;
+      }
+
+      .qty-box .qty-display{
+        min-width:68px;
+        flex:0 0 auto;
+        margin:0;
+      }
+
       .rec-item{
         flex:0 0 104px;
       }
@@ -1480,7 +1512,7 @@
 
     @media (max-width: 420px){
       .preview-card{
-        top:132px;
+        top:70px;
         padding:9px;
       }
 
@@ -1530,7 +1562,7 @@
   </div>
 
   <header class="site-header">
-    <div class="nav-shell">
+    <div class="header-shell">
       <div class="nav">
         <div class="mobile-left">
           <button class="icon-btn" id="mobileMenuOpenBtn" aria-label="Deschide meniul">
@@ -1751,11 +1783,11 @@
           <div class="control-block">
             <label class="control-label">Cantitate</label>
             <div class="qty-box">
-              <button class="step-btn soft" type="button" id="minusBtn" style="padding:10px 14px; min-width:52px;">−</button>
-              <div class="helper-box" style="padding:10px 16px; min-width:68px; text-align:center;">
+              <button class="step-btn soft qty-control" type="button" id="minusBtn">−</button>
+              <div class="helper-box qty-display">
                 <strong id="quantity">1</strong>
               </div>
-              <button class="step-btn soft" type="button" id="plusBtn" style="padding:10px 14px; min-width:52px;">+</button>
+              <button class="step-btn soft qty-control" type="button" id="plusBtn">+</button>
             </div>
           </div>
 
@@ -1936,7 +1968,7 @@
     const mobileMenu = document.getElementById("mobileMenu");
     const mobileMenuOverlay = document.getElementById("mobileMenuOverlay");
 
-    const revealItems = document.querySelectorAll(".preview-card, .stepper-card, .step-card, .rec-card");
+    const revealItems = document.querySelectorAll(".reveal-up, .reveal-soft");
 
     document.getElementById("minusBtn").addEventListener("click", () => changeQty(-1));
     document.getElementById("plusBtn").addEventListener("click", () => changeQty(1));
@@ -2039,23 +2071,23 @@
       }
     ];
 
-    function getCart(){
-      try{
+    function getCart() {
+      try {
         return JSON.parse(localStorage.getItem(cartKey)) || [];
-      }catch{
+      } catch {
         return [];
       }
     }
 
-    function setCart(cart){
+    function setCart(cart) {
       localStorage.setItem(cartKey, JSON.stringify(cart));
     }
 
-    function formatPrice(value){
+    function formatPrice(value) {
       return `${Number(value).toFixed(0)} RON`;
     }
 
-    function updateCartBadge(){
+    function updateCartBadge() {
       const cart = getCart();
       const totalQty = cart.reduce((sum, item) => sum + Number(item.quantity || 1), 0);
 
@@ -2070,7 +2102,7 @@
       }
     }
 
-    function renderCart(){
+    function renderCart() {
       const cart = getCart();
       updateCartBadge();
 
@@ -2121,7 +2153,7 @@
       cartTotal.textContent = formatPrice(total);
     }
 
-    function openCart(){
+    function openCart() {
       renderCart();
       cartDrawer.classList.add("open");
       cartOverlay.classList.add("open");
@@ -2129,7 +2161,7 @@
       document.body.style.overflow = "hidden";
     }
 
-    function closeCart(){
+    function closeCart() {
       cartDrawer.classList.remove("open");
       cartOverlay.classList.remove("open");
       cartDrawer.setAttribute("aria-hidden", "true");
@@ -2138,14 +2170,14 @@
       }
     }
 
-    function removeCartItem(index){
+    function removeCartItem(index) {
       const cart = getCart();
       cart.splice(index, 1);
       setCart(cart);
       renderCart();
     }
 
-    function changeCartQuantity(index, delta){
+    function changeCartQuantity(index, delta) {
       const cart = getCart();
       if (!cart[index]) return;
 
@@ -2159,13 +2191,13 @@
       renderCart();
     }
 
-    function openMobileMenu(){
+    function openMobileMenu() {
       mobileMenu.classList.add("open");
       mobileMenuOverlay.classList.add("open");
       document.body.style.overflow = "hidden";
     }
 
-    function closeMobileMenu(){
+    function closeMobileMenu() {
       mobileMenu.classList.remove("open");
       mobileMenuOverlay.classList.remove("open");
       if (!cartDrawer.classList.contains("open")) {
@@ -2619,6 +2651,19 @@
       if(selected.combo.bow) await renderAccessory("bow", bowColor);
     }
 
+    function animatePreviewElement(el, type = "default"){
+      el.style.animation = "none";
+      void el.offsetWidth;
+
+      if(type === "bow"){
+        el.style.animation = "previewAppearBow 0.26s cubic-bezier(.22,.61,.36,1) forwards";
+      }else if(type === "centered"){
+        el.style.animation = "previewAppearCenter 0.26s cubic-bezier(.22,.61,.36,1) forwards";
+      }else{
+        el.style.animation = "previewAppear 0.26s cubic-bezier(.22,.61,.36,1) forwards";
+      }
+    }
+
     function updatePreview(){
       const chosen = bodyOptions.find(item => item.name === bodyColor) || bodyOptions[0];
       const src = chosen.src;
@@ -2767,10 +2812,7 @@
       });
     }, { threshold: 0.12 });
 
-    revealItems.forEach(item => {
-      item.classList.add(item.classList.contains("preview-card") ? "reveal-soft" : "reveal-up");
-      revealObserver.observe(item);
-    });
+    revealItems.forEach(item => revealObserver.observe(item));
 
     window.addEventListener("load", async () => {
       buildBodySwatches();
