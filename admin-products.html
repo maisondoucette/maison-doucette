@@ -12,7 +12,6 @@
       --bg:#f7f1eb;
       --bg-2:#efe4d8;
       --cream:#fffaf5;
-      --taupe:#d8c0a5;
       --taupe-deep:#b99266;
       --gold:#d2ad73;
       --gold-deep:#ae7f43;
@@ -23,14 +22,12 @@
       --shadow-strong:0 28px 60px rgba(101,79,67,0.16);
       --radius-xl:34px;
       --radius-lg:24px;
-      --radius-md:18px;
       --container:1100px;
       --ease:cubic-bezier(.22,.61,.36,1);
     }
 
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
-
     body{
       margin:0;
       font-family:'Manrope', sans-serif;
@@ -43,11 +40,7 @@
 
     img{display:block;max-width:100%}
     button,input,textarea{font:inherit}
-
-    .display,h1,h2,h3,.brand-text{
-      font-family:'Cormorant Garamond', serif;
-      letter-spacing:-0.02em;
-    }
+    .display,h1,h2,h3,.brand-text{font-family:'Cormorant Garamond', serif;letter-spacing:-0.02em}
 
     .container{
       width:min(var(--container), calc(100% - 28px));
@@ -96,9 +89,7 @@
       transition:transform .22s ease;
     }
 
-    .back-link:hover{
-      transform:translateY(-1px);
-    }
+    .back-link:hover{transform:translateY(-1px)}
 
     .logo-wrap{
       display:flex;
@@ -143,16 +134,14 @@
       color:var(--brown-soft);
     }
 
-    .hero{
-      padding:38px 0 22px;
-    }
+    .hero{padding:38px 0 22px}
 
-    .hero-card{
-      background:rgba(255,250,246,0.92);
+    .hero-card,.panel{
+      background:rgba(255,250,246,0.94);
       border:1px solid var(--line);
-      border-radius:var(--radius-xl);
+      border-radius:28px;
       box-shadow:var(--shadow);
-      padding:24px;
+      padding:20px;
     }
 
     .eyebrow{
@@ -177,31 +166,20 @@
       color:var(--brown);
     }
 
-    .hero-card p{
-      margin:0;
+    .hero-card p,.panel p{
+      margin:0 0 14px;
       color:var(--brown-soft);
-      line-height:1.85;
-      font-size:.98rem;
-      max-width:760px;
+      line-height:1.8;
+      font-size:.95rem;
     }
 
-    section{
-      padding:18px 0 34px;
-    }
+    section{padding:18px 0 34px}
 
     .admin-grid{
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:20px;
       align-items:start;
-    }
-
-    .panel{
-      background:rgba(255,250,246,0.94);
-      border:1px solid var(--line);
-      border-radius:28px;
-      box-shadow:var(--shadow);
-      padding:20px;
     }
 
     .panel h2{
@@ -211,22 +189,13 @@
       color:var(--brown);
     }
 
-    .panel p{
-      margin:0 0 14px;
-      color:var(--brown-soft);
-      line-height:1.75;
-      font-size:.94rem;
-    }
-
     .form-grid{
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:14px;
     }
 
-    .full{
-      grid-column:1 / -1;
-    }
+    .full{grid-column:1 / -1}
 
     label{
       display:grid;
@@ -236,7 +205,7 @@
       color:var(--brown);
     }
 
-    input, textarea{
+    input,textarea{
       width:100%;
       border:1.5px solid var(--line);
       background:#fffdf9;
@@ -247,7 +216,7 @@
       transition:border-color .22s ease, box-shadow .22s ease, transform .22s ease;
     }
 
-    input:focus, textarea:focus{
+    input:focus,textarea:focus{
       border-color:var(--gold-deep);
       box-shadow:0 0 0 4px rgba(174,127,67,0.10);
       transform:translateY(-1px);
@@ -292,9 +261,7 @@
       margin-top:16px;
     }
 
-    .btn-primary,
-    .btn-secondary,
-    .btn-danger{
+    .btn-primary,.btn-secondary,.btn-danger{
       display:inline-flex;
       align-items:center;
       justify-content:center;
@@ -325,11 +292,7 @@
       color:#8b1538;
     }
 
-    .btn-primary:hover,
-    .btn-secondary:hover,
-    .btn-danger:hover{
-      transform:translateY(-1px);
-    }
+    .btn-primary:hover,.btn-secondary:hover,.btn-danger:hover{transform:translateY(-1px)}
 
     .status{
       display:none;
@@ -341,16 +304,12 @@
       color:var(--brown-soft);
       line-height:1.7;
       font-size:.9rem;
+      white-space:pre-wrap;
     }
 
-    .status.show{
-      display:block;
-    }
+    .status.show{display:block}
 
-    .product-list{
-      display:grid;
-      gap:12px;
-    }
+    .product-list{display:grid;gap:12px}
 
     .product-item{
       display:grid;
@@ -361,10 +320,7 @@
       border-bottom:1px solid var(--line);
     }
 
-    .product-item:last-child{
-      border-bottom:none;
-      padding-bottom:0;
-    }
+    .product-item:last-child{border-bottom:none;padding-bottom:0}
 
     .product-item img{
       width:84px;
@@ -402,76 +358,26 @@
     }
 
     @media (max-width: 980px){
-      .admin-grid{
-        grid-template-columns:1fr;
-      }
+      .admin-grid{grid-template-columns:1fr}
     }
 
     @media (max-width: 760px){
-      .top-bar{
-        font-size:.82rem;
-        padding:10px 12px;
-      }
-
-      .nav{
-        min-height:78px;
-      }
-
-      .logo-wrap img{
-        width:56px;
-        height:56px;
-      }
-
-      .brand-text{
-        font-size:1.52rem;
-      }
-
-      .brand-sub{
-        display:none;
-      }
-
-      .hero-card,
-      .panel{
-        border-radius:22px;
-        padding:16px;
-      }
-
-      .form-grid{
-        grid-template-columns:1fr;
-      }
-
-      .product-item{
-        grid-template-columns:72px 1fr;
-      }
-
-      .product-item img{
-        width:72px;
-        height:72px;
-        border-radius:16px;
-      }
-
-      .product-item .btn-danger{
-        grid-column:2;
-        width:100%;
-        margin-top:6px;
-      }
-
-      .actions{
-        flex-direction:column;
-      }
-
-      .btn-primary,
-      .btn-secondary,
-      .btn-danger{
-        width:100%;
-      }
+      .nav{min-height:78px}
+      .logo-wrap img{width:56px;height:56px}
+      .brand-text{font-size:1.52rem}
+      .brand-sub{display:none}
+      .hero-card,.panel{border-radius:22px;padding:16px}
+      .form-grid{grid-template-columns:1fr}
+      .product-item{grid-template-columns:72px 1fr}
+      .product-item img{width:72px;height:72px;border-radius:16px}
+      .product-item .btn-danger{grid-column:2;width:100%;margin-top:6px}
+      .actions{flex-direction:column}
+      .btn-primary,.btn-secondary,.btn-danger{width:100%}
     }
   </style>
 </head>
 <body>
-  <div class="top-bar">
-    Zonă privată Maison Doucette — administrare produse
-  </div>
+  <div class="top-bar">Zonă privată Maison Doucette — administrare produse</div>
 
   <header class="site-header">
     <div class="container nav">
@@ -495,9 +401,7 @@
         <div class="hero-card">
           <div class="eyebrow">panou privat</div>
           <h1 class="display">Administrare produse</h1>
-          <p>
-            De aici poți să te autentifici, să încarci imaginea direct din telefon sau laptop și să adaugi produse noi în atelierul Maison Doucette, fără să mai modifici manual codul site-ului.
-          </p>
+          <p>De aici te autentifici, încarci imaginea direct din telefon sau laptop și adaugi produse noi în atelierul Maison Doucette.</p>
         </div>
       </div>
     </section>
@@ -506,7 +410,7 @@
       <div class="container admin-grid">
         <div class="panel">
           <h2>Autentificare</h2>
-          <p>Folosește emailul și parola create în Supabase, doar pentru tine.</p>
+          <p>Folosește emailul și parola create în Supabase.</p>
 
           <div class="form-grid">
             <label>
@@ -587,12 +491,12 @@
     </section>
   </main>
 
-  <script src="supabase-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js?v=2"></script>
 
-  <script type="module">
-    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-
-    const supabase = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+  <script>
+    const { createClient } = supabase;
+    const db = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
 
     const loginEmail = document.getElementById('loginEmail');
     const loginPassword = document.getElementById('loginPassword');
@@ -638,13 +542,14 @@
     }
 
     async function loadProducts() {
-      const { data, error } = await supabase
+      const { data, error } = await db
         .from('products')
         .select('*')
         .order('created_at', { ascending: true });
 
       if (error) {
         productsList.innerHTML = `<div class="empty-state">Nu am putut încărca produsele.</div>`;
+        showStatus(productStatus, `Eroare loadProducts:\n${error.message}`);
         return;
       }
 
@@ -680,20 +585,20 @@
 
           clearStatus(productStatus);
 
-          const { error: deleteError } = await supabase
+          const { error: deleteError } = await db
             .from('products')
             .delete()
             .eq('id', productId);
 
           if (deleteError) {
-            showStatus(productStatus, 'Produsul nu a putut fi șters.');
+            showStatus(productStatus, `Produsul nu a putut fi șters.\n${deleteError.message}`);
             return;
           }
 
           const prefix = `${window.SUPABASE_URL}/storage/v1/object/public/products/`;
           if (imageUrl && imageUrl.startsWith(prefix)) {
             const path = imageUrl.replace(prefix, '');
-            await supabase.storage.from('products').remove([path]);
+            await db.storage.from('products').remove([path]);
           }
 
           showStatus(productStatus, 'Produsul a fost șters.');
@@ -702,7 +607,7 @@
       });
     }
 
-    productImageFile?.addEventListener('change', () => {
+    productImageFile.addEventListener('change', () => {
       const file = productImageFile.files?.[0];
       if (!file) {
         imagePreview.style.display = 'none';
@@ -718,45 +623,36 @@
       reader.readAsDataURL(file);
     });
 
-loginBtn?.addEventListener('click', async () => {
-  alert('butonul merge');
-  clearStatus(authStatus);
+    loginBtn.addEventListener('click', async () => {
+      clearStatus(authStatus);
+      showStatus(authStatus, 'Se încearcă autentificarea...');
 
-  const email = loginEmail.value.trim();
-  const password = loginPassword.value.trim();
+      const email = loginEmail.value.trim();
+      const password = loginPassword.value.trim();
 
-  const { error } = await supabase.auth.signInWithPassword({
-    email,
-    password
-  });
+      try {
+        const { data, error } = await db.auth.signInWithPassword({ email, password });
 
-  if (error) {
-    showStatus(authStatus, 'Autentificarea a eșuat. Verifică emailul și parola.');
-    return;
-  }
+        if (error) {
+          showStatus(authStatus, `Autentificarea a eșuat:\n${error.message}`);
+          return;
+        }
 
-  showStatus(authStatus, 'Te-ai autentificat cu succes.');
-  setAdminVisible(true);
-  loadProducts();
-});
-
-      if (error) {
-        showStatus(authStatus, 'Autentificarea a eșuat. Verifică emailul și parola.');
-        return;
+        showStatus(authStatus, 'Te-ai autentificat cu succes.');
+        setAdminVisible(true);
+        await loadProducts();
+      } catch (err) {
+        showStatus(authStatus, `Eroare de script:\n${err.message}`);
       }
-
-      showStatus(authStatus, 'Te-ai autentificat cu succes.');
-      setAdminVisible(true);
-      loadProducts();
     });
 
-    logoutBtn?.addEventListener('click', async () => {
-      await supabase.auth.signOut();
+    logoutBtn.addEventListener('click', async () => {
+      await db.auth.signOut();
       setAdminVisible(false);
       showStatus(authStatus, 'Te-ai delogat.');
     });
 
-    productForm?.addEventListener('submit', async (e) => {
+    productForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       clearStatus(productStatus);
 
@@ -770,24 +666,24 @@ loginBtn?.addEventListener('click', async () => {
       const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg';
       const filePath = `${Date.now()}-${cleanName}.${ext}`;
 
-      const { error: uploadError } = await supabase
+      const { error: uploadError } = await db
         .storage
         .from('products')
         .upload(filePath, file, { upsert: false });
 
       if (uploadError) {
-        showStatus(productStatus, 'Upload-ul imaginii a eșuat.');
+        showStatus(productStatus, `Upload-ul imaginii a eșuat:\n${uploadError.message}`);
         return;
       }
 
-      const { data: publicData } = supabase
+      const { data: publicData } = db
         .storage
         .from('products')
         .getPublicUrl(filePath);
 
       const imageUrl = publicData.publicUrl;
 
-      const { error: insertError } = await supabase
+      const { error: insertError } = await db
         .from('products')
         .insert({
           name: productName.value.trim(),
@@ -798,7 +694,7 @@ loginBtn?.addEventListener('click', async () => {
         });
 
       if (insertError) {
-        showStatus(productStatus, 'Produsul nu a putut fi salvat.');
+        showStatus(productStatus, `Produsul nu a putut fi salvat:\n${insertError.message}`);
         return;
       }
 
@@ -811,14 +707,23 @@ loginBtn?.addEventListener('click', async () => {
     });
 
     async function initSession() {
-      const { data } = await supabase.auth.getSession();
+      try {
+        const { data, error } = await db.auth.getSession();
 
-      if (data?.session) {
-        setAdminVisible(true);
-        showStatus(authStatus, 'Ești deja autentificată.');
-        loadProducts();
-      } else {
-        setAdminVisible(false);
+        if (error) {
+          showStatus(authStatus, `Eroare sesiune:\n${error.message}`);
+          return;
+        }
+
+        if (data?.session) {
+          setAdminVisible(true);
+          showStatus(authStatus, 'Ești deja autentificată.');
+          loadProducts();
+        } else {
+          setAdminVisible(false);
+        }
+      } catch (err) {
+        showStatus(authStatus, `Eroare init:\n${err.message}`);
       }
     }
 
