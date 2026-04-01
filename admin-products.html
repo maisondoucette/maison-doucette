@@ -558,6 +558,7 @@
     }
 
     async function loadProducts() {
+      productsList.innerHTML = `<div class="empty-state">Se actualizează produsele...</div>`;
       const { data, error } = await db
         .from('products')
         .select('*')
@@ -719,7 +720,7 @@
       imagePreview.removeAttribute('src');
 
       showStatus(productStatus, 'Produsul a fost adăugat cu succes.');
-      loadProducts();
+      await loadProducts();
     });
 
     async function initSession() {
