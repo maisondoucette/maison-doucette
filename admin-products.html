@@ -494,241 +494,80 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-config.js?v=2"></script>
 
-  <script>
-    alert('script pornit');
-    const { createClient } = supabase;
-    const db = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+<script>
+  alert('1 script pornit');
 
-    const loginEmail = document.getElementById('loginEmail');
-    const loginPassword = document.getElementById('loginPassword');
-    const loginBtn = document.getElementById('loginBtn');
-    const logoutBtn = document.getElementById('logoutBtn');
-    const authStatus = document.getElementById('authStatus');
+  alert('2 typeof supabase global: ' + typeof supabase);
+  alert('3 url exista: ' + (window.SUPABASE_URL ? 'da' : 'nu'));
+  alert('4 anon exista: ' + (window.SUPABASE_ANON_KEY ? 'da' : 'nu'));
 
-    const addProductPanel = document.getElementById('addProductPanel');
-    const productsPanel = document.getElementById('productsPanel');
+  const { createClient } = supabase;
+  alert('5 am luat createClient');
 
-    const productForm = document.getElementById('productForm');
-    const productName = document.getElementById('productName');
-    const productText = document.getElementById('productText');
-    const productDescription = document.getElementById('productDescription');
-    const productLink = document.getElementById('productLink');
-    const productImageFile = document.getElementById('productImageFile');
-    const imagePreview = document.getElementById('imagePreview');
-    const productStatus = document.getElementById('productStatus');
-    const productsList = document.getElementById('productsList');
+  const db = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+  alert('6 am creat db');
 
-    function showStatus(element, message) {
-      element.textContent = message;
-      element.classList.add('show');
-    }
+  const loginEmail = document.getElementById('loginEmail');
+  const loginPassword = document.getElementById('loginPassword');
+  const loginBtn = document.getElementById('loginBtn');
+  const logoutBtn = document.getElementById('logoutBtn');
+  const authStatus = document.getElementById('authStatus');
 
-    function clearStatus(element) {
-      element.textContent = '';
-      element.classList.remove('show');
-    }
+  alert('7 elemente luate');
+  alert('8 loginBtn exista: ' + (!!loginBtn));
 
-    function setAdminVisible(visible) {
-      addProductPanel.style.display = visible ? 'block' : 'none';
-      productsPanel.style.display = visible ? 'block' : 'none';
-    }
+  const addProductPanel = document.getElementById('addProductPanel');
+  const productsPanel = document.getElementById('productsPanel');
 
-    function slugify(value) {
-      return value
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/^-+|-+$/g, '');
-    }
+  const productForm = document.getElementById('productForm');
+  const productName = document.getElementById('productName');
+  const productText = document.getElementById('productText');
+  const productDescription = document.getElementById('productDescription');
+  const productLink = document.getElementById('productLink');
+  const productImageFile = document.getElementById('productImageFile');
+  const imagePreview = document.getElementById('imagePreview');
+  const productStatus = document.getElementById('productStatus');
+  const productsList = document.getElementById('productsList');
 
-    async function loadProducts() {
-      const { data, error } = await db
-        .from('products')
-        .select('*')
-        .order('created_at', { ascending: true });
+  function showStatus(element, message) {
+    element.textContent = message;
+    element.classList.add('show');
+  }
+
+  function clearStatus(element) {
+    element.textContent = '';
+    element.classList.remove('show');
+  }
+
+  function setAdminVisible(visible) {
+    addProductPanel.style.display = visible ? 'block' : 'none';
+    productsPanel.style.display = visible ? 'block' : 'none';
+  }
+
+  loginBtn.addEventListener('click', async () => {
+    alert('9 am intrat pe click');
+    clearStatus(authStatus);
+    showStatus(authStatus, 'Se încearcă autentificarea...');
+
+    const email = loginEmail.value.trim();
+    const password = loginPassword.value.trim();
+
+    try {
+      const { data, error } = await db.auth.signInWithPassword({ email, password });
 
       if (error) {
-        productsList.innerHTML = `<div class="empty-state">Nu am putut încărca produsele.</div>`;
-        showStatus(productStatus, `Eroare loadProducts:\n${error.message}`);
+        showStatus(authStatus, `Autentificarea a eșuat:\n${error.message}`);
         return;
       }
 
-      if (!data || data.length === 0) {
-        productsList.innerHTML = `<div class="empty-state">Nu există încă produse în tabel.</div>`;
-        return;
-      }
-
-      productsList.innerHTML = data.map(product => `
-        <div class="product-item">
-          <img src="${product.image}" alt="${product.name}">
-          <div>
-            <h3>${product.name}</h3>
-            <div class="product-meta">
-              <div><strong>${product.text}</strong></div>
-              <div>${product.description}</div>
-              <div>${product.link}</div>
-            </div>
-          </div>
-          <button class="btn-danger" type="button" data-delete-id="${product.id}" data-delete-image="${product.image}">
-            Șterge
-          </button>
-        </div>
-      `).join('');
-
-      document.querySelectorAll('[data-delete-id]').forEach(button => {
-        button.addEventListener('click', async () => {
-          const productId = button.getAttribute('data-delete-id');
-          const imageUrl = button.getAttribute('data-delete-image');
-
-          const confirmed = window.confirm('Sigur vrei să ștergi acest produs?');
-          if (!confirmed) return;
-
-          clearStatus(productStatus);
-
-          const { error: deleteError } = await db
-            .from('products')
-            .delete()
-            .eq('id', productId);
-
-          if (deleteError) {
-            showStatus(productStatus, `Produsul nu a putut fi șters.\n${deleteError.message}`);
-            return;
-          }
-
-          const prefix = `${window.SUPABASE_URL}/storage/v1/object/public/products/`;
-          if (imageUrl && imageUrl.startsWith(prefix)) {
-            const path = imageUrl.replace(prefix, '');
-            await db.storage.from('products').remove([path]);
-          }
-
-          showStatus(productStatus, 'Produsul a fost șters.');
-          loadProducts();
-        });
-      });
+      showStatus(authStatus, 'Te-ai autentificat cu succes.');
+      setAdminVisible(true);
+    } catch (err) {
+      showStatus(authStatus, `Eroare de script:\n${err.message}`);
     }
+  });
 
-    productImageFile.addEventListener('change', () => {
-      const file = productImageFile.files?.[0];
-      if (!file) {
-        imagePreview.style.display = 'none';
-        imagePreview.removeAttribute('src');
-        return;
-      }
-
-      const reader = new FileReader();
-      reader.onload = () => {
-        imagePreview.src = reader.result;
-        imagePreview.style.display = 'block';
-      };
-      reader.readAsDataURL(file);
-    });
-
-    loginBtn.addEventListener('click', async () => {
-      clearStatus(authStatus);
-      showStatus(authStatus, 'Se încearcă autentificarea...');
-
-      const email = loginEmail.value.trim();
-      const password = loginPassword.value.trim();
-
-      try {
-        const { data, error } = await db.auth.signInWithPassword({ email, password });
-
-        if (error) {
-          showStatus(authStatus, `Autentificarea a eșuat:\n${error.message}`);
-          return;
-        }
-
-        showStatus(authStatus, 'Te-ai autentificat cu succes.');
-        setAdminVisible(true);
-        await loadProducts();
-      } catch (err) {
-        showStatus(authStatus, `Eroare de script:\n${err.message}`);
-      }
-    });
-
-    logoutBtn.addEventListener('click', async () => {
-      await db.auth.signOut();
-      setAdminVisible(false);
-      showStatus(authStatus, 'Te-ai delogat.');
-    });
-
-    productForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      clearStatus(productStatus);
-
-      const file = productImageFile.files?.[0];
-      if (!file) {
-        showStatus(productStatus, 'Alege o imagine înainte de salvare.');
-        return;
-      }
-
-      const cleanName = slugify(productName.value.trim() || 'product');
-      const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg';
-      const filePath = `${Date.now()}-${cleanName}.${ext}`;
-
-      const { error: uploadError } = await db
-        .storage
-        .from('products')
-        .upload(filePath, file, { upsert: false });
-
-      if (uploadError) {
-        showStatus(productStatus, `Upload-ul imaginii a eșuat:\n${uploadError.message}`);
-        return;
-      }
-
-      const { data: publicData } = db
-        .storage
-        .from('products')
-        .getPublicUrl(filePath);
-
-      const imageUrl = publicData.publicUrl;
-
-      const { error: insertError } = await db
-        .from('products')
-        .insert({
-          name: productName.value.trim(),
-          text: productText.value.trim(),
-          description: productDescription.value.trim(),
-          image: imageUrl,
-          link: productLink.value.trim()
-        });
-
-      if (insertError) {
-        showStatus(productStatus, `Produsul nu a putut fi salvat:\n${insertError.message}`);
-        return;
-      }
-
-      productForm.reset();
-      imagePreview.style.display = 'none';
-      imagePreview.removeAttribute('src');
-
-      showStatus(productStatus, 'Produsul a fost adăugat cu succes.');
-      loadProducts();
-    });
-
-    async function initSession() {
-      try {
-        const { data, error } = await db.auth.getSession();
-
-        if (error) {
-          showStatus(authStatus, `Eroare sesiune:\n${error.message}`);
-          return;
-        }
-
-        if (data?.session) {
-          setAdminVisible(true);
-          showStatus(authStatus, 'Ești deja autentificată.');
-          loadProducts();
-        } else {
-          setAdminVisible(false);
-        }
-      } catch (err) {
-        showStatus(authStatus, `Eroare init:\n${err.message}`);
-      }
-    }
-
-    initSession();
-  </script>
+  alert('10 listener pus');
+</script>
 </body>
 </html>
