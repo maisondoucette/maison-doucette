@@ -718,16 +718,27 @@
       reader.readAsDataURL(file);
     });
 
-    loginBtn?.addEventListener('click', async () => {
-      clearStatus(authStatus);
+loginBtn?.addEventListener('click', async () => {
+  alert('butonul merge');
+  clearStatus(authStatus);
 
-      const email = loginEmail.value.trim();
-      const password = loginPassword.value.trim();
+  const email = loginEmail.value.trim();
+  const password = loginPassword.value.trim();
 
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password
-      });
+  const { error } = await supabase.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  if (error) {
+    showStatus(authStatus, 'Autentificarea a eșuat. Verifică emailul și parola.');
+    return;
+  }
+
+  showStatus(authStatus, 'Te-ai autentificat cu succes.');
+  setAdminVisible(true);
+  loadProducts();
+});
 
       if (error) {
         showStatus(authStatus, 'Autentificarea a eșuat. Verifică emailul și parola.');
