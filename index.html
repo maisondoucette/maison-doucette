@@ -773,6 +773,19 @@
       background:#fff;
     }
 
+    .products-loading,
+    .products-empty{
+      grid-column:1 / -1;
+      background:rgba(255,250,246,0.92);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:24px;
+      text-align:center;
+      color:var(--brown-soft);
+      line-height:1.8;
+      box-shadow:var(--shadow);
+    }
+
     .contact-wrap{
       display:grid;
       grid-template-columns:1.05fr .95fr;
@@ -1619,6 +1632,14 @@
         font-size:.84rem;
       }
 
+      .products-loading,
+      .products-empty{
+        min-width:84%;
+        flex:0 0 84%;
+        scroll-snap-align:start;
+        border-radius:22px;
+      }
+
       .review-card{
         border-radius:18px;
         padding:14px;
@@ -1910,33 +1931,8 @@
           </p>
         </div>
 
-        <div class="product-entry-grid">
-          <div class="product-entry-card reveal-up">
-            <img src="images/bunny1.jpg" alt="Iepuraș personalizabil">
-            <div class="product-entry-body">
-              <h3>Iepuraș</h3>
-              <p>O piesă delicată, perfectă pentru personalizare.</p>
-              <a href="bunny-details.html" class="product-entry-btn">Vezi detalii</a>
-            </div>
-          </div>
-
-          <div class="product-entry-card reveal-up">
-            <img src="images/teddy1.jpg" alt="Ursuleț personalizabil">
-            <div class="product-entry-body">
-              <h3>Ursuleț</h3>
-              <p>Clasic, cald și foarte ușor de transformat într-o piesă unică.</p>
-              <a href="teddy-details.html" class="product-entry-btn">Vezi detalii</a>
-            </div>
-          </div>
-
-          <div class="product-entry-card reveal-up">
-            <img src="images/strawberry1.jpg" alt="Căpșună croșetată">
-            <div class="product-entry-body">
-              <h3>Căpșună</h3>
-              <p>Mică, inedită și perfectă pentru un cadou dulce.</p>
-              <a href="strawberry-details.html" class="product-entry-btn">Vezi detalii</a>
-            </div>
-          </div>
+        <div class="product-entry-grid" id="productEntryGrid">
+          <div class="products-loading">Se încarcă produsele din atelier...</div>
         </div>
       </div>
     </section>
@@ -2132,6 +2128,8 @@
     <a href="#contact" class="mobile-link">Contact</a>
   </aside>
 
+  <script src="supabase-config.js"></script>
+
   <script>
     const cartKey = 'cart';
 
@@ -2157,6 +2155,7 @@
     const revealItems = document.querySelectorAll('.reveal-up, .reveal-soft');
     const cursorGlow = document.getElementById('cursorGlow');
     const heroInner = document.querySelector('.hero-inner');
+    const productEntryGrid = document.getElementById('productEntryGrid');
 
     let mysteryIndex = 0;
 
@@ -2293,6 +2292,67 @@
       }
     }
 
+    async function loadProductsFromSupabase() {
+      if (!productEntryGrid) return;
+
+      if (!window.SUPABASE_URL || !window.SUPABASE_ANON_KEY) {
+        productEntryGrid.innerHTML = `
+          <div class="products-empty">
+            Produsele nu pot fi încărcate momentan. Verifică fișierul <strong>supabase-config.js</strong>.
+          </div>
+        `;
+        return;
+      }
+
+      try {
+        const response = await fetch(
+          `${window.SUPABASE_URL}/rest/v1/products?select=*&order=created_at.asc`,
+          {
+            headers: {
+              apikey: window.SUPABASE_ANON_KEY,
+              Authorization: `Bearer ${window.SUPABASE_ANON_KEY}`
+            }
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error('Fetch failed');
+        }
+
+        const products = await response.json();
+
+        if (!Array.isArray(products) || products.length === 0) {
+          productEntryGrid.innerHTML = `
+            <div class="products-empty">
+              Momentan nu există produse afișate în atelier. Le poți adăuga din pagina ta de admin.
+            </div>
+          `;
+          return;
+        }
+
+        productEntryGrid.innerHTML = products.map((product) => `
+          <div class="product-entry-card reveal-up">
+            <img src="${product.image}" alt="${product.name}">
+            <div class="product-entry-body">
+              <h3>${product.name}</h3>
+              <p>${product.description}</p>
+              <p style="margin:-2px 0 12px;color:var(--gold-deep);font-weight:700;">${product.text}</p>
+              <a href="${product.link}" class="product-entry-btn">Vezi detalii</a>
+            </div>
+          </div>
+        `).join('');
+
+        const newRevealItems = productEntryGrid.querySelectorAll('.reveal-up, .reveal-soft');
+        newRevealItems.forEach(item => revealObserver.observe(item));
+      } catch (error) {
+        productEntryGrid.innerHTML = `
+          <div class="products-empty">
+            A apărut o problemă la încărcarea produselor. Încearcă din nou mai târziu.
+          </div>
+        `;
+      }
+    }
+
     window.removeCartItem = removeCartItem;
     window.changeQuantity = changeQuantity;
 
@@ -2396,6 +2456,7 @@
 
     setInterval(nextMysterySlide, 3600);
     updateCartBadge();
+    loadProductsFromSupabase();
 
     /*
       EXEMPLE DE ITEMI PE CARE ÎI POȚI SALVA ÎN COȘ DIN ALTE PAGINI:
