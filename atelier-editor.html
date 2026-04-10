@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Maison Doucette — Atelier Editor</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="pre([supabase.com](https://supabase.com/docs/reference/javascript/auth-signinwithpassword?utm_source=chatgpt.com))crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -48,172 +48,33 @@
       letter-spacing:-0.02em;
     }
 
-    .page{
-      width:min(1480px, calc(100% - 24px));
-      margin:18px auto;
-      display:grid;
-      grid-template-columns:560px minmax(0, 1fr);
-      gap:18px;
-      align-items:start;
+    .screen{
+      min-height:100vh;
+      width:min(100%, 100%);
     }
 
-    .panel{
-      background:rgba(255,250,245,.9);
+    .hidden{display:none !important}
+
+    .auth-shell{
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      padding:18px;
+    }
+
+    .auth-card{
+      width:min(520px, 100%);
+      background:rgba(255,250,245,.92);
       border:1px solid var(--line);
-      border-radius:var(--radius-lg);
-      box-shadow:var(--shadow);
-      padding:22px;
+      border-radius:34px;
+      box-shadow:var(--shadow-strong);
+      padding:28px;
       backdrop-filter:blur(8px);
     }
 
-    .panel.sticky{
-      position:sticky;
-      top:18px;
-      max-height:calc(100vh - 36px);
-      overflow:auto;
-    }
-
-    .panel.sticky::-webkit-scrollbar{width:10px}
-    .panel.sticky::-webkit-scrollbar-thumb{
-      background:rgba(101,79,67,.12);
-      border-radius:999px;
-    }
-
-    .hero-head{
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      margin-bottom:20px;
-    }
-
-    h1{
-      margin:0;
-      font-size:3.1rem;
-      line-height:.92;
-    }
-
-    .sub{
-      margin:0;
-      color:var(--brown-soft);
-      line-height:1.75;
-      font-size:.95rem;
-    }
-
-    .pill-row{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin:6px 0 18px;
-    }
-
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:9px 14px;
-      border-radius:999px;
-      background:rgba(255,255,255,.85);
-      border:1px solid var(--line);
-      color:var(--brown-soft);
-      font-size:.8rem;
-      letter-spacing:.06em;
-      text-transform:uppercase;
-    }
-
-    .top-actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-bottom:22px;
-    }
-
-    .btn,
-    .btn-secondary,
-    .btn-soft,
-    .mini-btn{
-      border:none;
-      border-radius:999px;
-      min-height:46px;
-      padding:12px 18px;
-      cursor:pointer;
-      transition:transform .2s ease, box-shadow .2s ease, opacity .2s ease, background .2s ease;
-    }
-
-    .btn:hover,
-    .btn-secondary:hover,
-    .btn-soft:hover,
-    .mini-btn:hover{
-      transform:translateY(-1px);
-    }
-
-    .btn{
-      background:linear-gradient(135deg,var(--gold-deep),var(--gold));
-      color:#fff;
-      font-weight:700;
-      box-shadow:0 12px 24px rgba(174,127,67,.18);
-    }
-
-    .btn-secondary{
-      background:#fff;
-      border:1px solid var(--line);
-      color:var(--brown);
-    }
-
-    .btn-soft{
-      background:rgba(255,255,255,.7);
-      border:1px dashed var(--line);
-      color:var(--brown-soft);
-    }
-
-    .mini-btn{
-      min-height:38px;
-      padding:8px 14px;
-      background:#fff;
-      border:1px solid var(--line);
-      color:var(--brown);
-      font-size:.88rem;
-    }
-
-    .section-title{
-      margin:26px 0 12px;
-      font-size:1.85rem;
-      line-height:.95;
-    }
-
-    .products-list{
-      display:grid;
-      gap:10px;
-      margin:0 0 22px;
-    }
-
-    .product-chip{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
-      padding:12px 14px;
-      border-radius:18px;
-      background:#fff;
-      border:1px solid var(--line);
-      transition:box-shadow .2s ease, border-color .2s ease, transform .2s ease;
-    }
-
-    .product-chip:hover{
-      transform:translateY(-1px);
-      box-shadow:0 10px 22px rgba(101,79,67,.08);
-    }
-
-    .product-chip.active{
-      border-color:rgba(174,127,67,.35);
-      box-shadow:0 12px 26px rgba(174,127,67,.14);
-      background:linear-gradient(180deg, #fffdfa, #fff8f1);
-    }
-
-    .muted{
-      color:var(--brown-soft);
-      font-size:.9rem;
-      line-height:1.55;
-    }
+    .auth-head{margin-bottom:20px}
+    .auth-head h1{margin:0;font-size:3rem;line-height:.92}
+    .auth-head p{margin:10px 0 0;color:var(--brown-soft);line-height:1.75;font-size:.95rem}
 
     .field-grid{
       display:grid;
@@ -248,12 +109,7 @@
       box-shadow:0 0 0 4px rgba(210,173,115,.12);
     }
 
-    textarea{
-      min-height:110px;
-      resize:vertical;
-      line-height:1.7;
-    }
-
+    textarea{min-height:110px;resize:vertical;line-height:1.7}
     .small-textarea{min-height:84px}
 
     .helper{
@@ -262,12 +118,127 @@
       line-height:1.5;
     }
 
-    .slug-row{
-      display:grid;
-      grid-template-columns:1fr auto;
-      gap:8px;
-      align-items:end;
+    .btn,
+    .btn-secondary,
+    .btn-soft,
+    .mini-btn{
+      border:none;
+      border-radius:999px;
+      min-height:46px;
+      padding:12px 18px;
+      cursor:pointer;
+      transition:transform .2s ease, box-shadow .2s ease, opacity .2s ease, background .2s ease;
     }
+
+    .btn:hover,.btn-secondary:hover,.btn-soft:hover,.mini-btn:hover{transform:translateY(-1px)}
+
+    .btn{
+      background:linear-gradient(135deg,var(--gold-deep),var(--gold));
+      color:#fff;
+      font-weight:700;
+      box-shadow:0 12px 24px rgba(174,127,67,.18);
+    }
+
+    .btn-secondary{
+      background:#fff;
+      border:1px solid var(--line);
+      color:var(--brown);
+    }
+
+    .btn-soft{
+      background:rgba(255,255,255,.7);
+      border:1px dashed var(--line);
+      color:var(--brown-soft);
+    }
+
+    .mini-btn{
+      min-height:38px;
+      padding:8px 14px;
+      background:#fff;
+      border:1px solid var(--line);
+      color:var(--brown);
+      font-size:.88rem;
+    }
+
+    .auth-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+
+    .auth-status,
+    .status{
+      margin-top:14px;
+      min-height:22px;
+      font-size:.92rem;
+      line-height:1.5;
+    }
+
+    .status.success,.auth-status.success{color:var(--success)}
+    .status.error,.auth-status.error{color:var(--danger)}
+    .status.neutral,.auth-status.neutral{color:var(--brown-soft)}
+
+    .page{
+      width:min(1480px, calc(100% - 24px));
+      margin:18px auto;
+      display:grid;
+      grid-template-columns:560px minmax(0, 1fr);
+      gap:18px;
+      align-items:start;
+    }
+
+    .panel{
+      background:rgba(255,250,245,.9);
+      border:1px solid var(--line);
+      border-radius:var(--radius-lg);
+      box-shadow:var(--shadow);
+      padding:22px;
+      backdrop-filter:blur(8px);
+    }
+
+    .panel.sticky{
+      position:sticky;
+      top:18px;
+      max-height:calc(100vh - 36px);
+      overflow:auto;
+    }
+
+    .panel.sticky::-webkit-scrollbar{width:10px}
+    .panel.sticky::-webkit-scrollbar-thumb{
+      background:rgba(101,79,67,.12);
+      border-radius:999px;
+    }
+
+    .hero-head{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+    .hero-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}
+    .hero-head h1{margin:0;font-size:3.1rem;line-height:.92}
+    .sub{margin:0;color:var(--brown-soft);line-height:1.75;font-size:.95rem}
+
+    .pill-row{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 18px}
+    .pill{
+      display:inline-flex;align-items:center;justify-content:center;padding:9px 14px;border-radius:999px;
+      background:rgba(255,255,255,.85);border:1px solid var(--line);color:var(--brown-soft);
+      font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;
+    }
+
+    .top-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+
+    .section-title{margin:26px 0 12px;font-size:1.85rem;line-height:.95}
+
+    .products-list{display:grid;gap:10px;margin:0 0 22px}
+    .product-chip{
+      display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;
+      border-radius:18px;background:#fff;border:1px solid var(--line);
+      transition:box-shadow .2s ease,border-color .2s ease,transform .2s ease;
+    }
+    .product-chip:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(101,79,67,.08)}
+    .product-chip.active{
+      border-color:rgba(174,127,67,.35);
+      box-shadow:0 12px 26px rgba(174,127,67,.14);
+      background:linear-gradient(180deg, #fffdfa, #fff8f1);
+    }
+
+    .muted{color:var(--brown-soft);font-size:.9rem;line-height:1.55}
+    .field-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+    .field.full{grid-column:1 / -1}
+
+    .slug-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:end}
 
     .upload-preview-grid{
       display:grid;
@@ -284,101 +255,38 @@
       border:1px solid var(--line);
     }
 
-    .thumb img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-
+    .thumb img{width:100%;height:100%;object-fit:cover;display:block}
     .thumb-placeholder{
-      width:100%;
-      height:100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:var(--brown-soft);
-      font-size:.84rem;
-      text-align:center;
-      padding:12px;
+      width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+      color:var(--brown-soft);font-size:.84rem;text-align:center;padding:12px;
     }
-
-    .status{
-      margin-top:14px;
-      min-height:22px;
-      font-size:.92rem;
-      line-height:1.5;
-    }
-
-    .status.success{color:var(--success)}
-    .status.error{color:var(--danger)}
-    .status.neutral{color:var(--brown-soft)}
 
     .preview-toolbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-bottom:14px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px;
     }
 
-    .preview-title{
-      font-size:2rem;
-      line-height:.95;
-      margin:0 0 4px;
-    }
-
-    .preview-link{
-      color:var(--gold-deep);
-      font-weight:700;
-      text-decoration:none;
-    }
-
-    .preview-frame{
-      width:100%;
-      min-height:82vh;
-      border:none;
-      border-radius:24px;
-      background:#fff;
-      box-shadow:var(--shadow);
-    }
-
+    .preview-title{font-size:2rem;line-height:.95;margin:0 0 4px}
+    .preview-link{color:var(--gold-deep);font-weight:700;text-decoration:none}
+    .preview-frame{width:100%;min-height:82vh;border:none;border-radius:24px;background:#fff;box-shadow:var(--shadow)}
     .empty-preview{
-      min-height:82vh;
-      border-radius:24px;
-      background:linear-gradient(180deg, rgba(255,255,255,.75), rgba(255,250,245,.9));
-      border:1px solid var(--line);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding:20px;
-      color:var(--brown-soft);
-      line-height:1.8;
+      min-height:82vh;border-radius:24px;background:linear-gradient(180deg, rgba(255,255,255,.75), rgba(255,250,245,.9));
+      border:1px solid var(--line);display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;
+      color:var(--brown-soft);line-height:1.8;
     }
 
-    .divider{
-      height:1px;
-      background:linear-gradient(90deg, transparent, var(--line), transparent);
-      margin:18px 0 6px;
-    }
+    .divider{height:1px;background:linear-gradient(90deg, transparent, var(--line), transparent);margin:18px 0 6px}
 
     @media (max-width: 1120px){
       .page{grid-template-columns:1fr}
-      .panel.sticky{
-        position:relative;
-        top:auto;
-        max-height:none;
-        overflow:visible;
-      }
+      .panel.sticky{position:relative;top:auto;max-height:none;overflow:visible}
       .preview-frame,.empty-preview{min-height:560px}
     }
 
     @media (max-width: 760px){
+      .auth-card{padding:20px;border-radius:26px}
+      .auth-head h1,.hero-head h1{font-size:2.35rem}
       .page{width:min(100%, calc(100% - 14px));margin:10px auto;gap:12px}
       .panel{padding:16px;border-radius:24px}
-      h1{font-size:2.35rem}
       .field-grid{grid-template-columns:1fr}
       .upload-preview-grid{grid-template-columns:1fr 1fr 1fr}
       .slug-row{grid-template-columns:1fr}
@@ -386,294 +294,277 @@
   </style>
 </head>
 <body>
-  <div class="page">
-    <section class="panel sticky">
-      <div class="hero-head">
+  <section id="authScreen" class="screen auth-shell">
+    <div class="auth-card">
+      <div class="auth-head">
         <h1>Atelier Editor</h1>
-        <p class="sub">De aici creezi și editezi paginile de tip details fără să mai scrii cod. Tot ce salvezi aici merge în tabelul <strong>atelier_products</strong> și se reflectă în <strong>product-details.html?slug=...</strong>.</p>
+        <p>Intră cu emailul și parola din Supabase Auth pentru a edita produsele Maison Doucette.</p>
       </div>
 
-      <div class="pill-row">
-        <div class="pill">atelier_products</div>
-        <div class="pill">atelier-images</div>
-        <div class="pill">auto slug</div>
-      </div>
-
-      <div class="top-actions">
-        <button class="btn" id="newProductBtn" type="button">Produs nou</button>
-        <button class="btn-secondary" id="saveBtn" type="button">Salvează</button>
-        <button class="btn-soft" id="refreshBtn" type="button">Reîncarcă lista</button>
-      </div>
-
-      <h2 class="section-title">Produsele tale</h2>
-      <div class="products-list" id="productsList"></div>
-
-      <div class="divider"></div>
-
-      <form id="editorForm" autocomplete="off">
-        <h2 class="section-title">Informații de bază</h2>
+      <form id="loginForm" autocomplete="on">
         <div class="field-grid">
           <div class="field full">
-            <label for="titleInput">Titlu</label>
-            <input id="titleInput" name="title" required placeholder="Bunny">
+            <label for="loginEmail">Email</label>
+            <input id="loginEmail" name="email" type="email" required placeholder="you@example.com" autocomplete="email">
           </div>
 
           <div class="field full">
-            <label for="slugInput">Slug</label>
-            <div class="slug-row">
-              <input id="slugInput" name="slug" required placeholder="bunny">
-              <button class="mini-btn" id="generateSlugBtn" type="button">Generează slug</button>
-            </div>
-            <div class="helper">Exemplu: <strong>bunny</strong>, <strong>ursulet-milo</strong>, <strong>vacuta-crem</strong></div>
-          </div>
-
-          <div class="field">
-            <label for="brandSubInput">Brand sub</label>
-            <input id="brandSubInput" name="brand_sub" placeholder="bunny">
-          </div>
-
-          <div class="field">
-            <label for="basePriceInput">Preț de bază</label>
-            <input id="basePriceInput" name="base_price" type="number" min="0" step="1" placeholder="45">
-          </div>
-
-          <div class="field full">
-            <label for="metaTitleInput">Meta title</label>
-            <input id="metaTitleInput" name="meta_title" placeholder="Maison Doucette — Bunny">
-          </div>
-
-          <div class="field full">
-            <label for="metaDescriptionInput">Meta description</label>
-            <textarea id="metaDescriptionInput" name="meta_description" class="small-textarea" placeholder="Bunny Maison Doucette — un iepuraș croșetat, delicat și personalizabil..."></textarea>
+            <label for="loginPassword">Parolă</label>
+            <input id="loginPassword" name="password" type="password" required placeholder="Parola ta" autocomplete="current-password">
           </div>
         </div>
 
-        <h2 class="section-title">Top bar + Hero</h2>
-        <div class="field-grid">
-          <div class="field full">
-            <label for="topBarTextInput">Text top bar</label>
-            <input id="topBarTextInput" name="top_bar_text" placeholder="NOU • Descoperă și Mystery Experience">
-          </div>
-
-          <div class="field">
-            <label for="topBarUrlInput">Link top bar</label>
-            <input id="topBarUrlInput" name="top_bar_url" placeholder="mystery.html">
-          </div>
-
-          <div class="field">
-            <label for="topBarButtonTextInput">Text buton top bar</label>
-            <input id="topBarButtonTextInput" name="top_bar_button_text" placeholder="Vezi acum">
-          </div>
-
-          <div class="field">
-            <label for="eyebrowInput">Eyebrow</label>
-            <input id="eyebrowInput" name="eyebrow" placeholder="atelier personalizabil">
-          </div>
-
-          <div class="field">
-            <label for="heroBadgeInput">Hero badge</label>
-            <input id="heroBadgeInput" name="hero_badge" placeholder="Bunny Maison Doucette">
-          </div>
-
-          <div class="field full">
-            <label for="paragraph1Input">Paragraf 1</label>
-            <textarea id="paragraph1Input" name="short_paragraph_1" placeholder="Bunny este unul dintre cele mai delicate produse..."></textarea>
-          </div>
-
-          <div class="field full">
-            <label for="paragraph2Input">Paragraf 2</label>
-            <textarea id="paragraph2Input" name="short_paragraph_2" placeholder="Poți porni de la un iepuraș simplu..."></textarea>
-          </div>
-        </div>
-
-        <h2 class="section-title">Detalii scurte</h2>
-        <div class="field-grid">
-          <div class="field full">
-            <label for="detail1Input">Detail 1</label>
-            <textarea id="detail1Input" name="detail_1" class="small-textarea"></textarea>
-          </div>
-          <div class="field full">
-            <label for="detail2Input">Detail 2</label>
-            <textarea id="detail2Input" name="detail_2" class="small-textarea"></textarea>
-          </div>
-          <div class="field full">
-            <label for="detail3Input">Detail 3</label>
-            <textarea id="detail3Input" name="detail_3" class="small-textarea"></textarea>
-          </div>
-        </div>
-
-        <h2 class="section-title">Butoane</h2>
-        <div class="field-grid">
-          <div class="field">
-            <label for="customizeButtonTextInput">Text buton personalizare</label>
-            <input id="customizeButtonTextInput" name="customize_button_text" placeholder="Personalizează iepurașul">
-          </div>
-
-          <div class="field">
-            <label for="customizeUrlInput">URL personalizare</label>
-            <input id="customizeUrlInput" name="customize_url" placeholder="Bunny.html">
-          </div>
-
-          <div class="field">
-            <label for="backButtonTextInput">Text buton înapoi</label>
-            <input id="backButtonTextInput" name="back_button_text" placeholder="Înapoi în atelier">
-          </div>
-
-          <div class="field">
-            <label for="backButtonUrlInput">URL buton înapoi</label>
-            <input id="backButtonUrlInput" name="back_button_url" placeholder="index.html#atelier">
-          </div>
-        </div>
-
-        <h2 class="section-title">Secțiune specială</h2>
-        <div class="field-grid">
-          <div class="field full">
-            <label for="specialTitleInput">Titlu secțiune</label>
-            <input id="specialTitleInput" name="special_title" placeholder="De ce este atât de special?">
-          </div>
-
-          <div class="field full">
-            <label for="specialDescriptionInput">Descriere secțiune</label>
-            <textarea id="specialDescriptionInput" name="special_description"></textarea>
-          </div>
-        </div>
-
-        <h2 class="section-title">Carduri info</h2>
-        <div class="field-grid">
-          <div class="field">
-            <label for="infoTitle1Input">Card 1 titlu</label>
-            <input id="infoTitle1Input" name="info_title_1" placeholder="Delicat">
-          </div>
-          <div class="field">
-            <label for="infoTitle2Input">Card 2 titlu</label>
-            <input id="infoTitle2Input" name="info_title_2" placeholder="Versatil">
-          </div>
-          <div class="field full">
-            <label for="infoText1Input">Card 1 text</label>
-            <textarea id="infoText1Input" name="info_text_1" class="small-textarea"></textarea>
-          </div>
-          <div class="field full">
-            <label for="infoText2Input">Card 2 text</label>
-            <textarea id="infoText2Input" name="info_text_2" class="small-textarea"></textarea>
-          </div>
-          <div class="field">
-            <label for="infoTitle3Input">Card 3 titlu</label>
-            <input id="infoTitle3Input" name="info_title_3" placeholder="Personal">
-          </div>
-          <div class="field full">
-            <label for="infoText3Input">Card 3 text</label>
-            <textarea id="infoText3Input" name="info_text_3" class="small-textarea"></textarea>
-          </div>
-        </div>
-
-        <h2 class="section-title">Footer + contact</h2>
-        <div class="field-grid">
-          <div class="field full">
-            <label for="footerTitleInput">Titlu footer</label>
-            <input id="footerTitleInput" name="footer_title" placeholder="Hai să creăm ceva frumos">
-          </div>
-
-          <div class="field full">
-            <label for="footerTextInput">Text footer</label>
-            <textarea id="footerTextInput" name="footer_text" class="small-textarea"></textarea>
-          </div>
-
-          <div class="field">
-            <label for="instagramInput">Instagram</label>
-            <input id="instagramInput" name="instagram" placeholder="maison.doucette">
-          </div>
-
-          <div class="field">
-            <label for="emailInput">Email</label>
-            <input id="emailInput" name="email" type="email" placeholder="maisondoucette.dd@gmail.com">
-          </div>
-
-          <div class="field">
-            <label for="phoneInput">Telefon</label>
-            <input id="phoneInput" name="phone" placeholder="0754... | 0749...">
-          </div>
-
-          <div class="field">
-            <label for="locationInput">Locație</label>
-            <input id="locationInput" name="location" placeholder="Galați, România">
-          </div>
-        </div>
-
-        <h2 class="section-title">Linkuri extra</h2>
-        <div class="field-grid">
-          <div class="field">
-            <label for="mysteryUrlInput">Mystery URL</label>
-            <input id="mysteryUrlInput" name="mystery_url" placeholder="mystery.html">
-          </div>
-
-          <div class="field">
-            <label for="isActiveInput">Produs activ</label>
-            <select id="isActiveInput" name="is_active">
-              <option value="true">Da</option>
-              <option value="false">Nu</option>
-            </select>
-          </div>
-        </div>
-
-        <h2 class="section-title">Imagini</h2>
-        <div class="field-grid">
-          <div class="field">
-            <label for="file1">Încarcă imagine 1</label>
-            <input type="file" id="file1" accept="image/*">
-          </div>
-
-          <div class="field">
-            <label for="image1Input">URL imagine 1</label>
-            <input id="image1Input" name="image_1" placeholder="https://...">
-          </div>
-
-          <div class="field">
-            <label for="file2">Încarcă imagine 2</label>
-            <input type="file" id="file2" accept="image/*">
-          </div>
-
-          <div class="field">
-            <label for="image2Input">URL imagine 2</label>
-            <input id="image2Input" name="image_2" placeholder="https://...">
-          </div>
-
-          <div class="field">
-            <label for="file3">Încarcă imagine 3</label>
-            <input type="file" id="file3" accept="image/*">
-          </div>
-
-          <div class="field">
-            <label for="image3Input">URL imagine 3</label>
-            <input id="image3Input" name="image_3" placeholder="https://...">
-          </div>
-        </div>
-
-        <div class="upload-preview-grid" id="thumbGrid">
-          <div class="thumb"><div class="thumb-placeholder">Imagine 1</div></div>
-          <div class="thumb"><div class="thumb-placeholder">Imagine 2</div></div>
-          <div class="thumb"><div class="thumb-placeholder">Imagine 3</div></div>
+        <div class="auth-actions">
+          <button type="submit" class="btn" id="loginBtn">Intră în editor</button>
         </div>
       </form>
 
-      <div class="status neutral" id="status">Completează produsul și salvează.</div>
-    </section>
+      <div id="authStatus" class="auth-status neutral">Autentifică-te pentru a continua.</div>
+    </div>
+  </section>
 
-    <section class="panel">
-      <div class="preview-toolbar">
-        <div>
-          <h2 class="preview-title serif">Preview live</h2>
-          <div class="muted">Previzualizarea publică se încarcă din <strong>product-details.html</strong>.</div>
+  <section id="editorScreen" class="screen hidden">
+    <div class="page">
+      <section class="panel sticky">
+        <div class="hero-head">
+          <div class="hero-top">
+            <div>
+              <h1>Atelier Editor</h1>
+              <p class="sub">De aici creezi și editezi paginile de tip details fără să mai scrii cod. Tot ce salvezi aici merge în <strong>atelier_products</strong> și se reflectă în <strong>product-details.html?slug=...</strong>.</p>
+            </div>
+            <button class="btn-secondary" id="logoutBtn" type="button">Logout</button>
+          </div>
         </div>
-        <a class="preview-link" id="openPreviewLink" href="#" target="_blank" rel="noopener noreferrer">Deschide preview-ul</a>
-      </div>
 
-      <iframe id="previewFrame" class="preview-frame" title="Preview produs"></iframe>
-      <div id="emptyPreview" class="empty-preview" style="display:none;">
-        Scrie un titlu sau un slug și preview-ul va apărea aici.<br>
-        Pagina publică va fi de forma <strong>product-details.html?slug=bunny</strong>.
-      </div>
-    </section>
-  </div>
+        <div class="pill-row">
+          <div class="pill">atelier_products</div>
+          <div class="pill">atelier-images</div>
+          <div class="pill">supabase auth</div>
+        </div>
+
+        <div class="top-actions">
+          <button class="btn" id="newProductBtn" type="button">Produs nou</button>
+          <button class="btn-secondary" id="saveBtn" type="button">Salvează</button>
+          <button class="btn-soft" id="refreshBtn" type="button">Reîncarcă lista</button>
+        </div>
+
+        <h2 class="section-title">Produsele tale</h2>
+        <div class="products-list" id="productsList"></div>
+
+        <div class="divider"></div>
+
+        <form id="editorForm" autocomplete="off">
+          <h2 class="section-title">Informații de bază</h2>
+          <div class="field-grid">
+            <div class="field full">
+              <label for="titleInput">Titlu</label>
+              <input id="titleInput" name="title" required placeholder="Bunny">
+            </div>
+
+            <div class="field full">
+              <label for="slugInput">Slug</label>
+              <div class="slug-row">
+                <input id="slugInput" name="slug" required placeholder="bunny">
+                <button class="mini-btn" id="generateSlugBtn" type="button">Generează slug</button>
+              </div>
+              <div class="helper">Exemplu: <strong>bunny</strong>, <strong>ursulet-milo</strong>, <strong>vacuta-crem</strong></div>
+            </div>
+
+            <div class="field">
+              <label for="brandSubInput">Brand sub</label>
+              <input id="brandSubInput" name="brand_sub" placeholder="bunny">
+            </div>
+
+            <div class="field">
+              <label for="basePriceInput">Preț de bază</label>
+              <input id="basePriceInput" name="base_price" type="number" min="0" step="1" placeholder="45">
+            </div>
+
+            <div class="field full">
+              <label for="metaTitleInput">Meta title</label>
+              <input id="metaTitleInput" name="meta_title" placeholder="Maison Doucette — Bunny">
+            </div>
+
+            <div class="field full">
+              <label for="metaDescriptionInput">Meta description</label>
+              <textarea id="metaDescriptionInput" name="meta_description" class="small-textarea" placeholder="Bunny Maison Doucette — un iepuraș croșetat, delicat și personalizabil..."></textarea>
+            </div>
+          </div>
+
+          <h2 class="section-title">Hero</h2>
+          <div class="field-grid">
+            <div class="field">
+              <label for="eyebrowInput">Eyebrow</label>
+              <input id="eyebrowInput" name="eyebrow" placeholder="atelier personalizabil">
+            </div>
+
+            <div class="field">
+              <label for="heroBadgeInput">Hero badge</label>
+              <input id="heroBadgeInput" name="hero_badge" placeholder="Bunny Maison Doucette">
+            </div>
+
+            <div class="field full">
+              <label for="paragraph1Input">Paragraf 1</label>
+              <textarea id="paragraph1Input" name="short_paragraph_1" placeholder="Bunny este unul dintre cele mai delicate produse..."></textarea>
+            </div>
+
+            <div class="field full">
+              <label for="paragraph2Input">Paragraf 2</label>
+              <textarea id="paragraph2Input" name="short_paragraph_2" placeholder="Poți porni de la un iepuraș simplu..."></textarea>
+            </div>
+          </div>
+
+          <h2 class="section-title">Detalii scurte</h2>
+          <div class="field-grid">
+            <div class="field full">
+              <label for="detail1Input">Detail 1</label>
+              <textarea id="detail1Input" name="detail_1" class="small-textarea"></textarea>
+            </div>
+            <div class="field full">
+              <label for="detail2Input">Detail 2</label>
+              <textarea id="detail2Input" name="detail_2" class="small-textarea"></textarea>
+            </div>
+            <div class="field full">
+              <label for="detail3Input">Detail 3</label>
+              <textarea id="detail3Input" name="detail_3" class="small-textarea"></textarea>
+            </div>
+          </div>
+
+          <h2 class="section-title">Butoane</h2>
+          <div class="field-grid">
+            <div class="field">
+              <label for="customizeButtonTextInput">Text buton personalizare</label>
+              <input id="customizeButtonTextInput" name="customize_button_text" placeholder="Personalizează iepurașul">
+            </div>
+
+            <div class="field">
+              <label for="customizeUrlInput">URL personalizare</label>
+              <input id="customizeUrlInput" name="customize_url" placeholder="Bunny.html">
+            </div>
+
+            <div class="field">
+              <label for="backButtonTextInput">Text buton înapoi</label>
+              <input id="backButtonTextInput" name="back_button_text" placeholder="Înapoi în atelier">
+            </div>
+
+            <div class="field">
+              <label for="backButtonUrlInput">URL buton înapoi</label>
+              <input id="backButtonUrlInput" name="back_button_url" placeholder="index.html#atelier">
+            </div>
+          </div>
+
+          <h2 class="section-title">Secțiune specială</h2>
+          <div class="field-grid">
+            <div class="field full">
+              <label for="specialTitleInput">Titlu secțiune</label>
+              <input id="specialTitleInput" name="special_title" placeholder="De ce este atât de special?">
+            </div>
+
+            <div class="field full">
+              <label for="specialDescriptionInput">Descriere secțiune</label>
+              <textarea id="specialDescriptionInput" name="special_description"></textarea>
+            </div>
+          </div>
+
+          <h2 class="section-title">Carduri info</h2>
+          <div class="field-grid">
+            <div class="field">
+              <label for="infoTitle1Input">Card 1 titlu</label>
+              <input id="infoTitle1Input" name="info_title_1" placeholder="Delicat">
+            </div>
+            <div class="field">
+              <label for="infoTitle2Input">Card 2 titlu</label>
+              <input id="infoTitle2Input" name="info_title_2" placeholder="Versatil">
+            </div>
+            <div class="field full">
+              <label for="infoText1Input">Card 1 text</label>
+              <textarea id="infoText1Input" name="info_text_1" class="small-textarea"></textarea>
+            </div>
+            <div class="field full">
+              <label for="infoText2Input">Card 2 text</label>
+              <textarea id="infoText2Input" name="info_text_2" class="small-textarea"></textarea>
+            </div>
+            <div class="field">
+              <label for="infoTitle3Input">Card 3 titlu</label>
+              <input id="infoTitle3Input" name="info_title_3" placeholder="Personal">
+            </div>
+            <div class="field full">
+              <label for="infoText3Input">Card 3 text</label>
+              <textarea id="infoText3Input" name="info_text_3" class="small-textarea"></textarea>
+            </div>
+          </div>
+
+          <h2 class="section-title">Status produs</h2>
+          <div class="field-grid">
+            <div class="field">
+              <label for="isActiveInput">Produs activ</label>
+              <select id="isActiveInput" name="is_active">
+                <option value="true">Da</option>
+                <option value="false">Nu</option>
+              </select>
+            </div>
+          </div>
+
+          <h2 class="section-title">Imagini</h2>
+          <div class="field-grid">
+            <div class="field">
+              <label for="file1">Încarcă imagine 1</label>
+              <input type="file" id="file1" accept="image/*">
+            </div>
+
+            <div class="field">
+              <label for="image1Input">URL imagine 1</label>
+              <input id="image1Input" name="image_1" placeholder="https://...">
+            </div>
+
+            <div class="field">
+              <label for="file2">Încarcă imagine 2</label>
+              <input type="file" id="file2" accept="image/*">
+            </div>
+
+            <div class="field">
+              <label for="image2Input">URL imagine 2</label>
+              <input id="image2Input" name="image_2" placeholder="https://...">
+            </div>
+
+            <div class="field">
+              <label for="file3">Încarcă imagine 3</label>
+              <input type="file" id="file3" accept="image/*">
+            </div>
+
+            <div class="field">
+              <label for="image3Input">URL imagine 3</label>
+              <input id="image3Input" name="image_3" placeholder="https://...">
+            </div>
+          </div>
+
+          <div class="upload-preview-grid" id="thumbGrid">
+            <div class="thumb"><div class="thumb-placeholder">Imagine 1</div></div>
+            <div class="thumb"><div class="thumb-placeholder">Imagine 2</div></div>
+            <div class="thumb"><div class="thumb-placeholder">Imagine 3</div></div>
+          </div>
+        </form>
+
+        <div class="status neutral" id="status">Completează produsul și salvează.</div>
+      </section>
+
+      <section class="panel">
+        <div class="preview-toolbar">
+          <div>
+            <h2 class="preview-title serif">Preview live</h2>
+            <div class="muted">Previzualizarea publică se încarcă din <strong>product-details.html</strong>.</div>
+          </div>
+          <a class="preview-link" id="openPreviewLink" href="#" target="_blank" rel="noopener noreferrer">Deschide preview-ul</a>
+        </div>
+
+        <iframe id="previewFrame" class="preview-frame" title="Preview produs"></iframe>
+        <div id="emptyPreview" class="empty-preview" style="display:none;">
+          Scrie un titlu sau un slug și preview-ul va apărea aici.<br>
+          Pagina publică va fi de forma <strong>product-details.html?slug=bunny</strong>.
+        </div>
+      </section>
+    </div>
+  </section>
 
   <script type="module">
     import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
@@ -686,6 +577,13 @@
     const TABLE_NAME = 'atelier_products';
     const BUCKET_NAME = 'atelier-images';
     const PREVIEW_PAGE = 'product-details.html';
+
+    const authScreen = document.getElementById('authScreen');
+    const editorScreen = document.getElementById('editorScreen');
+    const loginForm = document.getElementById('loginForm');
+    const loginBtn = document.getElementById('loginBtn');
+    const authStatus = document.getElementById('authStatus');
+    const logoutBtn = document.getElementById('logoutBtn');
 
     const form = document.getElementById('editorForm');
     const productsList = document.getElementById('productsList');
@@ -730,16 +628,6 @@
       info_text_2: '',
       info_title_3: '',
       info_text_3: '',
-      footer_title: 'Hai să creăm ceva frumos',
-      footer_text: 'Pentru comenzi personalizate, întrebări sau colaborări, ne poți scrie și îți răspundem cu drag.',
-      instagram: 'maison.doucette',
-      email: 'maisondoucette.dd@gmail.com',
-      phone: '',
-      location: 'Galați, România',
-      top_bar_text: '',
-      top_bar_url: '',
-      top_bar_button_text: '',
-      mystery_url: 'mystery.html',
       image_1: '',
       image_2: '',
       image_3: '',
@@ -749,6 +637,11 @@
     function setStatus(message, type = 'neutral') {
       statusEl.textContent = message;
       statusEl.className = `status ${type}`;
+    }
+
+    function setAuthStatus(message, type = 'neutral') {
+      authStatus.textContent = message;
+      authStatus.className = `auth-status ${type}`;
     }
 
     function normalizeRomanian(text) {
@@ -802,9 +695,7 @@
       const data = { ...emptyProduct, ...product };
       Object.entries(data).forEach(([key, value]) => {
         const field = form.elements.namedItem(key);
-        if (field) {
-          field.value = value ?? '';
-        }
+        if (field) field.value = value ?? '';
       });
       slugTouched = Boolean(data.slug);
       updateThumbs();
@@ -870,14 +761,8 @@
     }
 
     async function slugExists(slug, existingId = null) {
-      let query = supabase
-        .from(TABLE_NAME)
-        .select('id')
-        .eq('slug', slug);
-
-      if (existingId) {
-        query = query.neq('id', existingId);
-      }
+      let query = supabase.from(TABLE_NAME).select('id').eq('slug', slug);
+      if (existingId) query = query.neq('id', existingId);
 
       const { data, error } = await query;
       if (error) throw error;
@@ -891,11 +776,7 @@
       const ext = (file.name.split('.').pop() || 'jpg').toLowerCase();
       const filePath = `${safeSlug}/${Date.now()}-${index}.${ext}`;
 
-      const { error } = await supabase
-        .storage
-        .from(BUCKET_NAME)
-        .upload(filePath, file, { upsert: true });
-
+      const { error } = await supabase.storage.from(BUCKET_NAME).upload(filePath, file, { upsert: true });
       if (error) throw error;
 
       const { data } = supabase.storage.from(BUCKET_NAME).getPublicUrl(filePath);
@@ -982,19 +863,14 @@
 
         let payload = formToObject();
 
-        if (!payload.title) {
-          throw new Error('Titlul este obligatoriu.');
-        }
+        if (!payload.title) throw new Error('Titlul este obligatoriu.');
 
         if (!payload.slug) {
           payload.slug = generateSlug(payload.title);
           slugInput.value = payload.slug;
         }
 
-        if (!payload.slug) {
-          throw new Error('Slug-ul nu este valid.');
-        }
-
+        if (!payload.slug) throw new Error('Slug-ul nu este valid.');
         if (await slugExists(payload.slug, currentId)) {
           throw new Error('Există deja un produs cu acest slug. Alege altul.');
         }
@@ -1002,20 +878,10 @@
         payload = await handleUploads(payload);
 
         let response;
-
         if (currentId) {
-          response = await supabase
-            .from(TABLE_NAME)
-            .update(payload)
-            .eq('id', currentId)
-            .select()
-            .single();
+          response = await supabase.from(TABLE_NAME).update(payload).eq('id', currentId).select().single();
         } else {
-          response = await supabase
-            .from(TABLE_NAME)
-            .insert(payload)
-            .select()
-            .single();
+          response = await supabase.from(TABLE_NAME).insert(payload).select().single();
         }
 
         if (response.error) throw response.error;
@@ -1035,6 +901,101 @@
       }
     }
 
+    function showEditor() {
+      authScreen.classList.add('hidden');
+      editorScreen.classList.remove('hidden');
+    }
+
+    function showAuth() {
+      editorScreen.classList.add('hidden');
+      authScreen.classList.remove('hidden');
+    }
+
+    function mapAuthError(error) {
+      const message = (error?.message || '').toLowerCase();
+
+      if (message.includes('invalid login credentials')) {
+        return 'Emailul sau parola sunt greșite.';
+      }
+      if (message.includes('email not confirmed')) {
+        return 'Emailul nu este confirmat încă.';
+      }
+      if (message.includes('too many requests')) {
+        return 'Prea multe încercări. Încearcă din nou puțin mai târziu.';
+      }
+      if (message.includes('network')) {
+        return 'Eroare de conexiune. Verifică internetul și încearcă din nou.';
+      }
+      return error?.message || 'Autentificarea a eșuat.';
+    }
+
+    async function handleLogin(event) {
+      event.preventDefault();
+      loginBtn.disabled = true;
+      setAuthStatus('Se verifică datele de autentificare...', 'neutral');
+
+      try {
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+
+        if (!email || !password) {
+          throw new Error('Completează emailul și parola.');
+        }
+
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+
+        if (!data.session) {
+          throw new Error('Nu s-a putut crea sesiunea de autentificare.');
+        }
+
+        setAuthStatus('Autentificare reușită. Se deschide editorul...', 'success');
+        showEditor();
+        clearForm();
+        await loadProducts();
+      } catch (error) {
+        console.error(error);
+        setAuthStatus(mapAuthError(error), 'error');
+      } finally {
+        loginBtn.disabled = false;
+      }
+    }
+
+    async function handleLogout() {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error(error);
+        setStatus('Nu am putut face logout.', 'error');
+        return;
+      }
+
+      showAuth();
+      setAuthStatus('Te-ai delogat cu succes.', 'success');
+    }
+
+    async function bootAuth() {
+      const { data, error } = await supabase.auth.getSession();
+
+      if (error) {
+        console.error(error);
+        showAuth();
+        setAuthStatus('Nu am putut verifica sesiunea curentă.', 'error');
+        return;
+      }
+
+      if (data.session) {
+        showEditor();
+        clearForm();
+        await loadProducts();
+      } else {
+        showAuth();
+        setAuthStatus('Autentifică-te pentru a continua.', 'neutral');
+      }
+    }
+
+    loginForm.addEventListener('submit', handleLogin);
+    logoutBtn.addEventListener('click', handleLogout);
+
     titleInput.addEventListener('input', () => {
       if (!slugTouched || !slugInput.value.trim()) {
         slugInput.value = generateSlug(titleInput.value);
@@ -1045,9 +1006,7 @@
     slugInput.addEventListener('input', () => {
       slugTouched = slugInput.value.trim().length > 0;
       const clean = sanitizeSlugInput(slugInput.value);
-      if (slugInput.value !== clean) {
-        slugInput.value = clean;
-      }
+      if (slugInput.value !== clean) slugInput.value = clean;
       refreshPreview();
     });
 
@@ -1080,8 +1039,17 @@
     newProductBtn.addEventListener('click', clearForm);
     refreshBtn.addEventListener('click', loadProducts);
 
+    supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'SIGNED_OUT' || !session) {
+        showAuth();
+      }
+      if ((event === 'SIGNED_IN' || event === 'INITIAL_SESSION') && session) {
+        showEditor();
+      }
+    });
+
     clearForm();
-    loadProducts();
+    bootAuth();
   </script>
 </body>
 </html>
